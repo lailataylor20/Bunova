@@ -33,7 +33,9 @@ async function handle(req, { store, fetchFn, env, allowIndex, pronunciations = {
   if (!text || text.length > MAX_CHARS) return json(400, { error: 'Missing or too long text' });
   if (!isAllowed(text, allowIndex)) return json(403, { error: 'Text is not part of the app content' });
 
-  if (!env.AZURE_SPEECH_KEY || !env.AZURE_SPEECH_REGION) return json(503, { error: 'AZURE_SPEECH_KEY and AZURE_SPEECH_REGION are not set on the server' });
+  // BUNOVA_AZURE_KEY / BUNOVA_AZURE_REGION are accepted as alternative names (used if the originals cannot be edited in Netlify).
+  const azKey = env.BUNOVA_AZURE_KEY || env.AZURE_SPEECH_KEY, azRegion = env.BUNOVA_AZURE_REGION || env.AZURE_SPEECH_REGION;
+  if (!azKey || !azRegion) return json(503, { error: 'The Azure key and region are not set on the server' });
   const voice = (who === 'm' ? env.AZURE_VOICE_MALE : env.AZURE_VOICE_FEMALE) || AZURE_VOICES[who];
   const spoken = applyPronunciations(text, pronunciations);
   const key = createHash('sha256').update(['azure', voice, slow ? 'slow' : 'normal', spoken].join('|')).digest('hex') + '.mp3';
@@ -42,9 +44,9 @@ async function handle(req, { store, fetchFn, env, allowIndex, pronunciations = {
 
   let r;
   try {
-    r = await fetchFn(`https://${env.AZURE_SPEECH_REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+    r = await fetchFn(`https://${azRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
       method: 'POST',
-      headers: { 'Ocp-Apim-Subscription-Key': env.AZURE_SPEECH_KEY, 'Content-Type': 'application/ssml+xml', 'X-Microsoft-OutputFormat': 'audio-24khz-96kbitrate-mono-mp3', 'User-Agent': 'bunova' },
+      headers: { 'Ocp-Apim-Subscription-Key': azKey, 'Content-Type': 'application/ssml+xml', 'X-Microsoft-OutputFormat': 'audio-24khz-96kbitrate-mono-mp3', 'User-Agent': 'bunova' },
       body: `<speak version="1.0" xml:lang="ru-RU" xmlns="http://www.w3.org/2001/10/synthesis"><voice name="${voice}"><prosody rate="${slow ? '-25%' : '0%'}">${xmlEscape(spoken)}</prosody></voice></speak>`,
     });
   } catch (e) { console.error('voice request failed:', e && e.message); return json(502, { error: 'Could not reach Azure Speech' }); }
