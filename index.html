@@ -353,6 +353,66 @@ header.top{row-gap:6px}
 .fb .right b{color:var(--accent2)}
 .mcats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
 .sndt{font-size:1rem;flex:none}
+/* ---------- lesson stages, matching, journey, hub, game ---------- */
+.lstages{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0 0 12px;padding:0;font-size:.72rem;font-weight:700;letter-spacing:.02em}
+.lstages li{padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.lstages li.done{color:var(--accent2);background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.lstages li.done::before{content:'✓ '}
+.lstages li.on{background:var(--accent);color:#fff}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mcell{min-height:52px;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-weight:700;text-align:center;box-shadow:0 4px 0 var(--line);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .08s,opacity .25s,background .15s;overflow-wrap:anywhere}
+.mcell[lang=ru]{font-size:1.05rem}
+.mcell:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.mcell.sel{border-color:var(--sky);background:var(--blue-soft);box-shadow:0 4px 0 var(--sky-sh)}
+.mcell.done{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));box-shadow:none;opacity:.45;cursor:default}
+.mcell.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 12%,var(--surface));animation:mshake .35s}
+@keyframes mshake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.jsteps{list-style:none;margin:12px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.jsteps button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--text);font:inherit;text-align:left;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+.jsteps .jn{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--soft);color:var(--muted)}
+.jsteps .jt{display:flex;flex-direction:column;min-width:0}.jsteps small{color:var(--muted);font-size:.78rem}
+.jsteps li.done .jn{background:var(--accent);color:#fff}
+.jsteps li.done button{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.hub{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.hub-t{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px;border-radius:18px;border:2px solid var(--line);background:var(--surface);color:var(--text);font:inherit;text-align:left;cursor:pointer;box-shadow:0 4px 0 var(--line);transition:transform .08s}
+.hub-t:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.hub-i{font-size:1.5rem;line-height:1.2}.hub-t small{color:var(--muted)}
+.game .gtime{font-size:1.6rem;font-variant-numeric:tabular-nums}
+.gbar{margin:8px 0}.gbar i{transition:width .2s linear}
+.btn.sm{padding:6px 12px;font-size:.85rem}
+@media (max-width:380px){.match{gap:6px}.mcell{padding:8px;font-size:.9rem}.hub{grid-template-columns:1fr 1fr}}
+/* ---------- speaking: conversation partner and shadowing ---------- */
+.chat{display:flex;flex-direction:column;gap:8px;margin:8px 0 12px}
+.msg{max-width:86%;padding:10px 12px;border-radius:18px;line-height:1.35}
+.msg.them{align-self:flex-start;background:var(--blue-soft);border-bottom-left-radius:6px}
+.msg.them .en{display:block;margin-top:2px}
+.msg.clar{background:color-mix(in srgb,var(--amber,#f5a623) 16%,var(--surface))}
+.msg.me{align-self:flex-end;background:color-mix(in srgb,var(--accent) 18%,var(--surface));border-bottom-right-radius:6px;font-weight:600}
+.turn{border-top:2px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.model{padding:10px 12px;border-radius:14px;background:var(--soft);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.model .row{width:100%}
+.talkin{display:flex;align-items:center;gap:14px}
+.talkin input{flex:1;min-width:0}
+.bigspk.mic{background:#ff6b6b;box-shadow:0 5px 0 #d94f4f}
+.bigspk.mic:active{box-shadow:0 1px 0 #d94f4f}
+.bigspk.mic.playing{background:#e5484d;box-shadow:0 5px 0 #b8383c,0 0 0 7px rgba(255,107,107,.25);animation:bpulse 1.1s ease-in-out infinite}
+.talkin .bigspk{width:72px;height:72px}
+.talkin .bigspk svg{width:34px;height:34px}
+.shadow-t{margin:12px 0 4px;line-height:1.4}
+.shadow-t .hit{color:var(--accent2)}
+.shadow-t .miss{color:#d23c41;text-decoration:underline wavy;text-decoration-thickness:1px}
+.ru.lg{font-size:1.5rem;font-weight:700}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.skill{padding:12px;border-radius:16px;background:var(--soft)}
+.skill b{display:block;font-size:1.25rem}
+.skill .meter{height:8px;border-radius:99px;background:var(--line);margin:6px 0 4px;overflow:hidden}
+.skill .meter i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.skill.low .meter i{background:#f5a623}
+.cando{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.cando li{display:flex;gap:8px;align-items:flex-start}
+.cando li.no{color:var(--muted)}
+@media (max-width:380px){.talkin{gap:10px}.talkin .bigspk{width:60px;height:60px}}
 </style>
 </head><body>
 <div class="wrap">
@@ -364,10 +424,10 @@ header.top{row-gap:6px}
  </div>
 </header>
 <nav class="tabs" id="tabs" aria-label="Main">
- <a href="#today" data-r="today"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Today</a>
- <a href="#learn" data-r="learn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg>Course</a>
- <a href="#study" data-r="study"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 3h10"/></svg>Practice</a>
- <a href="#read" data-r="read"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v14H8l-4 3z"/><path d="M8 9h8M8 13h5"/></svg>Read</a>
+ <a href="#today" data-r="today"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</a>
+ <a href="#learn" data-r="learn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg>Lessons</a>
+ <a href="#study" data-r="study"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 3h10"/></svg>Review</a>
+ <a href="#read" data-r="read"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>Listen</a>
  <a href="#progress" data-r="progress"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>Progress</a>
 </nav>
 <main id="app"></main>
@@ -1084,6 +1144,214 @@ const READING=[
  notes:["Comparatives: удобнее (more convenient), спокойнее (calmer), чище (cleaner), больше (more).","знают друг друга means know each other: друг друга is a fixed pair.","хотел бы means would like (a man). A woman writes хотела бы."],
  q:[["pick","What does the writer think about life in a small town?",["It is calmer","It is more expensive","It is more boring"],"It is calmer"],["pick","Why does the writer want to live near nature?",["Cleaner air and calmer life","Better shops","A higher salary"],"Cleaner air and calmer life"],["type","Type the Russian for although.","хотя","conn"]]}
 ];
+/* Audio episodes: one short conversation per lesson, built on that lesson's language and earlier ones.
+   lines: [speaker f|m, Russian, English]   gist / qs: [question, options, answer]   use: line numbers to practise
+   reply: {say:[speaker, Russian, English], goal, ans (alternatives separated by |)} */
+const EPISODES=[
+{id:"e01",lid:"c01",t:"Coffee, please",set:"A customer orders at a café counter.",
+ lines:[["m","Кофе, пожалуйста.","Coffee, please."],["f","Кофе? Хорошо.","Coffee? OK."],["m","И торт.","And cake."],["f","Кофе и торт. Это всё?","Coffee and cake. Is that all?"],["m","Да. Спасибо!","Yes. Thank you!"]],
+ gist:["Where are they?",["In a café","At a bank","In a taxi","At the theatre"],"In a café"],
+ qs:[["What does he order?",["Coffee and cake","Tea and juice","Coffee and juice","Only cake"],"Coffee and cake"]],
+ use:[0,3],reply:{say:["f","Что вы хотите?","What would you like?"],goal:"Order a coffee politely.",ans:"Кофе, пожалуйста|Пожалуйста, кофе|Кофе пожалуйста"}},
+{id:"e02",lid:"c02",t:"Milk and water",set:"A shopper asks what the shop has.",
+ lines:[["f","Здравствуйте! Молоко есть?","Hello! Do you have milk?"],["m","Да, молоко есть.","Yes, there is milk."],["f","И вода?","And water?"],["m","Вода там.","The water is over there."],["f","Хорошо, спасибо!","Good, thank you!"],["m","Пожалуйста!","You are welcome!"]],
+ gist:["What is she shopping for?",["Milk and water","Coffee and cake","A taxi","A newspaper"],"Milk and water"],
+ qs:[["Where is the water?",["Over there","There is none","In the café","At home"],"Over there"]],
+ use:[0,4],reply:{say:["m","Что ещё?","What else?"],goal:"Ask for water too.",ans:"И вода|Вода есть|Вода, пожалуйста|Воду, пожалуйста"}},
+{id:"e03",lid:"c03",t:"Metro or taxi?",set:"A visitor asks for help at the station.",
+ lines:[["m","Это метро?","Is this the metro?"],["f","Да, это метро.","Yes, this is the metro."],["m","А где такси?","And where are the taxis?"],["f","Такси там, справа.","The taxis are there, on the right."],["m","Спасибо большое!","Thank you very much!"],["f","Не за что.","You are welcome."]],
+ gist:["What is the man looking for?",["Transport","Food","A hotel room","A doctor"],"Transport"],
+ qs:[["Where are the taxis?",["On the right","On the left","Far away","There are none"],"On the right"]],
+ use:[2,4],reply:{say:["f","Вам помочь?","Can I help you?"],goal:"Ask where the metro is.",ans:"Где метро|Извините, где метро|Скажите, где метро"}},
+{id:"e04",lid:"c04",t:"Signs in town",set:"Two friends read the signs on a street.",
+ lines:[["f","Это ресторан?","Is this a restaurant?"],["m","Нет, это кафе.","No, it is a café."],["f","А это?","And this?"],["m","Это банк. А там почта.","This is a bank. And over there is the post office."],["f","Понятно. Спасибо!","I see. Thanks!"]],
+ gist:["What are they doing?",["Reading signs in town","Ordering food","Buying tickets","Talking about family"],"Reading signs in town"],
+ qs:[["What is the first building?",["A café","A restaurant","A bank","A post office"],"A café"]],
+ use:[1,3],reply:{say:["m","Это ресторан?","Is this a restaurant?"],goal:"Say: no, it is a bank.",ans:"Нет, это банк|Нет, банк"}},
+{id:"e05",lid:"c05",t:"Nice to meet you",set:"Two people meet for the first time.",
+ lines:[["m","Здравствуйте! Меня зовут Иван.","Hello! My name is Ivan."],["f","Здравствуйте! Я Анна. Очень приятно.","Hello! I am Anna. Nice to meet you."],["m","Мне тоже. Как дела?","Me too. How are you?"],["f","Хорошо, спасибо. А у вас?","Fine, thanks. And you?"],["m","Тоже хорошо. До свидания!","Also fine. Goodbye!"],["f","До свидания!","Goodbye!"]],
+ gist:["What is happening?",["Two people meet for the first time","Two friends argue","Someone orders food","Someone asks for directions"],"Two people meet for the first time"],
+ qs:[["What is the man's name?",["Ivan","Anna","Oleg","Pavel"],"Ivan"],["How is Anna?",["Fine","Tired","Ill","Busy"],"Fine"]],
+ use:[0,3],reply:{say:["m","Как вас зовут?","What is your name?"],goal:"Answer: my name is Anna.",ans:"Меня зовут Анна|Я Анна"}},
+{id:"e06",lid:"c06",t:"Who are you?",set:"Two new classmates introduce themselves.",
+ lines:[["f","Привет! Я Мария. Я студентка.","Hi! I am Maria. I am a student."],["m","Привет! Я Том. Я из Англии.","Hi! I am Tom. I am from England."],["f","Ты студент?","Are you a student?"],["m","Нет, я врач.","No, I am a doctor."],["f","Интересно! А я из Москвы.","Interesting! And I am from Moscow."]],
+ gist:["What are they talking about?",["Who they are and where they are from","The weather","Food","Their holidays"],"Who they are and where they are from"],
+ qs:[["What is Tom's job?",["Doctor","Student","Teacher","Driver"],"Doctor"],["Where is Maria from?",["Moscow","England","Kazan","London"],"Moscow"]],
+ use:[1,3],reply:{say:["f","Ты студент?","Are you a student?"],goal:"Say: yes, I am a student.",ans:"Да, я студент|Да, я студентка|Да, студент|Да, студентка"}},
+{id:"e07",lid:"c07",t:"My home",set:"A man shows a friend his house.",
+ lines:[["m","Это мой дом.","This is my house."],["f","Какой большой! А это твоя машина?","How big! And is this your car?"],["m","Да, это моя машина.","Yes, this is my car."],["f","А это кто?","And who is this?"],["m","Это моя сестра, Ольга. А это мой брат.","This is my sister, Olga. And this is my brother."]],
+ gist:["What is the man showing?",["His home and family","His office","A shop","A train"],"His home and family"],
+ qs:[["Who is Olga?",["His sister","His wife","His mother","His friend"],"His sister"],["Whose car is it?",["The man's","The woman's","His brother's","Olga's"],"The man's"]],
+ use:[2,4],reply:{say:["m","Это твой телефон?","Is this your phone?"],goal:"Say: yes, it is my phone.",ans:"Да, это мой телефон|Да, мой телефон|Да, мой"}},
+{id:"e08",lid:"c08",t:"What are you doing?",set:"Two flatmates chat in the evening.",
+ lines:[["f","Что ты делаешь?","What are you doing?"],["m","Я читаю. А ты?","I am reading. And you?"],["f","Я слушаю музыку.","I am listening to music."],["m","Ты знаешь, где Саша?","Do you know where Sasha is?"],["f","Он гуляет в парке.","He is walking in the park."]],
+ gist:["What are they talking about?",["What people are doing right now","Plans for next year","Prices in a shop","The weather"],"What people are doing right now"],
+ qs:[["What is the man doing?",["Reading","Cooking","Working","Sleeping"],"Reading"],["Where is Sasha?",["Walking in the park","At home","At work","In the shop"],"Walking in the park"]],
+ use:[1,2],reply:{say:["f","Что ты делаешь?","What are you doing?"],goal:"Say: I am reading.",ans:"Я читаю|Читаю"}},
+{id:"e09",lid:"c09",t:"Do you speak Russian?",set:"Two people get talking on a train.",
+ lines:[["m","Ты говоришь по-русски?","Do you speak Russian?"],["f","Да, немного. Я учу русский язык.","Yes, a little. I am learning Russian."],["m","Молодец! Где ты живёшь?","Well done! Where do you live?"],["f","Я живу в Лондоне. А ты?","I live in London. And you?"],["m","Я живу в Москве и работаю там.","I live in Moscow and work there."]],
+ gist:["What are they talking about?",["Languages and where they live","Food","Sport","A film"],"Languages and where they live"],
+ qs:[["Where does the woman live?",["London","Moscow","Paris","Kazan"],"London"],["How well does she speak Russian?",["A little","Very well","Not at all","Perfectly"],"A little"]],
+ use:[1,3],reply:{say:["m","Где ты живёшь?","Where do you live?"],goal:"Say: I live in London.",ans:"Я живу в Лондоне|Живу в Лондоне"}},
+{id:"e10",lid:"c10",t:"Brothers, sisters and a dog",set:"Two friends talk about family and pets.",
+ lines:[["f","У тебя есть брат?","Do you have a brother?"],["m","Нет, у меня нет брата. Но у меня есть сестра.","No, I do not have a brother. But I have a sister."],["f","А собака у тебя есть?","And do you have a dog?"],["m","Есть! Её зовут Белка.","Yes! Her name is Belka."],["f","Как мило!","How sweet!"]],
+ gist:["What are they talking about?",["Family and pets","Work","Shopping","Travel"],"Family and pets"],
+ qs:[["Does the man have a brother?",["No","Yes","Two brothers","He does not say"],"No"],["What is the dog called?",["Belka","Strelka","Masha","Sharik"],"Belka"]],
+ use:[0,1],reply:{say:["f","У тебя есть собака?","Do you have a dog?"],goal:"Say: no, I do not have a dog.",ans:"Нет, у меня нет собаки|Нет, собаки нет|Нет, у меня нет собаки."}},
+{id:"e11",lid:"c11",t:"How much is it?",set:"A customer pays at a kiosk.",
+ lines:[["m","Сколько стоит чай?","How much is the tea?"],["f","Сто рублей.","One hundred roubles."],["m","А кофе?","And the coffee?"],["f","Двести рублей.","Two hundred roubles."],["m","Хорошо. Один чай, пожалуйста. Который час?","OK. One tea, please. What time is it?"],["f","Сейчас три часа.","It is three o'clock now."]],
+ gist:["What are they talking about?",["Prices and the time","Directions","Family","The weather"],"Prices and the time"],
+ qs:[["How much is the coffee?",["200 roubles","100 roubles","300 roubles","50 roubles"],"200 roubles"],["What time is it?",["Three o'clock","Two o'clock","One o'clock","Ten o'clock"],"Three o'clock"]],
+ use:[0,5],reply:{say:["f","Что вы хотите?","What would you like?"],goal:"Ask how much the coffee is.",ans:"Сколько стоит кофе|Сколько стоит кофе?"}},
+{id:"e12",lid:"c12",t:"Where are my keys?",set:"A phone call about lost keys.",
+ lines:[["f","Где ты сейчас?","Where are you now?"],["m","Я в магазине. А ты?","I am in the shop. And you?"],["f","Я дома. Где мои ключи?","I am at home. Where are my keys?"],["m","Они на столе, на кухне.","They are on the table, in the kitchen."],["f","Да, вот они! Спасибо!","Yes, here they are! Thanks!"]],
+ gist:["What is the problem?",["She cannot find her keys","She is lost","The shop is closed","She missed the bus"],"She cannot find her keys"],
+ qs:[["Where is the man?",["In the shop","At home","At work","In the park"],"In the shop"],["Where are the keys?",["On the table in the kitchen","In the car","In her bag","In the shop"],"On the table in the kitchen"]],
+ use:[1,3],reply:{say:["f","Где ты?","Where are you?"],goal:"Say: I am at work.",ans:"Я на работе|На работе"}},
+{id:"e13",lid:"c13",t:"What's for lunch?",set:"Two colleagues choose lunch.",
+ lines:[["m","Что ты хочешь на обед?","What do you want for lunch?"],["f","Я хочу суп и рыбу.","I want soup and fish."],["m","А я возьму пиццу.","And I will have pizza."],["f","Ты любишь пиццу?","Do you love pizza?"],["m","Очень! И я люблю кофе после обеда.","Very much! And I love coffee after lunch."]],
+ gist:["What are they doing?",["Choosing lunch","Planning a trip","Talking about work","Buying a gift"],"Choosing lunch"],
+ qs:[["What does the woman want?",["Soup and fish","Pizza","Coffee","Salad"],"Soup and fish"],["What does the man love after lunch?",["Coffee","Tea","Cake","A walk"],"Coffee"]],
+ use:[1,3],reply:{say:["m","Что ты хочешь?","What do you want?"],goal:"Say: I want soup.",ans:"Я хочу суп|Хочу суп"}},
+{id:"e14",lid:"c14",t:"The shopping list",set:"A couple check what they need from the shop.",
+ lines:[["f","У нас нет хлеба.","We have no bread."],["m","И молока нет.","And there is no milk."],["f","Купи, пожалуйста, хлеб, молоко и бутылку воды.","Please buy bread, milk and a bottle of water."],["m","Хорошо. А сыр?","OK. And cheese?"],["f","Сыра много. Не надо.","There is plenty of cheese. No need."]],
+ gist:["What are they talking about?",["A shopping list","A doctor's visit","A birthday","A train journey"],"A shopping list"],
+ qs:[["What do they NOT need to buy?",["Cheese","Bread","Milk","Water"],"Cheese"],["How much water should he buy?",["One bottle","Two bottles","None","A glass"],"One bottle"]],
+ use:[0,2],reply:{say:["f","Что нужно купить?","What do we need to buy?"],goal:"Say: we have no milk.",ans:"У нас нет молока|Нет молока"}},
+{id:"e15",lid:"c15",t:"A new flat",set:"A friend visits a new flat.",
+ lines:[["m","Какая красивая квартира!","What a beautiful flat!"],["f","Спасибо! Она новая, но маленькая.","Thanks! It is new but small."],["m","А какие у тебя соседи?","And what are your neighbours like?"],["f","Соседи очень добрые и весёлые.","The neighbours are very kind and cheerful."],["m","Это главное!","That is the main thing!"]],
+ gist:["What are they talking about?",["A new flat","A holiday","A job interview","A football match"],"A new flat"],
+ qs:[["What is the flat like?",["New but small","Old and big","Cheap and dark","Far away"],"New but small"],["What are the neighbours like?",["Kind and cheerful","Noisy","Rude","Old"],"Kind and cheerful"]],
+ use:[1,3],reply:{say:["m","Какая у тебя квартира?","What is your flat like?"],goal:"Say: my flat is big.",ans:"Моя квартира большая|У меня большая квартира|Большая"}},
+{id:"e16",lid:"c16",t:"Who do you live with?",set:"Two friends talk about home life.",
+ lines:[["f","Кому ты пишешь?","Who are you writing to?"],["m","Маме. Я пишу ей каждый день.","To Mum. I write to her every day."],["f","Ты живёшь с родителями?","Do you live with your parents?"],["m","Нет, я живу с другом. Он работает инженером.","No, I live with a friend. He works as an engineer."],["f","А мне нравится жить одной.","And I like living alone."]],
+ gist:["What are they talking about?",["Family and who they live with","Food","A holiday","Sport"],"Family and who they live with"],
+ qs:[["Who is the man writing to?",["His mum","His friend","His boss","His sister"],"His mum"],["Who does he live with?",["A friend","His parents","Nobody","His wife"],"A friend"]],
+ use:[2,3],reply:{say:["f","С кем ты живёшь?","Who do you live with?"],goal:"Say: I live with my sister.",ans:"Я живу с сестрой|Живу с сестрой|С сестрой"}},
+{id:"e17",lid:"c17",t:"Yesterday and tomorrow",set:"Two colleagues on a Monday morning.",
+ lines:[["m","Что ты делала вчера?","What did you do yesterday?"],["f","Вчера я была в музее. А ты?","Yesterday I was at the museum. And you?"],["m","Я работал весь день.","I worked all day."],["f","А что ты будешь делать завтра?","And what will you do tomorrow?"],["m","Завтра я буду отдыхать!","Tomorrow I will rest!"]],
+ gist:["What are they talking about?",["Yesterday and tomorrow","Ordering food","Shopping","Directions"],"Yesterday and tomorrow"],
+ qs:[["Where was the woman yesterday?",["At the museum","At work","At home","At the cinema"],"At the museum"],["What will the man do tomorrow?",["Rest","Work","Travel","Study"],"Rest"]],
+ use:[1,4],reply:{say:["m","Что ты делал вчера?","What did you do yesterday?"],goal:"Say: yesterday I worked.",ans:"Вчера я работал|Вчера я работала|Я работал|Я работала"}},
+{id:"e18",lid:"c18",t:"A book and a film",set:"Two friends compare what they have finished.",
+ lines:[["f","Ты уже прочитал книгу?","Have you finished the book yet?"],["m","Нет, ещё читаю. Я читал её весь вечер.","No, I am still reading. I was reading it all evening."],["f","А я вчера посмотрела весь фильм.","And yesterday I watched the whole film."],["m","Понравился?","Did you like it?"],["f","Да, очень! Обязательно посмотри.","Yes, a lot! You must watch it."]],
+ gist:["What are they talking about?",["A book and a film","A trip","A meal","A new job"],"A book and a film"],
+ qs:[["Has the man finished the book?",["No, he is still reading","Yes","He has not started","He lost it"],"No, he is still reading"],["Did the woman like the film?",["Yes, a lot","No","She did not finish it","She does not say"],"Yes, a lot"]],
+ use:[1,4],reply:{say:["f","Ты прочитал книгу?","Have you read the book?"],goal:"Say: yes, I have read it.",ans:"Да, я прочитал|Да, прочитал|Да, я прочитала|Да, прочитала|Да, я её прочитал|Да, я её прочитала"}},
+{id:"e19",lid:"c19",t:"Where are you going?",set:"Two neighbours meet in the street.",
+ lines:[["m","Куда ты идёшь?","Where are you going?"],["f","Я иду в банк, а потом еду на вокзал.","I am walking to the bank, and then I am going to the station."],["m","На чём ты поедешь?","How will you get there?"],["f","На автобусе. Это быстро.","By bus. It is quick."],["m","Удачи! А я пойду домой пешком.","Good luck! And I will walk home."]],
+ gist:["What are they talking about?",["Where they are going and how","Cooking dinner","A party","A film"],"Where they are going and how"],
+ qs:[["Where is the woman going first?",["To the bank","To the station","Home","To work"],"To the bank"],["How will she get to the station?",["By bus","On foot","By taxi","By metro"],"By bus"]],
+ use:[0,3],reply:{say:["m","Куда ты идёшь?","Where are you going?"],goal:"Say: I am going home.",ans:"Я иду домой|Иду домой"}},
+{id:"e20",lid:"c20",t:"Mornings",set:"Two friends compare their morning routines.",
+ lines:[["f","Во сколько ты просыпаешься?","What time do you wake up?"],["m","В семь. Потом я умываюсь и одеваюсь.","At seven. Then I wash and get dressed."],["f","А я встаю в шесть и занимаюсь спортом.","And I get up at six and do sport."],["m","Каждый день?","Every day?"],["f","Почти. Мне это нравится.","Almost. I like it."]],
+ gist:["What are they talking about?",["Morning routines","Holidays","Shopping","Health problems"],"Morning routines"],
+ qs:[["When does the man wake up?",["At seven","At six","At eight","At nine"],"At seven"],["What does the woman do in the morning?",["Sport","Reading","Cooking","Shopping"],"Sport"]],
+ use:[1,2],reply:{say:["f","Во сколько ты встаёшь?","What time do you get up?"],goal:"Say: I get up at eight.",ans:"Я встаю в восемь|Встаю в восемь|В восемь"}},
+{id:"e21",lid:"c21",t:"Could you help me?",set:"Flatmates ask each other for small favours.",
+ lines:[["m","Можно открыть окно?","May I open the window?"],["f","Конечно. Тебе жарко?","Of course. Are you hot?"],["m","Да. И мне нужно позвонить маме.","Yes. And I need to call Mum."],["f","Звони. А потом ты мог бы мне помочь?","Go ahead. And afterwards could you help me?"],["m","Конечно, с удовольствием.","Of course, with pleasure."]],
+ gist:["What are they doing?",["Asking permission and help","Booking a ticket","Describing a film","Paying a bill"],"Asking permission and help"],
+ qs:[["Why does the man want to open the window?",["He is hot","It smells","He wants to see out","It is dark"],"He is hot"],["What does the woman ask for?",["Help","Money","A pen","Water"],"Help"]],
+ use:[0,3],reply:{say:["f","Ты мог бы мне помочь?","Could you help me?"],goal:"Say: of course, with pleasure.",ans:"Конечно, с удовольствием|С удовольствием|Конечно"}},
+{id:"e22",lid:"c22",t:"At the clinic",set:"A patient phones to book an appointment.",
+ lines:[["f","Здравствуйте, я хочу записаться к врачу.","Hello, I would like to book an appointment with a doctor."],["m","Что у вас болит?","What hurts?"],["f","У меня болит голова. И горло тоже.","I have a headache. And a sore throat too."],["m","Можете прийти завтра в десять?","Can you come tomorrow at ten?"],["f","Да, могу. Спасибо!","Yes, I can. Thank you!"]],
+ gist:["What is happening?",["Booking a doctor's appointment","Buying medicine","A job interview","Renting a flat"],"Booking a doctor's appointment"],
+ qs:[["What is the problem?",["A headache and a sore throat","A broken leg","Toothache","Only a cough"],"A headache and a sore throat"],["When is the appointment?",["Tomorrow at ten","Today at ten","Tomorrow at two","Next week"],"Tomorrow at ten"]],
+ use:[0,2],reply:{say:["m","Что у вас болит?","What hurts?"],goal:"Say: my head hurts.",ans:"У меня болит голова|Болит голова|Голова болит|У меня голова болит"}},
+{id:"e23",lid:"c23",t:"The concert",set:"Friends make plans for the weekend.",
+ lines:[["m","Ты пойдёшь на концерт в субботу?","Are you going to the concert on Saturday?"],["f","Хотела бы, но у меня много работы.","I would like to, but I have a lot of work."],["m","Жаль. Если закончишь рано, позвони мне.","Shame. If you finish early, call me."],["f","Хорошо. Кстати, кто ещё идёт?","OK. By the way, who else is going?"],["m","Лена и Дима, потому что они любят эту группу.","Lena and Dima, because they love this band."]],
+ gist:["What are they talking about?",["Plans for a concert","A work meeting","A shopping trip","A hospital visit"],"Plans for a concert"],
+ qs:[["Why might the woman not go?",["She has a lot of work","She is ill","She has no ticket","She does not like the band"],"She has a lot of work"],["Why are Lena and Dima going?",["They love the band","They work there","It is free","It is Lena's birthday"],"They love the band"]],
+ use:[1,2],reply:{say:["m","Ты пойдёшь с нами?","Will you come with us?"],goal:"Say: I would like to, but I am busy.",ans:"Хотел бы, но я занят|Хотела бы, но я занята|Я бы хотел, но я занят|Я бы хотела, но я занята|Хотел бы, но занят|Хотела бы, но занята"}},
+{id:"e24",lid:"c24",t:"Let's meet",set:"Two friends arrange to meet on the phone.",
+ lines:[["f","Алло! Привет, это Катя.","Hello! Hi, it is Katya."],["m","О, привет! Как жизнь?","Oh, hi! How is life?"],["f","Нормально. Слушай, давай встретимся завтра?","Fine. Listen, shall we meet tomorrow?"],["m","Давай! Во сколько тебе удобно?","Sure! What time suits you?"],["f","Часов в шесть, у метро.","About six, by the metro."],["m","Договорились. Пока!","Deal. Bye!"]],
+ gist:["What are they doing?",["Arranging to meet","Complaining about work","Ordering a taxi","Calling the wrong number"],"Arranging to meet"],
+ qs:[["When will they meet?",["About six","At noon","At ten","Next week"],"About six"],["Where will they meet?",["By the metro","At a café","At home","At the station"],"By the metro"]],
+ use:[2,5],reply:{say:["f","Давай встретимся завтра?","Shall we meet tomorrow?"],goal:"Say: sure! What time?",ans:"Давай! Во сколько|Давай, во сколько|Хорошо, во сколько|Да, во сколько"}}
+];
+const EPBY={};EPISODES.forEach(e=>{EPBY[e.id]=e;});
+const epFor=lid=>EPISODES.find(e=>e.lid===lid)||null;
+/* Conversation partner scenarios. Each unlocks after the lesson ("need") that teaches its language.
+   who: partner voice (f|m)   formal: partner uses вы (so вы is expected back)
+   phr: phrases to keep the conversation going [Russian, English, when to use it]
+   turns: say/en = partner line, goal = what you should say, model = a natural answer,
+   acc = patterns, any of which accepts your reply (checked in lower case, ё written as е, without punctuation),
+   ok = optional reaction [Russian, English], tip = advice shown at the end if the reply lacks the pattern in tip[0],
+   fix = [pattern, explanation, grammar tag] for common mistakes: noted and explained at the end, never interrupting. */
+const TALK_FIX={
+ tobe:['\\bя есть\\b|\\bты есть\\b|\\bон есть [а-я]+(ом|ой)?$','In the present tense Russian leaves out "am / is / are": say «Я студент», not «Я есть студент».','omit'],
+ tyFormal:['\\bты\\b|\\bтебя\\b|\\bтебе\\b','With a stranger, a waiter or a receptionist use polite вы: «А вы?», «Скажите, пожалуйста».','reg']};
+const TALKS=[
+{id:"t01",t:"Introduce yourself",can:"I can introduce myself and ask how someone is.",need:"c05",who:"m",formal:false,
+ set:"You meet Ivan at a language exchange. Speak or type your replies. Small slips are fine: he keeps chatting.",
+ phr:[["Меня зовут…","My name is…","Works everywhere."],["А тебя?","And you? (your name)","Informal: friends and people your age."],["А вас?","And you? (your name)","Polite: strangers, older people, at work."],["Очень приятно!","Nice to meet you!",""],["А у тебя?","And you? (how are you)","Bounces the question back and keeps the chat going."],["Пока! / До свидания!","Bye! / Goodbye!","Пока is informal; До свидания is polite."]],
+ turns:[
+  {say:"Привет! Меня зовут Иван. А тебя?",en:"Hi! My name is Ivan. And you?",goal:"Tell him your name.",model:"Меня зовут Анна.",acc:["зовут","^я [a-zа-я]+$","^я [a-zа-я]+ ","^(привет )?[a-zа-я]+$"],ok:["Очень приятно!","Nice to meet you!"]},
+  {say:"Как дела?",en:"How are you?",goal:"Say how you are, then ask him back.",model:"Хорошо, спасибо. А у тебя?",acc:["хорошо","нормально","отлично","неплохо","так себе","плохо","супер"],tip:["а у тебя|а ты","Keep it going: add «А у тебя?» (And you?) to ask him back."],ok:["Тоже хорошо, спасибо!","Fine too, thanks!"]},
+  {say:"Извини, мне пора. Пока!",en:"Sorry, I have to go. Bye!",goal:"Say goodbye.",model:"Пока! До встречи!",acc:["пока","до свидания","до встречи","всего доброго","увидимся"]}]},
+{id:"t02",t:"Meeting someone new",can:"I can say where I'm from and what I do.",need:"c06",who:"f",formal:false,
+ set:"Maria sits next to you at a café and starts chatting.",
+ phr:[["Ты откуда?","Where are you from?","Informal. Polite version: Вы откуда?"],["Я из…","I'm from…","Followed by the genitive: из Англии, из Лондона."],["А ты?","And you?","The easiest way to keep a chat going."],["Здорово!","Great! / Cool!","Friendly and very common."],["Мне тоже.","Me too.",""],["Было приятно познакомиться!","It was nice to meet you!",""]],
+ turns:[
+  {say:"Привет! Я Мария. Ты откуда?",en:"Hi! I'm Maria. Where are you from?",goal:"Say where you are from.",model:"Я из Англии.",acc:["\\bиз\\b"],fix:["tobe"],tip:["а ты","Keep it going: ask her back with «А ты?»."],ok:["О, интересно!","Oh, interesting!"]},
+  {say:"Ты студент?",en:"Are you a student?",goal:"Say what you do: student, doctor, teacher…",model:"Нет, я врач.",acc:["студент","врач","учител","инженер","менеджер","программист","работаю","юрист","дизайнер","^да","^нет"],fix:["tobe"],ok:["Здорово!","Great!"]},
+  {say:"Ты в Москве первый раз?",en:"Is this your first time in Moscow?",goal:"Answer: yes, it's the first time (or no).",model:"Да, первый раз.",acc:["^да","^нет","первый","второй","третий"],ok:["Добро пожаловать!","Welcome!"]},
+  {say:"Ну, мне пора. Было приятно познакомиться!",en:"Well, I have to go. It was nice to meet you!",goal:"Say: me too, and goodbye.",model:"Мне тоже! Пока!",acc:["тоже","пока","до свидания","до встречи","взаимно"]}]},
+{id:"t03",t:"At the café",can:"I can order a drink and pay in a café.",need:"c11",who:"f",formal:true,
+ set:"You are at the counter of a café. The waitress speaks politely (вы), so use вы too.",
+ phr:[["Можно…?","May I have…?","Polite and very common when ordering."],["Я буду…","I'll have…","Natural way to order."],["…, пожалуйста.","…, please.","Just name the thing and add пожалуйста."],["Это всё.","That's all.",""],["Можно картой?","Can I pay by card?",""],["Счёт, пожалуйста.","The bill, please.","When you sit at a table."]],
+ turns:[
+  {say:"Здравствуйте! Что будете заказывать?",en:"Hello! What would you like to order?",goal:"Order a coffee or a tea.",model:"Кофе, пожалуйста.",acc:["коф","чай","капучино","латте","сок","вод","какао"],fix:["tyFormal"],ok:["Хорошо.","OK."]},
+  {say:"С молоком или без?",en:"With milk or without?",goal:"Answer: with milk, or without.",model:"С молоком, пожалуйста.",acc:["молок","\\bбез\\b","^да","^нет"]},
+  {say:"Что-нибудь ещё?",en:"Anything else?",goal:"Ask for a piece of cake, or say that's all.",model:"Нет, спасибо. Это всё.",acc:["торт","пирож","кусок","круассан","вс[её]","^нет","ничего","^да"]},
+  {say:"Двести рублей, пожалуйста.",en:"Two hundred roubles, please.",goal:"Ask if you can pay by card.",model:"Можно картой?",acc:["карт","налич","можно"],fix:["tyFormal"],ok:["Да, конечно. Спасибо!","Yes, of course. Thank you!"]},
+  {say:"Приятного аппетита!",en:"Enjoy your meal!",goal:"Thank her.",model:"Спасибо!",acc:["спасибо","благодарю"]}]},
+{id:"t04",t:"At the market",can:"I can buy food and ask how much it costs.",need:"c14",who:"m",formal:true,
+ set:"You are at a fruit and vegetable stall.",
+ phr:[["Дайте, пожалуйста…","Please give me…","Normal and polite at a stall."],["Сколько стоит?","How much is it?",""],["килограмм / полкило","a kilo / half a kilo",""],["Это дорого.","That's expensive.",""],["Хорошего дня!","Have a nice day!",""]],
+ turns:[
+  {say:"Здравствуйте! Что вам?",en:"Hello! What would you like?",goal:"Ask for some apples (or tomatoes, cheese…).",model:"Яблоки, пожалуйста.",acc:["яблок","помидор","огур","хлеб","сыр","молок","банан","картош","клубник","мяс","рыб"],fix:["tyFormal"]},
+  {say:"Сколько вам?",en:"How much would you like?",goal:"Ask for one kilo.",model:"Один килограмм, пожалуйста.",acc:["кило","грамм","\\bодин\\b","\\bдва\\b","\\bтри\\b","штук","пол"],ok:["Вот, пожалуйста.","Here you are."]},
+  {say:"Что-нибудь ещё?",en:"Anything else?",goal:"Ask how much it costs.",model:"Сколько стоит?",acc:["сколько"]},
+  {say:"Сто пятьдесят рублей.",en:"One hundred and fifty roubles.",goal:"Say OK and thank him (or say it's expensive).",model:"Хорошо, спасибо.",acc:["хорошо","спасибо","дорого","ладно","\\bвот\\b"],ok:["Спасибо! Хорошего дня!","Thank you! Have a nice day!"]}]},
+{id:"t05",t:"Making plans with a friend",can:"I can make plans and agree on a time.",need:"c17",who:"f",formal:false,
+ set:"Your friend Katya calls about the weekend.",
+ phr:[["Давай!","Let's! / OK!","Informal, very common for agreeing."],["Пойдём…?","Shall we go…?",""],["Во сколько?","At what time?",""],["Мне удобно в…","… suits me (time)",""],["Увидимся!","See you!","Informal."],["Как прошли выходные?","How was your weekend?","A good question to start small talk."]],
+ turns:[
+  {say:"Привет! Что ты делаешь в субботу?",en:"Hi! What are you doing on Saturday?",goal:"Say you are free, or that you don't know yet.",model:"Пока не знаю. А что?",acc:["свобод","ничего","не знаю","буду","работа","занят","а что"]},
+  {say:"Пойдём в кино?",en:"Shall we go to the cinema?",goal:"Agree.",model:"Давай! С удовольствием.",acc:["давай","^да","удовольств","конечно","хорошо","пойдем","отлично","ок"],ok:["Супер!","Great!"]},
+  {say:"Во сколько тебе удобно?",en:"What time suits you?",goal:"Suggest a time, for example seven o'clock.",model:"В семь.",acc:["\\bв [а-я]+","час","сем","шест","восем","девят","утр","вечер","\\d"],ok:["Отлично!","Great!"]},
+  {say:"Кстати, как прошли выходные?",en:"By the way, how was your weekend?",goal:"Say how it was.",model:"Хорошо, спасибо! Было весело.",acc:["хорошо","нормально","отлично","весело","скучно","был","работал","отдыхал","гулял","смотрел"]},
+  {say:"Ну всё, до субботы!",en:"Right then, see you on Saturday!",goal:"Say bye.",model:"Пока! До субботы!",acc:["пока","до суббот","до встречи","увидимся"]}]},
+{id:"t06",t:"Asking the way",can:"I can ask for directions and understand simple answers.",need:"c19",who:"m",formal:true,
+ set:"You are lost in the city centre. A passer-by offers to help.",
+ phr:[["Скажите, пожалуйста…","Could you tell me…","The polite way to start a question to a stranger."],["Как пройти к…?","How do I get to…? (on foot)",""],["Это далеко?","Is it far?",""],["прямо / направо / налево","straight on / right / left",""],["Я иду… / Я еду…","I'm going (on foot) / (by transport)","Use these for a trip happening now."]],
+ turns:[
+  {say:"Вам помочь?",en:"Can I help you?",goal:"Ask where the metro is.",model:"Скажите, пожалуйста, где метро?",acc:["\\bгде\\b","как пройти","как дойти","как доехать"],fix:["tyFormal"]},
+  {say:"Метро? Идите прямо, потом направо.",en:"The metro? Go straight on, then right.",goal:"Ask if it's far.",model:"Это далеко?",acc:["далеко","близко","сколько минут","долго"],ok:["Нет, пять минут пешком.","No, five minutes on foot."]},
+  {say:"А куда вы едете?",en:"And where are you going?",goal:"Say you are going to the centre.",model:"Я еду в центр.",acc:["\\bеду\\b","\\bиду\\b","\\bв [а-я]+","\\bна [а-я]+"],fix:[["\\b(хожу|езжу) в","For one trip happening now use иду (on foot) or еду (by transport). Хожу and езжу describe habits or round trips.","motion"],"tyFormal"],ok:["На метро это быстро.","It's quick by metro."]},
+  {say:"Удачи!",en:"Good luck!",goal:"Thank him.",model:"Спасибо большое!",acc:["спасибо"]}]},
+{id:"t07",t:"Checking in at a hotel",can:"I can check in and ask for what I need.",need:"c21",who:"f",formal:true,
+ set:"You arrive at your hotel in the evening.",
+ phr:[["У меня бронь.","I have a booking.",""],["Можно…?","May I…? / Can I have…?",""],["Во сколько завтрак?","What time is breakfast?",""],["Не могли бы вы…?","Could you…?","Extra polite."],["Мне нужно…","I need…",""]],
+ turns:[
+  {say:"Добрый вечер! Чем могу помочь?",en:"Good evening! How can I help?",goal:"Say you have a booking.",model:"Добрый вечер! У меня бронь.",acc:["брон","заказ","номер","забронир"],fix:["tyFormal"]},
+  {say:"Ваша фамилия, пожалуйста?",en:"Your surname, please?",goal:"Give your surname (any name is fine).",model:"Моя фамилия Смит.",acc:["."],ok:["Спасибо. Ваш номер двести пять.","Thank you. Your room is two hundred and five."]},
+  {say:"Вам нужно что-нибудь ещё?",en:"Do you need anything else?",goal:"Ask what time breakfast is.",model:"Во сколько завтрак?",acc:["завтрак","во сколько","когда"],ok:["Завтрак с семи до десяти.","Breakfast is from seven to ten."]},
+  {say:"Что-нибудь ещё?",en:"Anything else?",goal:"Ask for the Wi-Fi password.",model:"Можно пароль от вай-фая?",acc:["пароль","вай","wi","интернет","можно"],fix:["tyFormal"],ok:["Конечно, пароль на ключе.","Of course, the password is on the key."]},
+  {say:"Хорошего отдыха!",en:"Enjoy your stay!",goal:"Thank her.",model:"Спасибо большое!",acc:["спасибо"]}]},
+{id:"t08",t:"Small talk with a new friend",can:"I can chat with a new friend and swap numbers.",need:"c24",who:"m",formal:false,
+ set:"Dima, a friend of a friend, chats with you at a party.",
+ phr:[["Чем ты занимаешься?","What do you do?",""],["А ты?","And you?","Keeps the chat going."],["Мне тоже.","Me too.",""],["Ты давно…?","Have you … for long?",""],["Слушай, …","Listen, … / So, …","Informal opener, only with friends."],["Договорились!","Deal! / Agreed!",""]],
+ turns:[
+  {say:"Слушай, а чем ты занимаешься?",en:"So, what do you do?",goal:"Say what you do, then ask him back.",model:"Я работаю в офисе. А ты?",acc:["работаю","учусь","студент","врач","учител","инженер","менеджер","программист","занимаюсь","пенси","не работаю"],fix:["tobe"],tip:["а ты","Keep it going: finish with «А ты?»."]},
+  {say:"Я программист. Тебе нравится Москва?",en:"I'm a programmer. Do you like Moscow?",goal:"Say whether you like it.",model:"Очень нравится! Здесь красиво.",acc:["нравится","люблю","^да","^нет","очень","красив","интересн"],ok:["Мне тоже!","Me too!"]},
+  {say:"Ты давно учишь русский?",en:"Have you been learning Russian long?",goal:"Say how long: not long, a month…",model:"Нет, недавно. Месяц.",acc:["недавно","давно","месяц","\\bгод","недел","^нет","^да"],ok:["Ты молодец! Хорошо говоришь.","Well done! You speak well."]},
+  {say:"Давай обменяемся номерами?",en:"Shall we swap numbers?",goal:"Agree, and suggest messaging on Telegram or WhatsApp.",model:"Давай! Напиши мне в Телеграм.",acc:["давай","^да","конечно","напиши","телеграм","ватсап","whatsapp","telegram"],ok:["Договорились! Пиши!","Deal! Write to me!"]}]}
+];
+const TALKBY={};TALKS.forEach(s=>{TALKBY[s.id]=s;});
+const TALK_CLAR={mF:['Простите, я не понял. Повторите, пожалуйста.','Sorry, I did not understand. Could you repeat that?'],fF:['Простите, я не поняла. Повторите, пожалуйста.','Sorry, I did not understand. Could you repeat that?'],
+ mI:['Извини, я не понял. Ещё раз?','Sorry, I did not get that. Once more?'],fI:['Извини, я не поняла. Ещё раз?','Sorry, I did not get that. Once more?']};
 (function(){'use strict';
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s);
@@ -1098,7 +1366,7 @@ function bunny(mood,cls){mood=mood||'happy';const ink='#4a3a55';
  const brows=mood==='oops'?`<path d="M43 56q6-3 11-1M81 56q-6-3-11-1" fill="none" stroke="${ink}" stroke-width="2" stroke-linecap="round"/>`:'';
  const mouth=mood==='cheer'?`<path d="M55 77q7 10 14 0z" fill="#f0848f" stroke="${ink}" stroke-width="2" stroke-linejoin="round"/>`:mood==='oops'?`<path d="M56 81q6-4 12 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`:`<path d="M55 77q3.5 4 7 0q3.5 4 7 0" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
  return `<svg class="${cls||'bunny'}" viewBox="0 0 124 124" role="img" aria-label="Buni the bunny"><g class="ear l"><ellipse cx="42" cy="30" rx="12" ry="27" fill="#fffaf2" stroke="#e6d6c2" stroke-width="2.5"/><ellipse cx="42" cy="33" rx="6" ry="19" fill="#ffdcd4"/></g><g class="ear r"><g transform="rotate(-36 96 58)"><ellipse cx="96" cy="58" rx="11.5" ry="25" fill="#fffaf2" stroke="#e6d6c2" stroke-width="2.5"/><ellipse cx="96.5" cy="61" rx="5.5" ry="16" fill="#ffdcd4"/></g></g><path d="M24 124c0-22 16-34 38-34s38 12 38 34z" fill="#fffaf2" stroke="#e6d6c2" stroke-width="2.5"/><path d="M33 100c18 9 41 9 58 0l3 12c-19 10-45 10-64 0z" fill="#a8e6cf"/><path d="M80 108l8 15 8-4-5-15z" fill="#8fd9bd"/><path d="M62 106l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z" fill="#ffd966"/><ellipse cx="62" cy="68" rx="40" ry="33" fill="#fffaf2" stroke="#e6d6c2" stroke-width="2.5"/><path d="M62 37c-2-8 2-14 9-15-1 8-3 12-9 15z" fill="#9bd97c"/><path d="M62 37c-4-5-11-6-15-2 4 6 10 7 15 2z" fill="#b8e8a0"/><ellipse cx="37" cy="76" rx="7" ry="4.5" fill="#ffb7b0" opacity=".55"/><ellipse cx="87" cy="76" rx="7" ry="4.5" fill="#ffb7b0" opacity=".55"/>${brows}${eyes}<path d="M59 72q3-3.2 6 0q-3 4-6 0z" fill="#f2a0a0"/>${mouth}</svg>`;}
-const ICON={pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',resume:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>',replay:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>',play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>',
+const ICON={mic:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg>',send:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l18-8L3 4v6l12 2-12 2z"/></svg>',pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',resume:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>',replay:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>',play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>',
  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
 
 /* ---------- data ---------- */
@@ -1111,8 +1379,13 @@ function loadSet(src,col){let n=0;src.forEach(([topic,lvl,rows])=>{const cat={ke
  rows.forEach(r=>{const it={id:col+(++n),col,topic,lvl,ru:r[0],ph:r[1],en:r[2],ex:r[3],exEn:r[4],note:r[5]||'',cat:cat.key};it.rs=stressed(it.ru,it.ph);if(it.col==='v'&&!it.note&&NOTE[it.ru])it.note=NOTE[it.ru];
   ITEMS.push(it);BY[it.id]=it;cat.ids.push(it.id);});CATS.push(cat);CATBY[cat.key]=cat;});}
 loadSet(PHRASES,'p');loadSet(VOCAB,'v');
+/* stress marks for running text (episodes, conversations, examples), learnt from every stressed word form in the
+   vocabulary and lesson examples. Shown only when Phonetics is on, like the rest of the app's stress marks. */
+const STRESS={};(()=>{const add=(ru,rs)=>{const a=ru.split(/\s+/),b=rs.split(/\s+/);if(a.length!==b.length)return;a.forEach((w,i)=>{const k=w.toLowerCase().replace(/[^а-яё-]/g,''),v=b[i].toLowerCase().replace(/[^а-яё́-]/g,'');if(k&&v.includes(ACUTE)&&!STRESS[k])STRESS[k]=v;});};
+ ITEMS.forEach(it=>{if(it.rs!==it.ru)add(it.ru,it.rs);});LESSONS.forEach(l=>l.ex.forEach(e=>{const r=stressed(e[0],e[1]);if(r!==e[0])add(e[0],r);}));})();
+function stressify(text){if(!S.set.ph||!text)return text;return String(text).replace(/[А-Яа-яЁё-]+/g,w=>{const v=STRESS[w.toLowerCase()];if(!v)return w;return /[А-ЯЁ]/.test(w[0])?v[0].toUpperCase()+v.slice(1):v;});}
 const VFM={};Object.keys(VF).forEach(k=>{const a=VF[k].split('|');VFM[k]={f:a[0].split(','),past:a[1],pair:a[2]};});
-const TAGS={acc:['Accusative case','grammar'],prep:['Prepositional case','grammar'],gen:['Genitive case','grammar'],dat:['Dative case','grammar'],ins:['Instrumental case','grammar'],pres:['Present-tense verbs','grammar'],past:['Past tense','grammar'],fut:['Future tense','grammar'],aspect:['Verb aspect','grammar'],motion:['Motion verbs','grammar'],refl:['Reflexive verbs','grammar'],adj:['Adjective agreement','grammar'],plur:['Plurals','grammar'],gender:['Gender and agreement','grammar'],neg:['Negation','grammar'],q:['Questions','grammar'],have:['Having and lacking','grammar'],num:['Numbers','grammar'],time:['Telling the time','grammar'],modal:['Need, may and must','grammar'],imp:['Imperatives','grammar'],cond:['Would (conditional)','grammar'],conn:['Linking words','grammar'],disc:['Discourse markers','grammar'],omit:['Leaving out to be','grammar'],reg:['ты and вы','grammar'],order:['Building sentences','production'],phone:['Phone Russian','production'],conv:['Conversation','production'],tr:['Translating into Russian','production'],vocab:['Vocabulary recall','vocab'],listen:['Listening and spelling','listening'],read:['Reading Cyrillic','reading'],stress:['Stress','listening']};
+const TAGS={acc:['Accusative case','grammar'],prep:['Prepositional case','grammar'],gen:['Genitive case','grammar'],dat:['Dative case','grammar'],ins:['Instrumental case','grammar'],pres:['Present-tense verbs','grammar'],past:['Past tense','grammar'],fut:['Future tense','grammar'],aspect:['Verb aspect','grammar'],motion:['Motion verbs','grammar'],refl:['Reflexive verbs','grammar'],adj:['Adjective agreement','grammar'],plur:['Plurals','grammar'],gender:['Gender and agreement','grammar'],neg:['Negation','grammar'],q:['Questions','grammar'],have:['Having and lacking','grammar'],num:['Numbers','grammar'],time:['Telling the time','grammar'],modal:['Need, may and must','grammar'],imp:['Imperatives','grammar'],cond:['Would (conditional)','grammar'],conn:['Linking words','grammar'],disc:['Discourse markers','grammar'],omit:['Leaving out to be','grammar'],reg:['ты and вы','grammar'],order:['Building sentences','production'],phone:['Phone Russian','production'],conv:['Conversation','production'],speak:['Speaking','speaking'],tr:['Translating into Russian','production'],vocab:['Vocabulary recall','vocab'],listen:['Listening and spelling','listening'],read:['Reading Cyrillic','reading'],stress:['Stress','listening']};
 const GROUPS={grammar:'Grammar',vocab:'Vocabulary',listening:'Listening',reading:'Reading',production:'Producing Russian'};
 
 /* ---------- storage and migration ---------- */
@@ -1125,21 +1398,24 @@ function loadState(){let raw=null,o={};try{raw=localStorage.getItem(KEY);}catch(
  if(typeof o!=='object'||Array.isArray(o))o={};
  if(raw&&o.v!==VER){try{localStorage.setItem(KEY+'.backup-v1',raw);}catch(e){}}
  const num=(x,d)=>typeof x==='number'&&isFinite(x)?x:d;
- S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},miss:{},xp:Math.max(0,num(o.xp,0)),set:{}};
+ S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},miss:{},eps:{},games:{},talk:{},xp:Math.max(0,num(o.xp,0)),set:{}};
  const oc=o.cards&&typeof o.cards==='object'?o.cards:{};
  Object.keys(oc).forEach(id=>{const c=oc[id];if(!BY[id]||!c||typeof c!=='object')return;
-  S.cards[id]={b:Math.max(0,Math.min(5,Math.round(num(c.b,0)))),due:num(c.due,0),ok:num(c.ok,0),bad:num(c.bad,0),seen:num(c.seen,0),last:num(c.last,0),rg:num(c.rg,Math.min(3,Math.max(0,num(c.ok,0)))),pr:num(c.pr,0),lap:num(c.lap,num(c.bad,0))};});
+  S.cards[id]={b:Math.max(0,Math.min(5,Math.round(num(c.b,0)))),due:num(c.due,0),ok:num(c.ok,0),bad:num(c.bad,0),seen:num(c.seen,0),last:num(c.last,0),rg:num(c.rg,Math.min(3,Math.max(0,num(c.ok,0)))),pr:num(c.pr,0),lap:num(c.lap,num(c.bad,0)),li:num(c.li,0),us:num(c.us,0),sp:num(c.sp,0)};});
  if(Array.isArray(o.hist))S.hist=o.hist.filter(x=>x&&typeof x.t==='number').slice(0,60);
  if(Array.isArray(o.tests))S.tests=o.tests.filter(x=>x&&typeof x.t==='number'&&x.n>0).slice(0,30);
  const ol=o.les&&typeof o.les==='object'?o.les:{};
  Object.keys(ol).forEach(k=>{if(LEG[k]&&ol[k]&&!S.les[LEG[k]])S.les[LEG[k]]={s:100,t:Date.now(),legacy:true};else if(/^c\d\d$/.test(k)&&ol[k]&&typeof ol[k]==='object')S.les[k]=ol[k];});
  if(o.days&&typeof o.days==='object')Object.keys(o.days).forEach(k=>{if(num(o.days[k],0)>0)S.days[k]=o.days[k];});
  if(o.err&&typeof o.err==='object')Object.keys(o.err).forEach(t=>{const e=o.err[t];if(TAGS[t]&&e&&Array.isArray(e.r))S.err[t]={a:num(e.a,0),w:num(e.w,0),r:e.r.slice(-12).map(x=>x?1:0)};});
+ if(o.eps&&typeof o.eps==='object')Object.keys(o.eps).forEach(k=>{const e=o.eps[k];if(e&&EPBY[k])S.eps[k]={s:Math.max(0,Math.min(100,num(e.s,0))),t:num(e.t,0),n:num(e.n,1)};});
+ if(o.talk&&typeof o.talk==='object')Object.keys(o.talk).forEach(k=>{const g=o.talk[k];if(g&&TALKBY[k])S.talk[k]={best:Math.max(0,Math.min(100,num(g.best,0))),n:num(g.n,1),t:num(g.t,0)};});
+ if(o.games&&typeof o.games==='object')Object.keys(o.games).forEach(k=>{const g=o.games[k];if(g&&typeof k==='string'&&k.length<40)S.games[k]={best:Math.max(0,num(g.best,0)),plays:num(g.plays,0),last:num(g.last,0)};});
  if(o.miss&&typeof o.miss==='object')Object.keys(o.miss).forEach(k=>{const m=o.miss[k];if(m&&m.t&&typeof m.t==='object'&&typeof m.t.k==='string'&&missOk(m.t))S.miss[k]={t:m.t,n:Math.max(1,num(m.n,1)),ok:num(m.ok,0),first:num(m.first,0),last:num(m.last,0)};});
  if(o.read&&typeof o.read==='object')Object.keys(o.read).forEach(k=>{if(/^r\d+$/.test(k)&&o.read[k])S.read[k]=o.read[k];});
  if(o.ach&&typeof o.ach==='object')S.ach=o.ach;if(o.flags&&typeof o.flags==='object')S.flags=o.flags;
  S.set=Object.assign({ph:true,rep:false,kb:false,len:10,rate:'normal',vp:'mix',fo:'smart',speech:true,auto:true,sv:1,fv:.7},o.set&&typeof o.set==='object'?o.set:{});
- if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;if(!['smart','shuf'].includes(S.set.fo))S.set.fo='smart';S.set.auto=S.set.auto!==false;}
+ if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;if(!['smart','shuf'].includes(S.set.fo))S.set.fo='smart';if(!['auto','slower','natural','faster'].includes(S.set.spd))S.set.spd='auto';S.set.auto=S.set.auto!==false;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 loadState();
 
@@ -1151,6 +1427,16 @@ const isDue=id=>{const c=S.cards[id];return !!c&&c.b>0&&c.due<=Date.now();};
 const isNew=id=>!S.cards[id]||!S.cards[id].seen;
 function nextStep(b,g){b=b||0;if(g===0)return Math.max(1,b-2);if(g===1)return Math.max(1,b);if(g===2)return Math.min(5,b+1);return Math.min(5,b+2);}
 function nextGap(b,g){b=b||0;const nb=nextStep(b,g);let m=INT[nb];if(g===0)m=10*MIN;else if(g===1)m=Math.max(10*MIN,INT[nb]*0.5);else if(g===3)m=INT[nb]*1.3;else if(nb===5&&b===5)m=35*DAY;return m;}
+/* which skill a correct answer shows, beyond recognising (rg) and recalling (pr) */
+function skillCount(t,ok){if(!ok||!t||!t.id||!S.cards[t.id])return;const c=S.cards[t.id];
+ if(t.k==='listen'||t.k==='dict')c.li=(c.li||0)+1;else if(t.k==='tiles'||t.k==='cloze'||t.k==='fix')c.us=(c.us||0)+1;else if(t.k==='shadow')c.sp=(c.sp||0)+1;}
+/* recent accuracy per skill, from the same per-tag history that drives weak-spot practice */
+const SKILLS={listening:['Listening',['listen','stress','read']],speaking:['Speaking',['speak','conv','phone']],recall:['Recall',['vocab','tr','order']],grammar:['Grammar',null]};
+function skillStats(){const out={};Object.keys(SKILLS).forEach(k=>{const tags=SKILLS[k][1]||Object.keys(TAGS).filter(t=>TAGS[t][1]==='grammar');let n=0,ok=0;tags.forEach(t=>{const e=S.err[t];if(e){n+=e.r.length;ok+=e.r.filter(Boolean).length;}});out[k]={n,acc:n?ok/n:null};});return out;}
+function weakestSkill(){const s=skillStats();let w=null;Object.keys(s).forEach(k=>{if(s[k].n>=6&&(!w||s[k].acc<s[w].acc))w=k;});return w&&s[w].acc<0.75?w:null;}
+/* speaking speed: automatic = a little slower at first, natural later, a little faster once listening is strong */
+function speechRate(){const v=S.set.spd;if(v==='slower')return 0.85;if(v==='natural')return 1;if(v==='faster')return 1.12;
+ const l=skillStats().listening;if(doneCount()<6)return 0.92;if(l.n>=20&&l.acc>=0.85&&doneCount()>=12)return 1.08;return 1;}
 function grade(id,g,mode){if(!BY[id])return;const now=Date.now(),c=S.cards[id]||(S.cards[id]={b:0,due:0,ok:0,bad:0,seen:0,last:0,rg:0,pr:0,lap:0});
  if(g>=2){if(mode==='p')c.pr++;else c.rg++;}
  let nb=nextStep(c.b,g);if(nb>3&&c.pr<2&&g>=2)nb=3;if(nb<c.b&&g>=1)nb=c.b;
@@ -1187,6 +1473,7 @@ const AUDIO_URL='/api/tts';
 let spk=0,audioMode='unknown',downAt=0,devVoice=null;   /* audioMode: unknown | natural | device */
 const aCache=new Map();
 const hv=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h;};
+function epPlay(id,slow,auto){const ep=EPBY[id];if(!ep)return;sayAll(ep.lines.map(l=>({t:l[1],w:l[0]})),slow,id,auto);}
 const vOf=t=>(hv(String(t))&1)?'m':'f';      /* the same text always gets the same voice, so each clip is generated once */
 const opp=w=>w==='m'?'f':'m';
 function pickVoice(text,who){if(who&&who[0]==='!')return who[1];const p=S.set.vp;if(p==='f'||p==='m')return p;return who||vOf(text);}
@@ -1205,24 +1492,33 @@ function unlockAudio(){if(unlocked)return;unlocked=true;try{const p=getPlayer();
 const VOL_OK=(()=>{try{const a=document.createElement('audio');a.volume=.5;return Math.abs(a.volume-.5)<.01;}catch(e){return false;}})();   /* iPhone ignores page volume for speech */
 const speechVol=()=>clamp01(S.set.sv,1);
 /* playback state, shown on speaker buttons and the listening player */
-const aState={t:null,slow:false,st:'idle',dev:false,wait:false},heard=new Set();
+const aState={t:null,slow:false,st:'idle',dev:false,wait:false},heard=new Set(),heardEp=new Set();
+let aGroup=null,aLastGrp=null,aGi=0,aGn=0,aGapResume=null;
 function aSet(st,t,slow){aState.st=st;if(t!==undefined){aState.t=t;aState.slow=!!slow;aState.wait=false;aState.dev=false;}if(st==='playing'&&aState.t)heard.add(aState.t);paintAudio();}
 function paintAudio(){try{const {t,slow,st}=aState;
  document.querySelectorAll('[data-act="say"]').forEach(b=>{const on=t!==null&&b.dataset.t===t&&(!!b.dataset.slow)===slow;
   b.classList.toggle('loading',on&&st==='loading');b.classList.toggle('playing',on&&(st==='playing'||st==='paused'));
   if(on&&st==='loading')b.setAttribute('aria-busy','true');else b.removeAttribute('aria-busy');});
- const lp=document.querySelector('.lplayer');if(!lp)return;const s=t===lp.dataset.t?st:'idle';lp.dataset.st=s;
+ paintEp();
+ const lp=document.querySelector('.lplayer:not(.eplayer)');if(!lp)return;const s=t===lp.dataset.t?st:'idle';lp.dataset.st=s;
  const msg={idle:heard.has(lp.dataset.t)?'Tap the speaker or Replay to hear it again.':'Tap the speaker to listen.',
   loading:aState.wait?'Getting the voice ready. The first play of a new clip can take a second or two.':'Loading…',
   playing:'Playing…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap the speaker to listen.'}[s]||'';
  const m=lp.querySelector('.lp-status');if(m&&m.textContent!==msg)m.textContent=msg;
  const pb=lp.querySelector('[data-act="aPause"]');if(pb){const can=s==='playing'||s==='paused';pb.disabled=!can;const html=s==='paused'?ICON.resume+'<span>Resume</span>':ICON.pause+'<span>Pause</span>';if(pb.innerHTML!==html)pb.innerHTML=html;}
 }catch(e){}}
-function stopAudio(){spk++;if(player){try{player.pause();}catch(e){}}if(HAS_DEVICE){try{speechSynthesis.cancel();}catch(e){}}if(aState.st!=='idle'||aState.t!==null){aState.st='idle';aState.t=null;paintAudio();}}
+function paintEp(){const st=aState.st;document.querySelectorAll('.eplayer').forEach(lp=>{const id=lp.dataset.ep;let s='idle';
+ if(aGroup===id)s=st==='paused'?'paused':(st==='loading'&&aGi<=1)?'loading':'playing';else if(st==='blocked'&&aLastGrp===id)s='blocked';
+ if(s==='playing')heardEp.add(id);lp.dataset.st=s;
+ const msg={idle:heardEp.has(id)?'Tap Replay to hear it again.':'Tap play to hear the conversation.',loading:aState.wait?'Getting the voices ready. The first play can take a few seconds.':'Loading…',playing:'Playing line '+aGi+' of '+aGn+'…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap play to listen.'}[s];
+ const m=lp.querySelector('.lp-status');if(m&&m.textContent!==msg)m.textContent=msg;
+ const b=lp.querySelector('.bigspk');if(b){b.classList.toggle('loading',s==='loading');b.classList.toggle('playing',s==='playing'||s==='paused');}
+ const pb=lp.querySelector('[data-act="aPause"]');if(pb){const can=s==='playing'||s==='paused';pb.disabled=!can;const html=s==='paused'?ICON.resume+'<span>Resume</span>':ICON.pause+'<span>Pause</span>';if(pb.innerHTML!==html)pb.innerHTML=html;}});}
+function stopAudio(){aGroup=null;aGapResume=null;aGapPaused=false;spk++;if(player){try{player.pause();}catch(e){}}if(HAS_DEVICE){try{speechSynthesis.cancel();}catch(e){}}if(aState.st!=='idle'||aState.t!==null){aState.st='idle';aState.t=null;paintAudio();}}
 function deviceSay(text,slow,tok,fin){if(!HAS_DEVICE){toast('Audio is not available on this page.');return fin('idle');}
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ru-RU';u.volume=speechVol();
   if(!devVoice)devVoice=(speechSynthesis.getVoices()||[]).find(v=>/^ru/i.test((v.lang||'').replace('_','-')))||null;if(devVoice)u.voice=devVoice;
-  u.rate=slow?0.6:0.9;aState.dev=true;u.onstart=()=>{if(tok===spk)aSet('playing');};u.onend=u.onerror=()=>fin('idle');speechSynthesis.speak(u);}catch(e){fin('idle');}}
+  u.rate=slow?0.6:0.9*speechRate();aState.dev=true;u.onstart=()=>{if(tok===spk)aSet('playing');};u.onend=u.onerror=()=>fin('idle');speechSynthesis.speak(u);}catch(e){fin('idle');}}
 function playOne(text,slow,who,tok){return new Promise(resolve=>{
  const sl=slowOf(slow);let done=false;const fin=st=>{if(done)return;done=true;if(tok===spk)aSet(st||'idle');resolve(st);};
  aSet('loading',text,sl);
@@ -1232,6 +1528,7 @@ function playOne(text,slow,who,tok){return new Promise(resolve=>{
  try{fetchAudio(text,pickVoice(text,who),sl).then(url=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');audioMode='natural';
    const p=getPlayer();p.onended=()=>{if(tok===spk)fin('idle');};p.onerror=()=>{if(tok===spk)fin('idle');};p.onplaying=()=>{if(tok===spk&&aState.st!=='paused')aSet('playing');};
    if(p.src!==url)p.src=url;else{try{p.currentTime=0;}catch(e){}}
+   try{const rt=sl?1:speechRate();p.defaultPlaybackRate=rt;p.playbackRate=rt;if('preservesPitch' in p)p.preservesPitch=true;}catch(e){}
    p.volume=speechVol();const q=p.play();
    if(q&&q.catch)q.catch(err=>{if(tok!==spk)return fin('stopped');const n=err&&err.name;if(n==='NotAllowedError')fin('blocked');else if(n!=='AbortError')fin('idle');});
   }).catch(()=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');downAt=Date.now();useDevice();});}
@@ -1243,9 +1540,15 @@ function say(text,slow,once,who,auto){
  const sl=slowOf(slow);
  if(!auto&&aState.t===text&&aState.slow===sl&&(aState.st==='loading'||Date.now()-lastTap<400))return;   /* ignore rapid repeat taps */
  lastTap=Date.now();stopAudio();playOne(text,slow,who,spk);}
-function sayAll(list,slow){if(S.set.speech===false){toast('Speech is turned off. Turn it on in Practice, under Audio.');return;}stopAudio();const tok=spk;let i=0;
- const go=()=>{if(tok!==spk||i>=list.length)return;const it=list[i++];if(list[i])prefetch(list[i].t,list[i].w,slow);playOne(it.t,slow,it.w,tok).then(st=>{if(tok===spk&&st!=='blocked')setTimeout(go,450);});};go();}
+function sayAll(list,slow,grp,auto){if(S.set.speech===false){if(!auto)toast('Speech is turned off. Turn it on in Practice, under Audio.');return;}stopAudio();const tok=spk;aGroup=grp||null;aLastGrp=grp||null;aGi=0;aGn=list.length;let i=0;
+ const go=()=>{if(tok!==spk)return;if(aGroup&&aState.st==='paused'){aGapResume=go;return;}if(i>=list.length){if(grp&&aGroup===grp){aGroup=null;paintAudio();}return;}
+  const it=list[i++];aGi=i;if(list[i])prefetch(list[i].t,list[i].w,slow);
+  playOne(it.t,slow,it.w,tok).then(st=>{if(tok!==spk)return;if(st==='blocked'){aGroup=null;paintAudio();return;}setTimeout(go,450);});};go();}
+let aGapPaused=false;
 function pauseAudio(){const st=aState.st;
+ /* between two lines of a conversation nothing is playing: pausing there just holds the next line */
+ if(aGroup&&st==='idle'){aState.st='paused';aGapPaused=true;paintAudio();return;}
+ if(aGroup&&st==='paused'&&aGapPaused){aGapPaused=false;aState.st='idle';paintAudio();if(aGapResume){const f=aGapResume;aGapResume=null;f();}return;}
  if(st==='playing'){if(aState.dev){try{speechSynthesis.pause();}catch(e){}}else if(player)player.pause();aSet('paused');}
  else if(st==='paused'){if(aState.dev){try{speechSynthesis.resume();}catch(e){}}else if(player){player.volume=speechVol();player.play().catch(()=>{});}aSet('playing');}}
 let toastT=0;
@@ -1307,15 +1610,39 @@ function tasksForTag(tag,n){
  if(ts.length>1&&ts[0].tag==='conv'){ts.forEach(x=>out.push(x));}else out.push(ts[0]);if(out.length>=n)break;}return out.slice(0,Math.max(n,1)).map(t=>Object.assign({},t,{focus:tag}));}
 const lessonItems=l=>[...new Set(l.v.flatMap(k=>CATBY[k]?CATBY[k].ids:[]))];
 function blocks(ts){const bl=[];ts.forEach(t=>{if(t.scene&&bl.length&&bl[bl.length-1][0].scene&&bl[bl.length-1][0].lid===t.lid&&t.scene>1)bl[bl.length-1].push(t);else bl.push([t]);});return [].concat(...shuffle(bl));}
-function lessonTasks(l){const idx=LESSONS.indexOf(l);let ts=[];
- l.x.forEach(a=>{const t=mkX(a,l.id);(Array.isArray(t)?t:[t]).forEach(x=>ts.push(x));});
- const ids=lessonItems(l),fresh=ids.filter(isNew).slice(0,4),rest=shuffle(ids.filter(id=>!fresh.includes(id))).slice(0,4);
- const intro=fresh.map(id=>itemTask(id,'card-r'));
- rest.forEach((id,i)=>{const ks=itemKinds(id);ts.push(itemTask(id,ks[i%ks.length]));});
+/* A lesson runs in stages: Meet (see and hear new language in context, ungraded) -> Recognise (hear or read it, choose
+   the meaning, match) -> Recall (choose the Russian, build sentences) -> Produce (type, fill gaps, dictation, conversations)
+   -> Review (earlier lessons). Typing only comes after a word has been met and recognised. */
+const RECOG_X=['read','listen','pick','stress'];
+function pickEnTask(id){const it=BY[id];return {k:'pick',id,q:it.ru,qRu:1,opts:distractors(it,'en',ITEMS),ans:it.en,tag:'vocab',m:'r'};}
+function pickRuTask(id){const it=BY[id];return {k:'pick',id,q:it.en,opts:distractors(it,'ru',ITEMS),ans:it.ru,optRu:1,tag:'tr',m:'r'};}
+function matchTask(ids,lid){const ps=[],ru=new Set(),en=new Set();ids.forEach(id=>{const it=BY[id];if(it&&!ru.has(nr(it.ru))&&!en.has(it.en)){ru.add(nr(it.ru));en.add(it.en);ps.push([it.ru,it.en,id]);}});
+ if(ps.length<3)return null;const L=shuffle(ps.map((p,i)=>i)),R=shuffle(ps.map((p,i)=>i));return {k:'match',pairs:ps,L,R,tag:'vocab',lid};}
+function lessonTasks(l){const idx=LESSONS.indexOf(l);const rec=[],cal=[],prod=[],rev=[];
+ l.x.forEach(a=>{const t=mkX(a,l.id);const arr=(Array.isArray(t)?t:[t]).filter(Boolean);(RECOG_X.includes(a[0])?rec:a[0]==='tiles'?cal:prod).push(...arr);});
+ const ids=lessonItems(l),fresh=ids.filter(isNew).slice(0,5),known=shuffle(ids.filter(id=>!isNew(id))).slice(0,3);   /* known = studied before; the rest of a big lesson's new words come next time */
+ const meet=[{k:'learn',v:'key',lid:l.id}].concat(fresh.map(id=>({k:'learn',v:'word',id,lid:l.id})));
+ fresh.forEach((id,i)=>rec.push(i%2?pickEnTask(id):itemTask(id,'listen')));
+ const mt=matchTask(fresh.concat(known).slice(0,5),l.id);if(mt)rec.push(mt);
+ shuffle(fresh.concat(known)).slice(0,4).forEach(id=>cal.push(pickRuTask(id)));
+ fresh.slice(0,3).forEach(id=>{const ks=itemKinds(id).filter(k=>['type','cloze','tiles','dict'].includes(k));prod.push(itemTask(id,ks.length?ks[Math.floor(Math.random()*ks.length)]:'type'));});
+ known.slice(0,2).forEach((id,i)=>{const ks=itemKinds(id);prod.push(itemTask(id,ks[i%ks.length]));});
  const prev=[];LESSONS.slice(0,idx).forEach(p=>p.x.forEach(a=>{if(!['scene','read','dict','stress'].includes(a[0]))prev.push(a);}));
- shuffle(prev).slice(0,3).forEach(a=>{const t=mkX(a,l.id);if(t)ts.push(Object.assign({},t,{review:1}));});
- return intro.concat(blocks(ts));}
-
+ shuffle(prev).slice(0,3).forEach(a=>{const t=mkX(a,l.id);if(t&&!Array.isArray(t))rev.push(Object.assign({},t,{review:1}));});
+ /* say it aloud: shadow one example sentence you have just met */
+ const shx=fresh.map(id=>BY[id]).find(it=>it.ex&&it.ex.split(' ').length>=3)||null,sh=shx?{k:'shadow',id:shx.id,ru:shx.ex,en:shx.exEn,tag:'speak',lid:l.id}:l.ex.length?{k:'shadow',ru:l.ex[0][0],en:l.ex[0][2],tag:'speak',lid:l.id}:null;
+ const prodAll=blocks(prod);if(sh)prodAll.push(sh);
+ const stage=(arr,name)=>arr.map(t=>Object.assign(t,{stage:name}));
+ return stage(meet,'Meet').concat(stage(shuffle(rec),'Recognise'),stage(shuffle(cal),'Recall'),stage(prodAll,'Produce'),stage(rev,'Review'));}
+/* Episode: listen for the gist, answer questions, read the transcript, practise useful lines, then reply yourself. */
+function episodeTasks(ep){const ts=[];
+ ts.push({k:'pick',ep:ep.id,epAuto:1,q:ep.gist[0],opts:shuffle(ep.gist[1]),ans:ep.gist[2],tag:'listen',lid:ep.lid,stage:'Listen for the gist'});
+ ep.qs.forEach(q=>ts.push({k:'pick',ep:ep.id,q:q[0],opts:shuffle(q[1]),ans:q[2],tag:'listen',lid:ep.lid,stage:'Understand the details'}));
+ ts.push({k:'learn',v:'script',ep:ep.id,stage:'Read the transcript'});
+ ep.use.forEach(i=>{const l=ep.lines[i];ts.push(l[1].split(' ').length>=3?tilesTask(l[1],l[2],'order',{lid:ep.lid,stage:'Practise useful lines',say0:l[0]}):{k:'dict',ru:l[1],en:l[2],ans:l[1],tag:'listen',lid:ep.lid,stage:'Practise useful lines'});});
+ {const l=ep.lines[ep.use[0]];ts.push({k:'shadow',ru:l[1],en:l[2],who:l[0],tag:'speak',lid:ep.lid,stage:'Practise useful lines'});}
+ const rp=ep.reply;ts.push({k:'type',q:rp.goal,ans:rp.ans,say:rp.say[1],sayEn:rp.say[2],sayW:rp.say[0],tag:'conv',tol:true,lid:ep.lid,reply:1,stage:'Your turn'});
+ return ts;}
 /* ---------- course state ---------- */
 const lessonDone=l=>!!S.les[l.id];
 const doneCount=()=>LESSONS.filter(lessonDone).length;
@@ -1328,12 +1655,14 @@ function planSession(mins){const N=SESSION_N[mins]||24,lines=[];let ts=[];
  const due=dueSorted(),nd=Math.min(due.length,Math.round(N*0.4));
  if(nd){ts=ts.concat(due.slice(0,nd).map(id=>itemTask(id,step(id)>=2?'card-p':'card-r')));lines.push([nd+' item'+(nd>1?'s':'')+' due for review','Reviewing just before you would forget is the most efficient way to keep words.']);}
  weakTags().slice(0,2).forEach(w=>{const k=Math.max(2,Math.round(N*0.12)),x=tasksForTag(w.tag,k);if(x.length){ts=ts.concat(x);lines.push([TAGS[w.tag][0]+' practice','You missed '+Math.round(w.rate*100)+'% of your recent answers here, so it gets extra practice.']);}});
- const kn=knownNotMade().slice(0,Math.round(N*0.2));
+ const kn=knownNotMade().slice(0,Math.round(N*(weakestSkill()==='recall'||knownNotMade().length>15?0.3:0.2)));
  if(kn.length){ts=ts.concat(itemTasks(kn,PRODKINDS,kn.length));lines.push([kn.length+' words to produce, not just recognise','You can recognise these. Typing or building them turns passive knowledge into speech.']);}
  const lc=leeches().slice(0,Math.round(N*0.1));
  if(lc.length){ts=ts.concat(itemTasks(lc,['cloze','tiles','type'],lc.length));lines.push([lc.length+' stubborn word'+(lc.length>1?'s':''),'You have forgotten these several times. They come back in new contexts.']);}
- const seen=ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].seen).map(i=>i.id),nl=Math.round(N*0.15);
+ const seen=ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].seen).map(i=>i.id),weak=weakestSkill(),nl=Math.round(N*(weak==='listening'?0.3:0.15));
+ if(weak==='listening')lines.push(['Extra listening','Listening is your weakest skill at the moment, so this session gives it more time.']);
  if(seen.length>=4){ts=ts.concat(itemTasks(shuffle(seen),['listen','dict'],Math.min(nl,seen.length)));lines.push(['Listening and dictation','Understanding speech by ear needs its own practice.']);}
+ if(seen.length>=4){const k=weak==='speaking'||!skillStats().speaking.n?4:2,sh=shadowTasksFromSeen(k);if(sh.length){ts=ts.concat(sh);lines.push(['Say it aloud','Shadowing natural sentences trains your mouth and your ear for real conversations.']);}}
  const nx=nextLesson(),room=N-ts.length;
  if(nx&&room>0){const f=lessonItems(nx).filter(isNew).slice(0,Math.min(5,room));if(f.length){ts=ts.concat(f.map(id=>itemTask(id,'card-r')));lines.push(['New words from the next lesson','A few words you will meet in "'+nx.t+'".']);}}
  if(ts.length<N){const more=ITEMS.filter(i=>!isNew(i.id)&&!isDue(i.id)).sort((a,b)=>mast(a.id)-mast(b.id)).slice(0,N-ts.length).map(i=>i.id);if(more.length){ts=ts.concat(itemTasks(more,['type','cloze','tiles','listen'],more.length));lines.push(['Your least secure items','Mixed practice on what is currently weakest.']);}}
@@ -1344,40 +1673,48 @@ const ACH=[['first','First steps','Finish a practice session',()=>S.hist.length>
 function checkAch(){const out=[];ACH.forEach(a=>{if(!S.ach[a[0]]&&a[3]()){S.ach[a[0]]=Date.now();out.push(a[1]);}});return out;}
 
 /* ---------- ui state ---------- */
-const ROUTES=['today','learn','study','read','test','progress'];
-const ui={route:'today',lesson:null,passage:null,pendingSay:null,confirmReset:false,run:null,res:null,
+const ROUTES=['today','learn','study','read','test','progress','games','talk'];
+const ui={talk:{id:null,phase:'list'},game:{src:'',phase:'menu'},route:'today',lesson:null,passage:null,pendingSay:null,confirmReset:false,run:null,res:null,
  prac:{mode:'menu',col:'all',topic:'all',dir:'auto',size:10,q:'',wcol:'all',wtopic:'all'},
  test:{col:'all',n:30,types:{mc:true,tr:true,li:true,rc:true,dc:false,tl:false},focus:'weak'}};
 const ruH=it=>S.set.ph?it.rs:it.ru;
 const vfHTML=it=>{const v=VFM[it.ru];if(!v)return '';return `<div class="vf" aria-label="Present tense forms">${v.f.map((f,i)=>`<span><i>${PERSONS[i]}</i> ${esc(f)}</span>`).join('')}</div><div class="small muted">past: ${esc(v.past)}${v.pair?' · pair: '+esc(v.pair):''}</div>`;};
 function entry(it,o){o=o||{};return `<div class="row sp top"><div class="grow"><div class="ru${o.xl?' xl':''}" lang="ru">${esc(ruH(it))}</div><div class="ph">${esc(it.ph)}</div><div class="en">${esc(it.en)}</div></div>${o.big?'':`<div class="row nowrap">${sayBtns(it.ru)}</div>`}</div>${o.big?bigSpk(it.ru):''}
 ${it.note?`<div class="small muted">${esc(it.note)}</div>`:''}${vfHTML(it)}
-<div class="ex"><div><div class="exru" lang="ru">${esc(it.ex)}</div><div class="small muted">${esc(it.exEn)}</div></div><button class="ib" data-act="say" data-t="${esc(it.ex)}" aria-label="Play example sentence">${ICON.play}</button></div>`;}
+<div class="ex"><div><div class="exru" lang="ru">${esc(stressify(it.ex))}</div><div class="small muted">${esc(it.exEn)}</div></div><button class="ib" data-act="say" data-t="${esc(it.ex)}" aria-label="Play example sentence">${ICON.play}</button></div>`;}
 
 /* big speaker for flashcards, and the listening player (status, pause/resume, replay, slow) */
 const bigSpk=t=>`<div class="spkwrap"><button class="bigspk" data-act="say" data-t="${esc(t)}" aria-label="Play the Russian audio">${ICON.play}<i class="spin" aria-hidden="true"></i></button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="Play slowly">Slow</button></div>`;
 const lpHTML=t=>`<div class="lplayer" data-t="${esc(t)}" data-st="idle"><button class="bigspk" data-act="say" data-t="${esc(t)}" aria-label="Play the Russian audio">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">Tap the speaker to listen.</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="say" data-t="${esc(t)}" aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="Play slowly">Slow</button></div></div></div>`;
+const epHTML=ep=>`<div class="lplayer eplayer" data-ep="${ep.id}" data-st="idle"><button class="bigspk" data-act="epPlay" data-ep="${ep.id}" aria-label="Play the conversation">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">Tap play to hear the conversation.</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="epPlay" data-ep="${ep.id}" aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="epPlay" data-slow="1" data-ep="${ep.id}" aria-label="Play slowly">Slow</button></div></div></div>`;
+const exList=l=>`<div class="list">${l.ex.map(e=>`<div class="ex"><div><div class="exru" lang="ru">${esc(stressify(e[0]))}</div><div class="ph">${esc(e[1])}</div><div class="small muted">${esc(e[2])}</div></div><div class="row nowrap">${sayBtns(e[0])}</div></div>`).join('')}</div>`;
+const alphaHTML=()=>`<div class="alpha">${ALPHA.map(a=>`<button data-act="say" data-t="${esc(a[2])}" aria-label="${esc(a[0])}, ${esc(a[2])}"><b lang="ru">${esc(a[0])}</b><span>${esc(a[1])}</span><span lang="ru">${esc(a[2])} <span class="ph">${esc(a[3])}</span></span></button>`).join('')}</div>`;
+const scriptHTML=ep=>`<div class="lines">${ep.lines.map((l,i)=>`<div class="line"><div class="row sp top"><div class="grow"><span class="spk">${l[0]==='f'?'👩':'👨'}</span> <span class="rt" lang="ru">${esc(stressify(l[1]))}</span><div class="small muted">${esc(l[2])}</div></div><button class="ib" data-act="say" data-t="${esc(l[1])}" data-who="${l[0]}" aria-label="Play line ${i+1}">${ICON.play}</button></div></div>`).join('')}</div>`;
 /* ---------- runner ---------- */
 function startRun(cfg){stopAudio();const tasks=(cfg.tasks||[]).filter(Boolean);if(!tasks.length){toast('Nothing to practise here yet.');return false;}
  ui.run=Object.assign({i:0,res:[],st:{},xp:0,done:false,t0:Date.now()},cfg,{tasks});primeAudio();return true;}
 function primeAudio(){const r=ui.run,t=r&&r.tasks[r.i];if(!t)return;
  /* audio never plays by itself: only a tap on a speaker button plays it. Clips are fetched quietly so the tap is instant. */
+ if(t.ep){const ep=EPBY[t.ep];if(ep)ep.lines.slice(0,2).forEach(l=>prefetch(l[1],l[0]));}else if(t.k==='learn'&&t.id)prefetch(BY[t.id].ru);else if(t.k==='type'&&t.say)prefetch(t.say,t.sayW);
  if(t.k==='dict'||t.k==='listen')prefetch(t.ru);else if(t.k==='card')prefetch(BY[t.id].ru);else if(t.k==='tiles'&&t.say)prefetch(t.say,vOf(t.say));
  for(let k=1;k<=2;k++){const n=r.tasks[r.i+k];if(!n)continue;if(n.k==='dict'||n.k==='listen')prefetch(n.ru);else if(n.k==='tiles'&&n.say)prefetch(n.say,vOf(n.say));else if(n.k==='card'&&n.dir==='recall')prefetch(BY[n.id].ru);}}
 const cur=()=>ui.run.tasks[ui.run.i];
-function promptText(t){if(t.k==='card')return BY[t.id].en;if(t.k==='tiles')return t.say?t.say+' / '+t.goal:t.en;if(t.k==='dict'||t.k==='listen')return '(audio) '+t.ru;if(t.k==='stress')return t.ru;if(t.k==='read')return t.ru;return t.q||'';}
+function startEpisode(id){const ep=EPBY[id];if(!ep)return false;return startRun({title:'Episode: '+ep.t,tasks:episodeTasks(ep),mode:'mixed',kind:'episode',eid:id});}
+function promptText(t){if(t.k==='shadow')return t.ru;if(t.k==='match')return 'Match the pairs';if(t.ep)return t.q;if(t.say&&t.k==='type')return t.say+' / '+t.q;if(t.k==='card')return BY[t.id].en;if(t.k==='tiles')return t.say?t.say+' / '+t.goal:t.en;if(t.k==='dict'||t.k==='listen')return '(audio) '+t.ru;if(t.k==='stress')return t.ru;if(t.k==='read')return t.ru;return t.q||'';}
 function evalTask(t,val){
  if(t.k==='pick'||t.k==='listen')return {ok:val===t.ans,ans:t.ans};
+ if(t.k==='shadow')return {ok:val===true||shadowScore(t.ru,val).pct>=70,ans:t.ru};
  if(t.k==='stress')return {ok:String(val)===t.ans,ans:t.syl[+t.ans].toLowerCase()};
  if(t.k==='tiles')return {ok:nr(val.join(' '))===nr(t.ru),ans:t.ru};
  return checkText({ans:t.ans,lang:t.lang,tol:t.tol},val);}
-function showVal(t,val){if(t.k==='tiles')return val.join(' ');if(t.k==='stress')return t.syl[+val]||'';return String(val==null?'':val);}
+function showVal(t,val){if(t.k==='shadow')return val===true?'(said it aloud)':val?String(val):'(skipped)';if(t.k==='tiles')return val.join(' ');if(t.k==='stress')return t.syl[+val]||'';return String(val==null?'':val);}
 function commit(t,res,val){const r=ui.run,st=r.st;st.checked=true;st.ok=res.ok;st.res=res;st.val=val;
  if(!t.retry){r.combo=res.ok?(r.combo||0)+1:0;r.best=Math.max(r.best||0,r.combo);}
  if(!t.retry){r.res.push({k:t.k,tag:t.tag,id:t.id,ok:res.ok,q:promptText(t),given:showVal(t,val),ans:res.ans,lid:t.lid,lvl:t.lvl,review:t.review,sub:t.sayEn||t.en||'',ru:t.k==='pick'?t.ru:''});
   errTag(t.tag,res.ok);if(t.id)grade(t.id,res.ok?2:0,t.m||'r');if(res.ok)r.xp+=10;else(r.miss=r.miss||[]).push(Object.assign({},t,{retry:0,tiles:t.tiles?shuffle(t.tiles):t.tiles}));}
  else if(res.ok)r.xp+=5;
  if(r.mode!=='place')trackMiss(t,res.ok,r.missRun);
+ if(!t.retry)skillCount(t,res.ok);
  if(!res.ok&&!t.retry&&r.mode!=='exam')r.tasks.push(Object.assign({},t,{retry:1,tiles:t.tiles?shuffle(t.tiles):t.tiles}));
  save();}
 function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={};if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
@@ -1387,6 +1724,7 @@ function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).leng
  if(r.mode==='place'){const order=['Pre-A1','A1','A2','B1'];let chain=true;r.placed=[];order.forEach(lv=>{const xs=r.res.filter(x=>x.lvl===lv);if(!xs.length)return;const acc=xs.filter(x=>x.ok).length/xs.length;
    if(chain&&acc>=0.7){LESSONS.filter(l=>l.lvl===lv&&!S.les[l.id]).forEach(l=>{S.les[l.id]={s:Math.round(acc*100),t:now,placed:true};});r.placed.push(lv);}else chain=false;});}
  if(r.mode==='read'&&r.rid){const prev=S.read[r.rid]||{};S.read[r.rid]={s:Math.max(pct,prev.s||0),t:now};}
+ if(r.kind==='episode'&&r.eid){const prev=S.eps[r.eid]||{};S.eps[r.eid]={s:Math.max(pct,prev.s||0),t:now,n:(prev.n||0)+1};}
  if(r.mode==='exam'){S.tests.unshift({t:now,n,score:ok,col:r.col||'all'});S.tests=S.tests.slice(0,30);}
  if(n>=10&&ok===n)S.flags.clean=true;
  S.xp+=r.xp;logHist(r.kind||'mixed',n,ok);r.newAch=checkAch();save();r.done=true;if(r.newAch.length)toast('Unlocked: '+r.newAch.join(', '));}
@@ -1413,18 +1751,62 @@ function startPlacement(){const by={};LESSONS.forEach(l=>{(by[l.lvl]=by[l.lvl]||
  const order=['Pre-A1','A1','A2','B1'];ts.sort((a,b)=>order.indexOf(a.lvl)-order.indexOf(b.lvl));
  return startRun({title:'Placement check',tasks:ts,mode:'place',kind:'place'});}
 
+/* ---------- match game: 60 seconds, match as many pairs as you can; wrong taps cost nothing ---------- */
+const GAME_SECS=60;let gTimer=0;
+function gameSources(){const met=ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].seen).map(i=>i.id),out=[];
+ if(met.length>=6)out.push(['met',"Words you've met ("+met.length+')',met]);
+ LESSONS.forEach((l,i)=>{const ids=lessonItems(l);if(ids.length>=5)out.push(['les:'+l.id,'Lesson '+(i+1)+': '+l.t,ids]);});
+ if(met.length<6&&ITEMS.length)out.push(['all','All words ('+ITEMS.length+')',ITEMS.map(i=>i.id)]);
+ return out;}
+function gameDefault(){const src=gameSources(),nx=nextLesson();const pref=src.find(s=>s[0]==='met')||(nx&&src.find(s=>s[0]==='les:'+nx.id))||src.find(s=>s[0].startsWith('les:'))||src[0];return pref?pref[0]:'';}
+function gameBoard(ids){const used=new Set(),ru=new Set(),en=new Set(),ps=[];for(const id of shuffle(ids)){const it=BY[id];if(!it||ru.has(nr(it.ru))||en.has(it.en)||it.en.length>48||it.ru.length>32)continue;ru.add(nr(it.ru));en.add(it.en);ps.push([it.ru,it.en,id]);if(ps.length===5)break;}
+ return {pairs:ps,L:shuffle(ps.map((p,i)=>i)),R:shuffle(ps.map((p,i)=>i)),done:[],sel:null,bad:null};}
+function gameStart(src){const s=gameSources().find(x=>x[0]===src)||gameSources()[0];if(!s){toast('Learn a few words first.');return;}
+ clearInterval(gTimer);const g=ui.game;Object.assign(g,{src:s[0],label:s[1],ids:s[2],phase:'play',t0:Date.now(),score:0,tries:0,boards:0,board:gameBoard(s[2]),newBest:false});
+ gTimer=setInterval(gameTick,200);}
+function gameTick(){const g=ui.game;if(g.phase!=='play'){clearInterval(gTimer);return;}
+ if(ui.route!=='games'||ui.run){clearInterval(gTimer);g.phase='menu';return;}
+ const left=Math.max(0,GAME_SECS-(Date.now()-g.t0)/1000);const el=document.getElementById('gtime');if(el)el.textContent=Math.ceil(left)+'s';const bar=document.getElementById('gbar');if(bar)bar.style.width=(left/GAME_SECS*100)+'%';
+ if(left<=0)gameEnd();}
+function gameEnd(){const g=ui.game;clearInterval(gTimer);g.phase='end';const rec=S.games[g.src]||{best:0,plays:0,last:0};g.prevBest=rec.best;g.newBest=g.score>rec.best&&g.score>0;
+ S.games[g.src]={best:Math.max(rec.best,g.score),plays:rec.plays+1,last:Date.now()};S.xp+=Math.min(30,g.score*2);logHist('game',g.score,g.score);checkAch();save();render();
+ if(g.newBest){sfx('win');confetti();}}
+function gameTap(side,i){const g=ui.game;if(g.phase!=='play')return;const b=g.board;if(b.done.includes(i))return;
+ if(!b.sel||b.sel[0]===side){b.sel=[side,i];b.bad=null;render();return;}
+ const li=side==='l'?i:b.sel[1],ri=side==='r'?i:b.sel[1];
+ if(li===ri){b.done.push(li);b.sel=null;g.score++;if(b.done.length===b.pairs.length){g.boards++;sfx('coin');g.board=gameBoard(g.ids);}}
+ else{g.tries++;b.bad=[b.sel[0],b.sel[1],side,i];b.sel=null;const bb=b;setTimeout(()=>{if(bb.bad){bb.bad=null;if(ui.route==='games')render();}},500);}
+ render();}
 /* ---------- runner screens ---------- */
 const kbHTML=()=>S.set.kb?`<div class="kb">${'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'.split('').map(c=>`<button data-act="kbKey" data-ch="${c}" lang="ru">${c}</button>`).join('')}<button data-act="kbDel" aria-label="Backspace">del</button></div>`:'';
-function bodyOf(t,st){let h='';const r=ui.run;
+function stagesHTML(r,t){if(!t.stage||t.retry)return '';const sts=[...new Set(r.tasks.filter(x=>x.stage&&!x.retry).map(x=>x.stage))];if(sts.length<2)return '';const ci=sts.indexOf(t.stage);
+ return `<ol class="lstages" aria-label="Stages">${sts.map((s,i)=>`<li class="${i<ci?'done':i===ci?'on':''}"${i===ci?' aria-current="step"':''}>${esc(s)}</li>`).join('')}</ol>`;}
+function bodyOf(t,st){let h='';const r=ui.run;h+=stagesHTML(r,t);
  if(t.review)h+='<span class="tag blue">Review from earlier</span>';
  if(t.focus)h+=`<span class="tag">Targeted: ${esc(TAGS[t.focus][0])}</span>`;
  if(t.retry)h+='<span class="tag amber">Second try</span>';
+ if(t.k==='learn'){
+  if(t.v==='key'){const l=LESSONS.find(x=>x.id===t.lid);return h+`<span class="tag">Key idea</span><h2>${esc(l.t)}</h2><div class="goal"><b>Goal</b> ${esc(l.obj)}</div><p>${esc(l.intro)}</p><ul class="pts">${l.pts.slice(0,3).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${l.ex.length?`<div class="eyebrow">Listen to the examples</div>${exList(l)}`:''}${l.alpha?`<div class="eyebrow">Tap a letter to hear it in a word</div>${alphaHTML()}`:''}<button class="btn big" data-act="rLearn">Got it</button>`;}
+  if(t.v==='word'){const it=BY[t.id];return h+`<span class="tag">New ${it.col==='p'?'phrase':'word'}</span>${entry(it,{xl:1,big:1})}<p class="small muted">Listen, then read the example. You will recognise it first and type it later.</p><button class="btn big" data-act="rLearn">Got it</button>`;}
+  if(t.v==='script'){const ep=EPBY[t.ep];return h+`<span class="tag">Transcript</span><h2>${esc(ep.t)}</h2><p class="muted">${esc(ep.set)} Read along as it plays, or tap a line to hear it again.</p>${epHTML(ep)}${scriptHTML(ep)}<button class="btn big" data-act="rLearn">Continue</button>`;}}
+ if(t.k==='shadow'){const sc=st.sc,listening=st.mic==='listening';
+  const words=sc?sc.words.map((w,i)=>`<span class="${sc.marks[i]?'hit':'miss'}">${esc(stressify(w))}</span>`).join(' '):esc(stressify(t.ru));
+  let ctl='';
+  if(!st.checked){
+   if(SRC&&!st.noMic)ctl=`<div class="spkwrap"><button class="bigspk mic${listening?' playing':''}" data-act="shMic" aria-label="${listening?'Stop listening':'Say it'}">${ICON.mic}</button><span class="muted" id="heard" aria-live="polite">${listening?'Listening…':sc?'Try again, or carry on.':'Tap, then say it'}</span></div><div class="row center"><button class="btn quiet" data-act="shSelf" data-ok="1">${sc?'Carry on':'I said it'}</button></div>`;
+   else ctl=`<p class="small muted">${esc(MIC_NOTE)}</p><div class="row"><button class="btn grow" data-act="shSelf" data-ok="1">I said it</button><button class="btn quiet" data-act="shSelf" data-ok="0">Skip</button></div>`;}
+  return h+`<span class="tag">Shadowing</span><p class="muted">Listen, then say it out loud, copying the rhythm and the stress.</p>${lpHTML(t.ru)}<div class="ru lg shadow-t" lang="ru">${words}</div><div class="small muted">${esc(t.en||'')}</div>${sc?`<p class="small">I heard: <b lang="ru">${esc(sc.heard)}</b> · ${sc.pct}% of the words</p>`:''}${ctl}`;}
+ if(t.k==='match'){const m=st.mt||(st.mt={sel:null,done:[],bad:null,errs:0});
+  const cell=(side,i)=>{const p=t.pairs[i],done=m.done.includes(i),sel=m.sel&&m.sel[0]===side&&m.sel[1]===i,bad=m.bad&&((m.bad[0]===side&&m.bad[1]===i)||(m.bad[2]===side&&m.bad[3]===i));
+   return `<button class="mcell${done?' done':''}${sel?' sel':''}${bad?' bad':''}" data-act="rMatch" data-s="${side}" data-i="${i}"${done||st.checked?' disabled':''} lang="${side==='l'?'ru':'en'}">${esc(side==='l'?p[0]:p[1])}</button>`;};
+  return h+`<span class="tag">Match the pairs</span><p class="muted">Tap a Russian word, then its meaning.</p><div class="match"><div class="mcol">${t.L.map(i=>cell('l',i)).join('')}</div><div class="mcol">${t.R.map(i=>cell('r',i)).join('')}</div></div>`;}
  if(t.k==='card'){const it=BY[t.id];
   if(!st.shown){if(t.dir==='recog')return h+`<span class="tag">Flashcard</span><div class="ru xl" lang="ru">${esc(ruH(it))}</div><div class="ph">${esc(it.ph)}</div><p class="muted">What does this mean? Think how it sounds, then tap the speaker to check.</p>${bigSpk(it.ru)}<button class="btn big" data-act="rReveal">Show answer</button>`;
    return h+`<span class="tag">Flashcard</span><div class="prompt">${esc(it.en)}</div><p class="muted">Say it in Russian out loud, then check.</p><button class="btn big" data-act="rReveal">Show answer</button>`;}
   const b=step(t.id);return h+entry(it,{xl:1,big:1})+`<div class="eyebrow">How well did you know it?</div><div class="grades">${['Again','Hard','Good','Easy'].map((l,g)=>`<button data-act="rGrade" data-g="${g}">${l}<small>${fmtGap(nextGap(b,g))}</small></button>`).join('')}</div>`;}
  if(t.k==='pick'||t.k==='listen'){
-  if(t.k==='listen')h+=`<span class="tag">Listening</span>${lpHTML(t.ru)}<p class="muted">Choose the meaning.</p>`;
+  if(t.ep){const ep=EPBY[t.ep];h+=`<span class="tag">Episode · ${esc(ep.t)}</span>${t.epAuto?'<p class="muted">Listen for the general meaning. You do not need every word.</p>':''}${epHTML(ep)}<div class="prompt">${esc(t.q)}</div>`;}
+  else if(t.k==='listen')h+=`<span class="tag">Listening</span>${lpHTML(t.ru)}<p class="muted">Choose the meaning.</p>`;
   else if(t.qRu)h+=`<p class="muted">What does this mean?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.q)}</div><div class="row nowrap">${sayBtns(t.q)}</div></div>`;
   else h+=`<div class="prompt">${esc(t.q)}</div>`;
   return h+`<div class="opts">${t.opts.map((o,k)=>`<button class="opt${st.checked?(o===t.ans?' good':st.val===o?' bad':''):st.val===o?' sel':''}" data-act="rPick" data-i="${k}"${st.checked?' disabled':''} lang="${t.optRu?'ru':'en'}">${esc(o)}</button>`).join('')}</div>`;}
@@ -1435,7 +1817,7 @@ function bodyOf(t,st){let h='';const r=ui.run;
   return h+`<div class="tray" aria-label="Your sentence">${sel.length?sel.map(i=>`<button class="tile on" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(t.tiles[i])}</button>`).join(''):'<span class="muted small">Tap the words in order</span>'}</div><div class="bank">${t.tiles.map((w,i)=>sel.includes(i)?'':`<button class="tile" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(w)}</button>`).join('')}</div>${st.checked?'':`<button class="btn big" data-act="rCheck"${sel.length?'':' disabled'}>Check</button>`}`;}
  /* typed answers */
  let lead='',lang='ru',init='';
- if(t.k==='type')lead=`<span class="tag">Translate into Russian</span><div class="prompt">${esc(t.q)}</div>`;
+ if(t.k==='type')lead=t.say?`<span class="tag">Your turn: reply</span><div class="bubble"><div class="row sp top"><span lang="ru" class="ru">${esc(t.say)}</span><span class="row nowrap">${sayBtns(t.say,t.sayW)}</span></div><details><summary class="small">Show translation</summary><span class="small muted">${esc(t.sayEn)}</span></details></div><div class="prompt">${esc(t.q)}</div><p class="small muted">Say your reply out loud first, then type it.</p>`:`<span class="tag">Translate into Russian</span><div class="prompt">${esc(t.q)}</div>`;
  if(t.k==='read'){lang='en';lead=`<span class="tag">Read it, then type the English</span><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.ru)}</div><div class="row nowrap">${sayBtns(t.ru)}</div></div>`;}
  if(t.k==='dict')lead=`<span class="tag">Dictation</span>${lpHTML(t.ru)}<p class="muted">Type what you hear in Russian.</p>`;
  if(t.k==='cloze')lead=`<span class="tag">Fill the gap</span><div class="prompt" lang="ru">${esc(t.q)}</div>${t.hint?`<p class="muted">${esc(t.hint)}</p>`:''}`;
@@ -1463,15 +1845,89 @@ function vRunner(){const r=ui.run;if(r.done)return vSummary();
 function vSummary(){const r=ui.run,miss=r.res.filter(x=>!x.ok);const byTag={};miss.forEach(x=>{byTag[x.tag]=(byTag[x.tag]||0)+1;});
  const focus=Object.keys(byTag).filter(t=>byTag[t]>=2&&TAGS[t]).sort((a,b)=>byTag[b]-byTag[a]).slice(0,3);
  const stars=r.pct>=90?3:r.pct>=70?2:r.pct>=40?1:0;const lesson=r.mode==='lesson'?LESSONS.find(l=>l.id===r.lid):null,nx=nextLesson();
- let head=r.mode==='lesson'?(r.pct>=70?'Lesson complete! 🎉':'Almost there'):r.mode==='exam'?'Test complete':r.mode==='place'?'Placement result':r.mode==='read'?'Passage checked':'Session complete';
+ let head=r.mode==='lesson'?(r.pct>=70?'Lesson complete! 🎉':'Almost there'):r.mode==='exam'?'Test complete':r.mode==='place'?'Placement result':r.mode==='read'?'Passage checked':r.kind==='episode'?'Episode complete! 🎧':'Session complete';
  let sub=r.mode==='lesson'?(r.pct>=70?'You scored '+r.pct+'%. This lesson now counts as done and returns in your reviews.':'You need 70% to complete a lesson. Review the explanation and try again. The mistakes are listed below.'):r.mode==='place'?(r.placed&&r.placed.length?'You already know the '+r.placed.join(', ')+' material. Those lessons are marked complete, so your path starts at the first gap.':'Your path starts at Lesson 1. You can retake this check any time.'):r.pct>=85?'Fantastic! 🎉':r.pct>=60?'Solid progress. Missed items return in your reviews.':'A good start. The items you missed are scheduled to come back soon.';
  let h=`<div class="runner"><section class="card center"><div class="bunny-wrap">${bunny(r.pct>=60?'cheer':'oops')}</div><div class="ring" style="--p:${r.pct}"><b>${r.pct}%</b></div><h1>${head}</h1><div class="stars" aria-label="${stars} of 3 stars">${[1,2,3].map(i=>`<span class="${i<=stars?'on':''}" style="animation-delay:${i*.18}s">★</span>`).join('')}</div><div class="pills"><span>⭐ +${r.xp} XP</span><span>🎯 ${r.ok}/${r.n}</span>${r.best>=3?`<span>🔥 best ${r.best} in a row</span>`:''}</div><p>${sub}</p>
  ${miss.length&&r.mode!=='place'?`<p class="small muted center">${r.missRun?'Questions you got right have left your missed list. The rest stay for next time.':'Your mistakes are saved. Retake them any time from Test, under Missed questions.'}</p>`:r.missRun?'<p class="small muted center">All cleared from your missed list! 🎉</p>':''}
- <div class="row center">${r.mode==='lesson'&&r.passed&&nx?`<button class="btn" data-act="rNextLesson" data-id="${nx.id}">Next lesson</button>`:''}${miss.length&&r.mode!=='exam'?'<button class="btn alt" data-act="rAgain">Practise mistakes</button>':''}<button class="btn quiet" data-act="rDone">Done</button></div></section>`;
+ <div class="row center">${r.kind==='episode'&&r.eid?`<button class="btn" data-act="gameLesson" data-id="${EPBY[r.eid].lid}">Play the match game</button>`:''}${r.mode==='lesson'&&r.passed&&r.lid&&epFor(r.lid)?`<button class="btn" data-act="epStart" data-id="${epFor(r.lid).id}">Listen to the episode</button>`:''}${r.mode==='lesson'&&r.passed&&nx?`<button class="btn" data-act="rNextLesson" data-id="${nx.id}">Next lesson</button>`:''}${miss.length&&r.mode!=='exam'?'<button class="btn alt" data-act="rAgain">Practise mistakes</button>':''}<button class="btn quiet" data-act="rDone">Done</button></div></section>`;
  if(focus.length)h+=`<section class="card"><div class="eyebrow">Needs work</div>${focus.map(t=>`<div class="row sp"><span>${esc(TAGS[t][0])} · ${byTag[t]} missed</span><button class="btn alt sm" data-act="targeted" data-tag="${t}">Practise</button></div>`).join('')}</section>`;
  if(miss.length)h+=`<h2>${r.mode==='exam'?'Review incorrect answers':'Mistakes'} (${miss.length})</h2>`+miss.slice(0,40).map(x=>{const it=x.id?BY[x.id]:null;
   return `<section class="card"><div class="row sp"><span class="tag">${esc(TAGS[x.tag]?TAGS[x.tag][0]:'')}</span></div><div class="small muted">Prompt</div><div lang="${x.k==='dict'||x.k==='listen'||x.k==='read'||x.ru?'ru':'en'}">${esc(x.q)}</div>${x.sub?`<div class="small muted">${esc(x.sub)}</div>`:''}<div class="small muted">Your answer</div><div class="no">${x.given?esc(x.given):'No answer'}</div><div class="small muted">Correct</div><div><b>${esc(x.ans)}</b></div>${it?`<hr>${entry(it)}`:''}</section>`;}).join('');
  return h+'</div>';}
+
+/* ---------- speaking: microphone (browser speech recognition), conversation partner, shadowing ---------- */
+const SRC=(typeof window!=='undefined'&&(window.SpeechRecognition||window.webkitSpeechRecognition))||null;
+let recog=null;
+/* Listen once in Russian. onText(alternatives[]) gets what was heard; onState(state, info) reports listening / interim / error / nothing. */
+function micListen(onText,onState){if(!SRC)return false;stopAudio();try{if(recog)recog.abort();}catch(e){}
+ let r;try{r=new SRC();}catch(e){return false;}recog=r;r.lang='ru-RU';r.interimResults=true;r.maxAlternatives=4;r.continuous=false;let alts=null,interim='';
+ r.onresult=e=>{const res=e.results[e.results.length-1];if(res.isFinal){alts=[];for(let k=0;k<res.length;k++)alts.push(res[k].transcript);}else{interim=res[0].transcript;onState('interim',interim);}};
+ r.onerror=e=>{alts=alts||null;onState('error',e.error||'error');};
+ r.onend=()=>{if(recog===r)recog=null;if(alts&&alts.length)onText(alts);else if(interim)onText([interim]);else onState('nothing','');};
+ try{r.start();}catch(e){return false;}onState('listening','');return true;}
+function micStop(){try{if(recog)recog.stop();}catch(e){}}
+const MIC_ERR={'not-allowed':'Microphone access is blocked. Allow it in your browser settings, or type instead.','service-not-allowed':'Speech recognition is not available here. You can type instead.','no-speech':"I didn't hear anything. Tap the microphone and speak after the beep.",'audio-capture':'No microphone was found. You can type instead.','network':'Speech recognition needs an internet connection.'};
+const MIC_NOTE='Your browser cannot listen to speech here. Type instead, or tap the microphone on your phone keyboard after adding a Russian keyboard.';
+
+/* comparing replies: lower case, ё as е, no punctuation. \b in patterns means a Cyrillic-aware word edge. */
+const talkNorm=s=>String(s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+const reCache={};
+function talkRe(p){return reCache[p]||(reCache[p]=new RegExp(p.replace(/\\b(?=[a-zа-я(\[])/g,'(?:^|[^a-zа-я0-9])').replace(/\\b/g,'(?=[^a-zа-я0-9]|$)')));}
+const talkAccepts=(tn,text)=>{const c=talkNorm(text);return !!c&&tn.acc.some(p=>talkRe(p).test(c));};
+
+/* ---------- conversation partner ---------- */
+const talkUnlocked=sc=>{const l=LESSONS.find(x=>x.id===sc.need);return !l||lessonDone(l);};
+const talkLessonNo=sc=>LESSONS.findIndex(x=>x.id===sc.need)+1;
+function talkOpen(id){const sc=TALKBY[id];if(!sc)return;stopAudio();micStop();
+ ui.talk={id,phase:'intro',i:0,log:[],tries:0,notes:[],own:0,helped:0,showEn:S.set.talkEn!==undefined?!!S.set.talkEn:doneCount()<10,showModel:false,mic:'idle',heard:'',used:false};}
+function talkSpeak(lines){const sc=TALKBY[ui.talk.id];if(!lines.length)return;sayAll(lines.map(l=>({t:l[0],w:'!'+sc.who})),false,null,true);}
+function talkStart(){const g=ui.talk,sc=TALKBY[g.id];g.phase='chat';g.i=0;g.log=[{p:1,ru:sc.turns[0].say,en:sc.turns[0].en}];talkSpeak([[sc.turns[0].say]]);}
+function talkNote(g,n){n.turn=g.i;const k=g.notes.findIndex(x=>x.turn===g.i);if(k<0){g.notes.push(n);return;}const o=g.notes[k];if(o.tip&&!n.tip)g.notes[k]=n;else if(!o.tip&&!n.tip&&o.why!==n.why)o.why+=' '+n.why;else o.you=n.you;}
+function talkReply(alts,viaModel){const g=ui.talk,sc=TALKBY[g.id],tn=sc.turns[g.i];if(!tn)return;
+ alts=(alts||[]).map(a=>String(a).trim()).filter(Boolean);if(!alts.length)return;
+ const hitIdx=alts.findIndex(a=>talkAccepts(tn,a)),said=hitIdx>=0?alts[hitIdx]:alts[0];g.heard='';
+ g.log.push({u:1,ru:said});
+ if(hitIdx>=0){const c=talkNorm(said);
+  (tn.fix||[]).map(f=>typeof f==='string'?TALK_FIX[f]:f).filter(Boolean).forEach(f=>{if(talkRe(f[0]).test(c)){talkNote(g,{you:said,model:tn.model,why:f[1]});if(f[2])errTag(f[2],false);}});
+  if(tn.tip&&!talkRe(tn.tip[0]).test(c))talkNote(g,{you:said,model:tn.model,why:tn.tip[1],tip:1});
+  if(viaModel||g.used){g.helped++;if(!viaModel)talkNote(g,{you:said,model:tn.model,why:'You got there with the hint. Say the natural version out loud a few times.',tip:1});}else if(g.tries>0){g.own++;}else g.own++;
+  errTag('speak',!(viaModel||g.used));
+  g.tries=0;g.used=false;g.showModel=false;g.i++;
+  const next=sc.turns[g.i],say=[];if(tn.ok){g.log.push({p:1,ru:tn.ok[0],en:tn.ok[1]});say.push(tn.ok);}
+  if(next){g.log.push({p:1,ru:next.say,en:next.en});say.push([next.say]);talkSpeak(say);}
+  else{talkSpeak(say);talkFinish();}
+  return true;}
+ g.tries++;if(g.tries===1)errTag('speak',false);
+ if(g.tries>=2){g.showModel=true;talkNote(g,{you:said,model:tn.model,why:'Here is a natural way to say this. Try it out loud.',tip:1});}
+ const cl=TALK_CLAR[sc.who+(sc.formal?'F':'I')];g.log.push({p:1,ru:cl[0],en:cl[1],clar:1});talkSpeak([cl]);return false;}
+function talkFinish(){const g=ui.talk,sc=TALKBY[g.id],n=sc.turns.length,pct=Math.round(g.own/n*100),prev=S.talk[g.id]||{best:0,n:0};
+ S.talk[g.id]={best:Math.max(prev.best||0,pct),n:(prev.n||0)+1,t:Date.now()};S.xp+=10+g.own*5;logHist('talk',n,g.own);
+ const k=dkey(Date.now());S.days[k]=(S.days[k]||0)+n;checkAch();save();g.phase='end';g.pct=pct;sfx(pct>=60?'win':'coin');if(pct>=60)setTimeout(()=>{try{confetti();}catch(e){}},50);}
+function talkMic(){const g=ui.talk;if(g.mic==='listening'){micStop();return;}
+ const ok=micListen(alts=>{g.mic='idle';render();talkReply(alts);render();talkScroll();},(st,info)=>{
+  if(st==='listening'){g.mic='listening';g.heard='';render();}
+  else if(st==='interim'){g.heard=info;const el=document.getElementById('heard');if(el)el.textContent=info;}
+  else if(st==='error'){g.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again or type instead.');render();}
+  else if(st==='nothing'){g.mic='idle';render();}});
+ if(!ok)toast(MIC_NOTE);}
+function talkScroll(){const el=document.querySelector('.chat');if(el&&el.lastElementChild&&el.lastElementChild.scrollIntoView){try{el.lastElementChild.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}}}
+/* the conversation's lines, plus the natural model answers, as shadowing practice */
+function talkShadowTasks(sc){const ts=[];sc.turns.forEach(tn=>{ts.push({k:'shadow',ru:tn.say,en:tn.en,who:'!'+sc.who,tag:'speak'});ts.push({k:'shadow',ru:tn.model,en:tn.goal,tag:'speak'});});return ts.slice(0,8);}
+
+/* ---------- shadowing: listen, say it aloud, compare word by word ---------- */
+function shadowScore(target,heard){const tw=talkNorm(target).split(' ').filter(Boolean),hw=talkNorm(heard).split(' ').filter(Boolean);const pool=hw.slice();
+ const marks=tw.map(w=>{const i=pool.findIndex(h=>h===w||(w.length>4&&h.slice(0,w.length-2)===w.slice(0,w.length-2)));if(i>=0){pool.splice(i,1);return 1;}return 0;});
+ return {pct:tw.length?Math.round(marks.reduce((a,b)=>a+b,0)/tw.length*100):0,marks,words:String(target).split(/\s+/)};}
+function shadowTasksFromSeen(n){const out=[],seen=new Set();
+ ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].seen).sort((a,b)=>mast(a.id)-mast(b.id)).forEach(i=>{if(i.ex&&!seen.has(i.ex)&&i.ex.split(' ').length>=3){seen.add(i.ex);out.push({k:'shadow',id:i.id,ru:i.ex,en:i.exEn,tag:'speak'});}});
+ EPISODES.filter(e=>S.eps[e.id]).forEach(e=>e.lines.forEach(l=>{if(!seen.has(l[1])&&l[1].split(' ').length>=2){seen.add(l[1]);out.push({k:'shadow',ru:l[1],en:l[2],who:l[0],tag:'speak'});}}));
+ if(out.length<n)LESSONS.slice(0,Math.max(1,doneCount())).forEach(l=>l.ex.forEach(e=>{if(!seen.has(e[0])){seen.add(e[0]);out.push({k:'shadow',ru:e[0],en:e[2],tag:'speak'});}}));
+ return shuffle(out.slice(0,n*3)).slice(0,n);}
+function shadowMic(){const r=ui.run,t=cur(),st=r.st;if(st.checked)return;if(st.mic==='listening'){micStop();return;}
+ const ok=micListen(alts=>{st.mic='idle';let best=null;alts.forEach(a=>{const s=shadowScore(t.ru,a);if(!best||s.pct>best.pct)best=Object.assign(s,{heard:a});});
+  st.sc=best;st.tries=(st.tries||0)+1;if(best.pct>=70||st.tries>=3){commit(t,{ok:best.pct>=70,ans:t.ru},best.heard);sfx(best.pct>=70?'coin':'no');}render();afterCheckScroll();},
+  (s,info)=>{if(s==='listening'){st.mic='listening';render();}else if(s==='interim'){const el=document.getElementById('heard');if(el)el.textContent=info;}else if(s==='error'){st.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again, or tap "I said it".');render();}else if(s==='nothing'){st.mic='idle';render();}});
+ if(!ok){st.noMic=true;render();}}
 
 /* ---------- shared view helpers ---------- */
 const seg=(act,k,val,opts)=>`<div class="seg" role="group">${opts.map(o=>`<button data-act="${act}" data-k="${k}" data-v="${o[0]}" aria-pressed="${String(val)===String(o[0])}">${o[1]}</button>`).join('')}</div>`;
@@ -1489,12 +1945,28 @@ function goalHTML(){const n=S.days[dkey(Date.now())]||0,goal=SESSION_N[S.set.len
  return `<div class="goal-row"><div class="gring" style="--p:${p}"><span>${p>=100?'🏆':'🎯'}</span></div><div><b>${p>=100?'Daily goal smashed!':'Daily goal'}</b><div class="small muted">${Math.min(n,goal)} of ${goal} answers today${p>=100?'. Amazing work!':''}</div></div></div>`;}
 /* ---------- TODAY ---------- */
 function weekDots(){const out=[];for(let k=6;k>=0;k--){const t=Date.now()-k*DAY,v=S.days[dkey(t)]||0;out.push(`<div class="wd${v?' on':''}"><i></i><span>${new Date(t).toLocaleDateString('en-GB',{weekday:'narrow'})}</span></div>`);}return out.join('');}
+/* ---------- learning journey: each lesson is Learn -> Listen -> Play -> Review ---------- */
+function journeyLesson(){const pend=LESSONS.filter(l=>S.les[l.id]&&!S.les[l.id].placed&&epFor(l.id)&&!S.eps[epFor(l.id).id]);
+ if(pend.length)return pend[pend.length-1];return nextLesson()||LESSONS[LESSONS.length-1];}
+function lessonSteps(l){const ep=epFor(l.id),ids=lessonItems(l),gk='les:'+l.id,due=ids.filter(isDue).length;
+ return [{k:'learn',lab:'Learn',sub:lessonDone(l)?(S.les[l.id].placed?'Known':'Best '+S.les[l.id].s+'%'):'Meet, recognise, then use',done:lessonDone(l),act:`data-act="lessonPractice" data-id="${l.id}"`},
+  ep&&{k:'listen',lab:'Listen',sub:S.eps[ep.id]?'Best '+S.eps[ep.id].s+'%':'Episode',done:!!S.eps[ep.id],act:`data-act="epStart" data-id="${ep.id}"`},
+  (()=>{const sc=TALKS.find(s=>s.need===l.id);return sc&&{k:'speak',lab:'Speak',sub:S.talk[sc.id]?'Best '+S.talk[sc.id].best+'%':sc.t,done:!!S.talk[sc.id],act:`data-act="tOpen" data-id="${sc.id}"`};})(),
+  ids.length>=5&&{k:'play',lab:'Play',sub:S.games[gk]?'Best '+S.games[gk].best:'Match race',done:!!S.games[gk],act:`data-act="gameLesson" data-id="${l.id}"`},
+  ids.length&&{k:'review',lab:'Review',sub:due?due+' due':'Flashcards',done:false,act:`data-act="lessonFlash" data-id="${l.id}"`}].filter(Boolean);}
+function stepsHTML(l){return `<ol class="jsteps">${lessonSteps(l).map((s,i)=>`<li class="${s.done?'done':''}"><button ${s.act}><span class="jn">${s.done?'✓':i+1}</span><span class="jt"><b>${s.lab}</b><small>${esc(s.sub)}</small></span></button></li>`).join('')}</ol>`;}
+function journeyHTML(){const l=journeyLesson();if(!l)return '';const st=lessonSteps(l),nx=st.find(s=>!s.done)||st[st.length-1],n=LESSONS.indexOf(l)+1;
+ const lab={learn:lessonDone(l)?'Practise again':'Start the lesson',listen:'Listen to the episode',speak:'Have the conversation',play:'Play the match race',review:'Review the words'}[nx.k];
+ return `<section class="card journey"><div class="eyebrow">Your journey · Lesson ${n} of ${LESSONS.length} · ${esc(l.lvl)}</div><h2>${esc(l.t)}</h2><p class="muted">${esc(l.obj)}</p>${stepsHTML(l)}<div class="row"><button class="btn big grow" ${nx.act}>${lab}</button><button class="btn quiet" data-act="openLesson" data-id="${l.id}">Lesson page</button></div></section>`;}
+function hubHTML(){const dn=doneCount(),due=ITEMS.filter(i=>isDue(i.id)).length,mk=missList().length,eps=Object.keys(S.eps).length,gb=Math.max(0,...Object.values(S.games).map(g=>g.best)),known=ITEMS.filter(i=>atLeast(i.id,'recognised')).length;
+ const tile=(r,ic,t,s)=>`<button class="hub-t" data-act="goRoute" data-r="${r}"><span class="hub-i" aria-hidden="true">${ic}</span><b>${t}</b><small>${esc(s)}</small></button>`;
+ return `<nav class="hub" aria-label="Go to">${tile('learn','📚','Lessons',dn+' of '+LESSONS.length+' done')}${tile('study','🔁','Review',due?due+' due'+(mk?' · '+mk+' missed':''):mk?mk+' missed':'All caught up')}${tile('read','🎧','Listening',eps+' of '+EPISODES.length+' episodes')}${tile('talk','🗣️','Speak',Object.keys(S.talk).length+' of '+TALKS.length+' conversations')}${tile('games','🎮','Games',gb?'Best '+gb+' pairs':'Match race')}${tile('progress','📈','Progress',known+' words known')}</nav>`;}
 function vToday(){
  const nx=nextLesson(),plan=planSession(S.set.len),started=ITEMS.some(i=>S.cards[i.id]&&S.cards[i.id].seen),days=Object.keys(S.days).length;
  let h='';
  if(audioMode==='device')h+=`<div class="note">The natural voices are not connected yet, so Buni is using your device's voice for now. This needs the project's audio function and a voice API key (see the README, step 2).</div>`;
  const due=ITEMS.filter(i=>isDue(i.id)).length;
- h+=`<section class="card hero"><div class="mascot"><div class="bunny-wrap">${bunny("happy")}</div><div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}`;
+ h+=`<section class="card hero"><div class="mascot"><div class="bunny-wrap">${bunny("happy")}</div><div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}</section>${journeyHTML()}${hubHTML()}<section class="card">`;
  if(plan){h+=`<h1>Your ${S.set.len}-minute session</h1><p class="muted">${due?due+' item'+(due>1?'s are':' is')+' due. ':''}Chosen from your reviews, weak spots and goals, in this order of priority.</p>
   <div class="seg" role="group" aria-label="Session length">${[5,10,20,30].map(m=>`<button data-act="setLen" data-v="${m}" aria-pressed="${S.set.len===m}">${m} min<small>${LEN_LABEL[m]}</small></button>`).join('')}</div>
   <ol class="plan">${plan.lines.map(l=>`<li><b>${esc(l[0])}</b><span class="small muted">${esc(l[1])}</span></li>`).join('')}</ol>
@@ -1502,10 +1974,55 @@ function vToday(){
  else h+=`<h1>Welcome to Bunova</h1><p class="muted">Start with the course. As you learn, this page will build a daily session from what is due, what you find hard and what to learn next.</p>${nx?`<button class="btn big" data-act="openLesson" data-id="${nx.id}">Start Lesson ${LESSONS.indexOf(nx)+1}: ${esc(nx.t)}</button>`:''}`;
  h+='</section>';
  if(!doneCount()&&!started)h+=`<section class="card"><h2>Already know some Russian?</h2><p class="muted">A 5-minute placement check marks the levels you already know as complete, so you start at the first gap.</p><button class="btn alt" data-act="placement">Take the placement check</button></section>`;
- if(nx)h+=`<section class="card"><div class="eyebrow">Next lesson · ${esc(nx.lvl)}</div><h2>${LESSONS.indexOf(nx)+1}. ${esc(nx.t)}</h2><p class="muted">${esc(nx.obj)}</p><div class="row"><button class="btn alt" data-act="openLesson" data-id="${nx.id}">Open lesson</button><span class="small muted">about ${nx.min} min</span></div></section>`;
+ /* the next lesson now lives in the journey card above */
  const rd=READING.find(p=>!S.read[p.id]&&S.les[p.need]);
  if(rd)h+=`<section class="card"><div class="eyebrow">Read and listen · ${rd.lvl}</div><h2>${esc(rd.t)}</h2><p class="muted">A short passage that uses what you have just learned.</p><button class="btn alt" data-act="openPassage" data-id="${rd.id}">Open passage</button></section>`;
  h+=`<section class="card flat"><div class="row sp"><div class="eyebrow">This week</div><span class="small muted">${days} practice day${days===1?'':'s'} in total</span></div><div class="week">${weekDots()}</div><p class="small muted">Missing a day costs you nothing. Reviews simply wait for you.</p></section>`;
+ return h;}
+
+/* ---------- SPEAK: conversation partner ---------- */
+function vTalk(){const g=ui.talk,sc=g.id?TALKBY[g.id]:null;
+ if(!sc||g.phase==='list'){const nu=TALKS.filter(talkUnlocked).length;
+  return `<section class="card"><h1>Speak</h1><p class="muted">Real conversations with a partner who answers out loud. Speak into the microphone or type. You can make mistakes: the partner keeps going, and the important ones are explained at the end.</p>${SRC?'':`<div class="note small">${esc(MIC_NOTE)}</div>`}</section>
+  <section class="card"><div class="eyebrow">Conversations · ${nu} of ${TALKS.length} unlocked</div><div class="list">${TALKS.map(s=>{const d=S.talk[s.id],open=talkUnlocked(s);
+   return `<button class="les" data-act="tOpen" data-id="${s.id}"><span class="num${d?' done':''}">${d?'✓':open?'🗣️':'🔒'}</span><span class="grow"><b>${esc(s.t)}</b><br><span class="small muted">${d?'Best: '+d.best+'% on your own · ':''}${open?esc(s.can):'Unlocks after lesson '+talkLessonNo(s)}</span></span></button>`;}).join('')}</div>
+  <p class="small muted">The partner follows a script that accepts many different answers, so it only uses Russian you have already met. A fully open AI chat partner could be added later.</p></section>`;}
+ const head=`<div class="row sp"><button class="btn quiet" data-act="tBack">All conversations</button>${g.phase==='chat'?`<button class="chip" data-act="tEn" aria-pressed="${g.showEn}">English</button>`:''}</div>`;
+ if(g.phase==='intro')return head+`<section class="card"><div class="eyebrow">Conversation</div><h1>${esc(sc.t)}</h1><div class="goal"><b>Goal</b> ${esc(sc.can)}</div><p>${esc(sc.set)}</p>
+  ${talkUnlocked(sc)?'':`<div class="note small">This builds on lesson ${talkLessonNo(sc)}. You can try it now, but it will be easier after that lesson.</div>`}</section>
+  <section class="card"><div class="eyebrow">Phrases to keep it going</div><div class="list">${sc.phr.map(p=>`<div class="ex"><div><div class="exru" lang="ru">${esc(stressify(p[0]))}</div><div class="small muted">${esc(p[1])}${p[2]?' · <i>'+esc(p[2])+'</i>':''}</div></div><div class="row nowrap">${sayBtns(p[0].replace(/…/g,''),sc.who)}</div></div>`).join('')}</div></section>
+  <button class="btn big" data-act="talkGo">Start the conversation</button>`;
+ if(g.phase==='end'){const n=sc.turns.length;
+  return head+`<section class="card center"><div class="bunny-wrap">${bunny(g.pct>=60?'cheer':'happy')}</div><h1>${g.pct>=60?'Great conversation! 🎉':'Conversation complete'}</h1><div class="pills"><span>🗣️ ${g.own} of ${n} on your own</span><span>⭐ +${10+g.own*5} XP</span></div><p class="muted">✓ ${esc(sc.can)}</p>
+   <div class="row center"><button class="btn" data-act="talkGo">Try again</button><button class="btn alt" data-act="tShadow">Shadow this conversation</button><button class="btn quiet" data-act="tBack">Other conversations</button></div></section>
+   ${g.notes.length?`<h2>Things to polish (${g.notes.length})</h2>`+g.notes.map(x=>`<section class="card"><div class="small muted">You said</div><div lang="ru">${esc(x.you)}</div><div class="small muted">A natural way to say it</div><div class="row sp"><b lang="ru">${esc(stressify(x.model))}</b>${sayBtns(x.model)}</div><p class="small">${esc(x.why)}</p></section>`).join(''):`<section class="card"><p>No corrections this time. Natural and clear! 🌟</p></section>`}
+   <section class="card"><div class="eyebrow">Phrases from this conversation</div><div class="list">${sc.phr.map(p=>`<div class="row sp"><span lang="ru">${esc(stressify(p[0]))}</span><span class="small muted">${esc(p[1])}</span></div>`).join('')}</div></section>`;}
+ const tn=sc.turns[g.i],listening=g.mic==='listening';
+ const log=g.log.map(m=>m.u?`<div class="msg me"><span lang="ru">${esc(m.ru)}</span></div>`:`<div class="msg them${m.clar?' clar':''}"><div class="row sp top"><span class="grow"><span lang="ru">${esc(stressify(m.ru))}</span>${g.showEn&&m.en?`<span class="small muted en">${esc(m.en)}</span>`:''}</span><button class="ib sm" data-act="say" data-t="${esc(m.ru)}" data-who="!${sc.who}" aria-label="Play">${ICON.play}</button></div></div>`).join('');
+ return head+`<section class="card talk"><div class="eyebrow">${esc(sc.t)} · ${Math.min(g.i+1,sc.turns.length)} of ${sc.turns.length}</div><div class="chat" aria-live="polite">${log}</div>
+  ${tn?`<div class="turn"><div class="goal"><b>Your turn</b> ${esc(tn.goal)}</div>
+  ${g.showModel?`<div class="model"><span class="small muted">You could say</span><div class="row sp"><b lang="ru">${esc(stressify(tn.model))}</b>${sayBtns(tn.model)}</div><button class="btn alt sm" data-act="tUse">Use this answer</button></div>`:`<button class="btn quiet sm" data-act="tHint">Show me a natural answer</button>`}
+  <div class="talkin">${SRC?`<button class="bigspk mic${listening?' playing':''}" data-act="tMic" aria-label="${listening?'Stop listening':'Speak your answer'}">${ICON.mic}</button>`:''}
+  <div class="grow"><div class="small muted" id="heard" aria-live="polite">${listening?'Listening… speak now':SRC?'Tap the microphone and speak, or type below.':esc(MIC_NOTE)}</div>
+  <div class="row nowrap"><input type="text" id="tIn" lang="ru" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Type in Russian" aria-label="Your reply"><button class="ib" data-act="tSend" aria-label="Send">${ICON.send}</button></div></div></div></div>`:''}</section>`;}
+
+/* ---------- GAMES ---------- */
+function vGames(){const g=ui.game,src=gameSources();if(!g.src||!src.some(s=>s[0]===g.src))g.src=gameDefault();
+ const best=k=>(S.games[k]||{}).best||0;
+ if(g.phase==='play'){const b=g.board,left=Math.max(0,GAME_SECS-(Date.now()-g.t0)/1000);
+  const cell=(side,i)=>{const p=b.pairs[i],done=b.done.includes(i),sel=b.sel&&b.sel[0]===side&&b.sel[1]===i,bad=b.bad&&((b.bad[0]===side&&b.bad[1]===i)||(b.bad[2]===side&&b.bad[3]===i));
+   return `<button class="mcell${done?' done':''}${sel?' sel':''}${bad?' bad':''}" data-act="gTap" data-s="${side}" data-i="${i}"${done?' disabled':''} lang="${side==='l'?'ru':'en'}">${esc(side==='l'?p[0]:p[1])}</button>`;};
+  return `<section class="card game"><div class="row sp"><span class="chip static" aria-label="Score">⭐ ${g.score}</span><b class="gtime" id="gtime" aria-live="off">${Math.ceil(left)}s</b><button class="btn quiet sm" data-act="gStop">Stop</button></div>
+  <div class="bar gbar"><i id="gbar" style="width:${left/GAME_SECS*100}%"></i></div>
+  <p class="small muted center">Match each Russian word to its meaning. Mistakes don't count against you.</p>
+  <div class="match">${b.pairs.length?`<div class="mcol">${b.L.map(i=>cell('l',i)).join('')}</div><div class="mcol">${b.R.map(i=>cell('r',i)).join('')}</div>`:'<p>No words to match.</p>'}</div></section>`;}
+ let h='';
+ if(g.phase==='end')h+=`<section class="card center"><div class="bunny-wrap">${bunny(g.score?'cheer':'happy')}</div><h1>${g.newBest?'New best score! 🎉':g.score?'Time! Nice matching':'Time!'}</h1><div class="pills"><span>⭐ ${g.score} pair${g.score===1?'':'s'}</span><span>🏆 best ${best(g.src)}</span></div>
+  <p class="muted">${g.newBest&&g.prevBest?'You beat your old best of '+g.prevBest+'.':g.score&&!g.newBest?'Your best for these words is '+best(g.src)+'. Play again to beat it.':'Every match counts. Play again whenever you like.'}</p>
+  <div class="row center"><button class="btn big" data-act="gStart" data-src="${esc(g.src)}">Play again</button><button class="btn quiet" data-act="gMenu">Change words</button></div></section>`;
+ h+=`<section class="card"><h1>Match race</h1><p class="muted">Match Russian words with their meanings before the ${GAME_SECS}-second timer runs out. It's optional practice: wrong taps cost nothing, and your best score is saved for each word set.</p>
+ ${src.length?`<label class="f">Words<select data-sel="gsrc">${src.map(s=>`<option value="${esc(s[0])}"${s[0]===g.src?' selected':''}>${esc(s[1])}${best(s[0])?' · best '+best(s[0]):''}</option>`).join('')}</select></label>
+ <button class="btn big" data-act="gStart" data-src="${esc(g.src)}">Start ${GAME_SECS}-second round</button>`:'<p>Complete a lesson to unlock words to match.</p>'}</section>`;
  return h;}
 
 /* ---------- COURSE ---------- */
@@ -1527,10 +2044,11 @@ function vLesson(){const l=LESSONS.find(x=>x.id===ui.lesson),idx=LESSONS.indexOf
  let h=`<button class="btn quiet" data-act="lessonBack" style="align-self:flex-start">Back to course</button>
  <section class="card"><div class="eyebrow">Lesson ${idx+1} · ${esc(l.lvl)} · ${l.min} min</div><h1>${esc(l.t)}</h1><div class="goal"><b>Goal</b> ${esc(l.obj)}</div><p>${esc(l.intro)}</p>
  <ul class="pts">${l.pts.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></section>
+ <section class="card"><div class="eyebrow">Your path through this lesson</div>${stepsHTML(l)}</section>
  <section class="card"><div class="eyebrow">Listen</div><div class="list">${l.ex.map(e=>`<div class="ex"><div><div class="exru" lang="ru">${esc(e[0])}</div><div class="ph">${esc(e[1])}</div><div class="small muted">${esc(e[2])}</div></div><div class="row nowrap">${sayBtns(e[0])}</div></div>`).join('')}</div></section>`;
  if(l.alpha)h+=`<section class="card"><div class="eyebrow">The alphabet, 33 letters</div><div class="alpha">${ALPHA.map(a=>`<button data-act="say" data-t="${esc(a[2])}" aria-label="${esc(a[0])}, ${esc(a[2])}"><b lang="ru">${esc(a[0])}</b><span>${esc(a[1])}</span><span lang="ru">${esc(a[2])} <span class="ph">${esc(a[3])}</span></span></button>`).join('')}</div></section>`;
  if(ids.length)h+=`<section class="card"><details class="how"><summary>Vocabulary for this lesson (${ids.length})</summary><div class="list">${ids.map(id=>{const it=BY[id];return `<div class="vrow"><div class="grow"><span class="ru sm" lang="ru">${esc(ruH(it))}</span> <span class="ph small">${esc(it.ph)}</span><div class="small muted">${esc(it.en)}</div></div><button class="ib" data-act="say" data-t="${esc(it.ru)}" aria-label="Play ${esc(it.en)}">${ICON.play}</button></div>`;}).join('')}</div></details><button class="btn alt" data-act="lessonFlash" data-id="${l.id}">Shuffle flashcards (${ids.length})</button></section>`;
- h+=`<section class="card"><div class="eyebrow">Practise</div><p class="muted">About ${Math.max(5,Math.round(l.min*0.8))} minutes of exercises where you type, build and listen. Score 70% to complete the lesson. Earlier material is mixed in so it stays fresh.</p>
+ h+=`<section class="card"><div class="eyebrow">Practise</div><p class="muted">About ${Math.max(5,Math.round(l.min*0.8))} minutes. New words are introduced first with audio and examples. Then you recognise them, recall them, and finally type and build sentences yourself. A little earlier material comes at the end so it stays fresh. Score 70% to complete the lesson.</p>
  <div class="row"><button class="btn" data-act="lessonPractice" data-id="${l.id}">${d?'Practise again':'Start practice'}</button>${d?'':`<button class="btn quiet" data-act="lessonSkip" data-id="${l.id}">I already know this</button>`}</div>${d?`<p class="small muted">${d.placed?'Marked as known.':'Best score: '+d.s+'%.'}</p>`:''}</section>`;
  const rds=READING.filter(p=>p.need===l.id);if(rds.length)h+=`<section class="card flat">${rds.map(p=>`<div class="row sp"><span>Related reading: ${esc(p.t)}</span><button class="btn alt sm" data-act="openPassage" data-id="${p.id}">Read</button></div>`).join('')}</section>`;
  return h;}
@@ -1540,7 +2058,7 @@ function vStudy(){
  if(ui.prac.mode==='words')return vWords();
  const p=ui.prac,f=topicFilter(p.col,p.topic),pool=ITEMS.filter(f),due=pool.filter(i=>isDue(i.id)).length,fresh=pool.filter(i=>isNew(i.id)).length;
  const wt=weakTags(),lc=leeches(),kn=knownNotMade();
- return `<section class="card"><h1>Practice</h1><div class="eyebrow">What to practise</div>
+ return `<section class="card flat"><div class="row sp"><span><b>🗣️ Speak</b><br><span class="small muted">Role-play real conversations, out loud.</span></span><button class="btn alt sm" data-act="goRoute" data-r="talk">Talk</button></div><div class="row sp"><span><b>🔁 Shadowing</b><br><span class="small muted">Listen and repeat natural sentences.</span></span><button class="btn alt sm" data-act="shStart">Start</button></div></section><section class="card flat"><div class="row sp"><span><b>🎮 Match race</b><br><span class="small muted">A 60-second word-matching game. Beat your best score.</span></span><button class="btn alt sm" data-act="goRoute" data-r="games">Play</button></div></section><section class="card"><h1>Review</h1><div class="eyebrow">What to practise</div>
  ${seg('setP','col',p.col,[['all','Everything'],['p','Phrases'],['v','Words']])}
  <label class="f">Topic<select data-sel="ptopic" id="selTopic">${topicOptions(p.col,p.topic)}</select></label>
  <p class="small muted">${pool.length} items · ${due} due · ${fresh} not started</p></section>
@@ -1559,6 +2077,8 @@ function vStudy(){
  <div class="eyebrow">Speech</div><div class="seg"><button data-act="setSpeech" data-v="1" aria-pressed="${S.set.speech!==false}">On</button><button data-act="setSpeech" data-v="0" aria-pressed="${S.set.speech===false}">Off</button></div>
  ${VOL_OK?`<label class="vol"><span>Speech volume</span><input type="range" min="0" max="100" step="5" value="${Math.round(speechVol()*100)}" data-vol="sv"><output>${Math.round(speechVol()*100)}%</output></label>`:'<p class="small muted">On this device, speech volume follows your volume buttons.</p>'}
  <div class="eyebrow">Listening questions</div><div class="seg"><button data-act="setAuto" data-v="1" aria-pressed="${S.set.auto!==false}">Play automatically</button><button data-act="setAuto" data-v="0" aria-pressed="${S.set.auto===false}">Wait for a tap</button></div>
+ <div class="eyebrow">Speaking speed</div>${seg('setSpd','spd',S.set.spd,[['auto','Automatic'],['slower','Slower'],['natural','Natural'],['faster','Faster']])}
+ <p class="small muted">${S.set.spd==='auto'?'Automatic adjusts as you improve. Right now: '+(speechRate()<1?'a little slower than natural':speechRate()>1?'a little faster than natural, because your listening is strong':'natural speed')+'.':'Normal play buttons use this speed. Slow buttons always play the slow recording.'}</p>
  <div class="eyebrow">Voices</div>${seg('setVp','vp',S.set.vp,[['mix','Female and male'],['f','Female only'],['m','Male only']])}
  <div class="row"><button class="btn alt sm" data-act="say" data-who="!f" data-t="Здравствуйте! Как вас зовут?">Hear female voice</button><button class="btn alt sm" data-act="say" data-who="!m" data-t="Здравствуйте! Как вас зовут?">Hear male voice</button></div>
  <div class="eyebrow">Sound effects</div><div class="seg"><button data-act="setSnd" data-v="1" aria-pressed="${S.set.snd!==false}">On</button><button data-act="setSnd" data-v="0" aria-pressed="${S.set.snd===false}">Off</button></div>
@@ -1583,7 +2103,11 @@ const glossFor=(pg,w)=>pg.gloss[nr(w)];
 function vRead(){
  if(ui.passage)return vPassage();
  const lv=['A1','A2','B1'];
- return `<section class="card"><h1>Read and listen</h1><p class="muted">Short dialogues and texts that grow from simple to natural Russian. Listen first, tap any word for its meaning, reveal translations only when you need them.</p></section>`+
+ const eps=`<section class="card"><h1>Listen</h1><p class="muted">One short audio episode for each lesson. Listen for the general meaning first, answer a few questions, then read the transcript, practise useful lines and reply yourself.</p></section>`+
+ LEVELS.map(([L])=>{const es=EPISODES.filter(e=>(LESSONS.find(l=>l.id===e.lid)||{}).lvl===L);if(!es.length)return '';
+  return `<section class="card"><div class="eyebrow">Episodes · ${L}</div><div class="list">${es.map(e=>{const d=S.eps[e.id],li=LESSONS.findIndex(l=>l.id===e.lid),ready=lessonDone(LESSONS[li]);
+   return `<button class="les" data-act="epStart" data-id="${e.id}"><span class="num${d?' done':''}">${d?'✓':'🎧'}</span><span class="grow"><b>${esc(e.t)}</b><br><span class="small muted">${d?'Best score '+d.s+'%':'Goes with lesson '+(li+1)+(ready?' · ready':' · best after that lesson')}</span></span></button>`;}).join('')}</div></section>`;}).join('');
+ return eps+`<section class="card"><h1>Reading</h1><p class="muted">Short dialogues and texts that grow from simple to natural Russian. Listen first, tap any word for its meaning, reveal translations only when you need them.</p></section>`+
  lv.map(L=>`<section class="card"><div class="eyebrow">${L}</div><div class="list">${READING.filter(p=>p.lvl===L).map(p=>{const d=S.read[p.id];return `<button class="les" data-act="openPassage" data-id="${p.id}"><span class="num${d?' done':''}">${d?'✓':'R'}</span><span class="grow"><b>${esc(p.t)}</b><br><span class="small muted">${d?'Best score '+d.s+'%':p.lines.length+' lines · pairs with lesson '+(LESSONS.findIndex(l=>l.id===p.need)+1)}</span></span></button>`;}).join('')}</div></section>`).join('');}
 function vPassage(){const pg=READING.find(p=>p.id===ui.passage),hide=!!ui.hideText;
  return `<button class="btn quiet" data-act="passBack" style="align-self:flex-start">Back to reading</button>
@@ -1625,13 +2149,20 @@ function vProgress(){
   if(kn.length)h+=`<div class="row sp"><span>${kn.length} items recognised but never produced</span><button class="btn alt sm" data-act="pStart" data-go="1">Produce them</button></div>`;
   if(lc.length)h+=`<div class="row sp"><span>${lc.length} items forgotten 3+ times</span><button class="btn alt sm" data-act="leechStart" data-go="1">Practise</button></div>`;}
  h+='</section>';
+ {const sk=skillStats(),wk=weakestSkill(),cnt=f=>ITEMS.filter(i=>S.cards[i.id]&&f(S.cards[i.id])).length;
+  const sub={listening:cnt(c=>c.li>0)+' words understood by ear · '+Object.keys(S.eps).length+' episodes',speaking:Object.keys(S.talk).length+' conversation'+(Object.keys(S.talk).length===1?'':'s')+' · '+cnt(c=>c.sp>0)+' sentences said aloud',recall:cnt(c=>c.pr>=2)+' words you can produce · '+cnt(c=>c.us>0)+' used in sentences',grammar:weakTags().filter(w=>TAGS[w.tag]&&TAGS[w.tag][1]==='grammar').length+' grammar areas need work'};
+  h+=`<section class="card"><h2>Conversation skills</h2><p class="small muted">Based on your recent answers in each area.${wk?' Your sessions currently give extra time to <b>'+SKILLS[wk][0].toLowerCase()+'</b>.':''}</p><div class="skills">${Object.keys(SKILLS).map(k=>{const v=sk[k],p=v.acc===null?0:Math.round(v.acc*100);return `<div class="skill${v.n>=6&&p<75?' low':''}"><span class="small">${SKILLS[k][0]}</span><b>${v.acc===null?'Not tried':p+'%'}</b><div class="meter"><i style="width:${p}%"></i></div><span class="small muted">${esc(sub[k])}</span></div>`;}).join('')}</div></section>`;
+  const got=LESSONS.filter(lessonDone).map(l=>l.obj).concat(TALKS.filter(s=>S.talk[s.id]).map(s=>s.can)),next=TALKS.filter(s=>!S.talk[s.id]).slice(0,2).map(s=>s.can).concat(LESSONS.filter(l=>!lessonDone(l)).slice(0,2).map(l=>l.obj));
+  h+=`<section class="card"><h2>What you can do</h2>${got.length?'':'<p class="muted">Finish a lesson or a conversation and your first "I can" appears here.</p>'}<ul class="cando">${got.map(c=>`<li>✅ <span>${esc(c)}</span></li>`).join('')}${next.map(c=>`<li class="no">⬜ <span>${esc(c)}</span></li>`).join('')}</ul></section>`;}
+ {const ed=Object.keys(S.eps).length,gs=Object.keys(S.games).filter(k=>S.games[k].best),gb=Math.max(0,...gs.map(k=>S.games[k].best)),gp=Object.values(S.games).reduce((a,g)=>a+g.plays,0);
+  h+=`<section class="card"><h2>Listening and games</h2><div class="stat"><div><b>${ed}/${EPISODES.length}</b><span>episodes finished</span></div><div><b>${gb}</b><span>best match race</span></div><div><b>${gp}</b><span>races played</span></div></div><div class="row"><button class="btn alt sm" data-act="goRoute" data-r="read">Episodes</button><button class="btn alt sm" data-act="goRoute" data-r="games">Match race</button></div></section>`;}
  h+=`<section class="card"><h2>Upcoming reviews</h2><div class="stat"><div><b>${dueNow}</b><span>due now</span></div><div><b>${d1}</b><span>next 24 hours</span></div><div><b>${d7}</b><span>next 7 days</span></div></div></section>`;
  [['p','Everyday phrases'],['v','Words and connectors']].forEach(([col,name])=>{h+=`<section class="card"><h2>${name}</h2><div class="list tight">`+CATS.filter(c=>c.col===col).map(c=>{const p=Math.round(catMastery(c)*100),st=c.ids.filter(id=>!isNew(id)).length;
   return `<div><div class="row sp"><span>${esc(c.topic)}</span><b>${p}%</b></div><div class="bar" role="img" aria-label="${esc(c.topic)} mastery ${p}%"><i style="width:${p}%"></i></div><div class="small muted">${st} of ${c.ids.length} started</div></div>`;}).join('')+`</div></section>`;});
  const days=[];for(let k=6;k>=0;k--)days.push(Date.now()-k*DAY);const mx=Math.max(1,...days.map(t=>S.days[dkey(t)]||0));
  h+=`<section class="card"><h2>Last 7 days</h2><div class="days" role="img" aria-label="Answers per day over the last week">${days.map(t=>{const v=S.days[dkey(t)]||0;return `<div><span>${v}</span><i style="height:${Math.round(v/mx*70)}%"></i><span>${new Date(t).toLocaleDateString('en-GB',{weekday:'short'})}</span></div>`;}).join('')}</div></section>`;
  h+=`<section class="card"><h2>Achievements</h2><div class="ach">${ACH.map(a=>`<div class="a${S.ach[a[0]]?' on':''}"><b>${esc(a[1])}</b><span class="small muted">${esc(a[2])}</span></div>`).join('')}</div></section>`;
- const K={flash:'Flashcards',listen:'Listening',test:'Test',lesson:'Lesson',mixed:'Mixed practice',targeted:'Targeted practice',read:'Reading',place:'Placement',plan:'Daily session'};
+ const K={flash:'Flashcards',listen:'Listening',test:'Test',lesson:'Lesson',mixed:'Mixed practice',targeted:'Targeted practice',read:'Reading',place:'Placement',plan:'Daily session',episode:'Episode',game:'Match race',talk:'Conversation',shadow:'Shadowing'};
  h+=`<section class="card"><h2>Review history</h2>${S.hist.length?`<div class="list tight">${S.hist.slice(0,8).map(x=>`<div class="row sp"><span>${K[x.k]||x.k} · ${fmtDate(x.t)}</span><b>${x.ok} / ${x.n}</b></div>`).join('')}</div>`:'<p class="muted">Sessions you finish will appear here.</p>'}</section>
  <section class="card"><h2>Test scores</h2>${S.tests.length?`<div class="list tight">${S.tests.slice(0,8).map(x=>`<div class="row sp"><span>${fmtDate(x.t)} · ${x.n} questions · ${x.col==='p'?'phrases':x.col==='v'?'words':x.col==='done'?'my lessons':x.col==='missed'?'missed questions':'everything'}</span><b>${Math.round(x.score/x.n*100)}%</b></div>`).join('')}</div>`:'<p class="muted">Take a test to see scores here.</p>'}</section>
  <section class="card flat"><p class="small muted">Progress is saved in this browser on this device. Clearing site data removes it.</p>${ui.confirmReset?`<div class="row"><button class="btn" data-act="resetYes">Erase all progress</button><button class="btn quiet" data-act="resetNo">Cancel</button></div>`:`<button class="btn quiet" data-act="resetAsk" style="align-self:flex-start">Reset progress</button>`}</section>`;
@@ -1648,7 +2179,7 @@ function confetti(n){try{const host=document.createElement('div');host.className
  for(let i=0;i<(n||60);i++){const s=document.createElement('i');s.style.cssText='left:'+Math.random()*100+'%;background:'+cols[i%6]+';animation-delay:'+Math.random()*.5+'s;animation-duration:'+(1.8+Math.random()*1.4)+'s;--x:'+Math.round(Math.random()*160-80)+'px;--r:'+Math.round(Math.random()*720)+'deg';host.appendChild(s);}
  document.body.appendChild(host);setTimeout(()=>{try{host.remove();}catch(e){}},4200);}catch(e){}}
 /* ---------- render ---------- */
-const VIEWS={today:vToday,learn:vCourse,study:vStudy,read:vRead,test:vTest,progress:vProgress};
+const VIEWS={today:vToday,learn:vCourse,study:vStudy,read:vRead,test:vTest,progress:vProgress,games:vGames,talk:vTalk};
 const NAVOF=r=>r==='test'?'study':r;
 function render(){
  const app=$('#app');document.body.classList.toggle('running',!!ui.run);
@@ -1659,7 +2190,11 @@ function render(){
  $('#tPh').setAttribute('aria-checked',String(!!S.set.ph));
  document.querySelectorAll('#tabs a').forEach(a=>{const on=a.dataset.r===NAVOF(ui.route);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  if(ui.pendingSay){const p=ui.pendingSay;ui.pendingSay=null;say(p.text,false,p.once,p.who);}
- if(ui.run&&!ui.run.done){const t=cur(),st=ui.run.st;if(t&&(t.k==='listen'||t.k==='dict')&&!st.auto&&!st.checked){st.auto=1;if(S.set.auto!==false&&S.set.speech!==false)say(t.ru,false,1,undefined,true);}}
+ if(ui.run&&!ui.run.done){const t=cur(),st=ui.run.st;if(t&&!st.auto&&!st.checked){const go=S.set.auto!==false&&S.set.speech!==false;
+  if(t.k==='listen'||t.k==='dict'){st.auto=1;if(go)say(t.ru,false,1,undefined,true);}
+  else if(t.ep&&t.epAuto){st.auto=1;if(go)epPlay(t.ep,false,true);}
+  else if(t.k==='learn'&&t.v==='word'){st.auto=1;if(go)say(BY[t.id].ru,false,1,undefined,true);}
+  else if(t.k==='type'&&t.say){st.auto=1;if(go)say(t.say,false,1,t.sayW,true);}}}
  paintAudio();
  if(ui.run&&!ui.run.done){const a=$('#ans');if(a&&!a.disabled){try{a.focus({preventScroll:true});a.setSelectionRange(a.value.length,a.value.length);}catch(e){}}}
 }
@@ -1667,13 +2202,14 @@ function top(){try{window.scrollTo(0,0);}catch(e){}}
 let skipHash=false;
 function setHash(r){try{if(location.hash!=='#'+r){skipHash=true;location.hash=r;}}catch(e){}}
 function routeNow(){const h=(location.hash||'').replace('#','');return ROUTES.includes(h)?h:'today';}
-function navigate(r,opts){opts=opts||{};if(ui.run&&!opts.force)return;ui.route=r;if(!opts.keep){ui.lesson=null;ui.passage=null;if(r!=='study')ui.prac.mode='menu';}
+function navigate(r,opts){opts=opts||{};if(ui.run&&!opts.force)return;try{micStop();}catch(e){}if(r!=='talk'&&ui.talk&&ui.talk.phase!=='end')ui.talk={id:null,phase:'list'};ui.route=r;if(!opts.keep){ui.lesson=null;ui.passage=null;if(r!=='study')ui.prac.mode='menu';}
  stopAudio();setHash(r);render();top();}
 window.addEventListener('hashchange',()=>{if(skipHash){skipHash=false;return;}if(ui.run)return;ui.route=routeNow();ui.lesson=null;ui.passage=null;ui.prac.mode='menu';render();top();});
 
 /* ---------- runner helpers ---------- */
 function setAnswerVal(){const a=$('#ans');return a?a.value:'';}
 function check(){const r=ui.run,t=cur(),st=r.st;if(st.checked)return;let val;
+ if(t.k==='learn'||t.k==='match')return;
  if(t.k==='tiles'){val=(st.sel||[]).map(i=>t.tiles[i]);if(!val.length)return;}
  else if(t.k==='pick'||t.k==='listen'||t.k==='stress'){if(st.val===undefined)return;val=st.val;}
  else{val=setAnswerVal();if(!String(val).trim())return;}
@@ -1703,9 +2239,21 @@ document.addEventListener('click',e=>{
  switch(act){
  case 'say':say(d.t,!!d.slow,false,d.who||undefined);return;
  case 'aPause':pauseAudio();return;
+ case 'epPlay':epPlay(d.ep,!!d.slow);return;
+ case 'shMic':if(r&&cur().k==='shadow')shadowMic();return;
+ case 'shSelf':{if(!r)return;const t=cur();if(t.k!=='shadow'||r.st.checked)return;micStop();const ok=d.ok==='1';commit(t,{ok,ans:t.ru},ok?true:'');if(ok)sfx('coin');render();afterCheckScroll();return;}
+ case 'tShadow':{const sc=TALKBY[ui.talk.id];if(sc&&startRun({title:sc.t+': shadowing',tasks:talkShadowTasks(sc),mode:'mixed',kind:'shadow'})){ui.talk.phase='list';render();top();}return;}
+ case 'rLearn':if(r){nextTask();render();top();}return;
+ case 'rMatch':{if(!r)return;const t=cur(),st=r.st;if(st.checked||t.k!=='match')return;const m=st.mt||(st.mt={sel:null,done:[],bad:null,errs:0});const side=d.s,i=+d.i;if(m.done.includes(i))return;
+  if(!m.sel||m.sel[0]===side){m.sel=[side,i];m.bad=null;render();return;}
+  const li=side==='l'?i:m.sel[1],ri=side==='r'?i:m.sel[1];
+  if(li===ri){m.done.push(li);m.sel=null;if(m.done.length===t.pairs.length){commit(t,{ok:true,ans:''},'');sfx('coin');render();afterCheckScroll();return;}}
+  else{m.errs++;m.bad=[m.sel[0],m.sel[1],side,i];m.sel=null;setTimeout(()=>{if(ui.run&&ui.run.st===st&&m.bad){m.bad=null;render();}},650);}
+  render();return;}
  case 'sndToggle':S.set.snd=S.set.snd===false;save();render();toast(S.set.snd?'Sound effects on. Adjust the volume in Practice, under Audio.':'Sound effects off.');if(S.set.snd)sfx('coin');return;
  /* runner */
  case 'rClose':r.close=true;render();return;
+ case 'gameLesson':case 'epStart':if(r&&r.done){ui.run=null;stopAudio();}else if(r)return;break;
  case 'rCloseNo':r.close=false;render();return;
  case 'rCloseYes':endRun();return;
  case 'rReveal':r.st.shown=true;render();return;
@@ -1726,8 +2274,25 @@ document.addEventListener('click',e=>{
  }
  if(ui.run)return;
  switch(act){
+ case 'gStart':gameStart(d.src);render();top();return;
+ case 'gTap':gameTap(d.s,+d.i);return;
+ case 'gStop':clearInterval(gTimer);ui.game.phase='menu';render();return;
+ case 'gMenu':ui.game.phase='menu';render();return;
+ case 'gameLesson':{const l=LESSONS.find(x=>x.id===d.id);const k='les:'+d.id;ui.game.phase='menu';ui.game.src=gameSources().some(s=>s[0]===k)?k:gameDefault();navigate('games');return;}
+ case 'epStart':if(startEpisode(d.id)){render();top();}return;
+ case 'goRoute':navigate(d.r);return;
+ case 'tOpen':talkOpen(d.id);if(ui.route!=='talk'){ui.route='talk';setHash('talk');}render();top();return;
+ case 'tBack':micStop();stopAudio();ui.talk={id:null,phase:'list'};render();top();return;
+ case 'talkGo':talkOpen(ui.talk.id);talkStart();render();top();return;
+ case 'tEn':ui.talk.showEn=!ui.talk.showEn;S.set.talkEn=ui.talk.showEn;save();render();return;
+ case 'tHint':ui.talk.showModel=true;ui.talk.used=true;render();return;
+ case 'tUse':{const tn=TALKBY[ui.talk.id].turns[ui.talk.i];if(tn){talkReply([tn.model],true);render();talkScroll();}return;}
+ case 'tSend':{const el=$('#tIn');const v=el&&el.value.trim();if(!v)return;talkReply([v]);render();talkScroll();const n=$('#tIn');if(n)n.focus();return;}
+ case 'tMic':talkMic();return;
+ case 'shStart':{const ts=shadowTasksFromSeen(8);if(ts.length&&startRun({title:'Shadowing',tasks:ts,mode:'mixed',kind:'shadow'})){render();top();}else if(!ts.length)toast('Learn a few words first.');return;}
  case 'setLen':S.set.len=+d.v;save();render();return;
  case 'startPlan':{const p=planSession(S.set.len);if(p&&startRun({title:'Your '+S.set.len+'-minute session',tasks:p.tasks,mode:'mixed',kind:'plan'})){render();top();}return;}
+ case 'setSpd':S.set.spd=['auto','slower','natural','faster'].includes(d.v)?d.v:'auto';save();render();return;
  case 'setFo':S.set.fo=d.v==='shuf'?'shuf':'smart';save();render();return;
  case 'lessonFlash':{const l=LESSONS.find(x=>x.id===d.id);const ids=l?lessonItems(l):[];if(ids.length&&startRun({title:l.t+': flashcards',tasks:shuffle(ids).map(id=>itemTask(id,step(id)>=2?'card-p':'card-r')),mode:'mixed',kind:'flash'})){render();top();}return;}
  case 'missStart':if(startMissed()){render();top();}return;
@@ -1768,15 +2333,19 @@ document.addEventListener('click',e=>{
 
 /* ---------- inputs ---------- */
 document.addEventListener('change',e=>{const vk=e.target.dataset&&e.target.dataset.vol;if(vk){S.set[vk]=clamp01(+e.target.value/100,1);save();if(vk==='fv')sfx('coin');return;}const s=e.target.dataset&&e.target.dataset.sel;if(!s)return;
- if(s==='ptopic')ui.prac.topic=e.target.value;else if(s==='wtopic')ui.prac.wtopic=e.target.value;
+ if(s==='gsrc'){ui.game.src=e.target.value;ui.game.phase='menu';}
+ else if(s==='ptopic')ui.prac.topic=e.target.value;else if(s==='wtopic')ui.prac.wtopic=e.target.value;
  render();});
 document.addEventListener('input',e=>{const vk=e.target.dataset&&e.target.dataset.vol;if(vk){S.set[vk]=clamp01(+e.target.value/100,1);if(vk==='sv'&&player)player.volume=speechVol();const o=e.target.parentNode.querySelector('output');if(o)o.textContent=e.target.value+'%';return;}if(e.target.id==='wq'){ui.prac.q=e.target.value;const l=$('#wl');if(l)l.innerHTML=wordsList();}});
 document.addEventListener('pointerdown',e=>{unlockAudio();try{if(AC&&AC.state==='suspended')AC.resume();}catch(x){}
  const b=e.target.closest&&e.target.closest('[data-act="say"]');if(b)prefetch(b.dataset.t,b.dataset.who||undefined,!!b.dataset.slow);},{passive:true});
 document.addEventListener('keydown',e=>{unlockAudio();},{capture:true});
 document.addEventListener('keydown',e=>{
+ if(!ui.run&&e.key==='Enter'&&e.target&&e.target.id==='tIn'){e.preventDefault();const b=document.querySelector('[data-act="tSend"]');if(b)b.click();return;}
  if(!ui.run||ui.run.done)return;const r=ui.run,t=cur(),st=r.st;
  if(e.key==='Enter'){e.preventDefault();
+  if(t.k==='learn'){nextTask();render();top();return;}
+  if(t.k==='match'&&!st.checked)return;
   if(st.checked){if(t.k!=='card'){nextTask();render();top();}return;}
   if(t.k==='card'&&!st.shown){st.shown=true;render();return;}
   if(t.k!=='card')check();return;}
