@@ -1860,12 +1860,17 @@ const SRC=(typeof window!=='undefined'&&(window.SpeechRecognition||window.webkit
 let recog=null;
 /* Listen once in Russian. onText(alternatives[]) gets what was heard; onState(state, info) reports listening / interim / error / nothing. */
 function micListen(onText,onState){if(!SRC)return false;stopAudio();try{if(recog)recog.abort();}catch(e){}
- let r;try{r=new SRC();}catch(e){return false;}recog=r;r.lang='ru-RU';r.interimResults=true;r.maxAlternatives=4;r.continuous=false;let alts=null,interim='';
- r.onresult=e=>{const res=e.results[e.results.length-1];if(res.isFinal){alts=[];for(let k=0;k<res.length;k++)alts.push(res[k].transcript);}else{interim=res[0].transcript;onState('interim',interim);}};
- r.onerror=e=>{alts=alts||null;onState('error',e.error||'error');};
- r.onend=()=>{if(recog===r)recog=null;if(alts&&alts.length)onText(alts);else if(interim)onText([interim]);else onState('nothing','');};
- try{r.start();}catch(e){return false;}onState('listening','');return true;}
-function micStop(){try{if(recog)recog.stop();}catch(e){}}
+ let r;try{r=new SRC();}catch(e){return false;}recog=r;r.lang='ru-RU';r.interimResults=true;r.maxAlternatives=4;r.continuous=false;let alts=null,interim='',over=false,wd=0,hard=0;
+ /* finish exactly once, whatever the browser does: some phones never send "end" */
+ const finish=(kind,info)=>{if(over)return;over=true;clearTimeout(wd);clearTimeout(hard);if(recog===r)recog=null;try{r.abort();}catch(e){}
+  if(kind==='error')onState('error',info);else if(alts&&alts.length)onText(alts);else if(interim)onText([interim]);else onState('nothing','');};
+ const arm=ms=>{clearTimeout(wd);wd=setTimeout(()=>{try{r.stop();}catch(e){}hard=setTimeout(()=>finish('end'),1500);},ms);};
+ r.onresult=e=>{arm(2500);const res=e.results[e.results.length-1];if(res.isFinal){alts=[];for(let k=0;k<res.length;k++)alts.push(res[k].transcript);finish('end');}else{interim=res[0].transcript;onState('interim',interim);}};
+ r.onerror=e=>{const er=e&&e.error||'error';if(er==='aborted')return finish('end');if(er==='no-speech')return finish('end');finish('error',er);};
+ r.onspeechend=()=>{try{r.stop();}catch(e){}};
+ r.onend=()=>finish('end');
+ try{r.start();}catch(e){return false;}arm(9000);onState('listening','');return true;}
+function micStop(){try{if(recog){const r=recog;r.stop();setTimeout(()=>{try{r.abort();}catch(e){}},1200);}}catch(e){}}
 const MIC_ERR={'not-allowed':'Microphone access is blocked. Allow it in your browser settings, or type instead.','service-not-allowed':'Speech recognition is not available here. You can type instead.','no-speech':"I didn't hear anything. Tap the microphone and speak after the beep.",'audio-capture':'No microphone was found. You can type instead.','network':'Speech recognition needs an internet connection.'};
 const MIC_NOTE='Your browser cannot listen to speech here. Type instead, or tap the microphone on your phone keyboard after adding a Russian keyboard.';
 
@@ -1908,7 +1913,7 @@ function talkMic(){const g=ui.talk;if(g.mic==='listening'){micStop();return;}
   if(st==='listening'){g.mic='listening';g.heard='';render();}
   else if(st==='interim'){g.heard=info;const el=document.getElementById('heard');if(el)el.textContent=info;}
   else if(st==='error'){g.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again or type instead.');render();}
-  else if(st==='nothing'){g.mic='idle';render();}});
+  else if(st==='nothing'){g.mic='idle';toast(MIC_ERR['no-speech']);render();}});
  if(!ok)toast(MIC_NOTE);}
 function talkScroll(){const el=document.querySelector('.chat');if(el&&el.lastElementChild&&el.lastElementChild.scrollIntoView){try{el.lastElementChild.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}}}
 /* the conversation's lines, plus the natural model answers, as shadowing practice */
@@ -1926,7 +1931,7 @@ function shadowTasksFromSeen(n){const out=[],seen=new Set();
 function shadowMic(){const r=ui.run,t=cur(),st=r.st;if(st.checked)return;if(st.mic==='listening'){micStop();return;}
  const ok=micListen(alts=>{st.mic='idle';let best=null;alts.forEach(a=>{const s=shadowScore(t.ru,a);if(!best||s.pct>best.pct)best=Object.assign(s,{heard:a});});
   st.sc=best;st.tries=(st.tries||0)+1;if(best.pct>=70||st.tries>=3){commit(t,{ok:best.pct>=70,ans:t.ru},best.heard);sfx(best.pct>=70?'coin':'no');}render();afterCheckScroll();},
-  (s,info)=>{if(s==='listening'){st.mic='listening';render();}else if(s==='interim'){const el=document.getElementById('heard');if(el)el.textContent=info;}else if(s==='error'){st.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again, or tap "I said it".');render();}else if(s==='nothing'){st.mic='idle';render();}});
+  (s,info)=>{if(s==='listening'){st.mic='listening';render();}else if(s==='interim'){const el=document.getElementById('heard');if(el)el.textContent=info;}else if(s==='error'){st.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again, or tap "I said it".');render();}else if(s==='nothing'){st.mic='idle';toast(MIC_ERR['no-speech']);render();}});
  if(!ok){st.noMic=true;render();}}
 
 /* ---------- shared view helpers ---------- */
