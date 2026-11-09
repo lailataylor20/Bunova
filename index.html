@@ -2,6 +2,14 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bunova</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#4cb000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bunova">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<link rel="icon" href="/icon-180.png" type="image/png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Rubik:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap">
 <style>
 /* Bunova: calm teal/ink palette, restrained rose used only for the wordmark and highlights */
@@ -317,7 +325,6 @@ header.top{row-gap:6px}
  <div class="stats" id="hstats" aria-label="Streak and experience points"></div>
  <div class="tools">
   <button class="chip" id="tPh" role="switch" aria-checked="true" aria-label="Show phonetic pronunciation"><span class="sw" aria-hidden="true"></span>Phonetics</button>
-  <button class="chip" id="tRep" aria-pressed="false" aria-label="Repeat audio three times"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>Repeat</button>
  </div>
 </header>
 <nav class="tabs" id="tabs" aria-label="Main">
@@ -1141,7 +1148,7 @@ function fetchAudio(text,v,slow){const u=audioUrl(text,v,slow);
  return aCache.get(u);}
 function prefetch(text,who,slow){if(audioMode==='device'&&Date.now()-downAt<60000)return;try{fetchAudio(text,pickVoice(text,who),slowOf(slow)).catch(()=>{});}catch(e){}}
 function stopAudio(){spk++;if(curAudio){try{curAudio.pause();}catch(e){}curAudio=null;}if(HAS_DEVICE){try{speechSynthesis.cancel();}catch(e){}}}
-const slowOf=slow=>!!slow||S.set.rate==='slow';
+const slowOf=slow=>!!slow;
 function deviceSay(text,slow,done){if(!HAS_DEVICE){toast('Audio is not available on this page.');return done();}
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ru-RU';
   if(!devVoice)devVoice=(speechSynthesis.getVoices()||[]).find(v=>/^ru/i.test((v.lang||'').replace('_','-')))||null;if(devVoice)u.voice=devVoice;
@@ -1154,7 +1161,7 @@ function playOne(text,slow,who,tok){return new Promise(resolve=>{
    const a=new Audio(url);curAudio=a;a.onended=()=>resolve();a.onerror=()=>resolve();a.play().catch(()=>resolve());
   }).catch(()=>{if(tok!==spk)return resolve();downAt=Date.now();useDevice();});}
  catch(e){downAt=Date.now();useDevice();}});}
-function say(text,slow,once,who){stopAudio();const tok=spk,times=S.set.rep&&!once?3:1;let i=0;
+function say(text,slow,once,who){stopAudio();const tok=spk,times=1;let i=0;
  const go=()=>{if(tok!==spk||i>=times)return;i++;playOne(text,slow,who,tok).then(()=>{if(tok===spk&&i<times)setTimeout(go,700);});};go();}
 function sayAll(list,slow){stopAudio();const tok=spk;let i=0;
  const go=()=>{if(tok!==spk||i>=list.length)return;const it=list[i++];if(list[i])prefetch(list[i].t,list[i].w,slow);playOne(it.t,slow,it.w,tok).then(()=>{if(tok===spk)setTimeout(go,450);});};go();}
@@ -1268,9 +1275,8 @@ ${it.note?`<div class="small muted">${esc(it.note)}</div>`:''}${vfHTML(it)}
 function startRun(cfg){stopAudio();const tasks=(cfg.tasks||[]).filter(Boolean);if(!tasks.length){toast('Nothing to practise here yet.');return false;}
  ui.run=Object.assign({i:0,res:[],st:{},xp:0,done:false,t0:Date.now()},cfg,{tasks});primeAudio();return true;}
 function primeAudio(){const r=ui.run,t=r&&r.tasks[r.i];if(!t)return;
- if(t.k==='dict'||t.k==='listen')ui.pendingSay={text:t.ru};
- else if(t.k==='card'&&t.dir==='recog'&&!r.st.shown)ui.pendingSay={text:BY[t.id].ru};
- else if(t.k==='tiles'&&t.say)ui.pendingSay={text:t.say,once:1,who:vOf(t.say)};
+ /* audio never plays by itself: only a tap on a speaker button plays it. Clips are fetched quietly so the tap is instant. */
+ if(t.k==='dict'||t.k==='listen')prefetch(t.ru);else if(t.k==='card')prefetch(BY[t.id].ru);else if(t.k==='tiles'&&t.say)prefetch(t.say,vOf(t.say));
  for(let k=1;k<=2;k++){const n=r.tasks[r.i+k];if(!n)continue;if(n.k==='dict'||n.k==='listen')prefetch(n.ru);else if(n.k==='tiles'&&n.say)prefetch(n.say,vOf(n.say));else if(n.k==='card'&&n.dir==='recall')prefetch(BY[n.id].ru);}}
 const cur=()=>ui.run.tasks[ui.run.i];
 function promptText(t){if(t.k==='card')return BY[t.id].en;if(t.k==='tiles')return t.say?t.say+' / '+t.goal:t.en;if(t.k==='dict'||t.k==='listen')return '(audio) '+t.ru;if(t.k==='stress')return t.ru;if(t.k==='read')return t.ru;return t.q||'';}
@@ -1317,7 +1323,7 @@ function startPlacement(){const by={};LESSONS.forEach(l=>{(by[l.lvl]=by[l.lvl]||
  return startRun({title:'Placement check',tasks:ts,mode:'place',kind:'place'});}
 
 /* ---------- runner screens ---------- */
-const kbHTML=()=>S.set.kb?`<div class="kb">${'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'.split('').map(c=>`<button data-act="kbKey" data-ch="${c}" lang="ru">${c}</button>`).join('')}<button data-act="kbKey" data-ch=" " aria-label="Space">space</button><button data-act="kbDel" aria-label="Backspace">del</button></div>`:'';
+const kbHTML=()=>S.set.kb?`<div class="kb">${'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'.split('').map(c=>`<button data-act="kbKey" data-ch="${c}" lang="ru">${c}</button>`).join('')}<button data-act="kbDel" aria-label="Backspace">del</button></div>`:'';
 function bodyOf(t,st){let h='';const r=ui.run;
  if(t.review)h+='<span class="tag blue">Review from earlier</span>';
  if(t.focus)h+=`<span class="tag">Targeted: ${esc(TAGS[t.focus][0])}</span>`;
@@ -1327,7 +1333,7 @@ function bodyOf(t,st){let h='';const r=ui.run;
    return h+`<span class="tag">Flashcard</span><div class="prompt">${esc(it.en)}</div><p class="muted">Say it in Russian out loud, then check.</p><button class="btn big" data-act="rReveal">Show answer</button>`;}
   const b=step(t.id);return h+entry(it,{xl:1})+`<div class="eyebrow">How well did you know it?</div><div class="grades">${['Again','Hard','Good','Easy'].map((l,g)=>`<button data-act="rGrade" data-g="${g}">${l}<small>${fmtGap(nextGap(b,g))}</small></button>`).join('')}</div>`;}
  if(t.k==='pick'||t.k==='listen'){
-  if(t.k==='listen')h+=`<span class="tag">Listening</span><div class="row center">${sayBtns(t.ru)}</div><p class="muted center">Choose the meaning.</p>`;
+  if(t.k==='listen')h+=`<span class="tag">Listening</span><div class="row center">${sayBtns(t.ru)}</div><p class="muted center">Tap the speaker to listen, then choose the meaning.</p>`;
   else if(t.qRu)h+=`<p class="muted">What does this mean?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.q)}</div><div class="row nowrap">${sayBtns(t.q)}</div></div>`;
   else h+=`<div class="prompt">${esc(t.q)}</div>`;
   return h+`<div class="opts">${t.opts.map((o,k)=>`<button class="opt${st.val===o?' sel':''}" data-act="rPick" data-i="${k}"${st.checked?' disabled':''} lang="${t.optRu?'ru':'en'}">${esc(o)}</button>`).join('')}</div>`;}
@@ -1340,7 +1346,7 @@ function bodyOf(t,st){let h='';const r=ui.run;
  let lead='',lang='ru',init='';
  if(t.k==='type')lead=`<span class="tag">Translate into Russian</span><div class="prompt">${esc(t.q)}</div>`;
  if(t.k==='read'){lang='en';lead=`<span class="tag">Read it, then type the English</span><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.ru)}</div><div class="row nowrap">${sayBtns(t.ru)}</div></div>`;}
- if(t.k==='dict')lead=`<span class="tag">Dictation</span><p class="muted">Listen and type what you hear in Russian.</p><div class="row center">${sayBtns(t.ru)}</div>`;
+ if(t.k==='dict')lead=`<span class="tag">Dictation</span><p class="muted">Tap the speaker to listen, then type what you hear in Russian.</p><div class="row center">${sayBtns(t.ru)}</div>`;
  if(t.k==='cloze')lead=`<span class="tag">Fill the gap</span><div class="prompt" lang="ru">${esc(t.q)}</div>${t.hint?`<p class="muted">${esc(t.hint)}</p>`:''}`;
  if(t.k==='fix'){lead=`<span class="tag">Correct the mistake</span><p class="muted">Edit the sentence so it is correct.</p>`;init=t.q;}
  return h+lead+`<input type="text" id="ans" lang="${lang}" value="${esc(init)}" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Your answer"${st.checked?' disabled':''}>`+(lang==='ru'&&!st.checked?`<div class="row"><button class="chip" data-act="kbToggle" aria-pressed="${!!S.set.kb}">Cyrillic keys</button></div>${kbHTML()}`:'')+(st.checked?'':`<div class="row"><button class="btn grow" data-act="rCheck">Check</button><button class="btn quiet" data-act="rSkip">I don't know</button></div>`);}
@@ -1455,10 +1461,9 @@ function vStudy(){
  <section class="card"><h2>Vocabulary review</h2><p class="muted">Browse all ${ITEMS.length} entries with audio, stress, grammar notes and examples.</p><button class="btn big alt" data-act="wStart">Open word list</button></section>
  <section class="card"><h2>Tests</h2><p class="muted">Mixed tests of 30, 60 or 90 questions. A cumulative option covers everything from your completed lessons.</p><a class="btn big alt" href="#test" data-act="goTest">Set up a test</a></section>
  <section class="card"><h2>Audio</h2><div class="eyebrow">Voices</div>${seg('setVp','vp',S.set.vp,[['mix','Female and male'],['f','Female only'],['m','Male only']])}
- <div class="eyebrow">Speed</div>${seg('setA','rate',S.set.rate,[['normal','Normal'],['slow','Slow']])}
  <div class="row"><button class="btn alt sm" data-act="say" data-who="!f" data-t="Здравствуйте! Как вас зовут?">Hear female voice</button><button class="btn alt sm" data-act="say" data-who="!m" data-t="Здравствуйте! Как вас зовут?">Hear male voice</button></div>
  <div class="eyebrow">Sound effects</div><div class="seg"><button data-act="setSnd" data-v="1" aria-pressed="${S.set.snd!==false}">On</button><button data-act="setSnd" data-v="0" aria-pressed="${S.set.snd===false}">Off</button></div>
- <p class="small muted">${audioMode==='natural'?'Playing natural Russian voices.':audioMode==='device'?'The natural-voice service is not connected, so a device voice is used as a backup.':'Words, phrases, lessons and dialogues use natural Russian voices (female and male). Each clip is saved after its first play, so it loads fast next time. Every Slow button plays a slower recording.'}</p>
+ <p class="small muted">${audioMode==='natural'?'Playing natural Russian voices.':audioMode==='device'?'The natural-voice service is not connected, so a device voice is used as a backup.':'Words, phrases, lessons and dialogues use natural Russian voices (female and male). Each clip is saved after its first play, so it loads fast next time. Tap a speaker to listen. Tap Slow beside it to hear a slower recording.'}</p>
  </section>`;}
 function wordsList(){const p=ui.prac,q=p.q.trim().toLowerCase(),f=topicFilter(p.wcol,p.wtopic);
  const rows=ITEMS.filter(f).filter(i=>!q||i.ru.toLowerCase().includes(q)||i.en.toLowerCase().includes(q)||i.ph.toLowerCase().includes(q));
@@ -1547,7 +1552,7 @@ function render(){
  document.body.classList.toggle('no-ph',!S.set.ph);
  $('#hstats').innerHTML=`<span class="fire" title="Days in a row">🔥 ${streak()}</span><span class="xp" title="Experience points">⭐ ${S.xp}</span>`;
  if(ui.run&&ui.run.done&&!ui.run.cel){ui.run.cel=1;if(ui.run.pct>=60){confetti(70);sfx('win');}}
- $('#tPh').setAttribute('aria-checked',String(!!S.set.ph));$('#tRep').setAttribute('aria-pressed',String(!!S.set.rep));
+ $('#tPh').setAttribute('aria-checked',String(!!S.set.ph));
  document.querySelectorAll('#tabs a').forEach(a=>{const on=a.dataset.r===NAVOF(ui.route);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  if(ui.pendingSay){const p=ui.pendingSay;ui.pendingSay=null;say(p.text,false,p.once,p.who);}
  if(ui.run&&!ui.run.done){const a=$('#ans');if(a&&!a.disabled){try{a.focus({preventScroll:true});a.setSelectionRange(a.value.length,a.value.length);}catch(e){}}}
@@ -1593,7 +1598,7 @@ document.addEventListener('click',e=>{
  case 'rClose':r.close=true;render();return;
  case 'rCloseNo':r.close=false;render();return;
  case 'rCloseYes':endRun();return;
- case 'rReveal':r.st.shown=true;if(cur().k==='card'&&cur().dir==='recall')ui.pendingSay={text:BY[cur().id].ru};render();return;
+ case 'rReveal':r.st.shown=true;render();return;
  case 'rGrade':gradeCard(+d.g);render();top();return;
  case 'rPick':{const t=cur();if(r.st.checked)return;r.st.val=t.opts[+d.i];check();afterCheckScroll();return;}
  case 'rSyl':{if(r.st.checked)return;r.st.val=d.i;check();afterCheckScroll();return;}
@@ -1620,8 +1625,7 @@ document.addEventListener('click',e=>{
  case 'lessonSkip':{const l=LESSONS.find(x=>x.id===d.id);S.les[l.id]={s:100,t:Date.now(),placed:true};checkAch();save();ui.lesson=null;toast('Marked as known. Its words stay available to practise.');render();top();return;}
  case 'setP':{const k=d.k,v=d.v;ui.prac[k]=(k==='size')?+v:v;if(k==='col')ui.prac.topic='all';if(k==='wcol')ui.prac.wtopic='all';render();return;}
  case 'setSnd':S.set.snd=d.v==='1';save();render();if(S.set.snd)sfx('ok');return;
- case 'setA':S.set.rate=d.v;save();render();say('Здравствуйте! Как вас зовут?');return;
- case 'setVp':S.set.vp=d.v;save();render();say('Здравствуйте! Как вас зовут?');return;
+  case 'setVp':S.set.vp=d.v;save();render();return;
  case 'fStart':startFlash();render();top();return;
  case 'lStart':startListen();render();top();return;
  case 'pStart':startProduce();render();top();return;
@@ -1663,7 +1667,6 @@ document.addEventListener('keydown',e=>{
   if(st.shown&&'1234'.includes(e.key)&&e.key.length===1){gradeCard(+e.key-1);render();}}
 });
 $('#tPh').addEventListener('click',()=>{S.set.ph=!S.set.ph;save();render();});
-$('#tRep').addEventListener('click',()=>{S.set.rep=!S.set.rep;save();render();toast(S.set.rep?'Audio will play three times.':'Audio will play once.');});
 
 /* ---------- boot ---------- */
 loadState();checkAch();try{$('#logo').innerHTML=bunny('happy','logo');}catch(e){}
