@@ -345,6 +345,14 @@ header.top{row-gap:6px}
 .vol input{flex:1;min-width:0;accent-color:var(--accent)}
 .vol output{min-width:3.2em;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
 @media (max-width:360px){.lplayer{flex-direction:column;align-items:stretch;text-align:center}.lplayer .bigspk{align-self:center}.lp-ctl{justify-content:center}}
+/* ---------- answer review ---------- */
+.opt.good{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));box-shadow:0 4px 0 var(--accent-sh)}
+.opt.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 12%,var(--surface));box-shadow:0 4px 0 #b8383c;text-decoration:line-through;text-decoration-thickness:1.5px}
+.opt.good:disabled,.opt.bad:disabled{opacity:1}
+.fb .yours b{color:#d23c41}
+.fb .right b{color:var(--accent2)}
+.mcats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+.sndt{font-size:1rem;flex:none}
 </style>
 </head><body>
 <div class="wrap">
@@ -1117,7 +1125,7 @@ function loadState(){let raw=null,o={};try{raw=localStorage.getItem(KEY);}catch(
  if(typeof o!=='object'||Array.isArray(o))o={};
  if(raw&&o.v!==VER){try{localStorage.setItem(KEY+'.backup-v1',raw);}catch(e){}}
  const num=(x,d)=>typeof x==='number'&&isFinite(x)?x:d;
- S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},xp:Math.max(0,num(o.xp,0)),set:{}};
+ S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},miss:{},xp:Math.max(0,num(o.xp,0)),set:{}};
  const oc=o.cards&&typeof o.cards==='object'?o.cards:{};
  Object.keys(oc).forEach(id=>{const c=oc[id];if(!BY[id]||!c||typeof c!=='object')return;
   S.cards[id]={b:Math.max(0,Math.min(5,Math.round(num(c.b,0)))),due:num(c.due,0),ok:num(c.ok,0),bad:num(c.bad,0),seen:num(c.seen,0),last:num(c.last,0),rg:num(c.rg,Math.min(3,Math.max(0,num(c.ok,0)))),pr:num(c.pr,0),lap:num(c.lap,num(c.bad,0))};});
@@ -1127,10 +1135,11 @@ function loadState(){let raw=null,o={};try{raw=localStorage.getItem(KEY);}catch(
  Object.keys(ol).forEach(k=>{if(LEG[k]&&ol[k]&&!S.les[LEG[k]])S.les[LEG[k]]={s:100,t:Date.now(),legacy:true};else if(/^c\d\d$/.test(k)&&ol[k]&&typeof ol[k]==='object')S.les[k]=ol[k];});
  if(o.days&&typeof o.days==='object')Object.keys(o.days).forEach(k=>{if(num(o.days[k],0)>0)S.days[k]=o.days[k];});
  if(o.err&&typeof o.err==='object')Object.keys(o.err).forEach(t=>{const e=o.err[t];if(TAGS[t]&&e&&Array.isArray(e.r))S.err[t]={a:num(e.a,0),w:num(e.w,0),r:e.r.slice(-12).map(x=>x?1:0)};});
+ if(o.miss&&typeof o.miss==='object')Object.keys(o.miss).forEach(k=>{const m=o.miss[k];if(m&&m.t&&typeof m.t==='object'&&typeof m.t.k==='string'&&missOk(m.t))S.miss[k]={t:m.t,n:Math.max(1,num(m.n,1)),ok:num(m.ok,0),first:num(m.first,0),last:num(m.last,0)};});
  if(o.read&&typeof o.read==='object')Object.keys(o.read).forEach(k=>{if(/^r\d+$/.test(k)&&o.read[k])S.read[k]=o.read[k];});
  if(o.ach&&typeof o.ach==='object')S.ach=o.ach;if(o.flags&&typeof o.flags==='object')S.flags=o.flags;
- S.set=Object.assign({ph:true,rep:false,kb:false,len:10,rate:'normal',vp:'mix',speech:true,auto:true,sv:1,fv:.7},o.set&&typeof o.set==='object'?o.set:{});
- if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;S.set.auto=S.set.auto!==false;}
+ S.set=Object.assign({ph:true,rep:false,kb:false,len:10,rate:'normal',vp:'mix',fo:'smart',speech:true,auto:true,sv:1,fv:.7},o.set&&typeof o.set==='object'?o.set:{});
+ if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;if(!['smart','shuf'].includes(S.set.fo))S.set.fo='smart';S.set.auto=S.set.auto!==false;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 loadState();
 
@@ -1155,6 +1164,16 @@ const catMastery=cat=>cat.ids.reduce((s,id)=>s+mast(id),0)/cat.ids.length;
 const overall=()=>ITEMS.reduce((s,i)=>s+mast(i.id),0)/ITEMS.length;
 
 /* ---------- error tracking ---------- */
+/* ---------- missed questions: every wrong answer is saved, and leaves the list once answered
+   correctly in the missed-questions exam, or twice in a row anywhere else ---------- */
+const MISS_MAX=300;
+const qKey=t=>[t.k,t.dir||'',t.id||'',t.q||t.ru||t.en||t.say||'',t.goal||''].join('|');
+function missOk(t){if(t.id&&!BY[t.id])return false;if(t.k==='card'&&!t.id)return false;return true;}
+function trackMiss(t,ok,missRun){if(!t)return;const k=qKey(t),m=S.miss[k];
+ if(!ok){const e=m||{t:null,n:0,ok:0,first:Date.now()};const s={};Object.keys(t).forEach(x=>{if(!['retry','review','focus'].includes(x))s[x]=t[x];});e.t=s;e.n++;e.ok=0;e.last=Date.now();S.miss[k]=e;
+  const ks=Object.keys(S.miss);if(ks.length>MISS_MAX)ks.sort((a,b)=>S.miss[a].last-S.miss[b].last).slice(0,ks.length-MISS_MAX).forEach(x=>delete S.miss[x]);}
+ else if(m){m.ok++;if(missRun||m.ok>=2)delete S.miss[k];}}
+const missList=()=>Object.keys(S.miss).filter(k=>missOk(S.miss[k].t));
 function errTag(tag,ok){if(!tag||!TAGS[tag])return;const e=S.err[tag]||(S.err[tag]={a:0,w:0,r:[]});e.a++;if(!ok)e.w++;e.r.push(ok?1:0);if(e.r.length>12)e.r.shift();}
 function weakRate(tag){const e=S.err[tag];if(!e||e.r.length<4)return 0;return e.r.filter(x=>!x).length/e.r.length;}
 function weakTags(){return Object.keys(S.err).map(t=>({tag:t,rate:weakRate(t),a:S.err[t].a})).filter(x=>x.rate>=0.34).sort((a,b)=>b.rate-a.rate);}
@@ -1358,6 +1377,7 @@ function commit(t,res,val){const r=ui.run,st=r.st;st.checked=true;st.ok=res.ok;s
  if(!t.retry){r.res.push({k:t.k,tag:t.tag,id:t.id,ok:res.ok,q:promptText(t),given:showVal(t,val),ans:res.ans,lid:t.lid,lvl:t.lvl,review:t.review,sub:t.sayEn||t.en||'',ru:t.k==='pick'?t.ru:''});
   errTag(t.tag,res.ok);if(t.id)grade(t.id,res.ok?2:0,t.m||'r');if(res.ok)r.xp+=10;else(r.miss=r.miss||[]).push(Object.assign({},t,{retry:0,tiles:t.tiles?shuffle(t.tiles):t.tiles}));}
  else if(res.ok)r.xp+=5;
+ if(r.mode!=='place')trackMiss(t,res.ok,r.missRun);
  if(!res.ok&&!t.retry&&r.mode!=='exam')r.tasks.push(Object.assign({},t,{retry:1,tiles:t.tiles?shuffle(t.tiles):t.tiles}));
  save();}
 function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={};if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
@@ -1384,6 +1404,10 @@ function buildExam(){const t=ui.test,types=Object.keys(t.types).filter(k=>t.type
   if(ty==='li')return itemTask(it.id,'listen');if(ty==='rc')return itemTask(it.id,'type');if(ty==='dc')return itemTask(it.id,'dict');
   if(ty==='tl'&&itemKinds(it.id).includes('tiles'))return itemTask(it.id,'tiles');return itemTask(it.id,'type');});
  return startRun({title:n+'-question test',tasks:shuffle(tasks),mode:'exam',kind:'test',col:t.col});}
+function startMissed(){const ks=missList();if(!ks.length){toast('No missed questions right now. Nice work!');return false;}
+ const pick=shuffle(ks).sort((a,b)=>S.miss[b].n-S.miss[a].n).slice(0,50);
+ const tasks=pick.map(k=>{const t=Object.assign({},S.miss[k].t);if(Array.isArray(t.tiles))t.tiles=shuffle(t.tiles);if(Array.isArray(t.opts))t.opts=shuffle(t.opts);return t;});
+ return startRun({title:'Missed questions',tasks:shuffle(tasks),mode:'exam',kind:'test',col:'missed',missRun:1});}
 function startPlacement(){const by={};LESSONS.forEach(l=>{(by[l.lvl]=by[l.lvl]||[]).push(...l.x.filter(a=>!['scene','stress'].includes(a[0])).map(a=>[a,l]));});
  const take={'Pre-A1':4,'A1':10,'A2':8,'B1':4};let ts=[];Object.keys(take).forEach(lv=>{shuffle(by[lv]||[]).slice(0,take[lv]).forEach(([a,l])=>{const t=mkX(a,l.id);if(t&&!Array.isArray(t))ts.push(Object.assign(t,{lvl:lv}));});});
  const order=['Pre-A1','A1','A2','B1'];ts.sort((a,b)=>order.indexOf(a.lvl)-order.indexOf(b.lvl));
@@ -1403,8 +1427,8 @@ function bodyOf(t,st){let h='';const r=ui.run;
   if(t.k==='listen')h+=`<span class="tag">Listening</span>${lpHTML(t.ru)}<p class="muted">Choose the meaning.</p>`;
   else if(t.qRu)h+=`<p class="muted">What does this mean?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.q)}</div><div class="row nowrap">${sayBtns(t.q)}</div></div>`;
   else h+=`<div class="prompt">${esc(t.q)}</div>`;
-  return h+`<div class="opts">${t.opts.map((o,k)=>`<button class="opt${st.val===o?' sel':''}" data-act="rPick" data-i="${k}"${st.checked?' disabled':''} lang="${t.optRu?'ru':'en'}">${esc(o)}</button>`).join('')}</div>`;}
- if(t.k==='stress'){return h+`<span class="tag">Stress</span><p class="muted">Which syllable is stressed?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.ru)}</div><div class="row nowrap">${sayBtns(t.ru)}</div></div><div class="syl">${t.syl.map((s,i)=>`<button class="opt" data-act="rSyl" data-i="${i}"${st.checked?' disabled':''}>${esc(s.toLowerCase())}</button>`).join('')}</div>`;}
+  return h+`<div class="opts">${t.opts.map((o,k)=>`<button class="opt${st.checked?(o===t.ans?' good':st.val===o?' bad':''):st.val===o?' sel':''}" data-act="rPick" data-i="${k}"${st.checked?' disabled':''} lang="${t.optRu?'ru':'en'}">${esc(o)}</button>`).join('')}</div>`;}
+ if(t.k==='stress'){return h+`<span class="tag">Stress</span><p class="muted">Which syllable is stressed?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.ru)}</div><div class="row nowrap">${sayBtns(t.ru)}</div></div><div class="syl">${t.syl.map((s,i)=>`<button class="opt${st.checked?(String(i)===t.ans?' good':String(st.val)===String(i)?' bad':''):''}" data-act="rSyl" data-i="${i}"${st.checked?' disabled':''}>${esc(s.toLowerCase())}</button>`).join('')}</div>`;}
  if(t.k==='tiles'){const sel=st.sel||[];
   if(t.say)h+=`<span class="tag">Conversation ${t.scene} of ${t.of}</span>${t.say?`<div class="bubble"><div class="row sp top"><span lang="ru" class="ru">${esc(t.say)}</span><span class="row nowrap">${sayBtns(t.say,vOf(t.say))}</span></div><details><summary class="small">Show translation</summary><span class="small muted">${esc(t.sayEn)}</span></details></div>`:''}<p>${esc(t.goal)}</p>`;
   else h+=`<span class="tag">Build the sentence</span><div class="prompt">${esc(t.en)}</div>`;
@@ -1416,23 +1440,24 @@ function bodyOf(t,st){let h='';const r=ui.run;
  if(t.k==='dict')lead=`<span class="tag">Dictation</span>${lpHTML(t.ru)}<p class="muted">Type what you hear in Russian.</p>`;
  if(t.k==='cloze')lead=`<span class="tag">Fill the gap</span><div class="prompt" lang="ru">${esc(t.q)}</div>${t.hint?`<p class="muted">${esc(t.hint)}</p>`:''}`;
  if(t.k==='fix'){lead=`<span class="tag">Correct the mistake</span><p class="muted">Edit the sentence so it is correct.</p>`;init=t.q;}
+ if(st.checked)init=String(st.val==null?'':st.val);
  return h+lead+`<input type="text" id="ans" lang="${lang}" value="${esc(init)}" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Your answer"${st.checked?' disabled':''}>`+(lang==='ru'&&!st.checked?`<div class="row"><button class="chip" data-act="kbToggle" aria-pressed="${!!S.set.kb}">Cyrillic keys</button></div>${kbHTML()}`:'')+(st.checked?'':`<div class="row"><button class="btn grow" data-act="rCheck">Check</button><button class="btn quiet" data-act="rSkip">I don't know</button></div>`);}
 const PRAISE=['Nailed it!','Brilliant!','Great job!','Yes!','Perfect!','Super!','So good!','You got it!'];
-function gradeCard(g){const r=ui.run,t=cur();if(g>=2)sfx('coin');grade(t.id,g,t.m||'r');errTag('vocab',g>=2);r.combo=g>=2?(r.combo||0)+1:0;r.best=Math.max(r.best||0,r.combo);r.res.push({k:'card',tag:'vocab',id:t.id,ok:g>=2,q:BY[t.id].en,given:['Again','Hard','Good','Easy'][g],ans:BY[t.id].ru,sub:BY[t.id].ph});if(g>=2)r.xp+=g===3?12:10;if(g===0)r.tasks.push(Object.assign({},t,{retry:1}));save();sfx(g>=2?'ok':'no');nextTask();}
+function gradeCard(g){const r=ui.run,t=cur();if(g>=2)sfx('coin');if(g!==1)trackMiss(t,g>=2,r.missRun);grade(t.id,g,t.m||'r');errTag('vocab',g>=2);r.combo=g>=2?(r.combo||0)+1:0;r.best=Math.max(r.best||0,r.combo);r.res.push({k:'card',tag:'vocab',id:t.id,ok:g>=2,q:BY[t.id].en,given:['Again','Hard','Good','Easy'][g],ans:BY[t.id].ru,sub:BY[t.id].ph});if(g>=2)r.xp+=g===3?12:10;if(g===0&&r.mode!=='exam')r.tasks.push(Object.assign({},t,{retry:1}));save();if(g===0)sfx('no');nextTask();}
 function fbHTML(t,st){const res=st.res||{},ok=st.ok;
  const shown=t.k==='pick'||t.k==='listen'||t.k==='stress'||t.k==='tiles'||t.k==='cloze'||t.k==='type'||t.k==='fix'||t.k==='dict'||t.k==='read';
  const ru=!(t.k==='read'||(t.k==='pick'&&!t.optRu&&t.k!=='pick'));
  const showAns=!ok||res.close;const isRu=!(t.k==='read'||t.k==='listen'||(t.k==='pick'&&!t.optRu)||t.k==='stress');
  return `<div class="fb ${ok?'good':'bad'}" role="status"><div class="fbh"><span class="fbi">${ok?ICON.check:'!'}</span><b>${ok?(res.close?'Almost! Check the spelling':(st.pr=st.pr||((ui.run.combo>=3?ui.run.combo+' in a row! 🔥':PRAISE[Math.floor(Math.random()*PRAISE.length)]))))+'':'Not quite. You will get it!'}</b>${ok&&!t.retry?'<span class="xpop">+10 XP</span>':''}</div>
- ${showAns?`<div>${ok?'Exact form':'Correct answer'}: <b class="${isRu?'ru':''}" lang="${isRu?'ru':'en'}">${esc(res.ans)}</b> ${isRu?`<button class="ib sm" data-act="say" data-t="${esc(res.ans)}"${t.k==='tiles'&&t.say?' data-who="'+opp(vOf(t.say))+'"':''} aria-label="Play correct answer">${ICON.play}</button>`:''}</div>`:''}
- ${!ok&&st.val!==undefined&&st.val!==''&&typeof st.val==='string'?`<div class="small muted">You wrote: ${esc(st.val)}</div>`:''}
+ ${!ok?`<div class="yours">Your answer: <b${typeof st.val==='string'||Array.isArray(st.val)?` lang="${t.k==='read'||(t.k==='pick'&&!t.optRu)||t.k==='listen'?'en':'ru'}"`:''}>${(()=>{const v=showVal(t,st.val);return v&&String(v).trim()?esc(v):'<i>No answer</i>';})()}</b></div>`:''}
+ ${showAns?`<div class="${ok?'':'right'}">${ok?'Exact form':'Correct answer'}: <b class="${isRu?'ru':''}" lang="${isRu?'ru':'en'}">${esc(res.ans)}</b> ${isRu?`<button class="ib sm" data-act="say" data-t="${esc(res.ans)}"${t.k==='tiles'&&t.say?' data-who="'+opp(vOf(t.say))+'"':''} aria-label="Play correct answer">${ICON.play}</button>`:''}</div>`:''}
  ${t.k==='tiles'&&t.en&&!t.say?`<div class="small muted">${esc(t.en)}</div>`:''}${!ok&&t.k==='tiles'?'<div class="small muted">Russian word order is flexible, but this is the most neutral order.</div>':''}
  ${!ok&&t.note?`<div class="small">${esc(t.note)}</div>`:''}
  <button class="btn big" data-act="rNext">Continue</button></div>`;}
 function vRunner(){const r=ui.run;if(r.done)return vSummary();
  const t=cur(),st=r.st,n=r.tasks.length;
- const showFb=st.checked&&r.mode!=='exam'&&t.k!=='card';
- return `<div class="runner${showFb?' sheet':''}"><div class="rhead"><button class="ib" data-act="rClose" aria-label="Close practice">✕</button><div class="bar grow" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${r.i}"><i style="width:${r.i/n*100}%"></i></div>${r.combo>=3?`<span class="combo" aria-label="${r.combo} correct in a row">🔥 ${r.combo}</span>`:`<span class="small muted">${r.i+1}/${n}</span>`}</div>
+ const showFb=st.checked&&t.k!=='card';
+ return `<div class="runner${showFb?' sheet':''}"><div class="rhead"><button class="ib" data-act="rClose" aria-label="Close practice">✕</button><div class="bar grow" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${r.i}"><i style="width:${r.i/n*100}%"></i></div><button class="ib sm sndt" data-act="sndToggle" aria-pressed="${S.set.snd!==false}" aria-label="Sound effects ${S.set.snd!==false?'on':'off'}" title="Sound effects">${S.set.snd!==false?'🔔':'🔕'}</button>${r.combo>=3?`<span class="combo" aria-label="${r.combo} correct in a row">🔥 ${r.combo}</span>`:`<span class="small muted">${r.i+1}/${n}</span>`}</div>
  ${r.close?`<div class="note row sp"><span>Stop and lose this session?</span><span class="row"><button class="btn quiet" data-act="rCloseYes">Stop</button><button class="btn alt" data-act="rCloseNo">Keep going</button></span></div>`:''}
  <section class="card task">${bodyOf(t,st)}</section>${showFb?fbHTML(t,st):''}</div>`;}
 function vSummary(){const r=ui.run,miss=r.res.filter(x=>!x.ok);const byTag={};miss.forEach(x=>{byTag[x.tag]=(byTag[x.tag]||0)+1;});
@@ -1441,6 +1466,7 @@ function vSummary(){const r=ui.run,miss=r.res.filter(x=>!x.ok);const byTag={};mi
  let head=r.mode==='lesson'?(r.pct>=70?'Lesson complete! 🎉':'Almost there'):r.mode==='exam'?'Test complete':r.mode==='place'?'Placement result':r.mode==='read'?'Passage checked':'Session complete';
  let sub=r.mode==='lesson'?(r.pct>=70?'You scored '+r.pct+'%. This lesson now counts as done and returns in your reviews.':'You need 70% to complete a lesson. Review the explanation and try again. The mistakes are listed below.'):r.mode==='place'?(r.placed&&r.placed.length?'You already know the '+r.placed.join(', ')+' material. Those lessons are marked complete, so your path starts at the first gap.':'Your path starts at Lesson 1. You can retake this check any time.'):r.pct>=85?'Fantastic! 🎉':r.pct>=60?'Solid progress. Missed items return in your reviews.':'A good start. The items you missed are scheduled to come back soon.';
  let h=`<div class="runner"><section class="card center"><div class="bunny-wrap">${bunny(r.pct>=60?'cheer':'oops')}</div><div class="ring" style="--p:${r.pct}"><b>${r.pct}%</b></div><h1>${head}</h1><div class="stars" aria-label="${stars} of 3 stars">${[1,2,3].map(i=>`<span class="${i<=stars?'on':''}" style="animation-delay:${i*.18}s">★</span>`).join('')}</div><div class="pills"><span>⭐ +${r.xp} XP</span><span>🎯 ${r.ok}/${r.n}</span>${r.best>=3?`<span>🔥 best ${r.best} in a row</span>`:''}</div><p>${sub}</p>
+ ${miss.length&&r.mode!=='place'?`<p class="small muted center">${r.missRun?'Questions you got right have left your missed list. The rest stay for next time.':'Your mistakes are saved. Retake them any time from Test, under Missed questions.'}</p>`:r.missRun?'<p class="small muted center">All cleared from your missed list! 🎉</p>':''}
  <div class="row center">${r.mode==='lesson'&&r.passed&&nx?`<button class="btn" data-act="rNextLesson" data-id="${nx.id}">Next lesson</button>`:''}${miss.length&&r.mode!=='exam'?'<button class="btn alt" data-act="rAgain">Practise mistakes</button>':''}<button class="btn quiet" data-act="rDone">Done</button></div></section>`;
  if(focus.length)h+=`<section class="card"><div class="eyebrow">Needs work</div>${focus.map(t=>`<div class="row sp"><span>${esc(TAGS[t][0])} · ${byTag[t]} missed</span><button class="btn alt sm" data-act="targeted" data-tag="${t}">Practise</button></div>`).join('')}</section>`;
  if(miss.length)h+=`<h2>${r.mode==='exam'?'Review incorrect answers':'Mistakes'} (${miss.length})</h2>`+miss.slice(0,40).map(x=>{const it=x.id?BY[x.id]:null;
@@ -1503,7 +1529,7 @@ function vLesson(){const l=LESSONS.find(x=>x.id===ui.lesson),idx=LESSONS.indexOf
  <ul class="pts">${l.pts.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></section>
  <section class="card"><div class="eyebrow">Listen</div><div class="list">${l.ex.map(e=>`<div class="ex"><div><div class="exru" lang="ru">${esc(e[0])}</div><div class="ph">${esc(e[1])}</div><div class="small muted">${esc(e[2])}</div></div><div class="row nowrap">${sayBtns(e[0])}</div></div>`).join('')}</div></section>`;
  if(l.alpha)h+=`<section class="card"><div class="eyebrow">The alphabet, 33 letters</div><div class="alpha">${ALPHA.map(a=>`<button data-act="say" data-t="${esc(a[2])}" aria-label="${esc(a[0])}, ${esc(a[2])}"><b lang="ru">${esc(a[0])}</b><span>${esc(a[1])}</span><span lang="ru">${esc(a[2])} <span class="ph">${esc(a[3])}</span></span></button>`).join('')}</div></section>`;
- if(ids.length)h+=`<section class="card"><details class="how"><summary>Vocabulary for this lesson (${ids.length})</summary><div class="list">${ids.map(id=>{const it=BY[id];return `<div class="vrow"><div class="grow"><span class="ru sm" lang="ru">${esc(ruH(it))}</span> <span class="ph small">${esc(it.ph)}</span><div class="small muted">${esc(it.en)}</div></div><button class="ib" data-act="say" data-t="${esc(it.ru)}" aria-label="Play ${esc(it.en)}">${ICON.play}</button></div>`;}).join('')}</div></details></section>`;
+ if(ids.length)h+=`<section class="card"><details class="how"><summary>Vocabulary for this lesson (${ids.length})</summary><div class="list">${ids.map(id=>{const it=BY[id];return `<div class="vrow"><div class="grow"><span class="ru sm" lang="ru">${esc(ruH(it))}</span> <span class="ph small">${esc(it.ph)}</span><div class="small muted">${esc(it.en)}</div></div><button class="ib" data-act="say" data-t="${esc(it.ru)}" aria-label="Play ${esc(it.en)}">${ICON.play}</button></div>`;}).join('')}</div></details><button class="btn alt" data-act="lessonFlash" data-id="${l.id}">Shuffle flashcards (${ids.length})</button></section>`;
  h+=`<section class="card"><div class="eyebrow">Practise</div><p class="muted">About ${Math.max(5,Math.round(l.min*0.8))} minutes of exercises where you type, build and listen. Score 70% to complete the lesson. Earlier material is mixed in so it stays fresh.</p>
  <div class="row"><button class="btn" data-act="lessonPractice" data-id="${l.id}">${d?'Practise again':'Start practice'}</button>${d?'':`<button class="btn quiet" data-act="lessonSkip" data-id="${l.id}">I already know this</button>`}</div>${d?`<p class="small muted">${d.placed?'Marked as known.':'Best score: '+d.s+'%.'}</p>`:''}</section>`;
  const rds=READING.filter(p=>p.need===l.id);if(rds.length)h+=`<section class="card flat">${rds.map(p=>`<div class="row sp"><span>Related reading: ${esc(p.t)}</span><button class="btn alt sm" data-act="openPassage" data-id="${p.id}">Read</button></div>`).join('')}</section>`;
@@ -1521,6 +1547,8 @@ function vStudy(){
  <section class="card"><h2>Flashcards</h2><p class="muted">Spaced repetition with active recall. Automatic mode shows the word first for new items and asks you to produce it once it is familiar.</p>
  ${seg('setP','dir',p.dir,[['auto','Automatic'],['recog','Russian to English'],['recall','English to Russian']])}
  ${seg('setP','size',p.size,[[10,'10 cards'],[20,'20 cards']])}
+ <div class="eyebrow">Order</div>${seg('setFo','fo',S.set.fo,[['smart','Smart review'],['shuf','Shuffle']])}
+ <p class="small muted">${S.set.fo==='shuf'?'Cards are drawn at random from the topic you picked, in a new order every time.':'Cards that are due come first, then new ones.'}</p>
  <button class="btn big" data-act="fStart">Start flashcards</button></section>
  <section class="card"><h2>Listening and dictation</h2><p class="muted">Hear the Russian, choose its meaning or type what you hear. Nothing is shown first, so you train your ear.</p><button class="btn big alt" data-act="lStart">Start listening practice</button></section>
  <section class="card"><h2>Produce it</h2><p class="muted">${kn.length?kn.length+' items you can recognise but have not yet produced. Type them, build sentences and fill gaps.':'Type, build and fill gaps for items you have started. This is the fastest way to speak and write.'}</p><button class="btn big alt" data-act="pStart">Start production drill</button></section>
@@ -1568,8 +1596,10 @@ function vPassage(){const pg=READING.find(p=>p.id===ui.passage),hide=!!ui.hideTe
 
 /* ---------- TEST ---------- */
 const TTYPES={mc:'Multiple choice',tr:'Translation (choose)',li:'Listening',rc:'Recall (type)',dc:'Dictation',tl:'Build the sentence'};
-function vTest(){const t=ui.test;
- return `<section class="card"><h1>Test yourself</h1><p class="muted">You see your score and every mistake at the end. Results also update your reviews and weak-spot tracking.</p>
+function vTest(){const t=ui.test,mk=missList(),by={};mk.forEach(k=>{const g=S.miss[k].t.tag;const lab=TAGS[g]?TAGS[g][0]:'Other';by[lab]=(by[lab]||0)+1;});
+ const cats=Object.keys(by).sort((a,b)=>by[b]-by[a]);
+ return `<section class="card"><h2>Missed questions${mk.length?` <span class="chip static">${mk.length}</span>`:''}</h2>${mk.length?`<p class="muted">Every question you answer wrongly is saved here, from lessons, practice, listening, flashcards and tests. A question leaves the list when you get it right in this exam, or twice in a row anywhere else.</p><div class="mcats">${cats.slice(0,8).map(c=>`<span class="tag">${esc(c)} · ${by[c]}</span>`).join('')}${cats.length>8?`<span class="tag">+${cats.length-8} more</span>`:''}</div><button class="btn big" data-act="missStart">Retake ${Math.min(50,mk.length)} missed question${mk.length===1?'':'s'}</button>${mk.length>50?'<p class="small muted">The 50 you have missed most often come first. Clear them to unlock the rest.</p>':''}`:'<p class="muted">No missed questions right now. When you answer something wrongly, it is saved here so you can retake it as an exam.</p>'}</section>
+ <section class="card"><h1>Test yourself</h1><p class="muted">You see whether each answer is right as you go, then your score and every mistake at the end. Results also update your reviews and weak-spot tracking.</p>
  <div class="eyebrow">Content</div>${seg('setT','col',t.col,[['all','Everything'],['p','Phrases'],['v','Words'],['done','My lessons so far']])}
  <div class="eyebrow">Questions</div>${seg('setT','n',t.n,[[30,'30'],[60,'60'],[90,'90']])}
  <div class="eyebrow">Question types</div><div class="seg">${Object.keys(TTYPES).map(k=>{const off=(k==='li'||k==='dc')&&!HAS_TTS;return `<button data-act="tType" data-k="${k}" aria-pressed="${!!t.types[k]&&!off}"${off?' disabled':''}>${TTYPES[k]}</button>`;}).join('')}</div>
@@ -1603,7 +1633,7 @@ function vProgress(){
  h+=`<section class="card"><h2>Achievements</h2><div class="ach">${ACH.map(a=>`<div class="a${S.ach[a[0]]?' on':''}"><b>${esc(a[1])}</b><span class="small muted">${esc(a[2])}</span></div>`).join('')}</div></section>`;
  const K={flash:'Flashcards',listen:'Listening',test:'Test',lesson:'Lesson',mixed:'Mixed practice',targeted:'Targeted practice',read:'Reading',place:'Placement',plan:'Daily session'};
  h+=`<section class="card"><h2>Review history</h2>${S.hist.length?`<div class="list tight">${S.hist.slice(0,8).map(x=>`<div class="row sp"><span>${K[x.k]||x.k} · ${fmtDate(x.t)}</span><b>${x.ok} / ${x.n}</b></div>`).join('')}</div>`:'<p class="muted">Sessions you finish will appear here.</p>'}</section>
- <section class="card"><h2>Test scores</h2>${S.tests.length?`<div class="list tight">${S.tests.slice(0,8).map(x=>`<div class="row sp"><span>${fmtDate(x.t)} · ${x.n} questions · ${x.col==='p'?'phrases':x.col==='v'?'words':x.col==='done'?'my lessons':'everything'}</span><b>${Math.round(x.score/x.n*100)}%</b></div>`).join('')}</div>`:'<p class="muted">Take a test to see scores here.</p>'}</section>
+ <section class="card"><h2>Test scores</h2>${S.tests.length?`<div class="list tight">${S.tests.slice(0,8).map(x=>`<div class="row sp"><span>${fmtDate(x.t)} · ${x.n} questions · ${x.col==='p'?'phrases':x.col==='v'?'words':x.col==='done'?'my lessons':x.col==='missed'?'missed questions':'everything'}</span><b>${Math.round(x.score/x.n*100)}%</b></div>`).join('')}</div>`:'<p class="muted">Take a test to see scores here.</p>'}</section>
  <section class="card flat"><p class="small muted">Progress is saved in this browser on this device. Clearing site data removes it.</p>${ui.confirmReset?`<div class="row"><button class="btn" data-act="resetYes">Erase all progress</button><button class="btn quiet" data-act="resetNo">Cancel</button></div>`:`<button class="btn quiet" data-act="resetAsk" style="align-self:flex-start">Reset progress</button>`}</section>`;
  return h;}
 
@@ -1651,6 +1681,8 @@ function check(){const r=ui.run,t=cur(),st=r.st;if(st.checked)return;let val;
 function afterCheckScroll(){const f=document.querySelector('.fb');if(f&&f.scrollIntoView){try{f.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}}}
 function endRun(){ui.run=null;stopAudio();render();top();}
 function startFlash(){const p=ui.prac,pool=ITEMS.filter(topicFilter(p.col,p.topic));if(!pool.length)return;
+ if(S.set.fo==='shuf'){const tasks=shuffle(pool).slice(0,p.size).map(i=>itemTask(i.id,p.dir==='recog'?'card-r':p.dir==='recall'?'card-p':(step(i.id)>=2?'card-p':'card-r')));
+  startRun({title:'Flashcards (shuffled)',tasks,mode:'mixed',kind:'flash'});return;}
  const due=pool.filter(i=>isDue(i.id)).sort((a,b)=>S.cards[a.id].due-S.cards[b.id].due),fresh=pool.filter(i=>isNew(i.id)),rest=shuffle(pool.filter(i=>!isDue(i.id)&&!isNew(i.id))).sort((a,b)=>mast(a.id)-mast(b.id));
  const ids=due.concat(fresh.slice(0,Math.max(3,Math.ceil(p.size/3))),rest).map(i=>i.id).filter((x,i,a)=>a.indexOf(x)===i).slice(0,p.size);
  const tasks=ids.map(id=>{const k=p.dir==='recog'?'card-r':p.dir==='recall'?'card-p':(step(id)>=2?'card-p':'card-r');return itemTask(id,k);});
@@ -1671,6 +1703,7 @@ document.addEventListener('click',e=>{
  switch(act){
  case 'say':say(d.t,!!d.slow,false,d.who||undefined);return;
  case 'aPause':pauseAudio();return;
+ case 'sndToggle':S.set.snd=S.set.snd===false;save();render();toast(S.set.snd?'Sound effects on. Adjust the volume in Practice, under Audio.':'Sound effects off.');if(S.set.snd)sfx('coin');return;
  /* runner */
  case 'rClose':r.close=true;render();return;
  case 'rCloseNo':r.close=false;render();return;
@@ -1695,6 +1728,9 @@ document.addEventListener('click',e=>{
  switch(act){
  case 'setLen':S.set.len=+d.v;save();render();return;
  case 'startPlan':{const p=planSession(S.set.len);if(p&&startRun({title:'Your '+S.set.len+'-minute session',tasks:p.tasks,mode:'mixed',kind:'plan'})){render();top();}return;}
+ case 'setFo':S.set.fo=d.v==='shuf'?'shuf':'smart';save();render();return;
+ case 'lessonFlash':{const l=LESSONS.find(x=>x.id===d.id);const ids=l?lessonItems(l):[];if(ids.length&&startRun({title:l.t+': flashcards',tasks:shuffle(ids).map(id=>itemTask(id,step(id)>=2?'card-p':'card-r')),mode:'mixed',kind:'flash'})){render();top();}return;}
+ case 'missStart':if(startMissed()){render();top();}return;
  case 'placement':if(startPlacement()){render();top();}return;
  case 'openLesson':ui.route='learn';ui.lesson=d.id;setHash('learn');render();top();return;
  case 'lessonBack':ui.lesson=null;render();top();return;
