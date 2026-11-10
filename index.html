@@ -1717,7 +1717,7 @@ function commit(t,res,val){const r=ui.run,st=r.st;st.checked=true;st.ok=res.ok;s
  if(!t.retry)skillCount(t,res.ok);
  if(!res.ok&&!t.retry&&r.mode!=='exam')r.tasks.push(Object.assign({},t,{retry:1,tiles:t.tiles?shuffle(t.tiles):t.tiles}));
  save();}
-function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={};if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
+function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={};ansSel=null;if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
 function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).length,pct=n?Math.round(ok/n*100):0;const now=Date.now();
  r.n=n;r.ok=ok;r.pct=pct;r.passed=false;
  if(r.mode==='lesson'){const prev=S.les[r.lid]||{};if(pct>=70){r.passed=!lessonDone(LESSONS.find(l=>l.id===r.lid));S.les[r.lid]={s:Math.max(pct,prev.s||0),t:prev.t||now,n:(prev.n||0)+1};r.xp+=r.passed?20:0;}}
@@ -1814,14 +1814,14 @@ function bodyOf(t,st){let h='';const r=ui.run;h+=stagesHTML(r,t);
  if(t.k==='tiles'){const sel=st.sel||[];
   if(t.say)h+=`<span class="tag">Conversation ${t.scene} of ${t.of}</span>${t.say?`<div class="bubble"><div class="row sp top"><span lang="ru" class="ru">${esc(t.say)}</span><span class="row nowrap">${sayBtns(t.say,vOf(t.say))}</span></div><details><summary class="small">Show translation</summary><span class="small muted">${esc(t.sayEn)}</span></details></div>`:''}<p>${esc(t.goal)}</p>`;
   else h+=`<span class="tag">Build the sentence</span><div class="prompt">${esc(t.en)}</div>`;
-  return h+`<div class="tray" aria-label="Your sentence">${sel.length?sel.map(i=>`<button class="tile on" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(t.tiles[i])}</button>`).join(''):'<span class="muted small">Tap the words in order</span>'}</div><div class="bank">${t.tiles.map((w,i)=>sel.includes(i)?'':`<button class="tile" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(w)}</button>`).join('')}</div>${st.checked?'':`<button class="btn big" data-act="rCheck"${sel.length?'':' disabled'}>Check</button>`}`;}
+  return h+`<div class="tray" aria-label="Your sentence">${sel.length?sel.map(i=>`<button class="tile on" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(t.tiles[i])}</button>`).join(''):'<span class="muted small">Tap the words in order</span>'}</div>${sel.length&&!st.checked?`<div class="row center">${sayBtns(sel.map(k=>t.tiles[k]).join(' '))}</div>`:''}<div class="bank">${t.tiles.map((w,i)=>sel.includes(i)?'':`<button class="tile" data-act="rTile" data-i="${i}"${st.checked?' disabled':''} lang="ru">${esc(w)}</button>`).join('')}</div>${st.checked?'':`<button class="btn big" data-act="rCheck"${sel.length?'':' disabled'}>Check</button>`}`;}
  /* typed answers */
  let lead='',lang='ru',init='';
  if(t.k==='type')lead=t.say?`<span class="tag">Your turn: reply</span><div class="bubble"><div class="row sp top"><span lang="ru" class="ru">${esc(t.say)}</span><span class="row nowrap">${sayBtns(t.say,t.sayW)}</span></div><details><summary class="small">Show translation</summary><span class="small muted">${esc(t.sayEn)}</span></details></div><div class="prompt">${esc(t.q)}</div><p class="small muted">Say your reply out loud first, then type it.</p>`:`<span class="tag">Translate into Russian</span><div class="prompt">${esc(t.q)}</div>`;
  if(t.k==='read'){lang='en';lead=`<span class="tag">Read it, then type the English</span><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.ru)}</div><div class="row nowrap">${sayBtns(t.ru)}</div></div>`;}
  if(t.k==='dict')lead=`<span class="tag">Dictation</span>${lpHTML(t.ru)}<p class="muted">Type what you hear in Russian.</p>`;
  if(t.k==='cloze')lead=`<span class="tag">Fill the gap</span><div class="prompt" lang="ru">${esc(t.q)}</div>${t.hint?`<p class="muted">${esc(t.hint)}</p>`:''}`;
- if(t.k==='fix'){lead=`<span class="tag">Correct the mistake</span><p class="muted">Edit the sentence so it is correct.</p>`;init=t.q;}
+ if(t.k==='fix'){lead=`<span class="tag">Correct the mistake</span><p class="muted">Edit the sentence so it is correct. Tap in the box to place the cursor anywhere.</p><div class="row sp top"><div class="ru grow" lang="ru">${esc(t.q)}</div><div class="row nowrap">${sayBtns(t.q)}</div></div>`;init=t.q;}
  if(st.checked)init=String(st.val==null?'':st.val);
  return h+lead+`<input type="text" id="ans" lang="${lang}" value="${esc(init)}" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Your answer"${st.checked?' disabled':''}>`+(lang==='ru'&&!st.checked?`<div class="row"><button class="chip" data-act="kbToggle" aria-pressed="${!!S.set.kb}">Cyrillic keys</button></div>${kbHTML()}`:'')+(st.checked?'':`<div class="row"><button class="btn grow" data-act="rCheck">Check</button><button class="btn quiet" data-act="rSkip">I don't know</button></div>`);}
 const PRAISE=['Nailed it!','Brilliant!','Great job!','Yes!','Perfect!','Super!','So good!','You got it!'];
@@ -1833,6 +1833,7 @@ function fbHTML(t,st){const res=st.res||{},ok=st.ok;
  return `<div class="fb ${ok?'good':'bad'}" role="status"><div class="fbh"><span class="fbi">${ok?ICON.check:'!'}</span><b>${ok?(res.close?'Almost! Check the spelling':(st.pr=st.pr||((ui.run.combo>=3?ui.run.combo+' in a row! 🔥':PRAISE[Math.floor(Math.random()*PRAISE.length)]))))+'':'Not quite. You will get it!'}</b>${ok&&!t.retry?'<span class="xpop">+10 XP</span>':''}</div>
  ${!ok?`<div class="yours">Your answer: <b${typeof st.val==='string'||Array.isArray(st.val)?` lang="${t.k==='read'||(t.k==='pick'&&!t.optRu)||t.k==='listen'?'en':'ru'}"`:''}>${(()=>{const v=showVal(t,st.val);return v&&String(v).trim()?esc(v):'<i>No answer</i>';})()}</b></div>`:''}
  ${showAns?`<div class="${ok?'':'right'}">${ok?'Exact form':'Correct answer'}: <b class="${isRu?'ru':''}" lang="${isRu?'ru':'en'}">${esc(res.ans)}</b> ${isRu?`<button class="ib sm" data-act="say" data-t="${esc(res.ans)}"${t.k==='tiles'&&t.say?' data-who="'+opp(vOf(t.say))+'"':''} aria-label="Play correct answer">${ICON.play}</button>`:''}</div>`:''}
+ ${t.k==='cloze'&&!t.conj&&String(t.q).includes('___')?(()=>{const full=String(t.q).replace('___',String(t.ans).split('|')[0]);return `<div class="row sp small"><span>Hear the whole sentence</span><span class="row nowrap">${sayBtns(full)}</span></div>`;})():''}
  ${t.k==='tiles'&&t.en&&!t.say?`<div class="small muted">${esc(t.en)}</div>`:''}${!ok&&t.k==='tiles'?'<div class="small muted">Russian word order is flexible, but this is the most neutral order.</div>':''}
  ${!ok&&t.note?`<div class="small">${esc(t.note)}</div>`:''}
  <button class="btn big" data-act="rNext">Continue</button></div>`;}
@@ -2186,6 +2187,11 @@ function confetti(n){try{const host=document.createElement('div');host.className
 /* ---------- render ---------- */
 const VIEWS={today:vToday,learn:vCourse,study:vStudy,read:vRead,test:vTest,progress:vProgress,games:vGames,talk:vTalk};
 const NAVOF=r=>r==='test'?'study':r;
+/* the answer box: remember where the caret is so a redraw (or the Cyrillic keys) never throws it to the end */
+let ansSel=null;
+function ansKeep(){const a=document.getElementById('ans');if(a&&!a.disabled&&a.selectionStart!=null)ansSel=[a.selectionStart,a.selectionEnd,a.value];}
+['input','keyup','click','select','focus','blur','touchend','pointerup'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target&&e.target.id==='ans')ansKeep();},true));
+document.addEventListener('selectionchange',()=>{const a=document.activeElement;if(a&&a.id==='ans')ansKeep();});
 function render(){
  const app=$('#app');document.body.classList.toggle('running',!!ui.run);
  app.innerHTML=ui.run?vRunner():(VIEWS[ui.route]||vToday)();
@@ -2201,7 +2207,7 @@ function render(){
   else if(t.k==='learn'&&t.v==='word'){st.auto=1;if(go)say(BY[t.id].ru,false,1,undefined,true);}
   else if(t.k==='type'&&t.say){st.auto=1;if(go)say(t.say,false,1,t.sayW,true);}}}
  paintAudio();
- if(ui.run&&!ui.run.done){const a=$('#ans');if(a&&!a.disabled){try{a.focus({preventScroll:true});a.setSelectionRange(a.value.length,a.value.length);}catch(e){}}}
+ if(ui.run&&!ui.run.done){const a=$('#ans');if(a&&!a.disabled){try{const k=ansSel&&ansSel[2]===a.value?ansSel:null;a.focus({preventScroll:true});const n=a.value.length;a.setSelectionRange(k?Math.min(k[0],n):n,k?Math.min(k[1],n):n);}catch(e){}}}
 }
 function top(){try{window.scrollTo(0,0);}catch(e){}}
 let skipHash=false;
@@ -2274,8 +2280,8 @@ document.addEventListener('click',e=>{
  case 'rNextLesson':ui.run=null;ui.route='learn';ui.lesson=d.id;setHash('learn');render();top();return;
  case 'targeted':{const rs=startRun({title:'Targeted: '+TAGS[d.tag][0],tasks:tasksForTag(d.tag,12),mode:'mixed',kind:'targeted'});if(rs){render();top();}return;}
  case 'kbToggle':S.set.kb=!S.set.kb;save();{const v=setAnswerVal();render();const el=$('#ans');if(el){el.value=v;}}return;
- case 'kbKey':{const el=$('#ans');if(el&&!el.disabled){el.value+=d.ch;el.focus();}return;}
- case 'kbDel':{const el=$('#ans');if(el&&!el.disabled){el.value=el.value.slice(0,-1);el.focus();}return;}
+ case 'kbKey':{const el=$('#ans');if(el&&!el.disabled){const a=el.selectionStart==null?el.value.length:el.selectionStart,b=el.selectionEnd==null?a:el.selectionEnd;el.value=el.value.slice(0,a)+d.ch+el.value.slice(b);el.setSelectionRange(a+1,a+1);el.focus({preventScroll:true});ansKeep();}return;}
+ case 'kbDel':{const el=$('#ans');if(el&&!el.disabled){let a=el.selectionStart==null?el.value.length:el.selectionStart;const b=el.selectionEnd==null?a:el.selectionEnd;if(a===b)a=Math.max(0,a-1);el.value=el.value.slice(0,a)+el.value.slice(b);el.setSelectionRange(a,a);el.focus({preventScroll:true});ansKeep();}return;}
  }
  if(ui.run)return;
  switch(act){
@@ -2345,6 +2351,8 @@ document.addEventListener('input',e=>{const vk=e.target.dataset&&e.target.datase
 document.addEventListener('pointerdown',e=>{unlockAudio();try{if(AC&&AC.state==='suspended')AC.resume();}catch(x){}
  const b=e.target.closest&&e.target.closest('[data-act="say"]');if(b)prefetch(b.dataset.t,b.dataset.who||undefined,!!b.dataset.slow);},{passive:true});
 document.addEventListener('keydown',e=>{unlockAudio();},{capture:true});
+/* tapping an on-screen Cyrillic key must not take focus from the answer box (keeps the caret and the phone keyboard) */
+document.addEventListener('mousedown',e=>{if(e.target.closest&&e.target.closest('.kb'))e.preventDefault();});
 document.addEventListener('keydown',e=>{
  if(!ui.run&&e.key==='Enter'&&e.target&&e.target.id==='tIn'){e.preventDefault();const b=document.querySelector('[data-act="tSend"]');if(b)b.click();return;}
  if(!ui.run||ui.run.done)return;const r=ui.run,t=cur(),st=r.st;
