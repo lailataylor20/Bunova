@@ -21,6 +21,8 @@
   --display:"Fredoka","Rubik","Nunito","Segoe UI",system-ui,sans-serif;
   --body:"Nunito","Rubik","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
   --r:20px; --shadow:0 3px 0 var(--line);
+  --flame:#ff9600; --flame-ink:#e07b00; --warn:#f5a623; --lv0:#3f9e00; --lv1:#0f86bd; --lv2:#9b4fe0; --lv3:#c76a00; --st-learn:#c99a3c; --st-recall:#3a9e8f;
+  --mic:#ff6b6b; --mic-sh:#d94f4f; --mic-on:#e5484d; --mic-on-sh:#b8383c; --oops:#e5484d; --oops-sh:#b8383c; --yours:#d23c41;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#131f24; --surface:#1f2c34; --soft:#23391d; --soft2:#34591f; --line:#37464f;
@@ -135,7 +137,7 @@ details.w>summary::-webkit-details-marker{display:none}
 .stg b{font-size:1.2rem;color:var(--ink)}
 .stbar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--soft)}
 .stbar i{display:block;min-width:0}
-.stbar .new{background:var(--soft2)} .stbar .learning{background:#c99a3c} .stbar .recognised{background:var(--blue)} .stbar .recalled{background:#3a9e8f} .stbar .confident{background:var(--good)}
+.stbar .new{background:var(--soft2)} .stbar .learning{background:var(--st-learn)} .stbar .recognised{background:var(--blue)} .stbar .recalled{background:var(--st-recall)} .stbar .confident{background:var(--good)}
 .days{display:flex;align-items:flex-end;gap:8px;height:130px}
 .days>div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;font-size:.72rem;color:var(--muted);font-weight:700}
 .days i{display:block;width:100%;max-width:34px;background:var(--accent);border-radius:6px 6px 0 0;min-height:3px}
@@ -241,20 +243,20 @@ body:not(.running) .tabs a.on svg{stroke:var(--sky)}
 .grades button:nth-child(4){border-color:var(--accent);box-shadow:0 4px 0 var(--accent)}
 .grades button:active{transform:translateY(4px);box-shadow:none}
 .stat>div{background:var(--surface);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
-.stat>div:nth-child(1) b{color:var(--accent)} .stat>div:nth-child(2) b{color:var(--sky)} .stat>div:nth-child(3) b{color:#ff9600}
+.stat>div:nth-child(1) b{color:var(--accent)} .stat>div:nth-child(2) b{color:var(--sky)} .stat>div:nth-child(3) b{color:var(--flame)}
 .stat b{font-family:var(--display)}
 .stg{border:2px solid var(--line);background:var(--surface)}
 .plan li{border-left:0;border:2px solid var(--line);border-radius:14px;box-shadow:0 3px 0 var(--line)}
 .plan li::before{content:"";}
 .days i{background:var(--sky)}
-.wd i{background:var(--line)} .wd.on i{background:#ff9600;box-shadow:0 0 0 3px var(--amber-soft)}
+.wd i{background:var(--line)} .wd.on i{background:var(--flame);box-shadow:0 0 0 3px var(--amber-soft)}
 .ach .a.on{background:var(--amber-soft);border-color:var(--sun)}
 .gloss{border:2px solid var(--sky)}
 .toast{background:var(--ink);border-radius:16px}
 /* header stats */
 .stats{display:flex;gap:8px;font-family:var(--display);font-weight:600;font-size:1.05rem}
 .stats span{display:inline-flex;gap:4px;align-items:center;padding:4px 12px;border-radius:99px;border:2px solid var(--line);background:var(--surface)}
-.stats .fire{color:#e07b00} .stats .xp{color:var(--blue)}
+.stats .fire{color:var(--flame-ink)} .stats .xp{color:var(--blue)}
 header.top{row-gap:6px}
 /* mascot */
 .mascot{display:flex;gap:12px;align-items:center}
@@ -274,14 +276,14 @@ header.top{row-gap:6px}
 .speech{position:relative;flex:1;padding:12px 14px;border:2px solid var(--line);border-radius:18px;background:var(--surface);font-weight:800;font-size:1rem}
 .speech::before{content:"";position:absolute;left:-9px;top:50%;width:14px;height:14px;background:var(--surface);border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:translateY(-50%) rotate(45deg)}
 .goal-row{display:flex;gap:14px;align-items:center;padding:10px 12px;border-radius:16px;background:var(--amber-soft)}
-.gring{--p:0;flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ff9600 calc(var(--p)*1%),var(--surface) 0);font-size:1.4rem}
+.gring{--p:0;flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--flame) calc(var(--p)*1%),var(--surface) 0);font-size:1.4rem}
 .gring span{width:40px;height:40px;border-radius:50%;background:var(--amber-soft);display:grid;place-items:center}
 /* course path */
 .lvl{display:flex;flex-direction:column;gap:6px}
-.banner{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-radius:18px;background:var(--lv,#3f9e00);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.banner{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-radius:18px;background:var(--lv,var(--lv0));color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.2)}
 .banner .eyebrow{color:rgba(255,255,255,.85)} .banner b{font-family:var(--display);font-size:1.15rem;font-weight:600}
 .banner span{font-weight:900;background:rgba(255,255,255,.2);padding:2px 12px;border-radius:99px}
-.lvl.c0{--lv:#3f9e00}.lvl.c1{--lv:#0f86bd}.lvl.c2{--lv:#9b4fe0}.lvl.c3{--lv:#c76a00}
+.lvl.c0{--lv:var(--lv0)}.lvl.c1{--lv:var(--lv1)}.lvl.c2{--lv:var(--lv2)}.lvl.c3{--lv:var(--lv3)}
 .path{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0 6px}
 .node{position:relative;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translateX(var(--o,0));width:170px;padding:0}
 .disc{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.7rem;font-weight:600;color:var(--muted);background:var(--line);box-shadow:0 6px 0 rgba(0,0,0,.14);transition:transform .1s}
@@ -292,7 +294,7 @@ header.top{row-gap:6px}
 .nl{font-weight:800;font-size:.85rem;text-align:center;line-height:1.25}
 .go{position:absolute;top:-16px;background:var(--surface);color:var(--lv);border:2px solid var(--line);border-radius:12px;padding:1px 10px;font-weight:900;font-size:.78rem;letter-spacing:.06em;animation:bob 1.6s ease-in-out infinite}
 /* runner rewards */
-.combo{font-family:var(--display);font-weight:600;color:#e07b00;white-space:nowrap;animation:pop .3s ease}
+.combo{font-family:var(--display);font-weight:600;color:var(--flame-ink);white-space:nowrap;animation:pop .3s ease}
 @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
 .runner.sheet{padding-bottom:230px}
 .runner .fb{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:760px;z-index:40;border-radius:24px 24px 0 0;padding:18px max(18px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px));max-height:62vh;overflow:auto;animation:sheet .25s ease;border-top:3px solid transparent}
@@ -302,7 +304,7 @@ header.top{row-gap:6px}
 .fbh{font-family:var(--display);font-size:1.4rem;font-weight:600}
 .fbi{width:34px;height:34px;font-size:1.1rem}
 .fb.bad .btn{background:var(--bad);box-shadow:0 4px 0 var(--bad-sh)}
-.xpop{margin-left:auto;font-family:var(--display);color:#e07b00;font-weight:600;font-size:1.1rem;animation:floatup 1.2s ease both}
+.xpop{margin-left:auto;font-family:var(--display);color:var(--flame-ink);font-weight:600;font-size:1.1rem;animation:floatup 1.2s ease both}
 @keyframes floatup{0%{opacity:0;transform:translateY(12px) scale(.7)}30%{opacity:1;transform:translateY(0) scale(1.2)}100%{opacity:1;transform:none}}
 .task{border-width:2px}
 .stars{display:flex;gap:6px;font-size:2.6rem;line-height:1}
@@ -347,9 +349,9 @@ header.top{row-gap:6px}
 @media (max-width:360px){.lplayer{flex-direction:column;align-items:stretch;text-align:center}.lplayer .bigspk{align-self:center}.lp-ctl{justify-content:center}}
 /* ---------- answer review ---------- */
 .opt.good{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));box-shadow:0 4px 0 var(--accent-sh)}
-.opt.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 12%,var(--surface));box-shadow:0 4px 0 #b8383c;text-decoration:line-through;text-decoration-thickness:1.5px}
+.opt.bad{border-color:var(--oops);background:color-mix(in srgb,var(--oops) 12%,var(--surface));box-shadow:0 4px 0 var(--oops-sh);text-decoration:line-through;text-decoration-thickness:1.5px}
 .opt.good:disabled,.opt.bad:disabled{opacity:1}
-.fb .yours b{color:#d23c41}
+.fb .yours b{color:var(--yours)}
 .fb .right b{color:var(--accent2)}
 .mcats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
 .sndt{font-size:1rem;flex:none}
@@ -366,7 +368,7 @@ header.top{row-gap:6px}
 .mcell:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
 .mcell.sel{border-color:var(--sky);background:var(--blue-soft);box-shadow:0 4px 0 var(--sky-sh)}
 .mcell.done{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));box-shadow:none;opacity:.45;cursor:default}
-.mcell.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 12%,var(--surface));animation:mshake .35s}
+.mcell.bad{border-color:var(--oops);background:color-mix(in srgb,var(--oops) 12%,var(--surface));animation:mshake .35s}
 @keyframes mshake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .jsteps{list-style:none;margin:12px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .jsteps button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--text);font:inherit;text-align:left;cursor:pointer;box-shadow:0 3px 0 var(--line)}
@@ -394,25 +396,53 @@ header.top{row-gap:6px}
 .model .row{width:100%}
 .talkin{display:flex;align-items:center;gap:14px}
 .talkin input{flex:1;min-width:0}
-.bigspk.mic{background:#ff6b6b;box-shadow:0 5px 0 #d94f4f}
-.bigspk.mic:active{box-shadow:0 1px 0 #d94f4f}
-.bigspk.mic.playing{background:#e5484d;box-shadow:0 5px 0 #b8383c,0 0 0 7px rgba(255,107,107,.25);animation:bpulse 1.1s ease-in-out infinite}
+.bigspk.mic{background:var(--mic);box-shadow:0 5px 0 var(--mic-sh)}
+.bigspk.mic:active{box-shadow:0 1px 0 var(--mic-sh)}
+.bigspk.mic.playing{background:var(--mic-on);box-shadow:0 5px 0 var(--mic-on-sh),0 0 0 7px rgba(255,107,107,.25);animation:bpulse 1.1s ease-in-out infinite}
 .talkin .bigspk{width:72px;height:72px}
 .talkin .bigspk svg{width:34px;height:34px}
 .shadow-t{margin:12px 0 4px;line-height:1.4}
 .shadow-t .hit{color:var(--accent2)}
-.shadow-t .miss{color:#d23c41;text-decoration:underline wavy;text-decoration-thickness:1px}
+.shadow-t .miss{color:var(--yours);text-decoration:underline wavy;text-decoration-thickness:1px}
 .ru.lg{font-size:1.5rem;font-weight:700}
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .skill{padding:12px;border-radius:16px;background:var(--soft)}
 .skill b{display:block;font-size:1.25rem}
 .skill .meter{height:8px;border-radius:99px;background:var(--line);margin:6px 0 4px;overflow:hidden}
 .skill .meter i{display:block;height:100%;background:var(--accent);border-radius:99px}
-.skill.low .meter i{background:#f5a623}
+.skill.low .meter i{background:var(--warn)}
 .cando{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
 .cando li{display:flex;gap:8px;align-items:flex-start}
 .cando li.no{color:var(--muted)}
 @media (max-width:380px){.talkin{gap:10px}.talkin .bigspk{width:60px;height:60px}}
+
+/* ---------- colour themes: change only the variables, never the layout. Add a theme = add one block below + one entry in PALETTES (core.js). ---------- */
+:root[data-palette="redblue"]{--bg:#f8f8fb;--surface:#ffffff;--soft:#e6edfb;--soft2:#c7d6f4;--line:#dfe3ee;--ink:#1f2a44;--muted:#59637e;--accent:#2f5fd0;--accent-sh:#1f449c;--accent2:#1f4aa8;--on-accent:#ffffff;--sky:#cf3f4b;--sky-sh:#9f2c36;--blue:#2250b8;--blue-soft:#e3ebfb;--amber:#8a4b00;--amber-soft:#fdf0d3;--sun:#b8800a;--sun-sh:#8a5f00;--rose:#c0303c;--good:#25703f;--good-soft:#d9f1e1;--bad:#b83427;--bad-sh:#8f2a20;--bad-soft:#fde3e0;--flame:#e0832a;--flame-ink:#a85a10;--lv0:#2f5fd0;--lv1:#c0303c;--lv2:#5b4bb5;--lv3:#a85a10;--st-learn:#c58a2e;--st-recall:#2f8a8a;--mic:#d94b57;--mic-sh:#a8323d;--mic-on:#c0303c;--mic-on-sh:#8f2530;--oops:#c0392b;--oops-sh:#8f2a20;--yours:#b32d3a;--warn:#e0832a}
+@media (prefers-color-scheme:dark){:root[data-palette="redblue"]:not([data-theme="light"]){--bg:#121624;--surface:#1c2236;--soft:#1f2c52;--soft2:#2c3f7a;--line:#34405e;--ink:#eef1fa;--muted:#a6b0c9;--accent:#6b92f0;--accent-sh:#3f63b8;--accent2:#9db8f7;--on-accent:#0b1330;--sky:#d24f5b;--sky-sh:#9a323d;--blue:#8fb0f7;--blue-soft:#1b2c55;--amber:#ffcf66;--amber-soft:#3b3015;--sun:#a67700;--sun-sh:#7a5700;--rose:#ff8a93;--good:#6fd08f;--good-soft:#1b3a28;--bad:#ff7b72;--bad-sh:#b53a3a;--bad-soft:#44221f;--flame:#f0a04b;--flame-ink:#f0a04b;--lv0:#3f68d0;--lv1:#c8424e;--lv2:#6a59c6;--lv3:#a8641a;--st-learn:#d9a64a;--st-recall:#4fb0b0;--mic:#d24f5b;--mic-sh:#9a323d;--mic-on:#c0303c;--mic-on-sh:#a8323d;--oops:#ff7b72;--oops-sh:#b53a3a;--yours:#ff8a8a;--warn:#f0a04b;color-scheme:dark}}
+:root[data-palette="redblue"][data-theme="dark"]{--bg:#121624;--surface:#1c2236;--soft:#1f2c52;--soft2:#2c3f7a;--line:#34405e;--ink:#eef1fa;--muted:#a6b0c9;--accent:#6b92f0;--accent-sh:#3f63b8;--accent2:#9db8f7;--on-accent:#0b1330;--sky:#d24f5b;--sky-sh:#9a323d;--blue:#8fb0f7;--blue-soft:#1b2c55;--amber:#ffcf66;--amber-soft:#3b3015;--sun:#a67700;--sun-sh:#7a5700;--rose:#ff8a93;--good:#6fd08f;--good-soft:#1b3a28;--bad:#ff7b72;--bad-sh:#b53a3a;--bad-soft:#44221f;--flame:#f0a04b;--flame-ink:#f0a04b;--lv0:#3f68d0;--lv1:#c8424e;--lv2:#6a59c6;--lv3:#a8641a;--st-learn:#d9a64a;--st-recall:#4fb0b0;--mic:#d24f5b;--mic-sh:#9a323d;--mic-on:#c0303c;--mic-on-sh:#a8323d;--oops:#ff7b72;--oops-sh:#b53a3a;--yours:#ff8a8a;--warn:#f0a04b;color-scheme:dark}
+:root[data-palette="pinkpurple"]{--bg:#fbf7fd;--surface:#ffffff;--soft:#f3e8fb;--soft2:#e2cdf3;--line:#ebdff3;--ink:#3a2a4d;--muted:#6f5d85;--accent:#8a4fc4;--accent-sh:#6a3aa0;--accent2:#6a3aa0;--on-accent:#ffffff;--sky:#d9608f;--sky-sh:#a8466c;--blue:#7a4bc0;--blue-soft:#efe5fa;--amber:#8a4b00;--amber-soft:#fdf0d3;--sun:#b8800a;--sun-sh:#8a5f00;--rose:#b83f78;--good:#2a7551;--good-soft:#dff3e8;--bad:#b8344b;--bad-sh:#922a3c;--bad-soft:#fde3ea;--flame:#e8873a;--flame-ink:#a85a10;--lv0:#8a4fc4;--lv1:#d9608f;--lv2:#6a6ad0;--lv3:#b86a3a;--st-learn:#c58a2e;--st-recall:#3a9a9a;--mic:#e0699f;--mic-sh:#b44b7c;--mic-on:#c93c70;--mic-on-sh:#982a52;--oops:#c23a52;--oops-sh:#922a3c;--yours:#b8324a;--warn:#e8873a}
+@media (prefers-color-scheme:dark){:root[data-palette="pinkpurple"]:not([data-theme="light"]){--bg:#1a1424;--surface:#261d34;--soft:#35244d;--soft2:#4b3370;--line:#43355a;--ink:#f6eefc;--muted:#bba9d0;--accent:#b98af0;--accent-sh:#8352c4;--accent2:#d3b3f7;--on-accent:#1c0f2e;--sky:#c4558a;--sky-sh:#903a64;--blue:#c4a6f5;--blue-soft:#33224f;--amber:#ffcf66;--amber-soft:#3b3015;--sun:#a67700;--sun-sh:#7a5700;--rose:#ff9cc6;--good:#7bd8a3;--good-soft:#1d3a2b;--bad:#ff7d92;--bad-sh:#b53a50;--bad-soft:#45202b;--flame:#f0a04b;--flame-ink:#f0a04b;--lv0:#8a52c4;--lv1:#c4558a;--lv2:#6a6ac8;--lv3:#a8643a;--st-learn:#d9a64a;--st-recall:#4fb0b0;--mic:#c4558a;--mic-sh:#903a64;--mic-on:#b04078;--mic-on-sh:#a8406e;--oops:#ff7d92;--oops-sh:#b53a50;--yours:#ff8aa0;--warn:#f0a04b;color-scheme:dark}}
+:root[data-palette="pinkpurple"][data-theme="dark"]{--bg:#1a1424;--surface:#261d34;--soft:#35244d;--soft2:#4b3370;--line:#43355a;--ink:#f6eefc;--muted:#bba9d0;--accent:#b98af0;--accent-sh:#8352c4;--accent2:#d3b3f7;--on-accent:#1c0f2e;--sky:#c4558a;--sky-sh:#903a64;--blue:#c4a6f5;--blue-soft:#33224f;--amber:#ffcf66;--amber-soft:#3b3015;--sun:#a67700;--sun-sh:#7a5700;--rose:#ff9cc6;--good:#7bd8a3;--good-soft:#1d3a2b;--bad:#ff7d92;--bad-sh:#b53a50;--bad-soft:#45202b;--flame:#f0a04b;--flame-ink:#f0a04b;--lv0:#8a52c4;--lv1:#c4558a;--lv2:#6a6ac8;--lv3:#a8643a;--st-learn:#d9a64a;--st-recall:#4fb0b0;--mic:#c4558a;--mic-sh:#903a64;--mic-on:#b04078;--mic-on-sh:#a8406e;--oops:#ff7d92;--oops-sh:#b53a50;--yours:#ff8aa0;--warn:#f0a04b;color-scheme:dark}
+:root[data-palette="mono"]{--bg:#f6f6f6;--surface:#ffffff;--soft:#ececec;--soft2:#d6d6d6;--line:#dcdcdc;--ink:#151515;--muted:#595959;--accent:#1f1f1f;--accent-sh:#000000;--accent2:#222222;--on-accent:#ffffff;--sky:#4d4d4d;--sky-sh:#2b2b2b;--blue:#333333;--blue-soft:#ececec;--amber:#4d4d4d;--amber-soft:#ececec;--sun:#6e6e6e;--sun-sh:#454545;--rose:#1a1a1a;--good:#2d6a3a;--good-soft:#e1efe4;--bad:#9c2b2b;--bad-sh:#6e1f1f;--bad-soft:#f3e1e1;--flame:#6b6b6b;--flame-ink:#4a4a4a;--lv0:#2b2b2b;--lv1:#555555;--lv2:#3d3d3d;--lv3:#6b6b6b;--st-learn:#8a8a8a;--st-recall:#5c5c5c;--mic:#555555;--mic-sh:#2b2b2b;--mic-on:#1a1a1a;--mic-on-sh:#000000;--oops:#9c2b2b;--oops-sh:#6e1f1f;--yours:#8a2525;--warn:#6b6b6b}
+@media (prefers-color-scheme:dark){:root[data-palette="mono"]:not([data-theme="light"]){--bg:#111111;--surface:#1c1c1c;--soft:#2a2a2a;--soft2:#3d3d3d;--line:#333333;--ink:#f2f2f2;--muted:#a8a8a8;--accent:#ebebeb;--accent-sh:#b5b5b5;--accent2:#ffffff;--on-accent:#111111;--sky:#6e6e6e;--sky-sh:#454545;--blue:#cfcfcf;--blue-soft:#2a2a2a;--amber:#cccccc;--amber-soft:#2d2d2d;--sun:#6e6e6e;--sun-sh:#454545;--rose:#f2f2f2;--good:#8fd19e;--good-soft:#1e3324;--bad:#ff8a8a;--bad-sh:#a84545;--bad-soft:#3d2222;--flame:#bdbdbd;--flame-ink:#bdbdbd;--lv0:#767676;--lv1:#6e6e6e;--lv2:#767676;--lv3:#6b6b6b;--st-learn:#9a9a9a;--st-recall:#c0c0c0;--mic:#6e6e6e;--mic-sh:#454545;--mic-on:#4a4a4a;--mic-on-sh:#222222;--oops:#ff8a8a;--oops-sh:#a84545;--yours:#ff9a9a;--warn:#bdbdbd;color-scheme:dark}}
+:root[data-palette="mono"][data-theme="dark"]{--bg:#111111;--surface:#1c1c1c;--soft:#2a2a2a;--soft2:#3d3d3d;--line:#333333;--ink:#f2f2f2;--muted:#a8a8a8;--accent:#ebebeb;--accent-sh:#b5b5b5;--accent2:#ffffff;--on-accent:#111111;--sky:#6e6e6e;--sky-sh:#454545;--blue:#cfcfcf;--blue-soft:#2a2a2a;--amber:#cccccc;--amber-soft:#2d2d2d;--sun:#6e6e6e;--sun-sh:#454545;--rose:#f2f2f2;--good:#8fd19e;--good-soft:#1e3324;--bad:#ff8a8a;--bad-sh:#a84545;--bad-soft:#3d2222;--flame:#bdbdbd;--flame-ink:#bdbdbd;--lv0:#767676;--lv1:#6e6e6e;--lv2:#767676;--lv3:#6b6b6b;--st-learn:#9a9a9a;--st-recall:#c0c0c0;--mic:#6e6e6e;--mic-sh:#454545;--mic-on:#4a4a4a;--mic-on-sh:#222222;--oops:#ff8a8a;--oops-sh:#a84545;--yours:#ff9a9a;--warn:#bdbdbd;color-scheme:dark}
+.pals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pal{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;min-height:52px;padding:8px 12px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer;touch-action:manipulation;text-align:left}
+.pal[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.pal>span:last-child{min-width:0;overflow-wrap:anywhere}
+.pals-sw{display:flex;flex:none;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.pals-sw i{display:block;width:16px;height:28px}
+.skiprow{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:2px}
+.linkbtn{min-height:44px;padding:8px 10px;border:0;background:none;color:var(--muted);font:inherit;font-size:.88rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;touch-action:manipulation}
+.linkbtn:hover{color:var(--ink)}
+.coach .why{margin:0;font-size:1.02rem}
+.recs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.recs li{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.recs li>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.skills.mini{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.skills.mini .skill{padding:8px 10px}.skills.mini .skill b{font-size:1.05rem}
+.path{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.path li{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:14px;border:1px solid var(--line)}
+.path li.on{border-color:var(--accent);background:var(--soft)}.path li.done{opacity:.85}
+.abil{display:flex;flex-direction:column;gap:6px}
 </style>
 </head><body>
 <div class="wrap">
@@ -1398,10 +1428,10 @@ function loadState(){let raw=null,o={};try{raw=localStorage.getItem(KEY);}catch(
  if(typeof o!=='object'||Array.isArray(o))o={};
  if(raw&&o.v!==VER){try{localStorage.setItem(KEY+'.backup-v1',raw);}catch(e){}}
  const num=(x,d)=>typeof x==='number'&&isFinite(x)?x:d;
- S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},miss:{},eps:{},games:{},talk:{},xp:Math.max(0,num(o.xp,0)),set:{}};
+ S={v:VER,cards:{},hist:[],tests:[],les:{},days:{},err:{},read:{},ach:{},flags:{},miss:{},skip:{},wk:{},eps:{},games:{},talk:{},xp:Math.max(0,num(o.xp,0)),set:{}};
  const oc=o.cards&&typeof o.cards==='object'?o.cards:{};
  Object.keys(oc).forEach(id=>{const c=oc[id];if(!BY[id]||!c||typeof c!=='object')return;
-  S.cards[id]={b:Math.max(0,Math.min(5,Math.round(num(c.b,0)))),due:num(c.due,0),ok:num(c.ok,0),bad:num(c.bad,0),seen:num(c.seen,0),last:num(c.last,0),rg:num(c.rg,Math.min(3,Math.max(0,num(c.ok,0)))),pr:num(c.pr,0),lap:num(c.lap,num(c.bad,0)),li:num(c.li,0),us:num(c.us,0),sp:num(c.sp,0)};});
+  S.cards[id]={b:Math.max(0,Math.min(5,Math.round(num(c.b,0)))),due:num(c.due,0),ok:num(c.ok,0),bad:num(c.bad,0),seen:num(c.seen,0),last:num(c.last,0),rg:num(c.rg,Math.min(3,Math.max(0,num(c.ok,0)))),pr:num(c.pr,0),lap:num(c.lap,num(c.bad,0)),li:num(c.li,0),us:num(c.us,0),sp:num(c.sp,0),rt:num(c.rt,0),rn:num(c.rn,0)};});
  if(Array.isArray(o.hist))S.hist=o.hist.filter(x=>x&&typeof x.t==='number').slice(0,60);
  if(Array.isArray(o.tests))S.tests=o.tests.filter(x=>x&&typeof x.t==='number'&&x.n>0).slice(0,30);
  const ol=o.les&&typeof o.les==='object'?o.les:{};
@@ -1411,11 +1441,16 @@ function loadState(){let raw=null,o={};try{raw=localStorage.getItem(KEY);}catch(
  if(o.eps&&typeof o.eps==='object')Object.keys(o.eps).forEach(k=>{const e=o.eps[k];if(e&&EPBY[k])S.eps[k]={s:Math.max(0,Math.min(100,num(e.s,0))),t:num(e.t,0),n:num(e.n,1)};});
  if(o.talk&&typeof o.talk==='object')Object.keys(o.talk).forEach(k=>{const g=o.talk[k];if(g&&TALKBY[k])S.talk[k]={best:Math.max(0,Math.min(100,num(g.best,0))),n:num(g.n,1),t:num(g.t,0)};});
  if(o.games&&typeof o.games==='object')Object.keys(o.games).forEach(k=>{const g=o.games[k];if(g&&typeof k==='string'&&k.length<40)S.games[k]={best:Math.max(0,num(g.best,0)),plays:num(g.plays,0),last:num(g.last,0)};});
+ if(o.wk&&typeof o.wk==='object')Object.keys(o.wk).forEach(k=>{const w=o.wk[k];if(/^\d{4}-\d\d-\d\d$/.test(k)&&w&&typeof w==='object')S.wk[k]={n:num(w.n,0),ok:num(w.ok,0),xp:num(w.xp,0),up:num(w.up,0),sk:w.sk&&typeof w.sk==='object'?w.sk:{},tags:w.tags&&typeof w.tags==='object'?w.tags:{}};});
+ if(o.skip&&typeof o.skip==='object')Object.keys(o.skip).forEach(k=>{const m=o.skip[k];if(m&&m.t&&typeof m.t==='object'&&typeof m.t.k==='string'&&missOk(m.t))S.skip[k]={t:m.t,n:Math.max(1,num(m.n,1)),last:num(m.last,0)};});
  if(o.miss&&typeof o.miss==='object')Object.keys(o.miss).forEach(k=>{const m=o.miss[k];if(m&&m.t&&typeof m.t==='object'&&typeof m.t.k==='string'&&missOk(m.t))S.miss[k]={t:m.t,n:Math.max(1,num(m.n,1)),ok:num(m.ok,0),first:num(m.first,0),last:num(m.last,0)};});
  if(o.read&&typeof o.read==='object')Object.keys(o.read).forEach(k=>{if(/^r\d+$/.test(k)&&o.read[k])S.read[k]=o.read[k];});
  if(o.ach&&typeof o.ach==='object')S.ach=o.ach;if(o.flags&&typeof o.flags==='object')S.flags=o.flags;
  S.set=Object.assign({ph:true,rep:false,kb:false,len:10,rate:'normal',vp:'mix',fo:'smart',speech:true,auto:true,sv:1,fv:.7},o.set&&typeof o.set==='object'?o.set:{});
- if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;if(!['smart','shuf'].includes(S.set.fo))S.set.fo='smart';if(!['auto','slower','natural','faster'].includes(S.set.spd))S.set.spd='auto';S.set.auto=S.set.auto!==false;}
+ if(![5,10,20,30].includes(S.set.len))S.set.len=10;if(!['normal','slow'].includes(S.set.rate))S.set.rate='normal';if(!['mix','f','m'].includes(S.set.vp))S.set.vp='mix';S.set.sv=clamp01(S.set.sv,1);S.set.fv=clamp01(S.set.fv,.7);S.set.speech=S.set.speech!==false;if(!['smart','shuf'].includes(S.set.fo))S.set.fo='smart';if(!['auto','slower','natural','faster'].includes(S.set.spd))S.set.spd='auto';S.set.auto=S.set.auto!==false;if(!PALETTES.some(x=>x[0]===S.set.pal))S.set.pal='original';applyPalette();}
+/* colour themes: [key, name, swatch colours, browser bar colour]. The colours themselves live in app.css as variables. */
+const PALETTES=[['original','Original',['#e8f7d6','#4cb000','#1cb0f6'],'#4cb000'],['redblue','Red & blue',['#e6edfb','#2f5fd0','#cf3f4b'],'#2f5fd0'],['pinkpurple','Pink & purple',['#f3e8fb','#8a4fc4','#d9608f'],'#8a4fc4'],['mono','Monochrome',['#ececec','#1f1f1f','#8a8a8a'],'#1f1f1f']];
+function applyPalette(){try{const k=S&&S.set&&S.set.pal||'original',r=document.documentElement;if(k==='original')r.removeAttribute('data-palette');else r.setAttribute('data-palette',k);const m=document.querySelector('meta[name=theme-color]'),p=PALETTES.find(x=>x[0]===k);if(m&&p)m.setAttribute('content',p[3]);}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 loadState();
 
@@ -1439,7 +1474,7 @@ function speechRate(){const v=S.set.spd;if(v==='slower')return 0.85;if(v==='natu
  const l=skillStats().listening;if(doneCount()<6)return 0.92;if(l.n>=20&&l.acc>=0.85&&doneCount()>=12)return 1.08;return 1;}
 function grade(id,g,mode){if(!BY[id])return;const now=Date.now(),c=S.cards[id]||(S.cards[id]={b:0,due:0,ok:0,bad:0,seen:0,last:0,rg:0,pr:0,lap:0});
  if(g>=2){if(mode==='p')c.pr++;else c.rg++;}
- let nb=nextStep(c.b,g);if(nb>3&&c.pr<2&&g>=2)nb=3;if(nb<c.b&&g>=1)nb=c.b;
+ const was=c.b;let nb=nextStep(c.b,g);if(nb>3&&c.pr<2&&g>=2)nb=3;if(nb<c.b&&g>=1)nb=c.b;if(was<3&&nb>=3){try{wkRec().up++;}catch(e){}}
  const gap=nextGap(c.b,g);c.b=nb;c.due=now+(nb===3&&gap>INT[3]&&c.pr<2?INT[3]:gap);c.seen++;if(g>=1)c.ok++;else{c.bad++;c.lap=(c.lap||0)+1;}c.last=now;
  const k=dkey(now);S.days[k]=(S.days[k]||0)+1;}
 function status(id){const c=S.cards[id];if(!c||!c.seen)return 'new';if(c.b>=4&&c.pr>=3)return 'confident';if(c.pr>=2)return 'recalled';if(c.rg>=2)return 'recognised';return 'learning';}
@@ -1460,7 +1495,7 @@ function trackMiss(t,ok,missRun){if(!t)return;const k=qKey(t),m=S.miss[k];
   const ks=Object.keys(S.miss);if(ks.length>MISS_MAX)ks.sort((a,b)=>S.miss[a].last-S.miss[b].last).slice(0,ks.length-MISS_MAX).forEach(x=>delete S.miss[x]);}
  else if(m){m.ok++;if(missRun||m.ok>=2)delete S.miss[k];}}
 const missList=()=>Object.keys(S.miss).filter(k=>missOk(S.miss[k].t));
-function errTag(tag,ok){if(!tag||!TAGS[tag])return;const e=S.err[tag]||(S.err[tag]={a:0,w:0,r:[]});e.a++;if(!ok)e.w++;e.r.push(ok?1:0);if(e.r.length>12)e.r.shift();}
+function errTag(tag,ok){if(!tag||!TAGS[tag])return;const e=S.err[tag]||(S.err[tag]={a:0,w:0,r:[]});e.a++;if(!ok)e.w++;e.r.push(ok?1:0);if(e.r.length>12)e.r.shift();try{coachLog(tag,ok);}catch(x){}}
 function weakRate(tag){const e=S.err[tag];if(!e||e.r.length<4)return 0;return e.r.filter(x=>!x).length/e.r.length;}
 function weakTags(){return Object.keys(S.err).map(t=>({tag:t,rate:weakRate(t),a:S.err[t].a})).filter(x=>x.rate>=0.34).sort((a,b)=>b.rate-a.rate);}
 const leeches=()=>ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].lap>=3&&S.cards[i.id].b<=3).map(i=>i.id);
@@ -1669,7 +1704,7 @@ function planSession(mins){const N=SESSION_N[mins]||24,lines=[];let ts=[];
  return ts.length?{tasks:shuffle(ts).slice(0,N),lines}:null;}
 
 /* ---------- achievements ---------- */
-const ACH=[['first','First steps','Finish a practice session',()=>S.hist.length>=1],['les1','Lesson learned','Complete a lesson',()=>doneCount()>=1],['les5','Five lessons','Complete five lessons',()=>doneCount()>=5],['a1','A1 reached','Complete every Pre-A1 and A1 lesson',()=>LESSONS.filter(l=>l.lvl==='Pre-A1'||l.lvl==='A1').every(lessonDone)],['rec50','50 recognised','Reach recognised on 50 items',()=>ITEMS.filter(i=>atLeast(i.id,'recognised')).length>=50],['pro25','25 produced','Produce 25 items by typing or building',()=>ITEMS.filter(i=>atLeast(i.id,'recalled')).length>=25],['days3','Three days','Practise on three different days',()=>Object.keys(S.days).length>=3],['clean','Clean sheet','Finish a session of 10 or more tasks with no mistakes',()=>!!S.flags.clean],['tested','Tested','Finish a test',()=>S.tests.length>=1],['ear','Good ear','Answer 20 listening tasks correctly',()=>(S.err.listen?S.err.listen.a-S.err.listen.w:0)>=20],['reader','Reader','Complete three reading passages',()=>Object.keys(S.read).length>=3]];
+const ACH=[['first','First steps','Finish a practice session',()=>S.hist.length>=1],['les1','Lesson learned','Complete a lesson',()=>doneCount()>=1],['les5','Five lessons','Complete five lessons',()=>doneCount()>=5],['a1','A1 reached','Complete every Pre-A1 and A1 lesson',()=>LESSONS.filter(l=>l.lvl==='Pre-A1'||l.lvl==='A1').every(lessonDone)],['rec50','50 recognised','Reach recognised on 50 items',()=>ITEMS.filter(i=>atLeast(i.id,'recognised')).length>=50],['pro25','25 produced','Produce 25 items by typing or building',()=>ITEMS.filter(i=>atLeast(i.id,'recalled')).length>=25],['days3','Three days','Practise on three different days',()=>Object.keys(S.days).length>=3],['clean','Clean sheet','Finish a session of 10 or more tasks with no mistakes',()=>!!S.flags.clean],['tested','Tested','Finish a test',()=>S.tests.length>=1],['ear','Good ear','Answer 20 listening tasks correctly',()=>(S.err.listen?S.err.listen.a-S.err.listen.w:0)>=20],['reader','Reader','Complete three reading passages',()=>Object.keys(S.read).length>=3],['ret100','100 words secure','Recall 100 words correctly more than once',()=>ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].pr>=2&&S.cards[i.id].b>=3).length>=100],['talk3','Three conversations','Finish three conversations',()=>Object.keys(S.talk).length>=3],['fixer','Turned it around','Recover from a weak spot',()=>(S.flags.fixed||0)>=1],['ears','Good ears','Reach 85% on 20+ listening answers',()=>{const a=tagAcc(['listen','stress']);return a.n>=20&&a.acc>=0.85;}],['wk5','Steady week','Practise on five days in one week',()=>Object.keys(S.days).some(k=>S.days[k]>0&&Object.keys(S.days).filter(d=>S.days[d]>0&&wkOf(new Date(d+'T12:00:00').getTime())===wkOf(new Date(k+'T12:00:00').getTime())).length>=5)]];
 function checkAch(){const out=[];ACH.forEach(a=>{if(!S.ach[a[0]]&&a[3]()){S.ach[a[0]]=Date.now();out.push(a[1]);}});return out;}
 
 /* ---------- ui state ---------- */
@@ -1692,7 +1727,7 @@ const alphaHTML=()=>`<div class="alpha">${ALPHA.map(a=>`<button data-act="say" d
 const scriptHTML=ep=>`<div class="lines">${ep.lines.map((l,i)=>`<div class="line"><div class="row sp top"><div class="grow"><span class="spk">${l[0]==='f'?'👩':'👨'}</span> <span class="rt" lang="ru">${esc(stressify(l[1]))}</span><div class="small muted">${esc(l[2])}</div></div><button class="ib" data-act="say" data-t="${esc(l[1])}" data-who="${l[0]}" aria-label="Play line ${i+1}">${ICON.play}</button></div></div>`).join('')}</div>`;
 /* ---------- runner ---------- */
 function startRun(cfg){stopAudio();const tasks=(cfg.tasks||[]).filter(Boolean);if(!tasks.length){toast('Nothing to practise here yet.');return false;}
- ui.run=Object.assign({i:0,res:[],st:{},xp:0,done:false,t0:Date.now()},cfg,{tasks});primeAudio();return true;}
+ ui.run=Object.assign({i:0,res:[],st:{t0:Date.now()},xp:0,done:false,t0:Date.now()},cfg,{tasks});primeAudio();return true;}
 function primeAudio(){const r=ui.run,t=r&&r.tasks[r.i];if(!t)return;
  /* audio never plays by itself: only a tap on a speaker button plays it. Clips are fetched quietly so the tap is instant. */
  if(t.ep){const ep=EPBY[t.ep];if(ep)ep.lines.slice(0,2).forEach(l=>prefetch(l[1],l[0]));}else if(t.k==='learn'&&t.id)prefetch(BY[t.id].ru);else if(t.k==='type'&&t.say)prefetch(t.say,t.sayW);
@@ -1708,16 +1743,32 @@ function evalTask(t,val){
  if(t.k==='tiles')return {ok:nr(val.join(' '))===nr(t.ru),ans:t.ru};
  return checkText({ans:t.ans,lang:t.lang,tol:t.tol},val);}
 function showVal(t,val){if(t.k==='shadow')return val===true?'(said it aloud)':val?String(val):'(skipped)';if(t.k==='tiles')return val.join(' ');if(t.k==='stress')return t.syl[+val]||'';return String(val==null?'':val);}
-function commit(t,res,val){const r=ui.run,st=r.st;st.checked=true;st.ok=res.ok;st.res=res;st.val=val;
+function commit(t,res,val){const r=ui.run,st=r.st;st.checked=true;try{delete S.skip[qKey(t)];}catch(e){}st.ok=res.ok;st.res=res;st.val=val;
  if(!t.retry){r.combo=res.ok?(r.combo||0)+1:0;r.best=Math.max(r.best||0,r.combo);}
  if(!t.retry){r.res.push({k:t.k,tag:t.tag,id:t.id,ok:res.ok,q:promptText(t),given:showVal(t,val),ans:res.ans,lid:t.lid,lvl:t.lvl,review:t.review,sub:t.sayEn||t.en||'',ru:t.k==='pick'?t.ru:''});
   errTag(t.tag,res.ok);if(t.id)grade(t.id,res.ok?2:0,t.m||'r');if(res.ok)r.xp+=10;else(r.miss=r.miss||[]).push(Object.assign({},t,{retry:0,tiles:t.tiles?shuffle(t.tiles):t.tiles}));}
  else if(res.ok)r.xp+=5;
  if(r.mode!=='place')trackMiss(t,res.ok,r.missRun);
  if(!t.retry)skillCount(t,res.ok);
+ if(res.ok&&t.id&&S.cards[t.id]&&st.t0&&['pick','listen','cloze','tiles','type','fix','dict'].includes(t.k)){const ms=Math.min(60000,Date.now()-st.t0),c=S.cards[t.id];c.rt=c.rt?Math.round(c.rt*.7+ms*.3):ms;c.rn=(c.rn||0)+1;}
  if(!res.ok&&!t.retry&&r.mode!=='exam')r.tasks.push(Object.assign({},t,{retry:1,tiles:t.tiles?shuffle(t.tiles):t.tiles}));
  save();}
-function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={};ansSel=null;if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
+/* ---------- skipping: neutral. Not a miss, no score, no mastery change. The exercise returns at the end of the session and waits in a "Skipped" pool until answered ---------- */
+const SKIPPABLE=['pick','listen','stress','tiles','type','cloze','fix','dict','read'],SKIP_MAX=100;
+const canSkip=(t,st)=>!!t&&!st.checked&&SKIPPABLE.includes(t.k);
+function skipTask(t){const r=ui.run;stopAudio();r.skips=(r.skips||0)+1;
+ if(missOk(t)){const k=qKey(t),clean={};Object.keys(t).forEach(x=>{if(!['retry','review','focus','skipped','easier','later'].includes(x))clean[x]=t[x];});const e=S.skip[k]||{n:0};S.skip[k]={t:clean,n:e.n+1,last:Date.now()};
+  const ks=Object.keys(S.skip);if(ks.length>SKIP_MAX)ks.sort((a,b)=>S.skip[a].last-S.skip[b].last).slice(0,ks.length-SKIP_MAX).forEach(x=>delete S.skip[x]);}
+ if(!t.skipped&&!t.retry)r.tasks.push(Object.assign({},t,{skipped:1,tiles:t.tiles?shuffle(t.tiles):t.tiles,opts:t.opts?shuffle(t.opts):t.opts}));
+ save();}
+/* a long typed word: offer a recognition question now and keep the typed one for later, so production is delayed, not dropped */
+const canEase=(t,st)=>!!t&&!st.checked&&t.k==='type'&&!t.easier&&!t.say&&t.id&&BY[t.id]&&String(t.ans).split('|')[0]===BY[t.id].ru&&BY[t.id].ru.length>=7;
+function easeTask(){const r=ui.run,t=cur();if(!canEase(t,r.st))return false;stopAudio();
+ r.tasks.push(Object.assign({},t,{later:1,easier:0}));r.tasks[r.i]=Object.assign(pickRuTask(t.id),{easier:1,stage:t.stage,lid:t.lid,review:t.review});r.st={t0:Date.now()};return true;}
+function startSkipped(){const ks=Object.keys(S.skip).filter(k=>missOk(S.skip[k].t));if(!ks.length){toast('Nothing skipped right now.');return false;}
+ const tasks=ks.sort((a,b)=>S.skip[a].last-S.skip[b].last).slice(0,15).map(k=>{const t=Object.assign({},S.skip[k].t);if(Array.isArray(t.tiles))t.tiles=shuffle(t.tiles);if(Array.isArray(t.opts))t.opts=shuffle(t.opts);return t;});
+ return startRun({title:'Skipped exercises',tasks,mode:'practice',kind:'mixed'});}
+function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={t0:Date.now()};ansSel=null;if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
 function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).length,pct=n?Math.round(ok/n*100):0;const now=Date.now();
  r.n=n;r.ok=ok;r.pct=pct;r.passed=false;
  if(r.mode==='lesson'){const prev=S.les[r.lid]||{};if(pct>=70){r.passed=!lessonDone(LESSONS.find(l=>l.id===r.lid));S.les[r.lid]={s:Math.max(pct,prev.s||0),t:prev.t||now,n:(prev.n||0)+1};r.xp+=r.passed?20:0;}}
@@ -1727,7 +1778,7 @@ function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).leng
  if(r.kind==='episode'&&r.eid){const prev=S.eps[r.eid]||{};S.eps[r.eid]={s:Math.max(pct,prev.s||0),t:now,n:(prev.n||0)+1};}
  if(r.mode==='exam'){S.tests.unshift({t:now,n,score:ok,col:r.col||'all'});S.tests=S.tests.slice(0,30);}
  if(n>=10&&ok===n)S.flags.clean=true;
- S.xp+=r.xp;logHist(r.kind||'mixed',n,ok);r.newAch=checkAch();save();r.done=true;if(r.newAch.length)toast('Unlocked: '+r.newAch.join(', '));}
+ S.xp+=r.xp;try{if(r.xp)wkRec().xp+=r.xp;}catch(e){}logHist(r.kind||'mixed',n,ok);r.newAch=checkAch();save();r.done=true;if(r.newAch.length)toast('Unlocked: '+r.newAch.join(', '));}
 function distractors(it,field,pool){const cand=shuffle(pool.filter(x=>x.id!==it.id&&x.col===it.col&&x[field]!==it[field]));cand.sort((a,b)=>(b.cat===it.cat)-(a.cat===it.cat));
  const seen=new Set([it[field]]),d=[];for(const x of cand){if(!seen.has(x[field])){seen.add(x[field]);d.push(x[field]);if(d.length===3)break;}}return shuffle(d.concat(it[field]));}
 function doneCats(){const s=new Set();LESSONS.filter(lessonDone).forEach(l=>l.v.forEach(k=>s.add(k)));return s;}
@@ -1842,7 +1893,7 @@ function vRunner(){const r=ui.run;if(r.done)return vSummary();
  const showFb=st.checked&&t.k!=='card';
  return `<div class="runner${showFb?' sheet':''}"><div class="rhead"><button class="ib" data-act="rClose" aria-label="Close practice">✕</button><div class="bar grow" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${r.i}"><i style="width:${r.i/n*100}%"></i></div><button class="ib sm sndt" data-act="sndToggle" aria-pressed="${S.set.snd!==false}" aria-label="Sound effects ${S.set.snd!==false?'on':'off'}" title="Sound effects">${S.set.snd!==false?'🔔':'🔕'}</button>${r.combo>=3?`<span class="combo" aria-label="${r.combo} correct in a row">🔥 ${r.combo}</span>`:`<span class="small muted">${r.i+1}/${n}</span>`}</div>
  ${r.close?`<div class="note row sp"><span>Stop and lose this session?</span><span class="row"><button class="btn quiet" data-act="rCloseYes">Stop</button><button class="btn alt" data-act="rCloseNo">Keep going</button></span></div>`:''}
- <section class="card task">${bodyOf(t,st)}</section>${showFb?fbHTML(t,st):''}</div>`;}
+ <section class="card task">${bodyOf(t,st)}</section>${canSkip(t,st)?`<div class="skiprow">${canEase(t,st)?'<button class="linkbtn" data-act="rEase">Choose from options instead</button>':''}<button class="linkbtn" data-act="rSkipEx">Skip exercise</button></div>`:''}${showFb?fbHTML(t,st):''}</div>`;}
 function vSummary(){const r=ui.run,miss=r.res.filter(x=>!x.ok);const byTag={};miss.forEach(x=>{byTag[x.tag]=(byTag[x.tag]||0)+1;});
  const focus=Object.keys(byTag).filter(t=>byTag[t]>=2&&TAGS[t]).sort((a,b)=>byTag[b]-byTag[a]).slice(0,3);
  const stars=r.pct>=90?3:r.pct>=70?2:r.pct>=40?1:0;const lesson=r.mode==='lesson'?LESSONS.find(l=>l.id===r.lid):null,nx=nextLesson();
@@ -1850,6 +1901,7 @@ function vSummary(){const r=ui.run,miss=r.res.filter(x=>!x.ok);const byTag={};mi
  let sub=r.mode==='lesson'?(r.pct>=70?'You scored '+r.pct+'%. This lesson now counts as done and returns in your reviews.':'You need 70% to complete a lesson. Review the explanation and try again. The mistakes are listed below.'):r.mode==='place'?(r.placed&&r.placed.length?'You already know the '+r.placed.join(', ')+' material. Those lessons are marked complete, so your path starts at the first gap.':'Your path starts at Lesson 1. You can retake this check any time.'):r.pct>=85?'Fantastic! 🎉':r.pct>=60?'Solid progress. Missed items return in your reviews.':'A good start. The items you missed are scheduled to come back soon.';
  let h=`<div class="runner"><section class="card center"><div class="bunny-wrap">${bunny(r.pct>=60?'cheer':'oops')}</div><div class="ring" style="--p:${r.pct}"><b>${r.pct}%</b></div><h1>${head}</h1><div class="stars" aria-label="${stars} of 3 stars">${[1,2,3].map(i=>`<span class="${i<=stars?'on':''}" style="animation-delay:${i*.18}s">★</span>`).join('')}</div><div class="pills"><span>⭐ +${r.xp} XP</span><span>🎯 ${r.ok}/${r.n}</span>${r.best>=3?`<span>🔥 best ${r.best} in a row</span>`:''}</div><p>${sub}</p>
  ${miss.length&&r.mode!=='place'?`<p class="small muted center">${r.missRun?'Questions you got right have left your missed list. The rest stay for next time.':'Your mistakes are saved. Retake them any time from Test, under Missed questions.'}</p>`:r.missRun?'<p class="small muted center">All cleared from your missed list! 🎉</p>':''}
+ ${r.skips?`<p class="small muted center">You skipped ${r.skips} exercise${r.skips===1?'':'s'}. Skipping is never counted as a mistake. ${Object.keys(S.skip).length?`${Object.keys(S.skip).length} still waiting${r.mode==='exam'?'':''} for you in Review, under Skipped exercises.`:'All skipped ones were answered later.'}</p>`:''}
  <div class="row center">${r.kind==='episode'&&r.eid?`<button class="btn" data-act="gameLesson" data-id="${EPBY[r.eid].lid}">Play the match game</button>`:''}${r.mode==='lesson'&&r.passed&&r.lid&&epFor(r.lid)?`<button class="btn" data-act="epStart" data-id="${epFor(r.lid).id}">Listen to the episode</button>`:''}${r.mode==='lesson'&&r.passed&&nx?`<button class="btn" data-act="rNextLesson" data-id="${nx.id}">Next lesson</button>`:''}${miss.length&&r.mode!=='exam'?'<button class="btn alt" data-act="rAgain">Practise mistakes</button>':''}<button class="btn quiet" data-act="rDone">Done</button></div></section>`;
  if(focus.length)h+=`<section class="card"><div class="eyebrow">Needs work</div>${focus.map(t=>`<div class="row sp"><span>${esc(TAGS[t][0])} · ${byTag[t]} missed</span><button class="btn alt sm" data-act="targeted" data-tag="${t}">Practise</button></div>`).join('')}</section>`;
  if(miss.length)h+=`<h2>${r.mode==='exam'?'Review incorrect answers':'Mistakes'} (${miss.length})</h2>`+miss.slice(0,40).map(x=>{const it=x.id?BY[x.id]:null;
@@ -1935,6 +1987,139 @@ function shadowMic(){const r=ui.run,t=cur(),st=r.st;if(st.checked)return;if(st.m
   (s,info)=>{if(s==='listening'){st.mic='listening';render();}else if(s==='interim'){const el=document.getElementById('heard');if(el)el.textContent=info;}else if(s==='error'){st.mic='idle';toast(MIC_ERR[info]||'Speech recognition stopped. Try again, or tap "I said it".');render();}else if(s==='nothing'){st.mic='idle';toast(MIC_ERR['no-speech']);render();}});
  if(!ok){st.noMic=true;render();}}
 
+/* =====================================================================
+   COACH: a rule-based tutor that runs entirely in the browser.
+   It reads only what is already stored on this device (word steps, per-skill answer history, response times, weekly log)
+   and turns it into: six progress indicators, a ranked list of recommendations with the real numbers behind each one,
+   and a weekly summary. No server, no AI service. Views call coachRecs(), coachIndicators(), coachWeek() and coachPath();
+   a real AI tutor could later replace coachRecs() without touching anything else.
+   ===================================================================== */
+
+/* ---------- weekly log (new, optional data: S.wk) ---------- */
+const wkOf=t=>{const d=new Date(t);d.setHours(12,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return dkey(d.getTime());};   /* the Monday of that week */
+function wkRec(t){const k=wkOf(t||Date.now());let w=S.wk[k];
+ if(!w){w=S.wk[k]={n:0,ok:0,xp:0,up:0,sk:{},tags:{}};const ks=Object.keys(S.wk).sort();while(ks.length>12)delete S.wk[ks.shift()];}return w;}
+function coachLog(tag,ok){const g=TAGS[tag]&&TAGS[tag][1];if(!g)return;const w=wkRec();w.n++;if(ok)w.ok++;
+ const a=w.sk[g]||(w.sk[g]=[0,0]);a[0]++;if(ok)a[1]++;const b=w.tags[tag]||(w.tags[tag]=[0,0]);b[0]++;if(ok)b[1]++;
+ /* a weak spot that recovers is a real achievement: remember it and say so once */
+ const e=S.err[tag],wk=S.flags.weak||(S.flags.weak={});
+ if(weakRate(tag)>=0.34)wk[tag]=1;
+ else if(wk[tag]&&e&&e.r.length>=8&&weakRate(tag)<=0.15){delete wk[tag];S.flags.fixed=(S.flags.fixed||0)+1;S.flags.fixedLast=Date.now();try{toast('You have turned this around: '+TAGS[tag][0]+' 🎉');}catch(x){}}}
+
+/* ---------- helpers over the existing history ---------- */
+const COACH_TAGS=()=>({listening:['listen','stress'],reading:['read'],grammar:Object.keys(TAGS).filter(t=>TAGS[t][1]==='grammar'),sentence:['order','tr','conv','phone'],speaking:['speak']});
+function tagAcc(tags){let n=0,ok=0;tags.forEach(t=>{const e=S.err[t];if(e){n+=e.r.length;ok+=e.r.filter(Boolean).length;}});return {n,acc:n?ok/n:null};}
+const avg=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null;
+const pc=v=>Math.round(v*100);
+const lc=s=>String(s||'').toLowerCase();
+function blend(parts){const ps=parts.filter(p=>p&&p.v!==null&&p.w>0);if(!ps.length)return null;const w=ps.reduce((a,p)=>a+p.w,0);return ps.reduce((a,p)=>a+p.v*p.w,0)/w;}
+const seenItems=()=>ITEMS.filter(i=>S.cards[i.id]&&S.cards[i.id].seen);
+
+/* what you can do with each word: recognise it, recall it, use it in a sentence, understand it spoken, say it aloud */
+function coachAbilities(){const s=seenItems(),c=i=>S.cards[i.id];
+ return {n:s.length,recognise:s.filter(i=>c(i).rg>=2).length,recall:s.filter(i=>c(i).pr>=2).length,use:s.filter(i=>c(i).us>=1).length,hear:s.filter(i=>c(i).li>=1).length,say:s.filter(i=>c(i).sp>=1).length};}
+
+/* six indicators, each 0..1 or null while there is too little data. Completing an exercise is never enough on its own:
+   vocabulary counts only words recalled correctly more than once and not left unreviewed for weeks; the rest use recent answers. */
+function coachIndicators(){const T=COACH_TAGS(),now=Date.now(),sn=seenItems();
+ const kept=sn.filter(i=>{const c=S.cards[i.id];return c.b>=3&&c.pr>=2&&c.due>now-14*DAY;}).length;
+ const g=tagAcc(T.grammar),sc=tagAcc(T.sentence),li=tagAcc(T.listening),rd=tagAcc(T.reading);
+ const epS=Object.values(S.eps).map(e=>e.s/100),rdS=Object.keys(S.read).map(k=>(S.read[k].s||0)/100);
+ const listening=blend([{v:li.n>=6?li.acc:null,w:Math.min(li.n,12)},{v:epS.length?avg(epS):null,w:epS.length*4}]);
+ const reading=blend([{v:rd.n>=6?rd.acc:null,w:Math.min(rd.n,12)},{v:rdS.length?avg(rdS):null,w:rdS.length*4}]);
+ const act=Object.keys(S.days).filter(k=>S.days[k]>0&&now-new Date(k+'T12:00:00').getTime()<14*DAY).length;
+ return [
+  {k:'vocab',label:'Vocabulary retention',v:sn.length>=5?kept/sn.length:null,note:sn.length>=5?kept+' of '+sn.length+' words you have studied are recalled and still fresh':'Study a few more words to see this'},
+  {k:'grammar',label:'Grammar accuracy',v:g.n>=6?g.acc:null,note:g.n>=6?'Your last '+g.n+' answers on grammar topics':'Needs a few more grammar answers'},
+  {k:'reading',label:'Reading comprehension',v:reading,note:reading!==null?'Reading questions and passages':'Open a reading passage to see this'},
+  {k:'listening',label:'Listening comprehension',v:listening,note:listening!==null?'Listening questions, dictation and episodes':'Try some listening practice to see this'},
+  {k:'sentence',label:'Sentence construction',v:sc.n>=6?sc.acc:null,note:sc.n>=6?'Building and translating sentences, last '+sc.n+' answers':'Build a few sentences to see this'},
+  {k:'consistency',label:'Consistency',v:Object.keys(S.days).length>=2?Math.min(1,act/10):null,note:act+' of the last 14 days. Ten is plenty, and missed days cost nothing'}];}
+
+/* where you are on the path from beginner to intermediate */
+function coachPath(){return LEVELS.map(([lv,desc])=>{const ls=LESSONS.filter(l=>l.lvl===lv),d=ls.filter(lessonDone).length;return {lvl:lv,desc,done:d,total:ls.length};});}
+const pathNow=()=>{const p=coachPath();return p.find(x=>x.done<x.total)||p[p.length-1];};
+
+/* words you answer correctly but slowly: knowing is not yet fluency */
+function slowWords(){const xs=ITEMS.filter(i=>{const c=S.cards[i.id];return c&&c.rn>=3&&c.rt>0&&c.ok>=3;});if(xs.length<6)return [];
+ const med=xs.map(i=>S.cards[i.id].rt).sort((a,b)=>a-b)[Math.floor(xs.length/2)];
+ return xs.filter(i=>S.cards[i.id].rt>Math.max(6000,med*2)).sort((a,b)=>S.cards[b.id].rt-S.cards[a.id].rt).map(i=>i.id);}
+const lessonFor=tag=>LESSONS.find(l=>l.x&&l.x.some(a=>a.includes(tag)));
+
+/* ---------- recommendations: ranked rules, each explained with real numbers ---------- */
+function coachRecs(){const R=[],T=COACH_TAGS(),ind=Object.fromEntries(coachIndicators().map(x=>[x.k,x])),nx=nextLesson(),done=doneCount();
+ const add=(prio,id,title,why,btn,act,data,more)=>R.push({prio,id,title,why,btn,act,data:data||{},more:more||null});
+ const started=ITEMS.some(i=>S.cards[i.id]&&S.cards[i.id].seen);
+ if(!started&&!done){if(nx)add(1,'first','Start with your first lesson','Each lesson takes about ten minutes and builds the sounds, words and phrases you need first. As you answer, this page learns what to focus on.','Start Lesson 1','openLesson',{id:nx.id});return R;}
+ /* reviews that are due */
+ const due=dueSorted();if(due.length){const old=Math.floor((Date.now()-S.cards[due[0]].due)/DAY);
+  add(due.length>=8?10:30,'due',due.length+' word'+(due.length>1?'s':'')+' to review','These are due now. Reviewing just before you would forget is what makes words stay.'+(old>=2?' The oldest has been waiting '+old+' days.':''),'Start session','startPlan');}
+ /* repeated mistakes by topic */
+ const wt=weakTags()[0];if(wt){const e=S.err[wt.tag],n=e.r.length,L=lessonFor(wt.tag),name=TAGS[wt.tag][0];
+  add(15,'weak',name,'You missed '+pc(wt.rate)+'% of your last '+n+' answers on '+lc(name)+'. Let us revisit the idea before moving on.','Practise this','targeted',{tag:wt.tag},L&&LESSONS.indexOf(L)>=0?['Revisit Lesson '+(LESSONS.indexOf(L)+1),'openLesson',{id:L.id}]:null);}
+ /* listening behind reading */
+ const r=ind.reading.v,l=ind.listening.v;
+ if(r!==null&&l!==null&&r-l>=0.12)add(12,'listenGap','Listening is behind your reading','You are reading at '+pc(r)+'% but understanding speech at '+pc(l)+'%. Let us practise hearing words you already know, in context.','Listening practice','lStart',{go:1});
+ else if(l!==null&&l<0.7&&tagAcc(T.listening).n>=8)add(14,'listenLow','Your ears need more practice','Your recent listening accuracy is '+pc(l)+'%. A little every day, with the audio only, works better than one long session.','Listening practice','lStart',{go:1});
+ /* repeated words */
+ const lcs=leeches();if(lcs.length){const w=lcs.slice(0,3).map(id=>BY[id].ru);add(18,'leech','Words that keep slipping','You have forgotten '+w.join(', ')+(lcs.length>3?' and '+(lcs.length-3)+' more':'')+' several times. They come back in new sentences until they stick.','Practise them','leechStart',{go:1});}
+ /* recognise but not produce */
+ const kn=knownNotMade();if(kn.length>=6)add(20,'produce','Move from recognising to producing','You can recognise '+kn.length+' words but have not yet produced them yourself. Typing or building them turns passive knowledge into speech.','Produce them','pStart',{go:1});
+ /* speaking */
+ const talks=Object.keys(S.talk).length,sp=tagAcc(T.speaking);
+ if(!talks&&done>=2&&TALKS.some(talkUnlocked))add(25,'talk0','Have your first conversation','You have finished '+done+' lessons but not yet spoken in a scene. Speaking is where the words come together.','Start a conversation','goRoute',{r:'talk'});
+ else if(sp.n>=6&&sp.acc<0.6)add(22,'speakLow','Say it aloud','Only '+pc(sp.acc)+' of your recent spoken answers matched. Repeating real sentences after the audio trains your mouth and your ear.','Shadowing','shStart');
+ /* missed questions and skipped exercises */
+ const mk=missList().length;if(mk>=3)add(24,'miss','Retake your missed questions',mk+' questions you got wrong are saved. Answering them again is the quickest way to fix them.','Retake','missStart');
+ /* slow recall */
+ const sw=slowWords();if(sw.length>=3){const w=sw.slice(0,2).map(id=>BY[id].ru),s=Math.round(S.cards[sw[0]].rt/1000);add(40,'slow','Speed up what you know','You get '+w.join(' and ')+' right, but it takes about '+s+' seconds. Conversation needs words to arrive quickly, so these come back as quick drills.','Quick drills','slowStart');}
+ /* what is going well: step up instead of repeating */
+ [['grammar','grammar'],['sentence','sentence construction'],['listening','listening']].forEach(([k,name])=>{const v=ind[k].v,n=k==='listening'?tagAcc(T.listening).n:tagAcc(T[k]).n;
+  if(v!==null&&v>=0.88&&n>=12){const talk=k!=='grammar';add(35,'up-'+k,'Your '+name+' is strong','You have been getting '+pc(v)+'% right over your last '+n+' answers, so less repeating and more challenge: '+(k==='grammar'?'on to the next lesson.':k==='sentence'?'try a real conversation next.':'speech is played a little faster now.'),k==='grammar'&&nx?'Next lesson':talk?'Start a conversation':'Listening practice',k==='grammar'&&nx?'openLesson':talk?'goRoute':'lStart',k==='grammar'&&nx?{id:nx.id}:talk?{r:'talk'}:{go:1});}});
+ /* the path forward */
+ if(nx){const gw=weakTags().some(x=>x.rate>=0.5);add(gw?45:28,'next','Next lesson: '+nx.t,'Goal: '+nx.obj+(gw?' (You may want to fix the weak spot above first.)':''),'Open Lesson '+(LESSONS.indexOf(nx)+1),'openLesson',{id:nx.id});}
+ const pend=LESSONS.filter(x=>S.les[x.id]&&!S.les[x.id].placed&&epFor(x.id)&&!S.eps[epFor(x.id).id])[0];
+ if(pend)add(32,'ep','Listen to a short episode','A two-person conversation that uses the words from "'+pend.t+'". Listen for the meaning first, then the details.','Listen','epStart',{id:epFor(pend.id).id});
+ const sk=Object.keys(S.skip).length;if(sk)add(50,'skip',sk+' skipped exercise'+(sk>1?'s':''),'You skipped these. That never counts against you, and they are here whenever you want them.','Try them','skipStart');
+ return R.sort((a,b)=>a.prio-b.prio);}
+
+/* ---------- weekly summary ---------- */
+function coachWeek(){const now=Date.now(),cur=wkRec(now),prev=S.wk[wkOf(now-7*DAY)]||null,out={cur,prev,improved:[],struggling:[],review:[]};
+ const names={vocab:'Vocabulary',grammar:'Grammar',listening:'Listening',reading:'Reading',production:'Producing Russian',speaking:'Speaking'};
+ Object.keys(names).forEach(g=>{const a=cur.sk[g],b=prev&&prev.sk[g];if(a&&b&&a[0]>=5&&b[0]>=5){const d=a[1]/a[0]-b[1]/b[0];if(d>=0.08)out.improved.push(names[g]+' accuracy is up '+Math.round(d*100)+' points ('+pc(a[1]/a[0])+'%)');}});
+ if(cur.up)out.improved.push(cur.up+' word'+(cur.up>1?'s':'')+' moved into secure memory');
+ if(S.flags.fixedLast&&now-S.flags.fixedLast<7*DAY)out.improved.push('You recovered from a weak spot');
+ Object.keys(cur.tags).forEach(t=>{const a=cur.tags[t];if(TAGS[t]&&a[0]>=4&&a[1]/a[0]<0.6)out.struggling.push(TAGS[t][0]+' ('+pc(a[1]/a[0])+'% this week)');});
+ const old=ITEMS.filter(i=>{const c=S.cards[i.id];return c&&c.b>=3&&(now-c.last>21*DAY||c.due<now-7*DAY);});out.review=old;
+ out.days=Object.keys(S.days).filter(k=>S.days[k]>0&&wkOf(new Date(k+'T12:00:00').getTime())===wkOf(now)).length;
+ out.next=coachRecs().slice(0,3);return out;}
+
+/* ---------- Home: today's focus ---------- */
+function recBtn(r,cls){const d=Object.keys(r.data||{}).map(k=>' data-'+k+'="'+esc(r.data[k])+'"').join('');return `<button class="btn ${cls||''}" data-act="${r.act}"${d}>${esc(r.btn)}</button>`;}
+function coachHTML(){const recs=coachRecs();if(!recs.length)return '';const top=recs[0],more=recs.slice(1,4);
+ const ind=coachIndicators().filter(x=>x.k!=='consistency'),wk=coachWeek();
+ const imp=wk.improved.length?`<p class="small"><b>Recently:</b> ${esc(wk.improved[0])}.</p>`:'';
+ return `<section class="card coach"><div class="eyebrow">Your coach · what to do next</div><h2>${esc(top.title)}</h2><p class="why">${esc(top.why)}</p>
+ <div class="row">${recBtn(top)}${top.more?recBtn({btn:top.more[0],act:top.more[1],data:top.more[2]},'alt'):''}</div>${imp}
+ ${more.length?`<div class="eyebrow">Also worth doing</div><ul class="recs">${more.map(r=>`<li><div><b>${esc(r.title)}</b><span class="small muted">${esc(r.why)}</span></div>${recBtn(r,'alt sm')}</li>`).join('')}</ul>`:''}
+ <div class="skills mini" aria-label="Skill snapshot">${ind.map(x=>`<div class="skill"><span class="small">${esc(x.label)}</span><b>${x.v===null?'–':pc(x.v)+'%'}</b><div class="meter"><i style="width:${x.v===null?0:pc(x.v)}%"></i></div></div>`).join('')}</div>
+ <p class="small muted">You are free to use any part of the app. This is only a suggestion, based on your recent answers.</p></section>`;}
+
+/* ---------- Progress: indicators, path to fluency, weekly summary ---------- */
+function coachProgressHTML(){const ind=coachIndicators(),P=coachPath(),cur=pathNow(),wk=coachWeek(),ab=coachAbilities();
+ const li=x=>`<li>${esc(x)}</li>`,none=t=>`<p class="small muted">${t}</p>`;
+ let h=`<section class="card"><h2>Your skills</h2><p class="small muted">Worked out from your actual answers, not from lessons completed. A skill shows a dash until there is enough data.</p>
+ <div class="skills">${ind.map(x=>{const p=x.v===null?0:pc(x.v);return `<div class="skill${x.v!==null&&p<65?' low':''}"><span class="small">${esc(x.label)}</span><b>${x.v===null?'–':p+'%'}</b><div class="meter" role="img" aria-label="${esc(x.label)} ${x.v===null?'not enough data':p+'%'}"><i style="width:${p}%"></i></div><span class="small muted">${esc(x.note)}</span></div>`;}).join('')}</div>
+ <details class="how"><summary>How these are calculated</summary><div class="small stack"><p><b>Vocabulary retention</b>: of the words you have studied, the share you have recalled correctly more than once and reviewed within the last two weeks. Recognising a word once does not count.</p><p><b>Grammar, sentence construction, reading, listening</b>: your most recent answers (up to 12 per topic) in each area. Reading and listening also include passage and episode scores.</p><p><b>Consistency</b>: days practised in the last 14, with ten days counting as full marks. Streaks are shown elsewhere and never punish a missed day.</p></div></details></section>
+ <section class="card"><h2>Path to fluency</h2><p class="small muted">You are working on <b>${esc(cur.lvl)}</b>: ${esc(cur.desc)}.</p><ol class="path">${P.map(x=>{const p=x.total?Math.round(x.done/x.total*100):0;return `<li class="${x.done===x.total&&x.total?'done':x.lvl===cur.lvl?'on':''}"><div class="row sp"><b>${esc(x.lvl)}</b><span class="small muted">${x.done} of ${x.total} lessons</span></div><div class="bar" role="img" aria-label="${esc(x.lvl)} ${p}%"><i style="width:${p}%"></i></div><span class="small muted">${esc(x.desc)}</span></li>`;}).join('')}</ol></section>
+ <section class="card"><h2>What you can do with your words</h2>${ab.n?`<div class="abil">${[['recognise','Recognise',ab.recognise],['recall','Recall by yourself',ab.recall],['use','Use in a sentence',ab.use],['hear','Understand when spoken',ab.hear],['say','Say aloud',ab.say]].map(([k,t,n])=>`<div class="row sp"><span>${t}</span><span class="small muted">${n} of ${ab.n} words</span></div><div class="bar" role="img" aria-label="${t} ${n} of ${ab.n}"><i style="width:${Math.round(n/ab.n*100)}%"></i></div>`).join('')}</div><p class="small muted">These are different abilities. A word can be easy to recognise and still hard to say, which is why practice mixes all five.</p>`:none('Learn a few words and this fills in.')}</section>
+ <section class="card"><h2>This week</h2><div class="stat"><div><b>${wk.cur.n}</b><span>answers</span></div><div><b>${wk.days}</b><span>days practised</span></div><div><b>${wk.cur.up}</b><span>words made secure</span></div></div>
+ <div class="eyebrow">You improved at</div>${wk.improved.length?`<ul class="cando">${wk.improved.map(x=>`<li>✅ <span>${esc(x)}</span></li>`).join('')}</ul>`:none('Keep going. Improvements show here once there are two weeks to compare.')}
+ <div class="eyebrow">Still tricky</div>${wk.struggling.length?`<ul class="cando">${wk.struggling.map(x=>`<li class="no">⬜ <span>${esc(x)}</span></li>`).join('')}</ul>`:none('Nothing stands out this week.')}
+ <div class="eyebrow">Prioritise next</div>${wk.next.length?`<ul class="recs">${wk.next.map(r=>`<li><div><b>${esc(r.title)}</b><span class="small muted">${esc(r.why)}</span></div>${recBtn(r,'alt sm')}</li>`).join('')}</ul>`:none('You are all caught up.')}
+ <div class="eyebrow">Worth reviewing</div>${wk.review.length?`<p class="small">${wk.review.length} word${wk.review.length>1?'s':''} you learned a while ago have not been reviewed recently, for example ${wk.review.slice(0,3).map(i=>`<span lang="ru">${esc(i.ru)}</span>`).join(', ')}. They return in your daily session.</p>`:none('Nothing old is slipping.')}</section>`;
+ return h;}
+
 /* ---------- shared view helpers ---------- */
 const seg=(act,k,val,opts)=>`<div class="seg" role="group">${opts.map(o=>`<button data-act="${act}" data-k="${k}" data-v="${o[0]}" aria-pressed="${String(val)===String(o[0])}">${o[1]}</button>`).join('')}</div>`;
 const colFilter=c=>i=>c==='all'||i.col===c;
@@ -1972,7 +2157,7 @@ function vToday(){
  let h='';
  if(audioMode==='device')h+=`<div class="note">The natural voices are not connected yet, so Buni is using your device's voice for now. This needs the project's audio function and a voice API key (see the README, step 2).</div>`;
  const due=ITEMS.filter(i=>isDue(i.id)).length;
- h+=`<section class="card hero"><div class="mascot"><div class="bunny-wrap">${bunny("happy")}</div><div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}</section>${journeyHTML()}${hubHTML()}<section class="card">`;
+ h+=`<section class="card hero"><div class="mascot"><div class="bunny-wrap">${bunny("happy")}</div><div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}</section>${coachHTML()}${journeyHTML()}${hubHTML()}<section class="card">`;
  if(plan){h+=`<h1>Your ${S.set.len}-minute session</h1><p class="muted">${due?due+' item'+(due>1?'s are':' is')+' due. ':''}Chosen from your reviews, weak spots and goals, in this order of priority.</p>
   <div class="seg" role="group" aria-label="Session length">${[5,10,20,30].map(m=>`<button data-act="setLen" data-v="${m}" aria-pressed="${S.set.len===m}">${m} min<small>${LEN_LABEL[m]}</small></button>`).join('')}</div>
   <ol class="plan">${plan.lines.map(l=>`<li><b>${esc(l[0])}</b><span class="small muted">${esc(l[1])}</span></li>`).join('')}</ol>
@@ -2078,7 +2263,11 @@ function vStudy(){
  <section class="card"><h2>Produce it</h2><p class="muted">${kn.length?kn.length+' items you can recognise but have not yet produced. Type them, build sentences and fill gaps.':'Type, build and fill gaps for items you have started. This is the fastest way to speak and write.'}</p><button class="btn big alt" data-act="pStart">Start production drill</button></section>
  <section class="card"><h2>Targeted practice</h2>${wt.length||lc.length?`<div class="list">${wt.map(w=>`<div class="row sp"><span>${esc(TAGS[w.tag][0])} <span class="small muted">· ${Math.round(w.rate*100)}% missed recently</span></span><button class="btn alt sm" data-act="targeted" data-tag="${w.tag}">Practise</button></div>`).join('')}${lc.length?`<div class="row sp"><span>${lc.length} stubborn word${lc.length>1?'s':''} <span class="small muted">· forgotten 3+ times</span></span><button class="btn alt sm" data-act="leechStart">Practise</button></div>`:''}</div>`:'<p class="muted">No weak spots yet. As you answer questions, Bunova notices repeated mistakes and lists them here.</p>'}</section>
  <section class="card"><h2>Vocabulary review</h2><p class="muted">Browse all ${ITEMS.length} entries with audio, stress, grammar notes and examples.</p><button class="btn big alt" data-act="wStart">Open word list</button></section>
+ ${Object.keys(S.skip).length?`<section class="card"><h2>Skipped exercises <span class="chip static">${Object.keys(S.skip).length}</span></h2><p class="muted">Exercises you skipped wait here. Skipping never counts as a mistake, and nothing is marked as mastered.</p><button class="btn big alt" data-act="skipStart">Try them now</button></section>`:''}
  <section class="card"><h2>Tests</h2><p class="muted">Mixed tests of 30, 60 or 90 questions. A cumulative option covers everything from your completed lessons.</p><a class="btn big alt" href="#test" data-act="goTest">Set up a test</a></section>
+ <section class="card"><h2>Appearance</h2><p class="muted">Pick a colour scheme. It changes colours only, and switches instantly.</p>
+ <div class="pals" role="group" aria-label="Colour scheme">${PALETTES.map(x=>`<button class="pal" data-act="setPal" data-v="${x[0]}" aria-pressed="${(S.set.pal||'original')===x[0]}"><span class="pals-sw" aria-hidden="true">${x[2].map(c=>`<i style="background:${c}"></i>`).join('')}</span><span>${x[1]}</span></button>`).join('')}</div>
+ <p class="small muted">Light and dark still follow your device setting.</p></section>
  <section class="card"><h2>Audio</h2>
  <div class="eyebrow">Speech</div><div class="seg"><button data-act="setSpeech" data-v="1" aria-pressed="${S.set.speech!==false}">On</button><button data-act="setSpeech" data-v="0" aria-pressed="${S.set.speech===false}">Off</button></div>
  ${VOL_OK?`<label class="vol"><span>Speech volume</span><input type="range" min="0" max="100" step="5" value="${Math.round(speechVol()*100)}" data-vol="sv"><output>${Math.round(speechVol()*100)}%</output></label>`:'<p class="small muted">On this device, speech volume follows your volume buttons.</p>'}
@@ -2147,6 +2336,7 @@ function vProgress(){
  <p>Good, Easy or a correct answer moves an item up one step. Hard keeps it. Again or a wrong answer drops it two steps and brings it back in about 10 minutes.</p>
  <p>Recognition alone cannot take an item above step 3. It needs at least two correct productions, where you type, build or recall it yourself. That is why the stages below matter.</p>
  <p><b>Recognised</b>: you picked the right meaning twice. <b>Recalled</b>: you produced it correctly twice. <b>Confident</b>: step 4 or higher with three correct productions.</p></div></details></section>
+ ${coachProgressHTML()}
  <section class="card"><h2>What you can do with each word</h2><div class="stages">${STAT_ORDER.map(s=>`<div class="stg ${s}"><b>${cnt[s]}</b><span>${STATLAB[s]}</span></div>`).join('')}</div><div class="stbar" aria-hidden="true">${STAT_ORDER.map(s=>`<i class="${s}" style="flex:${cnt[s]}"></i>`).join('')}</div></section>`;
  const wt=weakTags(),kn=knownNotMade(),lc=leeches();
  h+=`<section class="card"><h2>Weak spots</h2>`;
@@ -2181,7 +2371,7 @@ function sfx(kind){if(S.set.snd===false)return;const vol=clamp01(S.set.fv,.7);if
   [[988,0,.09,'triangle',.11],[1319,.08,.34,'triangle',.11],[2638,.08,.22,'sine',.025],[3951,.1,.16,'sine',.012]].forEach(([f,t,d,ty,pk])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.value=f;o.connect(g);g.connect(AC.destination);const t0=AC.currentTime+t;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(pk*vol,t0+.006);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.start(t0);o.stop(t0+d+.02);});return;}
  const seq={ok:[[660,0],[880,.09]],no:[[260,0],[200,.12]],win:[[523,0],[659,.1],[784,.2],[1047,.3]]}[kind]||[];
  seq.forEach(([f,t])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=kind==='no'?'triangle':'sine';o.frequency.value=f;o.connect(g);g.connect(AC.destination);const t0=AC.currentTime+t;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(Math.max(.0002,.14*vol),t0+.02);g.gain.exponentialRampToValueAtTime(.0001,t0+.22);o.start(t0);o.stop(t0+.25);});}catch(e){}}
-function confetti(n){try{const host=document.createElement('div');host.className='confetti';host.setAttribute('aria-hidden','true');const cols=['#58cc02','#1cb0f6','#ffc800','#ff9600','#ce82ff','#ff4b4b'];
+function confetti(n){try{const host=document.createElement('div');host.className='confetti';host.setAttribute('aria-hidden','true');const cs=getComputedStyle(document.documentElement),cv=n=>cs.getPropertyValue(n).trim(),cols=S.set.pal&&S.set.pal!=='original'?[cv('--accent'),cv('--sky'),cv('--sun'),cv('--flame'),cv('--rose'),cv('--good')].filter(Boolean):['#58cc02','#1cb0f6','#ffc800','#ff9600','#ce82ff','#ff4b4b'];
  for(let i=0;i<(n||60);i++){const s=document.createElement('i');s.style.cssText='left:'+Math.random()*100+'%;background:'+cols[i%6]+';animation-delay:'+Math.random()*.5+'s;animation-duration:'+(1.8+Math.random()*1.4)+'s;--x:'+Math.round(Math.random()*160-80)+'px;--r:'+Math.round(Math.random()*720)+'deg';host.appendChild(s);}
  document.body.appendChild(host);setTimeout(()=>{try{host.remove();}catch(e){}},4200);}catch(e){}}
 /* ---------- render ---------- */
@@ -2273,6 +2463,9 @@ document.addEventListener('click',e=>{
  case 'rSyl':{if(r.st.checked)return;r.st.val=d.i;check();afterCheckScroll();return;}
  case 'rTile':{const t=cur();if(r.st.checked)return;const sel=r.st.sel||(r.st.sel=[]),i=+d.i,k=sel.indexOf(i);if(k>=0)sel.splice(k,1);else sel.push(i);render();return;}
  case 'rCheck':check();afterCheckScroll();return;
+ case 'rSkipEx':{const t=cur();if(!canSkip(t,r.st))return;skipTask(t);nextTask();render();top();return;}
+ case 'rEase':if(easeTask()){render();}return;
+ case 'skipStart':if(startSkipped()){render();top();}return;
  case 'rSkip':{const t=cur();if(r.st.checked)return;commit(t,{ok:false,ans:String(t.ans).split('|')[0]},'');sfx('no');render();afterCheckScroll();return;}
  case 'rNext':nextTask();render();top();return;
  case 'rAgain':{const m=(r.miss||[]).slice(0,20);if(!m.length){endRun();return;}startRun({title:'Practising your mistakes',tasks:m.map(t=>Object.assign({},t,{retry:0})),mode:'mixed',kind:'targeted'});render();top();return;}
@@ -2303,6 +2496,7 @@ document.addEventListener('click',e=>{
  case 'shStart':{const ts=shadowTasksFromSeen(8);if(ts.length&&startRun({title:'Shadowing',tasks:ts,mode:'mixed',kind:'shadow'})){render();top();}else if(!ts.length)toast('Learn a few words first.');return;}
  case 'setLen':S.set.len=+d.v;save();render();return;
  case 'startPlan':{const p=planSession(S.set.len);if(p&&startRun({title:'Your '+S.set.len+'-minute session',tasks:p.tasks,mode:'mixed',kind:'plan'})){render();top();}return;}
+ case 'setPal':if(PALETTES.some(x=>x[0]===d.v)){S.set.pal=d.v;applyPalette();save();render();}return;
  case 'setSpd':S.set.spd=['auto','slower','natural','faster'].includes(d.v)?d.v:'auto';save();render();return;
  case 'setFo':S.set.fo=d.v==='shuf'?'shuf':'smart';save();render();return;
  case 'lessonFlash':{const l=LESSONS.find(x=>x.id===d.id);const ids=l?lessonItems(l):[];if(ids.length&&startRun({title:l.t+': flashcards',tasks:shuffle(ids).map(id=>itemTask(id,step(id)>=2?'card-p':'card-r')),mode:'mixed',kind:'flash'})){render();top();}return;}
@@ -2320,6 +2514,7 @@ document.addEventListener('click',e=>{
  case 'fStart':startFlash();render();top();return;
  case 'lStart':startListen();render();top();return;
  case 'pStart':startProduce();render();top();return;
+ case 'slowStart':{const ids=slowWords();if(ids.length&&startRun({title:'Quick drills',tasks:itemTasks(ids,['listen','type','cloze','tiles'],12),mode:'mixed',kind:'targeted'})){render();top();}else toast('Nothing slow right now.');return;}
  case 'leechStart':{const ids=leeches();if(ids.length&&startRun({title:'Stubborn words',tasks:itemTasks(ids,['cloze','tiles','type','dict'],12),mode:'mixed',kind:'targeted'})){render();top();}return;}
  case 'wStart':ui.prac.mode='words';render();top();return;
  case 'pBack':ui.prac.mode='menu';render();top();return;
