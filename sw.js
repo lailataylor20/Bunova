@@ -3,7 +3,7 @@
    the Russian audio clips you have already heard so they replay offline.
    What it never does: it cannot read or change your progress or settings (those live in localStorage, which a service
    worker has no access to), it never deletes anything but its own old copies of the app, and it never caches errors. */
-const BUILD='3871817455';
+const BUILD='1269155212';
 const SHELL='bunova-shell-'+BUILD, AUDIO='bunova-audio-v1', FONTS='bunova-fonts-v1';
 const AUDIO_MAX=400;
 const SHELL_FILES=['/','/manifest.webmanifest','/icon-192.png','/icon-512.png','/icon-180.png','/favicon-32.png'];

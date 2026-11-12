@@ -1501,7 +1501,31 @@ const SCENARIOS=[
 {id:"b3",lid:"c06",t:"Meeting a neighbour",set:"An older neighbour says hello. Mind the formal вы.",turns:[
  ["Your new neighbour greets you.","Здравствуйте! Вы новый сосед?","m",[["Здравствуйте! Да, меня зовут Анна. Очень приятно.",2,"Polite, with your name.","Очень приятно. Вы откуда?","Nice to meet you. Where are you from?"],["Да, я Анна.",1,"Understood, but a greeting is missing.","Очень приятно. Вы откуда?","Nice to meet you. Where are you from?"],["Привет! Да, я Анна.",0,"Привет is too informal for an older stranger. Use Здравствуйте.","Здравствуйте. Вы откуда?","Hello. Where are you from?"]]],
  ["He asks where you are from.","Вы откуда?","m",[["Я из Англии, но живу здесь с сентября.",2,"Full, natural answer.","Как интересно! Если нужна помощь, обращайтесь.","How interesting! If you need help, just ask."],["Из Англии.",1,"Fine for a short answer.","Как интересно! Если нужна помощь, обращайтесь.","How interesting! If you need help, just ask."],["Это неважно.",0,"Sounds cold. Share one fact instead.","Ну, как хотите. Если нужна помощь, обращайтесь.","As you like. If you need help, just ask."]]],
- ["He offers help.","Если нужна помощь, обращайтесь.","m",[["Спасибо, это очень любезно с вашей стороны!",2,"Gracious, and exactly the right register.","Не за что. Заходите в гости!","Not at all. Come and visit!"],["Хорошо, спасибо.",1,"Fine, though a little plain.","Не за что. Заходите в гости!","Not at all. Come and visit!"],["Не надо.",0,"Sounds dismissive. You can decline politely: спасибо, пока не нужно.","Ну, как знаете.","As you wish."]]]]}
+ ["He offers help.","Если нужна помощь, обращайтесь.","m",[["Спасибо, это очень любезно с вашей стороны!",2,"Gracious, and exactly the right register.","Не за что. Заходите в гости!","Not at all. Come and visit!"],["Хорошо, спасибо.",1,"Fine, though a little plain.","Не за что. Заходите в гости!","Not at all. Come and visit!"],["Не надо.",0,"Sounds dismissive. You can decline politely: спасибо, пока не нужно.","Ну, как знаете.","As you wish."]]]]},
+{id:"b4",lid:"c10",t:"Arriving at his family's home",set:"Your friend's mother opens the door. Use the polite вы.",turns:[
+ ["Oleg's mother opens the door.","Здравствуйте! Проходите, пожалуйста.","f",[["Здравствуйте! Спасибо за приглашение. Это вам.",2,"Greeting, thanks and a gift: perfect for a first visit.","Ой, какие красивые цветы! Спасибо!","Oh, what beautiful flowers! Thank you!"],["Здравствуйте! Спасибо.",1,"Fine. Adding за приглашение makes it warmer.","Проходите, раздевайтесь.","Come in, take your coat off."],["Привет!",0,"Привет is too casual for your friend's mother. Use Здравствуйте.","Здравствуйте... Проходите.","Hello... come in."]]],
+ ["At the table she offers food.","Берите салат, не стесняйтесь!","f",[["Спасибо, очень вкусно! Можно ещё немного?",2,"Praise and a polite request for more: hosts love this.","Конечно! Кушайте на здоровье!","Of course! Eat up!"],["Спасибо, я возьму.",1,"Fine, but a compliment would go down well.","Пожалуйста!","You are welcome!"],["Я не люблю салат.",0,"Honest but rude at a first meal. Take a little, or say спасибо, я сыта.","Ну... как хотите.","Well... as you like."]]],
+ ["She asks about your family.","А у вас большая семья?","f",[["Да, у меня есть брат и сестра. А у вас?",2,"Answers and keeps the conversation going.","Нас четверо: муж, я и двое детей.","There are four of us: my husband, me and two children."],["Нет, маленькая.",1,"Understood, but a little short. Add one detail.","Понятно. А у нас большая.","I see. Ours is large."],["Не знаю.",0,"This sounds odd about your own family. Give one fact.","Как это не знаете?","What do you mean, you do not know?"]]]]},
+{id:"b5",lid:"c13",t:"Tea with a grandmother",set:"Oleg's grandmother, Nina Ivanovna, pours you tea. She says ты to you; you use вы and her name and patronymic.",turns:[
+ ["She pours the tea.","Садись, садись. Хочешь чаю с вареньем?","f",[["Да, с удовольствием, Нина Ивановна!",2,"Name and patronymic is the polite way to address an older person.","Вот и хорошо. Попробуй моё варенье.","Good. Try my jam."],["Да, спасибо.",1,"Fine. Using her name would warm it up.","Вот и хорошо.","Good."],["Нет.",0,"A bare нет to someone pouring tea is chilly. Say нет, спасибо if you must.","Ну, как хочешь.","Well, as you like."]]],
+ ["She worries about you.","Тебе не холодно? Может, принести плед?","f",[["Нет, мне тепло, спасибо. Не беспокойтесь!",2,"Reassures her politely. Не беспокойтесь means do not worry.","Ну ладно. Пей чай, пока горячий.","All right. Drink your tea while it is hot."],["Нет, спасибо.",1,"Fine, and perfectly understandable.","Ну ладно. Пей чай.","All right. Drink your tea."],["Не знаю.",0,"Dodges the question. Answer yes or no, kindly.","Как это не знаешь? Ну ладно.","What do you mean? Oh well."]]],
+ ["She compliments your Russian.","Ты хорошо говоришь по-русски!","f",[["Спасибо! Я пока только учусь, но мне очень нравится.",2,"Modest, positive and shows effort: ideal response to praise.","Молодец! Приходи ещё.","Well done! Come again."],["Нет, плохо говорю.",1,"A common modest reply, but thank her first.","Ну что ты, хорошо говоришь!","Come on, you speak well!"],["Я знаю.",0,"Sounds boastful. Thank her and add a little modesty.","Ну-ну...","Well, well..."]]]]},
+{id:"b6",lid:"c19",t:"Taking a taxi",set:"You get into a taxi. The driver speaks politely (вы).",turns:[
+ ["The driver greets you.","Здравствуйте! Куда едем?","m",[["Здравствуйте! На Тверскую, пожалуйста.",2,"Greeting, destination with на and a polite please.","Хорошо. Минут двадцать, если пробок нет.","Fine. About twenty minutes if there is no traffic."],["Тверская улица.",1,"Understood, but it sounds like a label. Add на … пожалуйста.","Хорошо. Поехали.","Fine. Off we go."],["Давай на Тверскую!",0,"Давай is the ты form. Use вы with a driver: на Тверскую, пожалуйста.","Ну, поехали...","Well, off we go..."]]],
+ ["He asks about the route.","Можно по набережной?","m",[["Да, конечно. Как вам удобнее.",2,"Polite and flexible.","Хорошо, так и сделаем.","Fine, we will do that."],["Да.",1,"Fine, and perfectly understandable.","Хорошо.","Fine."],["Мне всё равно!",0,"Means I do not care and sounds rude here.","Ну ладно...","Oh well..."]]],
+ ["You arrive.","Приехали. С вас четыреста рублей.","m",[["Вот, пожалуйста. Сдачи не надо. Спасибо!",2,"Pay, tip and thank: smooth.","Спасибо! Хорошего дня!","Thanks! Have a good day!"],["Можно картой?",1,"Fine, if you have no cash.","Можно. Приложите.","You can. Tap here."],["Это дорого!",0,"Complaining at the end is awkward; the fare was agreed.","Ну, такой тариф.","Well, that is the fare."]]]]},
+{id:"b7",lid:"c23",t:"Talking about a film",set:"You and your friend Max have just seen a film. You both say ты.",turns:[
+ ["Max asks what you thought.","Ну как тебе фильм?","m",[["Мне понравился, потому что сюжет интересный.",2,"Opinion plus a reason with потому что.","Правда? А мне показался длинным.","Really? To me it seemed long."],["Хороший.",1,"Fine, but add a reason to keep talking.","А почему?","Why?"],["Не знаю.",0,"Ends the topic. Give a short opinion.","Ну ладно...","Oh well..."]]],
+ ["He disagrees.","А мне показался длинным. Ты так не думаешь?","m",[["Нет, по-моему, он не длинный. Но я понимаю, почему так кажется.",2,"Disagrees politely and shows understanding.","Может быть. У всех свой вкус.","Maybe. Everyone has their own taste."],["Может быть.",1,"Soft, but avoids giving a view.","Хм, ладно.","Hm, OK."],["Ты неправ!",0,"Too blunt. Use по-моему… or мне кажется…","Ну, не обязательно так резко.","No need to be so sharp."]]],
+ ["He suggests the next film.","Давай в следующий раз выберем комедию?","m",[["Давай! Я люблю комедии, потому что они поднимают настроение.",2,"Agrees and explains.","Договорились!","Agreed!"],["Давай.",1,"Fine, and perfectly understandable.","Договорились.","Agreed."],["Нет, комедии глупые.",0,"Too dismissive. State a preference politely.","Ну, не все.","Not all of them."]]]]},
+{id:"b8",lid:"c24",t:"A call from a friend",set:"Your friend Max phones you. Relaxed, informal Russian.",turns:[
+ ["Your phone rings.","Привет! Я не отвлекаю?","m",[["Нет, не отвлекаешь. Что случилось?",2,"Natural reply that invites the reason for the call.","Ничего страшного, хотел спросить про субботу.","Nothing serious, I wanted to ask about Saturday."],["Нет.",1,"Fine, but a little curt.","Хорошо. Я про субботу.","Good. It is about Saturday."],["Кто это?",0,"With a friend this sounds odd. Greet them by name instead.","Это я, Макс!","It is me, Max!"]]],
+ ["He asks about Saturday.","Что ты делаешь в субботу?","m",[["Пока ничего. А что?",2,"Short, natural and asks the reason.","Давай сходим в кафе?","Shall we go to a café?"],["Не знаю.",1,"Fine, but noncommittal.","Ну, подумай.","Well, think about it."],["Ничего не делаю, отстань.",0,"Отстань means leave me alone: rude.","Ой, ладно, извини.","Oh, OK, sorry."]]],
+ ["He ends the call.","Ну ладно, мне пора. Созвонимся!","m",[["Хорошо, до связи! Пока!",2,"A common way to close a call.","Пока!","Bye!"],["Пока.",1,"Fine, and perfectly understandable.","Пока!","Bye!"],["Ладно, всё.",0,"Hanging up abruptly. Close with пока or до связи.","Ну пока...","Well, bye..."]]]]},
+{id:"b9",lid:"c21",t:"A guest comes to your home",set:"Your friend Lena arrives for dinner at your place. You both say ты.",turns:[
+ ["Lena hands you a gift.","Привет! Это тебе.","f",[["Спасибо, какой красивый подарок! Проходи, раздевайся.",2,"Thanks and a warm welcome.","Я рада, что тебе нравится.","I am glad you like it."],["Спасибо.",1,"Fine, and perfectly understandable.","Пожалуйста.","You are welcome."],["Зачем?",0,"Sounds ungrateful. Say thank you.","Просто так...","Just because..."]]],
+ ["She asks about her coat.","Куда можно повесить куртку?","f",[["Вот сюда, пожалуйста. Тапочки вот там.",2,"Practical: Russians offer slippers (тапочки) at the door.","Спасибо, очень мило.","Thank you, how kind."],["Вот сюда.",1,"Fine, and perfectly understandable.","Спасибо.","Thank you."],["Не знаю, куда хочешь.",0,"Unhelpful. Point and say вот сюда.","Хорошо, повешу здесь.","OK, I will hang it here."]]],
+ ["She smells the food.","Чем так вкусно пахнет?","f",[["Это пирог с яблоками. Садись, сейчас будем пить чай!",2,"Names the dish and invites her to sit.","Обожаю яблочный пирог!","I love apple pie!"],["Пирог.",1,"Fine, and perfectly understandable.","Обожаю пироги!","I love pies!"],["Ничем.",0,"«Ничем» makes no sense here and sounds rude.","Как это ничем?","What do you mean, nothing?"]]]]}
 ];
 /* Conversation partner scenarios. Each unlocks after the lesson ("need") that teaches its language.
    who: partner voice (f|m)   formal: partner uses вы (so вы is expected back)
@@ -1579,7 +1603,55 @@ const TALKS=[
   {say:"Слушай, а чем ты занимаешься?",en:"So, what do you do?",goal:"Say what you do, then ask him back.",model:"Я работаю в офисе. А ты?",acc:["работаю","учусь","студент","врач","учител","инженер","менеджер","программист","занимаюсь","пенси","не работаю"],fix:["tobe"],tip:["а ты","Keep it going: finish with «А ты?»."]},
   {say:"Я программист. Тебе нравится Москва?",en:"I'm a programmer. Do you like Moscow?",goal:"Say whether you like it.",model:"Очень нравится! Здесь красиво.",acc:["нравится","люблю","^да","^нет","очень","красив","интересн"],ok:["Мне тоже!","Me too!"]},
   {say:"Ты давно учишь русский?",en:"Have you been learning Russian long?",goal:"Say how long: not long, a month…",model:"Нет, недавно. Месяц.",acc:["недавно","давно","месяц","\\bгод","недел","^нет","^да"],ok:["Ты молодец! Хорошо говоришь.","Well done! You speak well."]},
-  {say:"Давай обменяемся номерами?",en:"Shall we swap numbers?",goal:"Agree, and suggest messaging on Telegram or WhatsApp.",model:"Давай! Напиши мне в Телеграм.",acc:["давай","^да","конечно","напиши","телеграм","ватсап","whatsapp","telegram"],ok:["Договорились! Пиши!","Deal! Write to me!"]}]}
+  {say:"Давай обменяемся номерами?",en:"Shall we swap numbers?",goal:"Agree, and suggest messaging on Telegram or WhatsApp.",model:"Давай! Напиши мне в Телеграм.",acc:["давай","^да","конечно","напиши","телеграм","ватсап","whatsapp","telegram"],ok:["Договорились! Пиши!","Deal! Write to me!"]}]},
+{id:"t09",t:"Meeting his family",can:"I can greet someone's family politely and talk about my own.",need:"c10",who:"f",formal:true,
+ set:"You are visiting Oleg's family for the first time. His mother Svetlana opens the door and speaks politely (вы), so use вы too.",
+ phr:[["Очень приятно познакомиться.","Very pleased to meet you.","Polite, for meeting someone's family."],["Спасибо за приглашение.","Thank you for the invitation.","A warm thing to say on arrival."],["Это вам.","This is for you.","When you hand over flowers or a gift."],["У вас красивый дом.","You have a lovely home.","У вас = you have (polite)."],["У меня есть брат.","I have a brother.","Use у меня есть + the person."],["А у вас?","And you? (polite)","Bounces the question back."]],
+ turns:[
+  {say:"Здравствуйте! Вы Анна? Проходите, пожалуйста.",en:"Hello! Are you Anna? Come in, please.",goal:"Greet her, say it is nice to meet her and thank her for the invitation.",model:"Здравствуйте! Очень приятно. Спасибо за приглашение.",acc:["приятно","спасибо","здравствуйте","приглашен"],fix:["tyFormal"],tip:["приглашен","Add «Спасибо за приглашение» (thank you for the invitation). It is a polite touch."],ok:["Ну что вы! Мы очень рады.","Not at all! We are so glad."]},
+  {say:"Садитесь, пожалуйста. У вас есть братья или сёстры?",en:"Please sit down. Do you have brothers or sisters?",goal:"Say that you have a brother or a sister, or that you do not.",model:"Да, у меня есть сестра.",acc:["у меня","сестр","брат","^нет","один","одна","единственн"],fix:["tyFormal"],ok:["Понятно.","I see."]},
+  {say:"Олег говорит, что вы изучаете русский. Как вам наш язык?",en:"Oleg says you are learning Russian. How do you find our language?",goal:"Say that it is difficult but interesting.",model:"Он трудный, но очень интересный.",acc:["трудн","сложн","интересн","нравится","красив","люблю"],fix:["tyFormal"],ok:["Вы хорошо говорите!","You speak well!"]},
+  {say:"Пойдёмте за стол. Вы любите борщ?",en:"Let us go to the table. Do you like borscht?",goal:"Say yes, you love it, or that you have not tried it.",model:"Да, очень люблю!",acc:["^да","люблю","нравится","не пробовал","не пробовала","не знаю","^нет"],fix:["tyFormal"],ok:["Сейчас вы его попробуете!","Now you will try it!"]}]},
+{id:"t10",t:"At the family table",can:"I can accept food, praise a meal and say I am full.",need:"c15",who:"m",formal:true,
+ set:"Dinner at the family table. Oleg's father Dmitry is making sure nobody's plate is empty.",
+ phr:[["Очень вкусно!","Very tasty!","The compliment every cook wants to hear."],["Можно ещё?","May I have some more?",""],["Мне, пожалуйста, чуть-чуть.","Just a little for me, please.","For when you are nearly full."],["Я сыт. / Я сыта.","I am full. (man / woman)","Say сыт if you are a man, сыта if you are a woman."],["Передайте, пожалуйста, хлеб.","Please pass the bread.",""],["Спасибо, всё было очень вкусно.","Thank you, everything was delicious.","Say it when the meal ends."]],
+ turns:[
+  {say:"Приятного аппетита! Положить вам салат?",en:"Enjoy your meal! Shall I put some salad on your plate?",goal:"Say yes please, a little.",model:"Да, пожалуйста, немного.",acc:["^да","пожалуйста","немного","чуть","спасибо","салат","конечно"],fix:["tyFormal"],ok:["Вот, пожалуйста.","Here you are."]},
+  {say:"Ну как, вкусно?",en:"Well, is it tasty?",goal:"Say that it is very tasty.",model:"Очень вкусно, спасибо!",acc:["вкусн","очень","отличн","замечательн","здорово","прекрасн"],fix:["tyFormal"],ok:["Рад слышать!","Glad to hear it!"]},
+  {say:"Хотите ещё котлету?",en:"Would you like another cutlet?",goal:"Say yes please, or say politely that you are full.",model:"Нет, спасибо, я сыта.",acc:["^да","^нет","спасибо","сыт","хочу","пожалуйста","можно","чуть","немного","наел"],fix:["tyFormal"],ok:["Хорошо. Тогда чай с пирогом?","All right. Then tea with pie?"]},
+  {say:"Тогда, может быть, чай с пирогом?",en:"Then perhaps tea with pie?",goal:"Say yes, with pleasure.",model:"Да, с удовольствием!",acc:["^да","удовольств","пожалуйста","спасибо","конечно","с радостью","^нет"],fix:["tyFormal"],ok:["Отлично!","Wonderful!"]}]},
+{id:"t11",t:"Chatting with an aunt",can:"I can answer questions about myself in an informal family chat.",need:"c12",who:"f",formal:false,
+ set:"Oleg's aunt Tanya wants to get to know you. She is friendly and speaks informally (ты).",
+ phr:[["Давай на «ты».","Let us use «ты».","An invitation to be informal."],["Я работаю в…","I work at / in…","Followed by в + place: в школе, в банке."],["Я учусь в университете.","I study at university.","For students."],["Я живу в…","I live in…","в + place: в Лондоне."],["Мне очень нравится…","I like … very much.",""],["Спасибо, что пригласили.","Thank you for inviting me.",""]],
+ turns:[
+  {say:"Давай на «ты». Расскажи, чем ты занимаешься?",en:"Let us use «ты». Tell me, what do you do?",goal:"Say what you do: work or study.",model:"Я работаю в школе.",acc:["работаю","учусь","студент","врач","учител","инженер","менеджер","программист","дизайнер","медсестр","в школе","в больнице","в офисе","в банке"],fix:["tobe"],ok:["Интересно!","Interesting!"]},
+  {say:"А что ты любишь делать в свободное время?",en:"And what do you like doing in your free time?",goal:"Name one hobby.",model:"Я люблю читать и гулять.",acc:["люблю","нравится","увлекаюсь","читать","гулять","готовить","спорт","музык","путешеств","смотреть","плавать","рисовать","бегать","играть"],ok:["Как здорово!","How nice!"]},
+  {say:"А где ты живёшь?",en:"And where do you live?",goal:"Say where you live.",model:"Я живу в Лондоне.",acc:["живу","в лондон","в англии","в город","в деревн","около","недалеко","в центре"],ok:["Понятно.","I see."]},
+  {say:"Что тебе у нас больше всего нравится?",en:"What do you like most about being here?",goal:"Say that you like the food, the people or the city.",model:"Мне нравится еда и люди.",acc:["нравится","люблю","еда","люди","город","метро","красив","всё","все"],ok:["Приятно слышать!","Nice to hear!"]}]},
+{id:"t12",t:"Talking about my day",can:"I can describe my daily routine.",need:"c20",who:"f",formal:false,
+ set:"Your friend Lena calls you on video and asks about your day.",
+ phr:[["Как прошёл твой день?","How was your day?",""],["Я встаю в…","I get up at…","Встаю is reflexive in meaning: you get yourself up."],["Я иду на работу.","I go to work.","Идти: on foot, right now or regularly."],["Вечером я…","In the evening I…",""],["Я ложусь спать в…","I go to bed at…",""],["А ты?","And you?",""]],
+ turns:[
+  {say:"Привет! Во сколько ты обычно встаёшь?",en:"Hi! What time do you usually get up?",goal:"Say what time you get up.",model:"Я встаю в семь часов.",acc:["встаю","в семь","в шесть","в восемь","в девять","в пять","час","утра","рано","поздно"],fix:["tobe"],ok:["Понятно.","I see."]},
+  {say:"А что ты делаешь утром?",en:"And what do you do in the morning?",goal:"Say one thing: have breakfast, drink coffee, go to work.",model:"Я завтракаю и иду на работу.",acc:["завтрака","пью","иду","еду","умываюсь","одеваюсь","работаю","душ","кофе","чай","собираюсь","читаю","гуляю"],ok:["Понятно. А вечером?","I see. And in the evening?"]},
+  {say:"А что ты делаешь вечером?",en:"And what do you do in the evening?",goal:"Say what you do in the evening.",model:"Вечером я готовлю ужин и смотрю фильм.",acc:["вечером","готовлю","смотрю","читаю","отдыхаю","гуляю","ужин","звоню","занимаюсь","учу","играю","дома","друз"],ok:["Звучит уютно!","That sounds cosy!"]},
+  {say:"А когда ты ложишься спать?",en:"And when do you go to bed?",goal:"Say what time you go to bed.",model:"Я ложусь спать в одиннадцать.",acc:["ложусь","в одиннадцать","в десять","в двенадцать","в полночь","в девять","поздно","рано","час"],ok:["Хороших снов!","Sleep well!"]}]},
+{id:"t13",t:"Giving an opinion",can:"I can give an opinion with a reason and agree on a plan.",need:"c23",who:"m",formal:false,
+ set:"Your friend Max wants to decide what to do next weekend and asks what you think.",
+ phr:[["Как ты думаешь?","What do you think?",""],["По-моему…","In my opinion…","The standard way to open an opinion."],["Мне кажется, что…","It seems to me that…",""],["Потому что…","Because…","Add it to turn an opinion into a reason."],["Давай…","Let us…","Works for suggesting plans."],["Я не против.","I do not mind.","Agreeing in a relaxed way."]],
+ turns:[
+  {say:"Как ты думаешь, лучше пойти в музей или в парк?",en:"What do you think: is it better to go to a museum or a park?",goal:"Give your opinion: museum or park, and say why.",model:"По-моему, лучше в парк, потому что там хорошая погода.",acc:["по-моему","думаю","лучше","музей","парк","потому","мне кажется","хочу"],tip:["потому","Add «потому что…» (because…) to give a reason."],ok:["Хорошая идея!","Good idea!"]},
+  {say:"Но завтра, кажется, будет дождь.",en:"But tomorrow it looks like it will rain.",goal:"Say what you suggest then: museum, café, staying in.",model:"Тогда пойдём в музей.",acc:["тогда","музей","кафе","дом","пойдём","давай","можно","кино","останемся"],ok:["Ладно, согласен.","OK, I agree."]},
+  {say:"Хорошо. Во сколько встретимся?",en:"Good. What time shall we meet?",goal:"Suggest a time and a place.",model:"Давай в два часа у метро.",acc:["давай","в два","в три","в час","в десять","в одиннадцать","в двенадцать","метро","у входа","возле","утром","днём","вечером"],ok:["Договорились!","Agreed!"]},
+  {say:"А ты не против, если с нами пойдёт Олег?",en:"Do you mind if Oleg comes with us?",goal:"Say that you do not mind.",model:"Нет, я не против. Пусть идёт.",acc:["не против","конечно","пусть","хорошо","^да","^нет","рад","пожалуйста","отлично","пожалуйста"],ok:["Супер, спасибо!","Great, thanks!"]}]},
+{id:"t14",t:"Buying clothes",can:"I can ask for a size, try something on and say I will take it.",need:"c22",who:"f",formal:true,
+ set:"You are in a clothes shop. The assistant speaks politely (вы), so use вы too.",
+ phr:[["Я ищу куртку.","I am looking for a jacket.",""],["Можно примерить?","May I try it on?",""],["Есть другой размер?","Do you have another size?",""],["Это слишком дорого.","That is too expensive.",""],["Я возьму это.","I will take it.",""],["Можно картой?","Can I pay by card?",""]],
+ turns:[
+  {say:"Добрый день! Вам помочь?",en:"Good afternoon! Can I help you?",goal:"Say that you are looking for a jacket or a sweater.",model:"Да, я ищу куртку.",acc:["ищу","нужн","куртк","свитер","футболк","джинс","платье","пальто","рубашк","^да","хочу","посмотреть"],fix:["tyFormal"],ok:["Пожалуйста, вот здесь.","Please, over here."]},
+  {say:"Вот эта очень хорошая. Какой у вас размер?",en:"This one is very nice. What size are you?",goal:"Give your size, or ask to try it on.",model:"Можно примерить?",acc:["размер","примерить","примерочн","мой","не знаю","средн","маленьк","больш","сорок","пятьдесят","сорок"],fix:["tyFormal"],ok:["Примерочная налево.","The fitting room is on the left."]},
+  {say:"Ну как? Подошло?",en:"Well? Does it fit?",goal:"Say that it is a bit big or small, or that it fits.",model:"Немного велико. Есть другой размер?",acc:["велик","мал","подошл","подходит","хорошо","другой","размер","нравится","отлично","тесн","удобн"],fix:["tyFormal"],ok:["Сейчас посмотрю.","I will have a look now."]},
+  {say:"Вот поменьше. Берёте?",en:"Here is a smaller one. Will you take it?",goal:"Say that you will take it and ask if you can pay by card.",model:"Да, я возьму. Можно картой?",acc:["возьму","беру","берём","^да","карт","налич","дорого","подумаю","^нет"],fix:["tyFormal"],ok:["Хорошо. Касса вон там.","Fine. The till is over there."]}]}
 ];
 const TALKBY={};TALKS.forEach(s=>{TALKBY[s.id]=s;});
 const TALK_CLAR={mF:['Простите, я не понял. Повторите, пожалуйста.','Sorry, I did not understand. Could you repeat that?'],fF:['Простите, я не поняла. Повторите, пожалуйста.','Sorry, I did not understand. Could you repeat that?'],
@@ -1915,7 +1987,7 @@ function checkAch(){const out=[];ACH.forEach(a=>{if(!S.ach[a[0]]&&a[3]()){S.ach[
 const ROUTES=['today','learn','study','read','test','progress','games','talk','settings'];
 const ui={talk:{id:null,phase:'list'},game:{src:'',phase:'menu'},route:'today',lesson:null,passage:null,pendingSay:null,confirmReset:false,run:null,res:null,
  prac:{mode:'menu',col:'all',topic:'all',dir:'auto',size:10,q:'',wcol:'all',wtopic:'all'},
- test:{col:'all',n:30,types:{mc:true,tr:true,li:true,rc:true,dc:false,tl:false},focus:'weak'}};
+ test:{col:'all',topic:'all',n:30,types:{mc:true,tr:true,li:true,rc:true,dc:false,tl:false},focus:'weak'}};
 const ruH=it=>S.set.ph?it.rs:it.ru;
 const vfHTML=it=>{const v=VFM[it.ru];if(!v)return '';return `<div class="vf" aria-label="Present tense forms">${v.f.map((f,i)=>`<span><i>${PERSONS[i]}</i> ${esc(f)}</span>`).join('')}</div><div class="small muted">past: ${esc(v.past)}${v.pair?' · pair: '+esc(v.pair):''}</div>`;};
 function entry(it,o){o=o||{};return `<div class="row sp top"><div class="grow"><div class="ru${o.xl?' xl':''}" lang="ru">${esc(ruH(it))}</div><div class="ph">${esc(it.ph)}</div><div class="en">${esc(it.en)}</div></div>${o.big?'':`<div class="row nowrap">${sayBtns(it.ru)}</div>`}</div>${o.big?bigSpk(it.ru):''}
@@ -1972,6 +2044,17 @@ function easeTask(){const r=ui.run,t=cur();if(!canEase(t,r.st))return false;stop
 function startSkipped(){const ks=Object.keys(S.skip).filter(k=>missOk(S.skip[k].t));if(!ks.length){toast('Nothing skipped right now.');return false;}
  const tasks=ks.sort((a,b)=>S.skip[a].last-S.skip[b].last).slice(0,15).map(k=>{const t=Object.assign({},S.skip[k].t);if(Array.isArray(t.tiles))t.tiles=shuffle(t.tiles);if(Array.isArray(t.opts))t.opts=shuffle(t.opts);return t;});
  return startRun({title:'Skipped exercises',tasks,mode:'practice',kind:'mixed'});}
+/* Weak-spot mix: a few of everything you struggle with, interleaved, so no single topic is drilled in a block */
+function weakCounts(){const lc=leeches(),wt=weakTags(),mk=missList(),sk=Object.keys(S.skip).filter(k=>missOk(S.skip[k].t));return {lc,wt,mk,sk,n:lc.length+wt.length+mk.length+sk.length};}
+function startWeakMix(){const w=weakCounts();if(!w.n){toast('No weak spots right now. Nice work!');return false;}
+ const fresh=t=>{t=Object.assign({},t);if(Array.isArray(t.tiles))t.tiles=shuffle(t.tiles);if(Array.isArray(t.opts))t.opts=shuffle(t.opts);return t;};
+ let tasks=[];
+ tasks=tasks.concat(shuffle(w.mk.slice()).sort((a,b)=>S.miss[b].n-S.miss[a].n).slice(0,6).map(k=>fresh(S.miss[k].t)));
+ tasks=tasks.concat(w.sk.slice(0,3).map(k=>fresh(S.skip[k].t)));
+ w.wt.slice(0,3).forEach(x=>{try{tasks=tasks.concat(tasksForTag(x.tag,3));}catch(e){}});
+ if(w.lc.length)tasks=tasks.concat(itemTasks(shuffle(w.lc.slice()).slice(0,4),['cloze','tiles','type','dict'],4));
+ const seen=new Set();tasks=tasks.filter(t=>{if(!t)return false;const k=qKey(t);if(seen.has(k))return false;seen.add(k);return true;});
+ return startRun({title:'Weak-spot mix',tasks:shuffle(tasks).slice(0,15),mode:'mixed',kind:'targeted'});}
 function nextTask(){stopAudio();const r=ui.run;r.i++;r.st={t0:Date.now()};ansSel=null;if(r.i>=r.tasks.length){finishRun();return;}primeAudio();}
 function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).length,pct=n?Math.round(ok/n*100):0;const now=Date.now();
  r.n=n;r.ok=ok;r.pct=pct;r.passed=false;
@@ -1986,8 +2069,9 @@ function finishRun(){const r=ui.run,n=r.res.length,ok=r.res.filter(x=>x.ok).leng
 function distractors(it,field,pool){const cand=shuffle(pool.filter(x=>x.id!==it.id&&x.col===it.col&&x[field]!==it[field]));cand.sort((a,b)=>(b.cat===it.cat)-(a.cat===it.cat));
  const seen=new Set([it[field]]),d=[];for(const x of cand){if(!seen.has(x[field])){seen.add(x[field]);d.push(x[field]);if(d.length===3)break;}}return shuffle(d.concat(it[field]));}
 function doneCats(){const s=new Set();LESSONS.filter(lessonDone).forEach(l=>l.v.forEach(k=>s.add(k)));return s;}
-function buildExam(){const t=ui.test,types=Object.keys(t.types).filter(k=>t.types[k]&&(!['li','dc'].includes(k)||HAS_TTS));
+function buildExam(){const t=ui.test;if(t.topic==='@wrong')return startMissed(t.n);const types=Object.keys(t.types).filter(k=>t.types[k]&&(!['li','dc'].includes(k)||HAS_TTS));
  let pool=ITEMS;if(t.col==='p'||t.col==='v')pool=ITEMS.filter(i=>i.col===t.col);if(t.col==='done'){const dc=doneCats();pool=ITEMS.filter(i=>dc.has(i.cat));}
+ if(t.topic==='@unseen')pool=pool.filter(i=>isNew(i.id));else if(t.topic==='@seen')pool=pool.filter(i=>!isNew(i.id));else if(t.topic&&t.topic!=='all'&&t.topic[0]!=='@')pool=pool.filter(i=>i.cat===t.topic);
  if(pool.length<4)return false;const n=Math.min(t.n,pool.length);
  const ord=pool.map(i=>({i,k:(t.focus==='weak'?mast(i.id)*1.2:0)+Math.random()})).sort((a,b)=>a.k-b.k).map(o=>o.i);
  const chosen=shuffle(t.focus==='weak'?ord.slice(0,Math.min(pool.length,Math.ceil(n*1.5))):ord).slice(0,n);
@@ -1997,8 +2081,8 @@ function buildExam(){const t=ui.test,types=Object.keys(t.types).filter(k=>t.type
   if(ty==='li')return itemTask(it.id,'listen');if(ty==='rc')return itemTask(it.id,'type');if(ty==='dc')return itemTask(it.id,'dict');
   if(ty==='tl'&&itemKinds(it.id).includes('tiles'))return itemTask(it.id,'tiles');return itemTask(it.id,'type');});
  return startRun({title:n+'-question test',tasks:shuffle(tasks),mode:'exam',kind:'test',col:t.col});}
-function startMissed(){const ks=missList();if(!ks.length){toast('No missed questions right now. Nice work!');return false;}
- const pick=shuffle(ks).sort((a,b)=>S.miss[b].n-S.miss[a].n).slice(0,50);
+function startMissed(lim){const ks=missList();if(!ks.length){toast('No missed questions right now. Nice work!');return false;}
+ const pick=shuffle(ks).sort((a,b)=>S.miss[b].n-S.miss[a].n).slice(0,lim||50);
  const tasks=pick.map(k=>{const t=Object.assign({},S.miss[k].t);if(Array.isArray(t.tiles))t.tiles=shuffle(t.tiles);if(Array.isArray(t.opts))t.opts=shuffle(t.opts);return t;});
  return startRun({title:'Missed questions',tasks:shuffle(tasks),mode:'exam',kind:'test',col:'missed',missRun:1});}
 function startPlacement(){const by={};LESSONS.forEach(l=>{(by[l.lvl]=by[l.lvl]||[]).push(...l.x.filter(a=>!['scene','stress'].includes(a[0])).map(a=>[a,l]));});
@@ -2360,7 +2444,9 @@ const BUNI_GROUPS=[['fur','Fur colour'],['scarf','Scarf'],['outfit','Outfit'],['
 const buniAch=id=>ACH.find(a=>a[0]===id);
 const buniItem=(g,id)=>BUNI_ITEMS[g].find(x=>x[0]===id)||BUNI_ITEMS[g][0];
 const buniOpen=(g,id)=>{const it=buniItem(g,id);return !it[3]||!!S.ach[it[3]];};
-const buniPick=g=>{const b=(S.set&&S.set.buni)||{};const id=b[g];return BUNI_ITEMS[g].some(x=>x[0]===id)&&buniOpen(g,id)?id:BUNI_ITEMS[g][0][0];};
+/* Buni is a fixed mascot: saved customisation choices from earlier builds are kept in storage but never applied */
+const buniPick=g=>BUNI_ITEMS[g][0][0];
+const buniPickOld=g=>{const b=(S.set&&S.set.buni)||{};const id=b[g];return BUNI_ITEMS[g].some(x=>x[0]===id)&&buniOpen(g,id)?id:BUNI_ITEMS[g][0][0];};
 function buniFur(){return buniItem('fur',buniPick('fur'))[2];}
 function buniScarf(){return buniItem('scarf',buniPick('scarf'))[2];}
 function buniFace(){const f=buniPick('face');return f==='happy'?null:f;}
@@ -2377,7 +2463,8 @@ function buniAcc(){const a=buniPick('acc');
  if(a==='ushanka')return `<rect x="24" y="44" width="14" height="30" rx="7" fill="#9c7b62" stroke="#7a5d48" stroke-width="2"/><rect x="86" y="44" width="14" height="30" rx="7" fill="#9c7b62" stroke="#7a5d48" stroke-width="2"/><path d="M30 50q0-24 32-24t32 24z" fill="#b08e74" stroke="#7a5d48" stroke-width="2.4" stroke-linejoin="round"/><rect x="28" y="46" width="68" height="9" rx="4.5" fill="#8a6a52" stroke="#7a5d48" stroke-width="2"/><circle cx="62" cy="31" r="3" fill="#ffd966"/>`;
  return '';}
 /* newly earned items: returns names so the caller can tell the learner */
-function buniCheck(){const known=S.bk||(S.bk=[]),fresh=[];BUNI_GROUPS.forEach(([g,gl])=>BUNI_ITEMS[g].forEach(it=>{const id=g+':'+it[0];if(it[3]&&S.ach[it[3]]&&!known.includes(id)){known.push(id);fresh.push(it[1]);}}));return fresh;}
+function buniCheck(){return [];}
+function buniCheckOld(){const known=S.bk||(S.bk=[]),fresh=[];BUNI_GROUPS.forEach(([g,gl])=>BUNI_ITEMS[g].forEach(it=>{const id=g+':'+it[0];if(it[3]&&S.ach[it[3]]&&!known.includes(id)){known.push(id);fresh.push(it[1]);}}));return fresh;}
 function buniNeed(g,id){const it=buniItem(g,id),a=it[3]?buniAch(it[3]):null;return a?a[2]:'';}
 function buniScene(pose,big){const bg=buniPick('bg');return `<div class="buni-bg bg-${bg}${big?' big':''}"><div class="bunny-wrap${big?' lg':''}">${buni(pose)}</div></div>`;}
 function buniCard(){const s=S.set.buni||{};
@@ -2525,6 +2612,8 @@ const seg=(act,k,val,opts)=>`<div class="seg" role="group">${opts.map(o=>`<butto
 const colFilter=c=>i=>c==='all'||i.col===c;
 const topicFilter=(col,topic)=>i=>(col==='all'||i.col===col)&&(topic==='all'||i.cat===topic);
 const topicOptions=(col,sel)=>'<option value="all">All topics</option>'+CATS.filter(c=>col==='all'||c.col===col).map(c=>`<option value="${esc(c.key)}"${c.key===sel?' selected':''}>${esc(c.topic)} (${c.ids.length})</option>`).join('');
+const testTopicOptions=(col,sel)=>{const inCol=i=>col==='all'||col==='done'||i.col===col,pool=ITEMS.filter(inCol),un=pool.filter(i=>isNew(i.id)).length,mw=missList().length,o=(v,l)=>`<option value="${v}"${v===sel?' selected':''}>${l}</option>`;
+ return o('all','All topics')+`<optgroup label="By progress, across the whole app">${o('@unseen','Unseen: not started yet ('+un+')')}${o('@seen','Seen: started ('+(pool.length-un)+')')}${o('@wrong','Previously answered incorrect ('+mw+')')}</optgroup><optgroup label="Topics">${CATS.filter(c=>col==='all'||col==='done'||c.col===col).map(c=>o(esc(c.key),esc(c.topic)+' ('+c.ids.length+')')).join('')}</optgroup>`;};
 const STATLAB={new:'New',learning:'Learning',recognised:'Recognised',recalled:'Recalled',confident:'Confident'};
 const pipHTML=id=>{const p=Math.round(mast(id)*100);return `<span class="pip" aria-label="Mastery ${p}%">${p}%<div class="bar"><i style="width:${p}%"></i></div></span>`;};
 const LEN_LABEL={5:'Quick',10:'Focused',20:'Standard',30:'Intensive'};
@@ -2645,6 +2734,10 @@ function vLesson(){const l=LESSONS.find(x=>x.id===ui.lesson),idx=LESSONS.indexOf
  return h;}
 
 /* ---------- PRACTICE ---------- */
+function weakHTML(){const w=weakCounts();if(!w.n)return '';const li=tagAcc(['listen','stress']),row=(a,b)=>`<div class="row sp small"><span>${a}</span><span class="muted">${b}</span></div>`;
+ return `<section class="card"><h2>Weak spots</h2><p class="muted">Everything you find hard, gathered in one place and mixed together. Mixing topics is harder than drilling one, and it helps you remember more.</p>
+ ${w.mk.length?row('Questions you got wrong',w.mk.length):''}${w.sk.length?row('Skipped exercises',w.sk.length):''}${w.lc.length?row('Words you keep forgetting',w.lc.length):''}${w.wt.slice(0,3).map(x=>row(esc(TAGS[x.tag][0]),Math.round(x.rate*100)+'% missed recently')).join('')}${li.n>=6&&li.acc<0.7?row('Listening and stress',Math.round(li.acc*100)+'% right recently'):''}
+ <button class="btn big" data-act="weakMix">Practise a mix of my weak spots</button></section>`;}
 function vStudy(){
  if(ui.prac.mode==='words')return vWords();
  const p=ui.prac,f=topicFilter(p.col,p.topic),pool=ITEMS.filter(f),due=pool.filter(i=>isDue(i.id)).length,fresh=pool.filter(i=>isNew(i.id)).length;
@@ -2661,6 +2754,7 @@ function vStudy(){
  <button class="btn big" data-act="fStart">Start flashcards</button></section>
  <section class="card"><h2>Listening and dictation</h2><p class="muted">Hear the Russian, choose its meaning or type what you hear. Nothing is shown first, so you train your ear.</p><button class="btn big alt" data-act="lStart">Start listening practice</button></section>
  <section class="card"><h2>Produce it</h2><p class="muted">${kn.length?kn.length+' items you can recognise but have not yet produced. Type them, build sentences and fill gaps.':'Type, build and fill gaps for items you have started. This is the fastest way to speak and write.'}</p><button class="btn big alt" data-act="pStart">Start production drill</button></section>
+ ${weakHTML()}
  <section class="card"><h2>Targeted practice</h2>${wt.length||lc.length?`<div class="list">${wt.map(w=>`<div class="row sp"><span>${esc(TAGS[w.tag][0])} <span class="small muted">· ${Math.round(w.rate*100)}% missed recently</span></span><button class="btn alt sm" data-act="targeted" data-tag="${w.tag}">Practise</button></div>`).join('')}${lc.length?`<div class="row sp"><span>${lc.length} stubborn word${lc.length>1?'s':''} <span class="small muted">· forgotten 3+ times</span></span><button class="btn alt sm" data-act="leechStart">Practise</button></div>`:''}</div>`:'<p class="muted">No weak spots yet. As you answer questions, Bunova notices repeated mistakes and lists them here.</p>'}</section>
  <section class="card"><h2>Vocabulary review</h2><p class="muted">Browse all ${ITEMS.length} entries with audio, stress, grammar notes and examples.</p><button class="btn big alt" data-act="wStart">Open word list</button></section>
  ${Object.keys(S.skip).length?`<section class="card"><h2>Skipped exercises <span class="chip static">${Object.keys(S.skip).length}</span></h2><p class="muted">Exercises you skipped wait here. Skipping never counts as a mistake, and nothing is marked as mastered.</p><button class="btn big alt" data-act="skipStart">Try them now</button></section>`:''}
@@ -2685,7 +2779,6 @@ const audioHTML=()=>`<section class="card"><h2>Audio</h2>
  </section>`;
 function vSettings(){return `<section class="card hero settings-head"><div class="mascot"><div class="bunny-wrap">${bunny('happy')}</div><div class="speech">Make Bunova yours. Everything here is saved on this device.</div></div></section>
  ${appearanceHTML()}
- ${buniCard()}
  <section class="card"><h2>Learning</h2><div class="eyebrow">Daily session length</div><div class="seg" role="group" aria-label="Session length">${[5,10,20,30].map(m=>`<button data-act="setLen" data-v="${m}" aria-pressed="${S.set.len===m}">${m} min<small>${LEN_LABEL[m]}</small></button>`).join('')}</div>
  <div class="eyebrow">Pronunciation help</div><div class="seg" role="group" aria-label="Phonetics"><button data-act="phSet" data-v="1" aria-pressed="${!!S.set.ph}">Show phonetics</button><button data-act="phSet" data-v="0" aria-pressed="${!S.set.ph}">Hide phonetics</button></div></section>
  ${audioHTML()}
@@ -2738,10 +2831,11 @@ function vTest(){const t=ui.test,mk=missList(),by={};mk.forEach(k=>{const g=S.mi
  return `<section class="card"><h2>Missed questions${mk.length?` <span class="chip static">${mk.length}</span>`:''}</h2>${mk.length?`<p class="muted">Every question you answer wrongly is saved here, from lessons, practice, listening, flashcards and tests. A question leaves the list when you get it right in this exam, or twice in a row anywhere else.</p><div class="mcats">${cats.slice(0,8).map(c=>`<span class="tag">${esc(c)} · ${by[c]}</span>`).join('')}${cats.length>8?`<span class="tag">+${cats.length-8} more</span>`:''}</div><button class="btn big" data-act="missStart">Retake ${Math.min(50,mk.length)} missed question${mk.length===1?'':'s'}</button>${mk.length>50?'<p class="small muted">The 50 you have missed most often come first. Clear them to unlock the rest.</p>':''}`:'<p class="muted">No missed questions right now. When you answer something wrongly, it is saved here so you can retake it as an exam.</p>'}</section>
  <section class="card"><h1>Test yourself</h1><p class="muted">You see whether each answer is right as you go, then your score and every mistake at the end. Results also update your reviews and weak-spot tracking.</p>
  <div class="eyebrow">Content</div>${seg('setT','col',t.col,[['all','Everything'],['p','Phrases'],['v','Words'],['done','My lessons so far']])}
+ <label class="f">Topic<select data-sel="ttopic" id="selTTopic">${testTopicOptions(t.col,t.topic)}</select></label>${t.topic==='@wrong'?'<p class="small muted">Every question you have ever got wrong, from lessons, practice, listening and tests, whatever its topic. Questions you now get right leave the list.</p>':''}
  <div class="eyebrow">Questions</div>${seg('setT','n',t.n,[[30,'30'],[60,'60'],[90,'90']])}
  <div class="eyebrow">Question types</div><div class="seg">${Object.keys(TTYPES).map(k=>{const off=(k==='li'||k==='dc')&&!HAS_TTS;return `<button data-act="tType" data-k="${k}" aria-pressed="${!!t.types[k]&&!off}"${off?' disabled':''}>${TTYPES[k]}</button>`;}).join('')}</div>
  <div class="eyebrow">Which items</div>${seg('setT','focus',t.focus,[['weak','Weaker items first'],['rand','Random']])}
- <button class="btn big" data-act="tStart">Start ${t.n}-question test</button></section>`;}
+ <button class="btn big" data-act="tStart">${t.topic==='@wrong'?'Retake up to '+t.n+' missed questions':'Start '+t.n+'-question test'}</button></section>`;}
 
 /* ---------- PROGRESS ---------- */
 /* Progress: each card becomes a section that opens and closes; the open ones are remembered while you use the app */
@@ -2886,6 +2980,7 @@ document.addEventListener('click',e=>{
  case 'rCheck':check();afterCheckScroll();return;
  case 'rSkipEx':{const t=cur();if(!canSkip(t,r.st))return;skipTask(t);nextTask();render();top();return;}
  case 'rEase':if(easeTask()){render();}return;
+ case 'weakMix':if(r&&r.done){ui.run=null;stopAudio();}else if(r)return;if(startWeakMix()){render();top();}return;
  case 'skipStart':if(startSkipped()){render();top();}return;
  case 'rSkip':{const t=cur();if(r.st.checked)return;commit(t,{ok:false,ans:String(t.ans).split('|')[0]},'');sfx('no');render();afterCheckScroll();return;}
  case 'rNext':nextTask();render();top();return;
@@ -2966,8 +3061,8 @@ document.addEventListener('click',e=>{
   const ts=pg.q.map(q=>q[0]==='pick'?{k:'pick',q:q[1],opts:shuffle(q[2].slice()),ans:q[3],tag:'read'}:{k:'type',q:q[1],ans:q[2],tag:q[3]||'read',tol:true,lang:'en'});
   if(startRun({title:pg.t,tasks:ts,mode:'read',rid:pg.id,kind:'read'})){render();top();}return;}
  case 'tType':{ui.test.types[d.k]=!ui.test.types[d.k];if(!Object.values(ui.test.types).some(Boolean))ui.test.types.mc=true;render();return;}
- case 'setT':{const v=d.k==='n'?+d.v:d.v;ui.test[d.k]=v;render();return;}
- case 'tStart':{if(buildExam()){render();top();}else toast('Complete a few lessons first, or choose Everything.');return;}
+ case 'setT':{const v=d.k==='n'?+d.v:d.v;ui.test[d.k]=v;if(d.k==='col'&&ui.test.topic&&ui.test.topic[0]!=='@'&&ui.test.topic!=='all'&&CATBY[ui.test.topic]&&d.v!=='all'&&d.v!=='done'&&CATBY[ui.test.topic].col!==d.v)ui.test.topic='all';render();return;}
+ case 'tStart':{if(buildExam()){render();top();}else toast(ui.test.topic==='@wrong'?'Nothing to retake right now.':'Not enough items for that choice. Try All topics.');return;}
  case 'resetAsk':ui.confirmReset=true;render();return;
  case 'resetNo':ui.confirmReset=false;render();return;
  case 'resetYes':try{localStorage.removeItem(KEY);}catch(x){}loadState();ui.confirmReset=false;toast('Progress erased.');render();top();return;
@@ -2977,7 +3072,7 @@ document.addEventListener('click',e=>{
 /* ---------- inputs ---------- */
 document.addEventListener('change',e=>{const vk=e.target.dataset&&e.target.dataset.vol;if(vk){S.set[vk]=clamp01(+e.target.value/100,1);save();if(vk==='fv')sfx('coin');return;}const s=e.target.dataset&&e.target.dataset.sel;if(!s)return;
  if(s==='gsrc'){ui.game.src=e.target.value;ui.game.phase='menu';}
- else if(s==='ptopic')ui.prac.topic=e.target.value;else if(s==='wtopic')ui.prac.wtopic=e.target.value;
+ else if(s==='ptopic')ui.prac.topic=e.target.value;else if(s==='wtopic')ui.prac.wtopic=e.target.value;else if(s==='ttopic'){ui.test.topic=e.target.value;render();return;}
  render();});
 document.addEventListener('input',e=>{const vk=e.target.dataset&&e.target.dataset.vol;if(vk){S.set[vk]=clamp01(+e.target.value/100,1);if(vk==='sv'&&player)player.volume=speechVol();const o=e.target.parentNode.querySelector('output');if(o)o.textContent=e.target.value+'%';return;}if(e.target.id==='wq'){ui.prac.q=e.target.value;const l=$('#wl');if(l)l.innerHTML=wordsList();}});
 document.addEventListener('pointerdown',e=>{unlockAudio();try{if(AC&&AC.state==='suspended')AC.resume();}catch(x){}
