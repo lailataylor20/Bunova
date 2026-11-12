@@ -8,8 +8,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Bunova">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon-180.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<meta name="application-name" content="Bunova">
+<meta name="msapplication-TileColor" content="#4cb000">
+<meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Rubik:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap">
 <style>
 /* Bunova: calm teal/ink palette, restrained rose used only for the wordmark and highlights */
@@ -193,7 +197,7 @@ h1{font-size:1.75rem} h2{font-size:1.3rem}
 .card{border:2px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
 .card.hero{background:var(--surface);border-color:var(--soft2)}
 .eyebrow{color:var(--accent2);font-weight:900;letter-spacing:.1em}
-.btn{border-radius:16px;text-transform:uppercase;letter-spacing:.06em;font-weight:900;font-size:.95rem;box-shadow:0 4px 0 var(--accent-sh);min-height:50px}
+.btn{border-radius:16px;text-transform:uppercase;letter-spacing:.06em;font-weight:900;font-size:.9rem;box-shadow:0 4px 0 var(--accent-sh);min-height:50px}
 .btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--accent-sh)}
 .btn.big{min-height:56px;font-size:1.05rem}
 .btn.alt{background:var(--surface);color:var(--sky-sh);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
@@ -429,8 +433,8 @@ header.top{row-gap:6px}
 .pals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .pal{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;min-height:52px;padding:8px 12px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer;touch-action:manipulation;text-align:left}
 .pal[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
-.pal>span:last-child{min-width:0;overflow-wrap:anywhere}
-.pals-sw{display:flex;flex:none;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.pals-sw i{display:block;width:16px;height:28px}
+.pal>span:last-child{min-width:0;overflow-wrap:break-word;line-height:1.2}
+.pals-sw{display:flex;flex:none;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.pals-sw i{display:block;width:12px;height:26px}
 .skiprow{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:2px}
 .linkbtn{min-height:44px;padding:8px 10px;border:0;background:none;color:var(--muted);font:inherit;font-size:.88rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;touch-action:manipulation}
 .linkbtn:hover{color:var(--ink)}
@@ -443,6 +447,8 @@ header.top{row-gap:6px}
 .path li{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:14px;border:1px solid var(--line)}
 .path li.on{border-color:var(--accent);background:var(--soft)}.path li.done{opacity:.85}
 .abil{display:flex;flex-direction:column;gap:6px}
+#bkIn{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font:inherit;font-size:.9rem;padding:10px;resize:vertical}
+.filebtn{cursor:pointer}
 </style>
 </head><body>
 <div class="wrap">
@@ -2268,6 +2274,7 @@ function vStudy(){
  <section class="card"><h2>Appearance</h2><p class="muted">Pick a colour scheme. It changes colours only, and switches instantly.</p>
  <div class="pals" role="group" aria-label="Colour scheme">${PALETTES.map(x=>`<button class="pal" data-act="setPal" data-v="${x[0]}" aria-pressed="${(S.set.pal||'original')===x[0]}"><span class="pals-sw" aria-hidden="true">${x[2].map(c=>`<i style="background:${c}"></i>`).join('')}</span><span>${x[1]}</span></button>`).join('')}</div>
  <p class="small muted">Light and dark still follow your device setting.</p></section>
+${appCardHTML()}
  <section class="card"><h2>Audio</h2>
  <div class="eyebrow">Speech</div><div class="seg"><button data-act="setSpeech" data-v="1" aria-pressed="${S.set.speech!==false}">On</button><button data-act="setSpeech" data-v="0" aria-pressed="${S.set.speech===false}">Off</button></div>
  ${VOL_OK?`<label class="vol"><span>Speech volume</span><input type="range" min="0" max="100" step="5" value="${Math.round(speechVol()*100)}" data-vol="sv"><output>${Math.round(speechVol()*100)}%</output></label>`:'<p class="small muted">On this device, speech volume follows your volume buttons.</p>'}
@@ -2280,6 +2287,13 @@ function vStudy(){
  <label class="vol"><span>Effects volume</span><input type="range" min="0" max="100" step="5" value="${Math.round(clamp01(S.set.fv,.7)*100)}" data-vol="fv"><output>${Math.round(clamp01(S.set.fv,.7)*100)}%</output></label>
  <p class="small muted">${audioMode==='natural'?'Playing natural Russian voices.':audioMode==='device'?'The natural-voice service is not connected, so a device voice is used as a backup.':'Russian is spoken by natural female and male voices. The first play of a new clip can take a second or two while the voice is created; after that it starts straight away. Tap Slow beside a speaker for a slower recording.'}</p>
  </section>`;}
+function appCardHTML(){const st=isStandalone(),ios=isIOS(),bk=ui.bk;
+ const inst=st?'<p class="muted">Bunova is installed on this device and opens like an app.</p>':pwa.deferred?'<p class="muted">Install Bunova to open it from your home screen or desktop, full screen and without browser bars.</p><button class="btn big" data-act="pwaInstall">Install Bunova</button>':ios?'<p class="muted">On iPhone and iPad: tap the <b>Share</b> button in Safari, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p>':'<p class="muted">On Windows or Mac, use the install icon at the right of the address bar in Edge or Chrome, or the menu, then <b>Apps</b>, <b>Install Bunova</b>.</p>';
+ return `<section class="card"><h2>App and backup</h2>${inst}
+ <div class="eyebrow">Back up your progress</div><p class="small muted">Your progress is saved on this device only. ${ios?'An app added to the iPhone home screen starts with its own empty save, so copy your progress here first, then restore it inside the app. ':''}Keep a copy before clearing browser data or changing phone.</p>
+ <div class="row"><button class="btn alt sm" data-act="bkCopy">Copy progress code</button><button class="btn alt sm" data-act="bkFile">Save as file</button></div>
+ <div class="eyebrow">Restore progress</div>
+ ${bk&&bk.confirm?`<div class="note"><b>Replace the progress on this device with the pasted copy?</b><div class="small">Your current progress is kept as a safety copy first.</div><div class="row"><button class="btn" data-act="bkYes">Replace</button><button class="btn quiet" data-act="bkNo">Cancel</button></div></div>`:`<textarea id="bkIn" rows="3" placeholder="Paste a progress code here" aria-label="Progress code" spellcheck="false" autocomplete="off" autocapitalize="none"></textarea><div class="row"><button class="btn alt sm" data-act="bkAsk">Restore</button><label class="btn quiet sm filebtn">Choose a saved file<input type="file" id="bkPick" accept=".json,application/json,text/plain" hidden></label></div>`}</section>`;}
 function wordsList(){const p=ui.prac,q=p.q.trim().toLowerCase(),f=topicFilter(p.wcol,p.wtopic);
  const rows=ITEMS.filter(f).filter(i=>!q||i.ru.toLowerCase().includes(q)||i.en.toLowerCase().includes(q)||i.ph.toLowerCase().includes(q));
  if(!rows.length)return '<p class="muted">No matches. Try a different search or topic.</p>';
@@ -2496,6 +2510,12 @@ document.addEventListener('click',e=>{
  case 'shStart':{const ts=shadowTasksFromSeen(8);if(ts.length&&startRun({title:'Shadowing',tasks:ts,mode:'mixed',kind:'shadow'})){render();top();}else if(!ts.length)toast('Learn a few words first.');return;}
  case 'setLen':S.set.len=+d.v;save();render();return;
  case 'startPlan':{const p=planSession(S.set.len);if(p&&startRun({title:'Your '+S.set.len+'-minute session',tasks:p.tasks,mode:'mixed',kind:'plan'})){render();top();}return;}
+ case 'pwaInstall':{const d0=pwa.deferred;if(!d0)return;pwa.deferred=null;try{d0.prompt();d0.userChoice.then(()=>render(),()=>render());}catch(e){}return;}
+ case 'bkCopy':copyText(progressCode()).then(ok=>toast(ok?'Progress code copied. Paste it somewhere safe.':'Could not copy. Use Save as file instead.'));return;
+ case 'bkFile':{try{const b=new Blob([progressCode()],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='bunova-progress-'+dkey(Date.now())+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast('Progress file saved.');}catch(e){toast('Could not save a file here. Use Copy instead.');}return;}
+ case 'bkAsk':{const t=($('#bkIn')||{}).value||ui.bk&&ui.bk.text||'';if(!String(t).trim()){toast('Paste a progress code first, or choose a saved file.');return;}ui.bk={confirm:1,text:t};render();return;}
+ case 'bkNo':ui.bk=null;render();return;
+ case 'bkYes':{const t=ui.bk&&ui.bk.text;ui.bk=null;if(restoreProgress(t)){toast('Progress restored.');render();}else render();return;}
  case 'setPal':if(PALETTES.some(x=>x[0]===d.v)){S.set.pal=d.v;applyPalette();save();render();}return;
  case 'setSpd':S.set.spd=['auto','slower','natural','faster'].includes(d.v)?d.v:'auto';save();render();return;
  case 'setFo':S.set.fo=d.v==='shuf'?'shuf':'smart';save();render();return;
@@ -2546,6 +2566,7 @@ document.addEventListener('input',e=>{const vk=e.target.dataset&&e.target.datase
 document.addEventListener('pointerdown',e=>{unlockAudio();try{if(AC&&AC.state==='suspended')AC.resume();}catch(x){}
  const b=e.target.closest&&e.target.closest('[data-act="say"]');if(b)prefetch(b.dataset.t,b.dataset.who||undefined,!!b.dataset.slow);},{passive:true});
 document.addEventListener('keydown',e=>{unlockAudio();},{capture:true});
+document.addEventListener('change',e=>{const f=e.target&&e.target.id==='bkPick'&&e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{ui.bk={confirm:1,text:String(r.result||'')};render();};r.onerror=()=>toast('Could not read that file.');r.readAsText(f);});
 /* tapping an on-screen Cyrillic key must not take focus from the answer box (keeps the caret and the phone keyboard) */
 document.addEventListener('mousedown',e=>{if(e.target.closest&&e.target.closest('.kb'))e.preventDefault();});
 document.addEventListener('keydown',e=>{
@@ -2563,6 +2584,29 @@ document.addEventListener('keydown',e=>{
 });
 $('#tPh').addEventListener('click',()=>{S.set.ph=!S.set.ph;save();render();});
 
+
+/* ---------- installable app (PWA): service worker, install prompt, and a safe progress backup ---------- */
+const pwa={deferred:null};
+const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: window-controls-overlay)').matches||navigator.standalone===true;}catch(e){return false;}};
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pwa.deferred=e;if(ui.route==='study'&&!ui.run)render();});
+window.addEventListener('appinstalled',()=>{pwa.deferred=null;toast('Bunova is installed 🎉');if(ui.route==='study'&&!ui.run)render();});
+function pwaInit(){
+ /* ask the browser not to evict saved progress (installed apps normally get this automatically) */
+ try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});}catch(e){}
+ if(!('serviceWorker' in navigator)||!(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'))return;
+ window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(reg=>{
+  reg.addEventListener('updatefound',()=>{const w=reg.installing;if(!w)return;w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('A new version of Bunova is ready. It will appear next time you open the app.');});});
+ }).catch(()=>{});});}
+function progressCode(){save();return JSON.stringify({app:'bunova',saved:new Date().toISOString(),data:S});}
+function restoreProgress(text){let o=null;try{o=JSON.parse(String(text||'').trim());}catch(e){}
+ const d=o&&o.app==='bunova'&&o.data?o.data:o;
+ if(!d||typeof d!=='object'||Array.isArray(d)||!(d.cards&&typeof d.cards==='object')||!(d.les&&typeof d.les==='object')){toast('That does not look like a Bunova progress code.');return false;}
+ try{const cur=localStorage.getItem(KEY);if(cur)localStorage.setItem(KEY+'.before-restore',cur);localStorage.setItem(KEY,JSON.stringify(d));}catch(e){toast('Could not save on this device.');return false;}
+ loadState();applyPalette();checkAch();save();return true;}
+function copyText(t){return new Promise(res=>{try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>res(true),()=>res(fallbackCopy(t)));return;}}catch(e){}res(fallbackCopy(t));});}
+function fallbackCopy(t){try{const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(a);a.select();a.setSelectionRange(0,t.length);const ok=document.execCommand('copy');a.remove();return ok;}catch(e){return false;}}
+pwaInit();
 /* ---------- boot ---------- */
 loadState();checkAch();try{$('#logo').innerHTML=bunny('happy','logo');}catch(e){}
 ui.route=routeNow();render();
