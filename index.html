@@ -2688,7 +2688,8 @@ function vSettings(){return `<section class="card hero settings-head"><div class
  <section class="card"><h2>Learning</h2><div class="eyebrow">Daily session length</div><div class="seg" role="group" aria-label="Session length">${[5,10,20,30].map(m=>`<button data-act="setLen" data-v="${m}" aria-pressed="${S.set.len===m}">${m} min<small>${LEN_LABEL[m]}</small></button>`).join('')}</div>
  <div class="eyebrow">Pronunciation help</div><div class="seg" role="group" aria-label="Phonetics"><button data-act="phSet" data-v="1" aria-pressed="${!!S.set.ph}">Show phonetics</button><button data-act="phSet" data-v="0" aria-pressed="${!S.set.ph}">Hide phonetics</button></div></section>
  ${audioHTML()}
- ${appCardHTML()}`;}
+ ${appCardHTML()}
+ <p class="small muted center">Bunova version 3.0</p>`;}
 function appCardHTML(){const st=isStandalone(),ios=isIOS(),bk=ui.bk;
  const inst=st?'<p class="muted">Bunova is installed on this device and opens like an app.</p>':pwa.deferred?'<p class="muted">Install Bunova to open it from your home screen or desktop, full screen and without browser bars.</p><button class="btn big" data-act="pwaInstall">Install Bunova</button>':ios?'<p class="muted">On iPhone and iPad: tap the <b>Share</b> button in Safari, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p>':'<p class="muted">On Windows or Mac, use the install icon at the right of the address bar in Edge or Chrome, or the menu, then <b>Apps</b>, <b>Install Bunova</b>.</p>';
  return `<section class="card"><h2>App and backup</h2>${inst}
