@@ -456,10 +456,11 @@ header.top{row-gap:6px}
 .tipcard h3{margin:2px 0 6px;font-size:1.1rem}.tipcard p{margin:0 0 8px}.tipex{display:flex;flex-direction:column;gap:6px;margin:6px 0 10px}.tex{display:flex;align-items:center;gap:8px;padding:8px 10px;border:2px solid var(--line);border-radius:14px;background:var(--surface)}.tipsaved{padding:10px 0;border-top:1px solid var(--line)}
 .buni-bg{flex:none;border-radius:22px;padding:2px}.buni-bg.big{display:flex;justify-content:center;padding:10px}.buni-bg .bunny-wrap.lg{width:150px}
 .bg-meadow{background:linear-gradient(#dff3ff 0 62%,#bfe6a1 62%)}.bg-sunset{background:linear-gradient(#ffd1a8,#ffb3c1 60%,#c9a7f0)}.bg-snow{background:linear-gradient(#e8f2ff,#fff 70%)}.bg-night{background:linear-gradient(#2c3466,#4b4f95)}
-.buni-preview{margin:8px 0 4px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:.85rem;cursor:pointer}.chip.on{border-color:var(--accent);background:var(--soft)}.chip.lock{opacity:.6}.chip .sw{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.18)}
+.buni-preview{margin:8px 0 4px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}.chips .chip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:.85rem;cursor:pointer}.chips .chip.on{border-color:var(--accent);background:var(--soft)}.chips .chip.lock{opacity:.6}.chips .chip .swc{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.18)}
 .lsbars{display:flex;flex-direction:column;gap:6px;margin-top:12px}.lsbar{display:grid;grid-template-columns:18px 1fr 90px 34px;align-items:center;gap:8px;font-size:.82rem;color:var(--muted)}.lsbar.on{color:var(--ink);font-weight:800}.lsbar i{display:block;height:8px;border-radius:99px;background:var(--line);position:relative;overflow:hidden}.lsbar i::after{content:"";position:absolute;inset:0;width:var(--p);background:var(--accent);border-radius:99px}details.tr summary{cursor:pointer;color:var(--accent)}
 .coach .q{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.coach .q:first-of-type{border-top:0}.coach .qn{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;margin-top:2px}.coach .qb{flex:1;min-width:0}.coach .qh{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}.coach .qb h2{margin:0}
 .bigpic{font-size:4.6rem;line-height:1.1;text-align:center;margin:6px 0 4px}.opt.emo{font-size:2.1rem;line-height:1.25;text-align:center}.hook{margin-top:6px;padding:8px 10px;border-radius:12px;background:var(--soft);font-size:.9rem}.react{margin-top:8px;padding:8px 10px;border:2px solid var(--line);border-radius:14px;background:var(--surface)}
+details.fold{padding:0}details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;font-weight:800;font-size:1.1rem;min-height:48px}details.fold>summary::-webkit-details-marker{display:none}details.fold>summary::after{content:"";width:10px;height:10px;border-right:3px solid var(--muted);border-bottom:3px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px;flex:none}details.fold[open]>summary::after{transform:rotate(-135deg)}details.fold>.foldbody{padding:0 16px 16px}.foldtools{display:flex;gap:8px;justify-content:flex-end;margin:-4px 0 0}
 </style>
 </head><body>
 <div class="wrap">
@@ -2382,7 +2383,7 @@ function buniScene(pose,big){const bg=buniPick('bg');return `<div class="buni-bg
 function buniCard(){const s=S.set.buni||{};
  const preview=`<div class="buni-preview">${buniScene(null,true)}</div>`;
  const grp=BUNI_GROUPS.map(([g,gl])=>`<div class="eyebrow">${gl}</div><div class="chips" role="group" aria-label="${gl}">${BUNI_ITEMS[g].map(it=>{const open=buniOpen(g,it[0]),on=buniPick(g)===it[0];
-   const sw=g==='fur'?`<i class="sw" style="background:${it[2]}"></i>`:g==='scarf'?`<i class="sw" style="background:${it[2][0]}"></i>`:'';
+   const sw=g==='fur'?`<i class="swc" style="background:${it[2]}"></i>`:g==='scarf'?`<i class="swc" style="background:${it[2][0]}"></i>`:'';
    return `<button class="chip${on?' on':''}${open?'':' lock'}" data-act="buniSet" data-g="${g}" data-v="${it[0]}" aria-pressed="${on}"${open?'':` aria-label="${esc(it[1])}, locked: ${esc(buniNeed(g,it[0]))}"`}>${sw}${open?'':'🔒 '}${esc(it[1])}</button>`;}).join('')}</div>`).join('');
  const got=BUNI_GROUPS.reduce((n,[g])=>n+BUNI_ITEMS[g].filter(it=>buniOpen(g,it[0])).length,0),all=BUNI_GROUPS.reduce((n,[g])=>n+BUNI_ITEMS[g].length,0);
  return `<section class="card"><h2>Your Buni</h2><p class="muted">Dress your companion. New items are earned by learning: finishing lessons, building vocabulary, listening well and holding conversations. Nothing here is for sale, and none of it affects your lessons. ${got} of ${all} unlocked.</p>${preview}${grp}</section>`;}
@@ -2743,6 +2744,9 @@ function vTest(){const t=ui.test,mk=missList(),by={};mk.forEach(k=>{const g=S.mi
  <button class="btn big" data-act="tStart">Start ${t.n}-question test</button></section>`;}
 
 /* ---------- PROGRESS ---------- */
+/* Progress: each card becomes a section that opens and closes; the open ones are remembered while you use the app */
+function foldCards(html){ui.fold=ui.fold||{};
+ return html.replace(/<section class="card"><h2>([\s\S]*?)<\/h2>([\s\S]*?)<\/section>/g,(m,t,body)=>`<details class="card fold" data-fold="${esc(t.replace(/<[^>]*>/g,''))}"${ui.fold[t.replace(/<[^>]*>/g,'')]?' open':''}><summary>${t}</summary><div class="foldbody">${body}</div></details>`);}
 function vProgress(){
  const now=Date.now(),cs=Object.keys(S.cards).filter(id=>S.cards[id].b>0);
  const dueNow=cs.filter(isDue).length,d1=cs.filter(id=>S.cards[id].due>now&&S.cards[id].due<=now+DAY).length,d7=cs.filter(id=>S.cards[id].due>now+DAY&&S.cards[id].due<=now+7*DAY).length;
@@ -2779,7 +2783,7 @@ function vProgress(){
  h+=`<section class="card"><h2>Review history</h2>${S.hist.length?`<div class="list tight">${S.hist.slice(0,8).map(x=>`<div class="row sp"><span>${K[x.k]||x.k} · ${fmtDate(x.t)}</span><b>${x.ok} / ${x.n}</b></div>`).join('')}</div>`:'<p class="muted">Sessions you finish will appear here.</p>'}</section>
  <section class="card"><h2>Test scores</h2>${S.tests.length?`<div class="list tight">${S.tests.slice(0,8).map(x=>`<div class="row sp"><span>${fmtDate(x.t)} · ${x.n} questions · ${x.col==='p'?'phrases':x.col==='v'?'words':x.col==='done'?'my lessons':x.col==='missed'?'missed questions':'everything'}</span><b>${Math.round(x.score/x.n*100)}%</b></div>`).join('')}</div>`:'<p class="muted">Take a test to see scores here.</p>'}</section>
  <section class="card flat"><p class="small muted">Progress is saved in this browser on this device. Clearing site data removes it.</p>${ui.confirmReset?`<div class="row"><button class="btn" data-act="resetYes">Erase all progress</button><button class="btn quiet" data-act="resetNo">Cancel</button></div>`:`<button class="btn quiet" data-act="resetAsk" style="align-self:flex-start">Reset progress</button>`}</section>`;
- return h;}
+ {const out=foldCards(h),k=out.indexOf('</section>')+10;return out.slice(0,k)+`<div class="foldtools"><button class="btn quiet sm" data-act="foldAll" data-v="1">Open all</button><button class="btn quiet sm" data-act="foldAll" data-v="0">Close all</button></div>`+out.slice(k);}}
 
 /* ---------- rewards: sound and confetti ---------- */
 let AC=null;
@@ -2924,6 +2928,7 @@ document.addEventListener('click',e=>{
  case 'bkNo':ui.bk=null;render();return;
  case 'bkYes':{const t=ui.bk&&ui.bk.text;ui.bk=null;if(restoreProgress(t)){toast('Progress restored.');render();}else render();return;}
  case 'buniSet':{const g=d.g,v=d.v;if(BUNI_ITEMS[g]&&BUNI_ITEMS[g].some(x=>x[0]===v)){if(!buniOpen(g,v)){toast('Locked. '+buniNeed(g,v)+' to unlock it.');return;}S.set.buni=Object.assign({},S.set.buni,{[g]:v});save();render();}return;}
+ case 'foldAll':ui.fold=ui.fold||{};document.querySelectorAll('details[data-fold]').forEach(x=>{x.open=d.v==='1';ui.fold[x.dataset.fold]=x.open;});return;
  case 'tipNext':tipNext();render();return;
  case 'tipSave':tipSave(d.id);render();return;
  case 'setMode':S.set.mode=['auto','light','dark'].includes(d.v)?d.v:'auto';applyPalette();save();render();return;
@@ -3001,6 +3006,7 @@ $('#tPh').addEventListener('click',()=>{S.set.ph=!S.set.ph;save();render();});
 const pwa={deferred:null};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: window-controls-overlay)').matches||navigator.standalone===true;}catch(e){return false;}};
 const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+document.addEventListener('toggle',e=>{const x=e.target;if(x&&x.dataset&&x.dataset.fold!==undefined){ui.fold=ui.fold||{};ui.fold[x.dataset.fold]=x.open;}},true);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pwa.deferred=e;if(ui.route==='settings'&&!ui.run)render();});
 window.addEventListener('appinstalled',()=>{pwa.deferred=null;toast('Bunova is installed 🎉');if(ui.route==='settings'&&!ui.run)render();});
 function pwaInit(){
