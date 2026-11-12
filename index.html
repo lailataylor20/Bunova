@@ -461,6 +461,10 @@ header.top{row-gap:6px}
 .coach .q{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.coach .q:first-of-type{border-top:0}.coach .qn{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center;margin-top:2px}.coach .qb{flex:1;min-width:0}.coach .qh{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}.coach .qb h2{margin:0}
 .bigpic{font-size:4.6rem;line-height:1.1;text-align:center;margin:6px 0 4px}.opt.emo{font-size:2.1rem;line-height:1.25;text-align:center}.hook{margin-top:6px;padding:8px 10px;border-radius:12px;background:var(--soft);font-size:.9rem}.react{margin-top:8px;padding:8px 10px;border:2px solid var(--line);border-radius:14px;background:var(--surface)}
 details.fold{padding:0}details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;font-weight:800;font-size:1.1rem;min-height:48px}details.fold>summary::-webkit-details-marker{display:none}details.fold>summary::after{content:"";width:10px;height:10px;border-right:3px solid var(--muted);border-bottom:3px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px;flex:none}details.fold[open]>summary::after{transform:rotate(-135deg)}details.fold>.foldbody{padding:0 16px 16px}.foldtools{display:flex;gap:8px;justify-content:flex-end;margin:-4px 0 0}
+.cue{background:var(--blue-soft);border-radius:14px;padding:10px 12px;margin:8px 0}
+.scn{margin-top:14px}.who{font-weight:700}.cast{margin-bottom:6px}
+.les.static{cursor:default}.shopts{gap:8px;margin-top:6px}.shopts .btn{padding:8px 12px;font-size:.9rem}
+.expr{padding:10px 0;border-bottom:1px solid var(--line)}.expr:last-child{border-bottom:0}
 </style>
 </head><body>
 <div class="wrap">
@@ -1459,6 +1463,248 @@ function shadowChunks(ru){const sents=String(ru).split(/(?<=[.!?…])\s+/),out=[
   const res=[];parts.forEach(p=>{const w=p.split(/\s+/);if(w.length>=8){const m=Math.ceil(w.length/2);res.push(w.slice(0,m).join(' '),w.slice(m).join(' '));}else res.push(p);});
   res.forEach(p=>{if(p.split(/\s+/).length<2&&out.length)out[out.length-1]+=' '+p;else out.push(p);});});
  return out.length>1?out:[];}
+/* Long graded stories. Same shape as EPISODES2, plus:
+   cast: {f,m,g} names of the three voices (f Svetlana, m Dmitry, g Dariya)
+   parts: [first line number, section title, [section question, options, answer]]
+   keys: [Russian, English, optional note]
+   Read lines are [voice, Russian, English]. Narration and speech are both just lines. */
+const EPISODES3=[
+{id:"s21",lid:"c17",lvl:2,kind:"story",theme:"City life",t:"The lost phone",set:"Anna loses her phone on the metro. A story in three scenes.",
+ cast:{f:"Anna",m:"Man at the station",g:"Olga, the attendant"},
+ parts:[[0,"On the metro",["Where did Anna notice her phone was missing?",["In the metro carriage","At work","At home","In a café"],"In the metro carriage"]],[5,"The attendant",["What did the attendant ask Anna to give her?",["A friend's number","Her passport","Her bag","Her address"],"A friend's number"]],[11,"Good news",["How did the man know it was Anna's phone?",["There was a cat on the screen","She showed her passport","He recognised her","The case was blue"],"There was a cat on the screen"]]],
+ lines:[
+ ["f","Вчера я ехала на работу на метро.","Yesterday I was going to work by metro."],
+ ["f","В вагоне было много людей, и я стояла у двери.","There were many people in the carriage, and I was standing by the door."],
+ ["f","Я хотела позвонить маме, но телефона в сумке не было!","I wanted to phone my mum, but the phone was not in my bag!"],
+ ["f","Я очень испугалась. Там были все мои фотографии и номера.","I got very frightened. All my photos and numbers were there."],
+ ["f","На следующей станции я вышла и пошла к дежурной.","At the next station I got out and went to the attendant."],
+ ["g","Добрый день! Что случилось?","Good afternoon! What happened?"],
+ ["f","Здравствуйте! Я потеряла телефон. Наверное, в поезде.","Hello! I have lost my phone. Probably on the train."],
+ ["g","Какой у вас телефон? Какого он цвета?","What phone do you have? What colour is it?"],
+ ["f","Он чёрный, а чехол красный. И на экране фотография кошки.","It is black, and the case is red. And there is a photo of a cat on the screen."],
+ ["g","Хорошо. Подождите здесь, я позвоню на конечную станцию.","OK. Wait here, I will phone the end station."],
+ ["g","Если телефон найдут, мы позвоним вам. Дайте, пожалуйста, номер подруги.","If the phone is found, we will call you. Please give me a friend's number."],
+ ["f","Я дала номер подруги и поехала на работу.","I gave my friend's number and went to work."],
+ ["f","Весь день я думала только о телефоне.","All day I thought only about the phone."],
+ ["f","Вечером подруга позвонила мне: «Анна, телефон нашли!»","In the evening my friend rang me: 'Anna, they have found the phone!'"],
+ ["f","Я сразу поехала на станцию. Там меня ждал молодой мужчина.","I went straight to the station. A young man was waiting for me there."],
+ ["m","Это ваш телефон? На экране кошка, значит, ваш.","Is this your phone? There is a cat on the screen, so it is yours."],
+ ["f","Да, мой! Огромное спасибо!","Yes, mine! Thank you so much!"],
+ ["m","Не за что. Какая красивая кошка! Как её зовут?","Do not mention it. What a beautiful cat! What is she called?"],
+ ["f","Её зовут Мася. Теперь я всегда держу телефон в кармане.","Her name is Masya. Now I always keep my phone in my pocket."]],
+ gist:["What is the story about?",["A lost phone that is found","A broken phone","A new phone","A phone call to mum"],"A lost phone that is found"],
+ qs:[["What colour is the phone case?",["Red","Black","Blue","Green"],"Red"],["Who rang Anna in the evening?",["Her friend","The attendant","Her mum","Her boss"],"Her friend"],["What does Anna do now?",["Keeps the phone in her pocket","Never takes the metro","Buys a new case","Leaves the phone at home"],"Keeps the phone in her pocket"]],
+ keys:[["потеряла","lost (she did)","From потерять. Use it for things and people: я потеряла ключи."],["дежурная","station attendant (woman)","The woman on duty at a metro station."],["не за что","do not mention it","The usual answer to спасибо."],["наверное","probably",""],["испугалась","got frightened","From испугаться."]],
+ gap:[[2,"хотела"],[12,"думала"]],use:[6,16],
+ reply:{say:["g","Что случилось?","What happened?"],goal:"Tell her you have lost your phone.",ans:"Я потеряла телефон|Я потерял телефон|Потеряла телефон|Потерял телефон"}},
+{id:"s22",lid:"c15",lvl:2,kind:"story",theme:"Family",t:"Sunday at grandma's",set:"Katya spends a Sunday with her grandparents. A story in three scenes.",
+ cast:{f:"Katya",m:"Grandpa",g:"Grandma"},
+ parts:[[0,"Arriving",["What did Katya get at school?",["A five in maths","A prize","A new book","Nothing"],"A five in maths"]],[6,"In the kitchen",["What must Katya eat before the pie?",["Soup","Salad","Porridge","Nothing"],"Soup"]],[12,"In the garden",["What do Katya and grandpa do in the garden?",["Pick apples","Plant flowers","Read a book","Drink tea"],"Pick apples"]]],
+ lines:[
+ ["f","В воскресенье мы с мамой поехали к бабушке и дедушке.","On Sunday mum and I went to see grandma and grandpa."],
+ ["f","Они живут за городом, в маленьком доме с садом.","They live outside the city, in a small house with a garden."],
+ ["g","Катенька, как хорошо, что вы приехали! Заходите, заходите!","Katenka, how good that you have come! Come in, come in!"],
+ ["m","Ну, здравствуй, внучка! Как дела в школе?","Well, hello, granddaughter! How are things at school?"],
+ ["f","Хорошо, дедушка. Вчера я получила пятёрку по математике.","Fine, grandpa. Yesterday I got a five in maths."],
+ ["m","Молодец! Вот это настоящая умница!","Well done! What a clever girl!"],
+ ["f","На кухне вкусно пахло пирогами.","The kitchen smelled deliciously of pies."],
+ ["g","Садитесь за стол. Сегодня у меня пирог с капустой и пирог с яблоками.","Sit at the table. Today I have a cabbage pie and an apple pie."],
+ ["f","Бабушка, можно мне сначала с яблоками?","Grandma, may I have the apple one first?"],
+ ["g","Конечно, можно. Только сначала суп. Без супа пирога не будет.","Of course. But first the soup. No soup, no pie."],
+ ["m","Бабушка всегда так говорит. Я тоже ем суп каждый день!","Grandma always says that. I eat soup every day too!"],
+ ["f","Мы засмеялись и стали есть.","We laughed and began to eat."],
+ ["f","После обеда дедушка позвал меня в сад.","After lunch grandpa called me into the garden."],
+ ["m","Смотри, Катя, какие яблоки в этом году! Давай соберём корзину для мамы.","Look, Katya, what apples this year! Let us pick a basket for mum."],
+ ["f","Мы собирали яблоки целый час. Было солнечно и тихо.","We picked apples for a whole hour. It was sunny and quiet."],
+ ["g","Дети, чай стынет! Идите пить чай!","Children, the tea is getting cold! Come and drink tea!"],
+ ["f","Вечером мы поехали домой. Я взяла с собой корзину яблок и большой кусок пирога.","In the evening we went home. I took with me a basket of apples and a big piece of pie."],
+ ["f","Я люблю воскресенья у бабушки.","I love Sundays at grandma's."]],
+ gist:["Where does the story take place?",["At the grandparents' house","At school","In a café","On a train"],"At the grandparents' house"],
+ qs:[["Which pie does Katya ask for first?",["Apple","Cabbage","Meat","Cherry"],"Apple"],["What does Katya take home?",["Apples and a piece of pie","Soup","A book","Flowers"],"Apples and a piece of pie"]],
+ keys:[["Катенька","Katya (affectionate)","Grandparents often add -енька: Катя becomes Катенька."],["молодец","well done","Said to a boy or a girl alike."],["заходите","come in","From заходить. Hosts say it twice for warmth: заходите, заходите!"],["чай стынет","the tea is getting cold",""],["пирог","pie",""]],
+ gap:[[8,"можно"],[13,"яблоки"]],use:[8,15],
+ reply:{say:["g","Хочешь пирога?","Would you like some pie?"],goal:"Say yes please, the apple one.",ans:"Да, пожалуйста, с яблоками|Да, с яблоками|С яблоками, пожалуйста|С яблоками|Да, пожалуйста"}},
+{id:"s23",lid:"c19",lvl:3,kind:"story",theme:"Travel",t:"The night train",set:"Marina travels to Petersburg and meets two fellow passengers. A story in four scenes.",
+ cast:{f:"Marina",m:"Sergey",g:"Tamara Ivanovna"},
+ parts:[[0,"The compartment",["Why does Marina offer to swap bunks?",["Tamara Ivanovna finds the top bunk hard","Marina dislikes the lower bunk","The man asked her","The top bunk is broken"],"Tamara Ivanovna finds the top bunk hard"]],[5,"Tea and stories",["Why is Tamara Ivanovna going to Petersburg?",["To see her grandchildren","For work","On holiday","To see a doctor"],"To see her grandchildren"]],[11,"A little problem",["Why did the train stop?",["Track repairs ahead","A door was broken","Bad weather","A passenger was missing"],"Track repairs ahead"]],[16,"Arrival",["What does the man say you always need in Petersburg?",["An umbrella","A map","A hat","A ticket"],"An umbrella"]]],
+ lines:[
+ ["f","Я ехала в Петербург на ночном поезде. В купе уже сидели двое: пожилая женщина и мужчина с газетой.","I was travelling to Petersburg on the night train. Two people were already sitting in the compartment: an elderly woman and a man with a newspaper."],
+ ["g","Проходите, девушка, не стесняйтесь. Вы на какую полку? Мне наверх тяжело забираться.","Come in, miss, do not be shy. Which bunk are you on? It is hard for me to climb to the top."],
+ ["f","У меня верхняя, но я могу поменяться. Мне совсем не трудно.","I have the top one, but I can swap. It is no trouble at all."],
+ ["g","Ой, спасибо вам огромное! Меня зовут Тамара Ивановна. А вас?","Oh, thank you so much! My name is Tamara Ivanovna. And yours?"],
+ ["f","Марина. Очень приятно.","Marina. Pleased to meet you."],
+ ["m","Чай будете? Проводница сейчас разносит. Я возьму на всех.","Will you have tea? The attendant is coming round now. I will get it for everyone."],
+ ["f","Спасибо, с удовольствием. А вы тоже едете в Петербург?","Thanks, gladly. Are you going to Petersburg too?"],
+ ["m","Да, по работе. Я там бываю раз в месяц. А Тамара Ивановна, кажется, едет к внукам.","Yes, on business. I am there once a month. And Tamara Ivanovna, it seems, is going to see her grandchildren."],
+ ["g","Угадали! У меня там внуки-близнецы. Им по пять лет, они меня каждое лето ждут.","You guessed! I have twin grandchildren there. They are five, and they wait for me every summer."],
+ ["g","А везу я им банку варенья и два пакета конфет. Хотя мама говорит, что сладкого им нельзя.","And I am bringing them a jar of jam and two bags of sweets. Although their mum says they are not allowed sweet things."],
+ ["m","Ну, бабушкам всё можно. Это закон.","Well, grandmothers are allowed anything. That is the law."],
+ ["f","Мы пили чай и разговаривали, и вдруг поезд резко остановился.","We were drinking tea and talking, and suddenly the train stopped sharply."],
+ ["m","Что-то случилось. Пойду спрошу у проводницы.","Something has happened. I will go and ask the attendant."],
+ ["m","Ничего страшного. Впереди ремонт путей, мы постоим минут сорок.","Nothing terrible. There is track repair ahead; we will stand for about forty minutes."],
+ ["g","Сорок минут! Тогда у меня как раз есть время рассказать вам одну историю.","Forty minutes! Then I have just enough time to tell you a story."],
+ ["f","Мы засмеялись. Тамара Ивановна рассказывала так интересно, что время пролетело незаметно.","We laughed. Tamara Ivanovna told it so interestingly that the time flew by unnoticed."],
+ ["f","Утром мы приехали на Московский вокзал. На перроне стояли два мальчика и махали руками.","In the morning we arrived at Moskovsky station. Two boys were standing on the platform, waving."],
+ ["g","Мои хорошие! Бабушка приехала! Марина, вот вам мой номер, звоните, если будете в Петербурге.","My dears! Grandma has come! Marina, here is my number; call if you are ever in Petersburg."],
+ ["m","И не забудьте, девушка: в Петербурге зонт нужен всегда.","And do not forget, miss: in Petersburg you always need an umbrella."],
+ ["f","Я взяла номер и вышла на перрон. Начиналось утро, и действительно шёл дождь.","I took the number and stepped onto the platform. The morning was beginning, and it really was raining."]],
+ gist:["What is the story about?",["A night train journey and new acquaintances","A lost suitcase","A hotel booking","A job interview"],"A night train journey and new acquaintances"],
+ qs:[["How long will the train stand?",["About forty minutes","Ten minutes","Two hours","All night"],"About forty minutes"],["What is Tamara Ivanovna bringing for her grandchildren?",["Jam and sweets","Toys","Books","Fruit"],"Jam and sweets"]],
+ keys:[["не стесняйтесь","do not be shy","Polite command, from не стесняться."],["по работе","on business, for work","Я еду по работе = I am travelling for work."],["проводница","train attendant (woman)",""],["бабушкам всё можно","grandmothers are allowed anything","A popular saying."],["время пролетело","time flew by",""]],
+ gap:[[2,"поменяться"],[13,"ремонт"]],use:[2,5],
+ reply:{say:["g","Вы на какую полку?","Which bunk are you on?"],goal:"Say you are on the top bunk and can swap.",ans:"У меня верхняя, я могу поменяться|Я на верхней, могу поменяться|У меня верхняя полка|Могу поменяться|Я на верхней"}},
+{id:"s24",lid:"c21",lvl:3,kind:"story",theme:"Friends",t:"The surprise party",set:"Dasha plans a surprise for her husband's birthday, and it nearly goes wrong. A story in four scenes.",
+ cast:{f:"Dasha",m:"Misha",g:"Lena"},
+ parts:[[0,"The plan",["What is the plan?",["A surprise party for Misha","A trip for Lena","A dinner at home","A school reunion"],"A surprise party for Misha"]],[6,"Keeping the secret",["What did Dasha say about the guest list?",["It was for a school reunion","It was a shopping list","It was for work","It was for Lena"],"It was for a school reunion"]],[12,"Saturday",["What does Misha notice at the café door?",["It is quiet and dark","The door is locked","His friends are outside","It is raining"],"It is quiet and dark"]],[18,"Afterwards",["What does Misha ask for next time?",["To be warned to wear a shirt","No more surprises","A bigger cake","A different café"],"To be warned to wear a shirt"]]],
+ lines:[
+ ["f","Алло, Лена? Ты можешь говорить? Мне надо с тобой кое-что обсудить.","Hello, Lena? Can you talk? I need to discuss something with you."],
+ ["g","Да, говори. Я как раз иду домой с работы.","Yes, go on. I am just walking home from work."],
+ ["f","У Миши в субботу день рождения, ему тридцать. Я хочу устроить сюрприз, но так, чтобы он ничего не узнал.","It is Misha's birthday on Saturday; he is thirty. I want to arrange a surprise, but so that he finds out nothing."],
+ ["g","Отличная идея! А где будем собираться? Дома у вас, наверное, нельзя.","Great idea! And where shall we meet? At your place is probably not possible."],
+ ["f","Я думала про кафе «Лето». Там есть отдельный зал. Можешь заказать торт?","I was thinking of the café 'Leto'. It has a private room. Can you order the cake?"],
+ ["g","Конечно! Только скажи, какой он любит: шоколадный или медовый?","Of course! Just tell me which he likes: chocolate or honey?"],
+ ["f","Шоколадный, он обожает шоколад. Только, пожалуйста, не говори никому, особенно Мише.","Chocolate, he adores chocolate. Just please do not tell anyone, especially Misha."],
+ ["g","Ну, конечно, я же не маленькая. Но тебе будет трудно: он всё замечает.","Well, of course, I am not a child. But it will be hard for you: he notices everything."],
+ ["f","Это правда. Вчера он нашёл список гостей на столе и спросил, что это такое.","True. Yesterday he found the guest list on the table and asked what it was."],
+ ["f","Я сказала, что это список для школьной встречи. Кажется, он поверил.","I said it was a list for a school reunion. I think he believed it."],
+ ["g","Ха-ха, ну ты даёшь! Тогда в субботу отведи его в кафе под любым предлогом.","Ha-ha, you are something! Then on Saturday take him to the café on any pretext."],
+ ["f","Скажу, что хочу поужинать в ресторане. Он никогда не отказывается от ужина.","I will say I want dinner out. He never turns down dinner."],
+ ["f","В субботу всё шло по плану. Мы приехали в кафе почти вовремя, но Миша вдруг остановился у двери.","On Saturday everything went to plan. We reached the café almost on time, but Misha suddenly stopped at the door."],
+ ["m","Подожди, а почему здесь так тихо? И почему свет не горит? Кафе закрыто?","Wait, why is it so quiet here? And why are the lights off? Is the café closed?"],
+ ["f","Не знаю. Давай зайдём и посмотрим. Может быть, просто сломался выключатель.","I do not know. Let us go in and see. Maybe a switch is just broken."],
+ ["f","Мы открыли дверь, и вдруг загорелся свет. Все закричали: «Сюрприз! С днём рождения!»","We opened the door and suddenly the light came on. Everyone shouted: 'Surprise! Happy birthday!'"],
+ ["m","Ничего себе! Вы меня обманули! Я правда думал, что мы идём на ужин вдвоём.","Wow! You tricked me! I really thought we were going out to dinner, just the two of us."],
+ ["g","Да, обманули! Зато смотри, какой торт: шоколадный, как ты любишь!","Yes, we tricked you! But look what a cake: chocolate, the way you like it!"],
+ ["f","Миша ещё долго смеялся. Это был лучший день рождения в его жизни, так он сказал потом.","Misha laughed for a long time. It was the best birthday of his life, so he said afterwards."],
+ ["m","Спасибо вам всем. Но в следующий раз, пожалуйста, предупредите хотя бы меня, что надо надеть рубашку!","Thank you all. But next time, please at least warn me that I need to put on a shirt!"]],
+ gist:["What is the story about?",["Planning and holding a surprise party","Buying a cake","A dinner for two","A school reunion"],"Planning and holding a surprise party"],
+ qs:[["What kind of cake does Misha like?",["Chocolate","Honey","Cheese","Fruit"],"Chocolate"],["Where is the party held?",["In a café","At home","In a park","At work"],"In a café"]],
+ keys:[["кое-что","something (a particular thing not yet named)","Said when you are about to tell someone news."],["под любым предлогом","on any pretext",""],["ну ты даёшь","you are something! (informal)","Said with amazement, kindly or not."],["обожает","adores","From обожать."],["сюрприз","surprise",""]],
+ gap:[[5,"шоколадный"],[11,"поужинать"]],use:[11,16],
+ reply:{say:["g","Какой торт он любит?","What cake does he like?"],goal:"Say he likes chocolate cake.",ans:"Он любит шоколадный|Шоколадный|Шоколадный торт|Он любит шоколадный торт"}},
+{id:"s25",lid:"c23",lvl:3,kind:"story",theme:"Work",t:"The first day",set:"Irina starts a new job and makes a small mistake. A story in four scenes.",
+ cast:{f:"Irina",m:"Pasha",g:"Svetlana Petrovna, the manager"},
+ parts:[[0,"Meeting the team",["Where is Irina's desk?",["Next to the window","In the kitchen","By the door","In the canteen"],"Next to the window"]],[6,"Lunch",["What does Pasha think of the program?",["Awkward, but you get used to it","Excellent","Impossible to learn","Very easy"],"Awkward, but you get used to it"]],[12,"A small mistake",["What mistake does Irina make?",["She sends the wrong file","She loses her keys","She arrives late","She breaks a computer"],"She sends the wrong file"]],[18,"The end of the day",["What does Irina decide in the end?",["A good manager matters more than software","The job is too hard","She should quit","The office is too noisy"],"A good manager matters more than software"]]],
+ lines:[
+ ["f","Сегодня мой первый день на новой работе. Я пришла рано, чтобы не опоздать.","Today is my first day at my new job. I came early so as not to be late."],
+ ["g","Доброе утро, Ирина! Я Светлана Петровна, ваш руководитель. Давайте я покажу вам офис.","Good morning, Irina! I am Svetlana Petrovna, your manager. Let me show you the office."],
+ ["g","Это наша кухня, здесь можно пить чай. А вот ваш стол, рядом с окном.","This is our kitchen, you can drink tea here. And here is your desk, next to the window."],
+ ["f","Спасибо, очень удобно. Здесь так светло, мне нравится.","Thank you, very convenient. It is so bright here, I like it."],
+ ["g","Рада слышать. Сейчас я познакомлю вас с Павлом, он будет помогать вам первые недели.","Glad to hear it. Now I will introduce you to Pavel; he will help you for the first few weeks."],
+ ["m","Привет! Я Паша. Не волнуйся, сначала всем трудно. Через неделю ты уже будешь знать всё.","Hi! I am Pasha. Do not worry, it is hard for everyone at first. In a week you will know everything."],
+ ["f","В обед Паша позвал меня в столовую. Там мы разговорились.","At lunch Pasha invited me to the canteen. There we got talking."],
+ ["m","Ну как тебе здесь? Только честно, что думаешь?","So how do you like it here? Honestly, what do you think?"],
+ ["f","Мне кажется, что коллектив очень приятный. Но я пока не понимаю, как работает программа.","It seems to me the team is very nice. But I do not yet understand how the program works."],
+ ["m","Это нормально. Программа неудобная, согласен. Но когда привыкнешь, она не такая страшная.","That is normal. The program is awkward, I agree. But when you get used to it, it is not so scary."],
+ ["f","А ты давно здесь работаешь?","Have you worked here long?"],
+ ["m","Уже три года. Сначала хотел уйти, потому что много работы, но потом остался из-за людей.","Three years now. At first I wanted to leave because of the workload, but then I stayed because of the people."],
+ ["f","После обеда я попробовала сама отправить документ клиенту. И, конечно, всё сделала неправильно.","After lunch I tried sending a document to a client myself. And of course I did everything wrong."],
+ ["f","Я отправила не тот файл! Я чуть не заплакала.","I sent the wrong file! I almost cried."],
+ ["g","Ирина, что случилось? Вы такая бледная.","Irina, what happened? You look so pale."],
+ ["f","Светлана Петровна, простите, я отправила клиенту не тот файл. Я очень виновата.","Svetlana Petrovna, sorry, I sent the client the wrong file. It is entirely my fault."],
+ ["g","Ничего страшного. Это бывает с каждым. Главное, что вы сразу сказали. Давайте вместе напишем клиенту.","Nothing terrible. It happens to everyone. The main thing is that you said so straight away. Let us write to the client together."],
+ ["f","Мы написали письмо, и клиент ответил: «Не беспокойтесь, такое бывает». Я выдохнула.","We wrote a letter, and the client replied: 'Do not worry, it happens.' I breathed out."],
+ ["f","Вечером я шла домой усталая, но довольная. Я поняла: хороший руководитель важнее, чем удобная программа.","In the evening I walked home tired but happy. I understood: a good manager matters more than a convenient program."],
+ ["m","До завтра, Ира! Ты молодец. Завтра будет легче.","See you tomorrow, Ira! Well done. Tomorrow will be easier."]],
+ gist:["What is the story about?",["A first day at a new job","A job interview","A holiday","A complaint"],"A first day at a new job"],
+ qs:[["How long has Pasha worked there?",["Three years","One year","Three months","Ten years"],"Three years"],["How does the manager react to the mistake?",["Calmly, and she helps","She is angry","She sacks Irina","She ignores it"],"Calmly, and she helps"]],
+ keys:[["ничего страшного","no harm done, it is nothing terrible","The kind answer to an apology."],["чуть не","almost (did)","Я чуть не заплакала = I almost cried."],["разговорились","got talking","From разговориться: to start chatting and keep going."],["виновата","to blame (a woman says it)","A man says виноват."],["сначала","at first",""]],
+ gap:[[8,"коллектив"],[12,"документ"]],use:[3,15],
+ reply:{say:["g","Ирина, что случилось?","Irina, what happened?"],goal:"Apologise: you sent the wrong file.",ans:"Простите, я отправила не тот файл|Извините, я отправила не тот файл|Я отправила не тот файл|Я отправил не тот файл|Простите, я отправил не тот файл|Извините, я отправил не тот файл"}},
+{id:"s26",lid:"c24",lvl:4,kind:"talk",theme:"Friends",t:"Kitchen talk after midnight",set:"Three friends talk late at night about a big decision. Relaxed, informal speech, with all the fillers.",
+ cast:{f:"Vika",m:"Dima",g:"Nastya"},
+ parts:[[0,"Big news",["What news does Vika have?",["A job offer in Kazan","She is getting married","She is buying a flat","She has lost her job"],"A job offer in Kazan"]],[6,"For and against",["What does Dima suggest?",["Try it for a year","Refuse at once","Ask her mum","Move together"],"Try it for a year"]],[12,"The decision",["When must Vika reply?",["By Friday","By tomorrow","By next month","By Monday"],"By Friday"]],[16,"After midnight",["What do the friends do at the end?",["Make tea and support her","Go to a restaurant","Phone her boss","Go to bed"],"Make tea and support her"]]],
+ lines:[
+ ["f","Слушай, мне надо вам кое-что рассказать. Только не перебивайте, ладно?","Listen, I need to tell you something. Just do not interrupt, OK?"],
+ ["m","Ну всё, началось. Говори уже, мы слушаем.","Well, here we go. Go on then, we are listening."],
+ ["f","Мне предложили работу в Казани. Ну, типа, очень хорошую. Зарплата больше, и команда крутая.","I have been offered a job in Kazan. Like, a really good one. The salary is higher and the team is cool."],
+ ["g","Подожди, в Казани? Это же далеко! Ты что, серьёзно хочешь уехать?","Wait, in Kazan? That is far! You really want to leave?"],
+ ["f","Не знаю, честно. Я щас об этом только и думаю. Потому и позвала вас.","I do not know, honestly. I am thinking of nothing else right now. That is why I called you over."],
+ ["m","Ясно. Тогда давай по порядку. Чем тебе не нравится работа здесь?","Clear. Then let us go in order. What do you not like about your job here?"],
+ ["f","Да всё нормально, но я там уже пять лет. Ничего не меняется, каждый день одно и то же.","It is all fine, but I have been there five years. Nothing changes, every day the same."],
+ ["g","Ну, это понятно. Но здесь у тебя мы, твоя квартира, мама рядом. Всё родное.","Well, that is understandable. But here you have us, your flat, your mum nearby. Everything familiar."],
+ ["m","Настя, подожди. Вика же не навсегда уезжает. Можно попробовать на год, а потом посмотреть.","Nastya, hold on. Vika is not leaving for ever. She can try for a year and then see."],
+ ["f","Вот! Именно это я и хотела сказать. Один год, а там будет видно.","Exactly! That is just what I wanted to say. One year, and then we will see."],
+ ["g","Ладно, ладно, уговорили. Но ты нас там не забудешь, да? Будешь приезжать?","OK, OK, you have convinced me. But you will not forget us there, will you? You will come back?"],
+ ["f","Конечно буду! Каждый месяц, честное слово. Казань ведь недалеко, всего ночь на поезде.","Of course I will! Every month, word of honour. Kazan is not far, only a night by train."],
+ ["m","Слушай, а ты уже сказала им, что согласна?","Listen, have you already told them you agree?"],
+ ["f","Нет, пока нет. Мне надо ответить до пятницы. Вот я и думаю.","No, not yet. I need to reply by Friday. So I am thinking."],
+ ["g","Ну, по-моему, и думать тут нечего. Поезжай! Мы тебе поможем с переездом.","Well, I think there is nothing to think about. Go! We will help you move."],
+ ["m","Точно. Только чур, комната для гостей. Мы же будем приезжать к тебе.","Exactly. Just - dibs - a guest room. We will be visiting you too."],
+ ["f","Короче, вы лучшие. Я щас, наверное, заплачу.","In short, you are the best. I am probably going to cry now."],
+ ["g","Только не плачь! Давай лучше чай поставим. Или у тебя есть что-нибудь покрепче?","Just do not cry! Let us put the kettle on instead. Or do you have something stronger?"],
+ ["f","Чай, чай. Завтра рано вставать. А в пятницу я позвоню им и скажу «да».","Tea, tea. Tomorrow I have to get up early. And on Friday I will ring them and say 'yes'."],
+ ["m","Вот это правильно. За твою новую жизнь! Ой, чайник кипит, я щас налью.","Now that is right. To your new life! Oh, the kettle is boiling, I will pour it now."]],
+ gist:["What is the conversation about?",["A friend deciding whether to move for a job","Planning a party","Choosing a flat","Going on holiday"],"A friend deciding whether to move for a job"],
+ qs:[["Why does Vika want a change?",["Nothing changes at her job","She dislikes her friends","The salary is low","Her flat is small"],"Nothing changes at her job"],["How often does she promise to visit?",["Every month","Every week","Once a year","Never"],"Every month"]],
+ keys:[["слушай","listen (to get attention)","An informal opener. You do not literally want them to listen: it means hey, look."],["короче","in short, anyway","A very common filler that moves the talk on."],["щас","right now (casual сейчас)","The spoken short form. You will hear it more than you will read it."],["ну, типа","like, sort of (filler)",""],["уговорили","you have convinced me","From уговорить: to talk someone round."]],
+ gap:[[2,"предложили"],[9,"Именно"]],use:[0,11],
+ reply:{say:["g","Ты что, серьёзно хочешь уехать?","Do you really want to leave?"],goal:"Say that honestly you do not know, you think about it all the time.",ans:"Не знаю, честно|Не знаю, честно, я только об этом и думаю|Честно, не знаю|Не знаю|Я только об этом и думаю"}},
+{id:"s27",lid:"c24",lvl:4,kind:"talk",theme:"Friends",t:"The trip that went wrong",set:"Voice messages and replies between friends planning a day at the dacha. Fast, casual and full of natural spoken Russian.",
+ cast:{f:"Alina",m:"Kostya",g:"Polina"},
+ parts:[[0,"The first voice message",["Where does Kostya suggest going?",["His brother's dacha","The sea","A café","A museum"],"His brother's dacha"]],[3,"Alina replies",["What does Alina offer to buy?",["The meat","The bread","The drinks","The tickets"],"The meat"]],[7,"Saturday morning",["What is the problem on Saturday?",["The car will not start","They lost the meat","It is raining","Polina is ill"],"The car will not start"]],[13,"At the dacha",["How did they finally get there?",["By train","By bus","On foot","By taxi"],"By train"]]],
+ lines:[
+ ["m","Привет, Алин! Это Костя. Слушай, короче, насчёт субботы. Я щас еду на работу, поэтому говорю на ходу, извини, если шумно.","Hi Alin! It is Kostya. Listen, anyway, about Saturday. I am on my way to work now, so I am talking on the go, sorry if it is noisy."],
+ ["m","Я тут подумал: давайте поедем на дачу к моему брату? Погода обещает быть классной, можно пожарить шашлык. Только скажи Полине, чтобы взяла плед.","I was thinking: shall we go to my brother's dacha? The weather promises to be great, we can barbecue. Just tell Polina to bring a blanket."],
+ ["m","В общем, напиши мне, как будешь готова. Ну всё, пока, мне выходить!","Anyway, text me when you are ready. OK, bye, I am getting off!"],
+ ["f","Привет, Кость! Получила твоё сообщение. Дача — это супер, я за. Полине я уже написала, она в восторге.","Hi Kost! Got your message. The dacha is great, I am in. I have already written to Polina, she is thrilled."],
+ ["f","Только давай договоримся про время. Я не могу рано, у меня утром дела. Выезжаем часов в одиннадцать?","Just let us agree on the time. I cannot do early, I have things to do in the morning. Shall we set off around eleven?"],
+ ["f","И ещё: кто купит мясо? Я могу заехать в магазин по дороге, если скажешь, сколько брать.","And also: who will buy the meat? I can pop into a shop on the way if you tell me how much to get."],
+ ["m","Окей, в одиннадцать — отлично. Мяса возьми килограмма три, нас же шестеро, а Серёга ест за двоих.","OK, eleven is great. Take about three kilos of meat, there are six of us, and Seryoga eats for two."],
+ ["g","Привет, ребята! Это Полина. Я щас стою у машины и, короче, у нас проблема. Машина не заводится!","Hi guys! It is Polina. I am standing by the car now and, well, we have a problem. The car will not start!"],
+ ["g","Костя пытался завести её минут двадцать, но мотор только чихает. Серёга говорит, что, наверное, сел аккумулятор.","Kostya tried to start it for about twenty minutes, but the engine only splutters. Seryoga says the battery is probably dead."],
+ ["g","А я, между прочим, уже купила и мясо, и угли, и даже взяла плед. Обидно!","And I, by the way, have already bought the meat and the charcoal, and even brought the blanket. What a shame!"],
+ ["m","Так, не паникуем. Серёга звонит знакомому, у которого есть кабель. Он живёт тут, за углом.","Right, no panic. Seryoga is ringing an acquaintance who has a cable. He lives right here, round the corner."],
+ ["f","Ну а я предлагаю запасной план. Если машина не заведётся, поедем на электричке. Она идёт каждые полчаса.","Well I suggest a backup plan. If the car does not start, we will go by train. It runs every half hour."],
+ ["g","О, это мысль! Электричка, плед и шашлык, чем плохо? Даже веселее получится!","Oh, that is an idea! Train, blanket and barbecue, what is wrong with that? It will even be more fun!"],
+ ["m","В итоге машина так и не завелась. Мы поехали на электричке, и знаешь, было даже круто.","In the end the car never started. We went by train, and, you know, it was actually cool."],
+ ["m","Всю дорогу пели песни, Серёга рассказывал анекдоты, а Полина умудрилась уснуть у меня на плече.","All the way we sang songs, Seryoga told jokes, and Polina managed to fall asleep on my shoulder."],
+ ["g","Эй, я не спала! Я просто закрыла глаза на минутку!","Hey, I was not asleep! I just closed my eyes for a minute!"],
+ ["f","Ага, конечно. А потом мы пришли на дачу, и оказалось, что брат Кости уже приготовил нам суп.","Yeah, sure. And then we arrived at the dacha, and it turned out Kostya's brother had already made us soup."],
+ ["m","Вот так суббота, которая пошла не по плану, стала лучшей за всё лето. Надо повторить!","That is how a Saturday that went wrong turned out the best of the whole summer. We must repeat it!"]],
+ gist:["What happens in this story?",["A trip goes wrong but turns out well","A birthday party","A job interview","A flat search"],"A trip goes wrong but turns out well"],
+ qs:[["How many people are going?",["Six","Three","Ten","Two"],"Six"],["What did Polina bring?",["A blanket","A guitar","Soup","A tent"],"A blanket"]],
+ keys:[["на ходу","on the go, while moving","Говорю на ходу = I am talking as I walk."],["в итоге","in the end, as a result",""],["не заводится","will not start (an engine)","From заводиться."],["между прочим","by the way",""],["не паникуем","let us not panic","The we-form used as an invitation."]],
+ gap:[[4,"договоримся"],[11,"запасной"]],use:[6,12],
+ reply:{say:["m","Во сколько выезжаем?","What time do we set off?"],goal:"Suggest eleven o'clock.",ans:"В одиннадцать|Давай в одиннадцать|Часов в одиннадцать|В одиннадцать часов"}},
+{id:"s28",lid:"c24",lvl:4,kind:"story",theme:"Family",t:"Grandpa's first day in Moscow",set:"A grandfather tells his granddaughter how he arrived in Moscow at eighteen. Natural storytelling, with her reactions in between.",
+ cast:{m:"Grandpa Tolya",g:"Lisa, his granddaughter"},
+ parts:[[0,"Eighteen years old",["How old was grandpa?",["Eighteen","Twenty-five","Thirteen","Forty"],"Eighteen"]],[5,"Lost in Moscow",["What went wrong in Moscow?",["He walked the wrong way and got lost","He lost his money","He missed his train","He fell ill"],"He walked the wrong way and got lost"]],[11,"The kind stranger",["How did the woman help?",["She walked him to the hostel","She gave him money","She called a taxi","She lent him an umbrella and left"],"She walked him to the hostel"]],[16,"What happened next",["Where did he meet grandma?",["At the factory","At the station","On the train","At school"],"At the factory"]]],
+ lines:[
+ ["g","Дедушка, расскажи, как ты первый раз приехал в Москву! Ты обещал.","Grandpa, tell me how you first came to Moscow! You promised."],
+ ["m","Ну, слушай. Мне было восемнадцать лет, и я никогда не видел большого города. Я жил в деревне, под Тулой.","Well, listen. I was eighteen and had never seen a big city. I lived in a village near Tula."],
+ ["m","Мама собрала мне чемодан, положила бутерброды и дала десять рублей. Сказала: «Толя, не потеряйся».","Mum packed me a suitcase, put in sandwiches and gave me ten roubles. She said: 'Tolya, do not get lost.'"],
+ ["g","И ты потерялся?","And did you get lost?"],
+ ["m","Ещё как! Но это было потом. Сначала я ехал в поезде и всю ночь не спал от волнения.","And how! But that was later. First I travelled on the train and did not sleep all night from excitement."],
+ ["m","Утром я приехал на вокзал и вышел на площадь. Там было столько людей, машин и шума, что у меня закружилась голова.","In the morning I arrived at the station and went out onto the square. There were so many people, cars and so much noise that my head spun."],
+ ["m","У меня был адрес общежития на бумажке, но я не знал, куда идти. Я спросил у одного человека, он показал налево, а я пошёл направо.","I had the hostel's address on a scrap of paper, but I did not know where to go. I asked one man, he pointed left, and I went right."],
+ ["g","Ой, дедушка! Почему направо?","Oh grandpa! Why right?"],
+ ["m","Не знаю, от страха, наверное. Я шёл часа три и совсем заблудился. Начался дождь, а зонта у меня, конечно, не было.","I do not know, from fear probably. I walked about three hours and got completely lost. It began to rain, and I of course had no umbrella."],
+ ["m","Я сел на лавочку, достал бутерброд и подумал: всё, домой поеду.","I sat on a bench, took out a sandwich and thought: that is it, I am going home."],
+ ["g","Бедный дедушка!","Poor grandpa!"],
+ ["m","И тут ко мне подошла женщина с большим зонтом. Она посмотрела на меня и сказала: «Молодой человек, вы чего тут сидите под дождём?»","And then a woman with a big umbrella came up to me. She looked at me and said: 'Young man, why are you sitting here in the rain?'"],
+ ["m","Я показал ей бумажку с адресом. Она засмеялась и ответила: «Так это же рядом! Пойдёмте, я вас провожу».","I showed her the paper with the address. She laughed and answered: 'But that is close by! Come on, I will see you there.'"],
+ ["g","Какая добрая женщина!","What a kind woman!"],
+ ["m","Добрая, да. Мы шли минут десять, и она всю дорогу рассказывала мне про Москву: где купить хлеб, как ездить на метро, где дешёвая столовая.","Kind, yes. We walked about ten minutes, and all the way she told me about Moscow: where to buy bread, how to take the metro, where the cheap canteen is."],
+ ["m","Я потом много лет вспоминал эту женщину. Даже имя запомнил: Анна Сергеевна.","For many years afterwards I remembered that woman. I even remembered her name: Anna Sergeevna."],
+ ["g","А бабушку ты когда встретил?","And when did you meet grandma?"],
+ ["m","Через год, на заводе. Она работала в соседнем цеху. Я увидел её и сразу понял: вот она, моя судьба.","A year later, at the factory. She worked in the next workshop. I saw her and understood at once: that is her, my destiny."],
+ ["g","Ой, как романтично! А бабушка что сказала?","Oh, how romantic! And what did grandma say?"],
+ ["m","Бабушка сказала, что я дурак, потому что цветы нельзя дарить в чётном количестве. Но замуж всё равно вышла.","Grandma said I was a fool because you must not give flowers in an even number. But she married me all the same."]],
+ gist:["What is grandpa telling?",["How he came to Moscow as a young man","His school days","A trip abroad","A film he saw"],"How he came to Moscow as a young man"],
+ qs:[["How much money did his mum give him?",["Ten roubles","A hundred roubles","None","Five roubles"],"Ten roubles"],["What was the woman's name?",["Anna Sergeevna","Maria Ivanovna","Nina Petrovna","Olga Pavlovna"],"Anna Sergeevna"]],
+ keys:[["ещё как","and how! absolutely","Used to agree strongly: Ты устал? Ещё как!"],["заблудился","got lost (in a place)","Use заблудиться for streets and forests; потеряться for people and things that go missing."],["провожу","I will see you there, I will walk you","From проводить: to accompany someone part of the way."],["всё равно","all the same, anyway",""],["закружилась голова","my head spun",""]],
+ gap:[[2,"бутерброды"],[8,"заблудился"]],use:[3,13],
+ reply:{say:["g","Дедушка, а ты потерялся?","Grandpa, did you get lost?"],goal:"Say: and how! I got completely lost.",ans:"Ещё как|Ещё как! Я совсем заблудился|Ещё как, я совсем заблудился|Я совсем заблудился"}}
+];
+EPISODES3.forEach(e=>{EPISODES2.push(e);EPISODES.push(e);EPBY[e.id]=e;});
+/* sections of a piece: [{i, from, to, t, q}] (a piece without parts is one section) */
+function epParts(ep){const n=ep.lines.length;if(!ep.parts)return [{i:0,from:0,to:n,t:'',q:null}];return ep.parts.map((p,i)=>({i,from:p[0],to:ep.parts[i+1]?ep.parts[i+1][0]:n,t:p[1],q:p[2]||null}));}
+/* longer passages for shadowing: up to three lines in a row by the same voice, kept under 380 characters (the voice limit is 400) */
+function epPassages(ep){const out=[];epParts(ep).forEach(pt=>{let i=pt.from;while(i<pt.to){let j=i,txt=ep.lines[i][1];const w=ep.lines[i][0];while(j+1<pt.to&&ep.lines[j+1][0]===w&&j-i<2&&(txt+' '+ep.lines[j+1][1]).length<=380){j++;txt+=' '+ep.lines[j][1];}
+  if(j>i)out.push({w,t:txt,en:ep.lines.slice(i,j+1).map(l=>l[2]).join(' '),from:i,to:j+1});i=j+1;}});return out;}
+/* about how long a piece takes to hear, in minutes (natural speech is roughly 2 words a second) */
+function epMinutes(ep){const w=ep.lines.reduce((a,l)=>a+l[1].split(/\s+/).length,0);return Math.max(1,Math.round(w/2/60*10)/10);}
 /* Visual and situational practice. Pictures are emoji: nothing to download, and they work offline.
    PICWORDS: [Russian, English, picture, optional memory hook]. Hooks are sound-alike memory aids, not word origins. */
 const PICWORDS=[
@@ -1783,7 +2029,7 @@ const AUDIO_URL='/api/tts';
 let spk=0,audioMode='unknown',downAt=0,voiceErr=null,lastErrToast=0;   /* audioMode: unknown | natural | error. Bunova only ever plays Azure voices: there is no device-voice fallback. */
 const aCache=new Map();
 const hv=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h;};
-function epPlay(id,slow,auto){const ep=EPBY[id];if(!ep)return;sayAll(ep.lines.map(l=>({t:l[1],w:l[0]})),slow,id,auto);}
+function epPlay(id,slow,auto,sec){const ep=EPBY[id];if(!ep)return;let ls=ep.lines;if(sec!=null&&sec!==''&&ep.parts){const pt=epParts(ep)[+sec];if(pt)ls=ep.lines.slice(pt.from,pt.to);}sayAll(ls.map(l=>({t:l[1],w:l[0]})),slow,id,auto);}
 const vOf=t=>(hv(String(t))&1)?'m':'f';      /* the same text always gets the same voice, so each clip is generated once */
 const opp=w=>w==='m'?'f':'m';
 function pickVoice(text,who){if(who&&who[0]==='!')return who[1];const p=S.set.vp;if(p==='m')return 'm';if(p==='f')return who==='g'?'g':'f';return who||vOf(text);}
@@ -1866,7 +2112,7 @@ function say(text,slow,once,who,auto){
 function sayAll(list,slow,grp,auto){if(S.set.speech===false){if(!auto)toast('Speech is turned off. Turn it on in Settings, under Audio.');return;}stopAudio();const tok=spk;aGroup=grp||null;aLastGrp=grp||null;aGi=0;aGn=list.length;let i=0;
  const go=()=>{if(tok!==spk)return;if(aGroup&&aState.st==='paused'){aGapResume=go;return;}if(i>=list.length){if(grp&&aGroup===grp){aGroup=null;paintAudio();}return;}
   const it=list[i++];aGi=i;if(list[i])prefetch(list[i].t,list[i].w,slow);
-  playOne(it.t,slow,it.w,tok).then(st=>{if(tok!==spk)return;if(st==='blocked'||st==='error'){aGroup=null;paintAudio();return;}setTimeout(go,450);});};go();}
+  playOne(it.t,slow,it.w,tok).then(st=>{if(tok!==spk)return;if(st==='blocked'||st==='error'){aGroup=null;paintAudio();return;}const nx=list[i],gap=!nx?450:(nx.w!==it.w?720:/[.!?…»]$/.test(it.t)?460:320);setTimeout(go,gap);});};go();}
 let aGapPaused=false;
 function pauseAudio(){const st=aState.st;
  /* between two lines of a conversation nothing is playing: pausing there just holds the next line */
@@ -2008,11 +2254,17 @@ ${it.note?`<div class="small muted">${esc(it.note)}</div>`:''}${vfHTML(it)}
 
 /* big speaker for flashcards, and the listening player (status, pause/resume, replay, slow) */
 const bigSpk=t=>`<div class="spkwrap"><button class="bigspk" data-act="say" data-t="${esc(t)}" aria-label="Play the Russian audio">${ICON.play}<i class="spin" aria-hidden="true"></i></button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="Play slowly">Slow</button></div>`;
-const lpHTML=t=>`<div class="lplayer" data-t="${esc(t)}" data-st="idle"><button class="bigspk" data-act="say" data-t="${esc(t)}" aria-label="Play the Russian audio">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">Tap the speaker to listen.</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="say" data-t="${esc(t)}" aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="Play slowly">Slow</button></div></div></div>`;
-const epHTML=ep=>`<div class="lplayer eplayer" data-ep="${ep.id}" data-st="idle"><button class="bigspk" data-act="epPlay" data-ep="${ep.id}" aria-label="Play the conversation">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">Tap play to hear the conversation.</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="epPlay" data-ep="${ep.id}" aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="epPlay" data-slow="1" data-ep="${ep.id}" aria-label="Play slowly">Slow</button></div></div></div>`;
+const lpHTML=(t,who)=>`<div class="lplayer" data-t="${esc(t)}"${who?` data-who="${who}"`:''} data-st="idle"><button class="bigspk" data-act="say" data-t="${esc(t)}"${who?` data-who="${who}"`:''} aria-label="Play the Russian audio">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">Tap the speaker to listen.</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="say" data-t="${esc(t)}"${who?` data-who="${who}"`:''} aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(t)}"${who?` data-who="${who}"`:''} aria-label="Play slowly">Slow</button></div></div></div>`;
+const epHTML=(ep,sec)=>`<div class="lplayer eplayer" data-ep="${ep.id}" data-st="idle"><button class="bigspk" data-act="epPlay" data-ep="${ep.id}"${sec!=null?` data-sec="${sec}"`:''} aria-label="${sec!=null?'Play this scene':'Play the conversation'}">${ICON.play}<i class="spin" aria-hidden="true"></i></button><div class="lp-side"><div class="lp-status" role="status" aria-live="polite">${sec!=null?'Tap play to hear this scene.':'Tap play to hear the conversation.'}</div><div class="row lp-ctl"><button class="ib pill" data-act="aPause" disabled>${ICON.pause}<span>Pause</span></button><button class="ib pill" data-act="epPlay" data-ep="${ep.id}"${sec!=null?` data-sec="${sec}"`:''} aria-label="Replay from the start">${ICON.replay}<span>Replay</span></button><button class="ib slow" data-act="epPlay" data-slow="1" data-ep="${ep.id}"${sec!=null?` data-sec="${sec}"`:''} aria-label="Play slowly">Slow</button></div></div></div>`;
 const exList=l=>`<div class="list">${l.ex.map(e=>`<div class="ex"><div><div class="exru" lang="ru">${esc(stressify(e[0]))}</div><div class="ph">${esc(e[1])}</div><div class="small muted">${esc(e[2])}</div></div><div class="row nowrap">${sayBtns(e[0])}</div></div>`).join('')}</div>`;
 const alphaHTML=()=>`<div class="alpha">${ALPHA.map(a=>`<button data-act="say" data-t="${esc(a[2])}" aria-label="${esc(a[0])}, ${esc(a[2])}"><b lang="ru">${esc(a[0])}</b><span>${esc(a[1])}</span><span lang="ru">${esc(a[2])} <span class="ph">${esc(a[3])}</span></span></button>`).join('')}</div>`;
-const scriptHTML=ep=>`<div class="lines">${ep.lines.map((l,i)=>`<div class="line"><div class="row sp top"><div class="grow"><span class="spk">${l[0]==='f'?'👩':'👨'}</span> <span class="rt" lang="ru">${esc(stressify(l[1]))}</span>${ep.lvl>=3?`<details class="tr"><summary class="small">Show translation</summary><div class="small muted">${esc(l[2])}</div></details>`:`<div class="small muted">${esc(l[2])}</div>`}</div><button class="ib" data-act="say" data-t="${esc(l[1])}" data-who="${l[0]}" aria-label="Play line ${i+1}">${ICON.play}</button></div></div>`).join('')}</div>`;
+const SPK_ICON={f:'👩',m:'👨',g:'👧'};
+const scriptHTML=ep=>{const pts=ep.parts?epParts(ep):null;let h='<div class="lines">';
+ if(ep.cast)h+=`<p class="small muted cast">In this story: ${['f','m','g'].filter(v=>ep.cast[v]).map(v=>SPK_ICON[v]+' '+esc(ep.cast[v])).join(' · ')}</p>`;
+ ep.lines.forEach((l,i)=>{const pt=pts&&pts.find(p=>p.from===i);if(pt)h+=`<div class="eyebrow scn">Scene ${pt.i+1} · ${esc(pt.t)}</div>`;
+  h+=`<div class="line"><div class="row sp top"><div class="grow"><span class="spk">${SPK_ICON[l[0]]||'👨'}</span>${ep.cast&&ep.cast[l[0]]?` <b class="who">${esc(ep.cast[l[0]])}</b>`:''} <span class="rt" lang="ru">${esc(stressify(l[1]))}</span>${ep.lvl>=3?`<details class="tr"><summary class="small">Show translation</summary><div class="small muted">${esc(l[2])}</div></details>`:`<div class="small muted">${esc(l[2])}</div>`}</div><button class="ib" data-act="say" data-t="${esc(l[1])}" data-who="${l[0]}" aria-label="Play line ${i+1}">${ICON.play}</button></div></div>`;});
+ return h+'</div>';};
+const exprHTML=ep=>`<div class="exprs">${ep.keys.map(k=>`<div class="expr row sp top"><div class="grow"><div class="rt" lang="ru">${esc(stressify(k[0]))}</div><div><b>${esc(k[1])}</b></div>${k[2]?`<div class="small muted">${esc(k[2])}</div>`:''}</div><button class="ib" data-act="say" data-t="${esc(k[0])}" aria-label="Play ${esc(k[0])}">${ICON.play}</button></div>`).join('')}</div>`;
 /* ---------- runner ---------- */
 function startRun(cfg){stopAudio();const tasks=(cfg.tasks||[]).filter(Boolean);if(!tasks.length){toast('Nothing to practise here yet.');return false;}
  ui.run=Object.assign({i:0,res:[],st:{t0:Date.now()},xp:0,done:false,t0:Date.now()},cfg,{tasks});primeAudio();return true;}
@@ -2139,14 +2391,16 @@ function bodyOf(t,st){let h='';const r=ui.run;h+=stagesHTML(r,t);
  if(t.k==='learn'){
   if(t.v==='key'){const l=LESSONS.find(x=>x.id===t.lid);return h+`<span class="tag">Key idea</span><h2>${esc(l.t)}</h2><div class="goal"><b>Goal</b> ${esc(l.obj)}</div><p>${esc(l.intro)}</p><ul class="pts">${l.pts.slice(0,3).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${l.ex.length?`<div class="eyebrow">Listen to the examples</div>${exList(l)}`:''}${l.alpha?`<div class="eyebrow">Tap a letter to hear it in a word</div>${alphaHTML()}`:''}<button class="btn big" data-act="rLearn">Got it</button>`;}
   if(t.v==='word'){const it=BY[t.id];return h+`<span class="tag">New ${it.col==='p'?'phrase':'word'}</span>${entry(it,{xl:1,big:1})}<p class="small muted">Listen, then read the example. You will recognise it first and type it later.</p><button class="btn big" data-act="rLearn">Got it</button>`;}
-  if(t.v==='script'){const ep=EPBY[t.ep];return h+`<span class="tag">Transcript</span><h2>${esc(ep.t)}</h2><p class="muted">${esc(ep.set)} Read along as it plays, or tap a line to hear it again.</p>${epHTML(ep)}${scriptHTML(ep)}<button class="btn big" data-act="rLearn">Continue</button>`;}}
+  if(t.v==='script'){const ep=EPBY[t.ep];return h+`<span class="tag">Transcript</span><h2>${esc(ep.t)}</h2><p class="muted">${esc(ep.set)} Read along as it plays, or tap a line to hear it again.</p>${epHTML(ep)}${scriptHTML(ep)}<button class="btn big" data-act="rLearn">Continue</button>`;}
+  if(t.v==='expr'){const ep=EPBY[t.ep];return h+`<span class="tag">Useful expressions</span><h2>${esc(ep.t)}</h2><p class="muted">These came up in the story. Tap to hear each one, and read the note about how it is used.</p>${exprHTML(ep)}<button class="btn big" data-act="rLearn">Continue</button>`;}
+  if(t.v==='book'){const ep=EPBY[t.ep],pts=epParts(ep);return h+`<span class="tag">Just listen</span><h2>${esc(ep.t)}</h2><p class="muted">${esc(ep.set)} About ${epMinutes(ep)} minutes. Put your feet up, nothing to answer.</p>${epHTML(ep)}${ep.parts?`<div class="eyebrow">Or play one scene</div><div class="list">${pts.map(p=>`<button class="les" data-act="epPlay" data-ep="${ep.id}" data-sec="${p.i}"><span class="num">${p.i+1}</span><span class="grow"><b>${esc(p.t)}</b></span></button>`).join('')}</div>`:''}<details class="tr"><summary class="small">Show the transcript</summary>${scriptHTML(ep)}</details><button class="btn big" data-act="rLearn">Finish</button>`;}}
  if(t.k==='shadow'){const sc=st.sc,listening=st.mic==='listening';
   const words=sc?sc.words.map((w,i)=>`<span class="${sc.marks[i]?'hit':'miss'}">${esc(stressify(w))}</span>`).join(' '):esc(stressify(t.ru));
   let ctl='';
   if(!st.checked){
    if(SRC&&!st.noMic)ctl=`<div class="spkwrap"><button class="bigspk mic${listening?' playing':''}" data-act="shMic" aria-label="${listening?'Stop listening':'Say it'}">${ICON.mic}</button><span class="muted" id="heard" aria-live="polite">${listening?'Listening…':sc?'Try again, or carry on.':'Tap, then say it'}</span></div><div class="row center"><button class="btn quiet" data-act="shSelf" data-ok="1">${sc?'Carry on':'I said it'}</button></div>`;
    else ctl=`<p class="small muted">${esc(MIC_NOTE)}</p><div class="row"><button class="btn grow" data-act="shSelf" data-ok="1">I said it</button><button class="btn quiet" data-act="shSelf" data-ok="0">Skip</button></div>`;}
-  return h+`<span class="tag">Shadowing</span><p class="muted">Listen, then say it out loud, copying the rhythm and the stress.</p>${lpHTML(t.ru)}<div class="ru lg shadow-t" lang="ru">${words}</div><div class="small muted">${esc(t.en||'')}</div>${sc?`<p class="small">I heard: <b lang="ru">${esc(sc.heard)}</b> · ${sc.pct}% of the words</p>`:''}${ctl}`;}
+  return h+`<span class="tag">Shadowing</span><p class="muted">Listen, then say it out loud, copying the rhythm and the stress.</p>${t.prev?`<div class="cue"><span class="small muted">${esc(t.prev.name)} says</span><div class="row sp"><span class="rt" lang="ru">${esc(stressify(t.prev.ru))}</span><button class="ib" data-act="say" data-t="${esc(t.prev.ru)}" data-who="${t.prev.w}" aria-label="Play what ${esc(t.prev.name)} says">${ICON.play}</button></div><div class="small muted">${esc(t.prev.en)}</div></div><p class="small"><b>You are ${esc(t.role)}.</b> Now your line:</p>`:''}${lpHTML(t.ru,t.who)}<div class="ru lg shadow-t" lang="ru">${words}</div><div class="small muted">${esc(t.en||'')}</div>${sc?`<p class="small">I heard: <b lang="ru">${esc(sc.heard)}</b> · ${sc.pct}% of the words</p>`:''}${ctl}`;}
  if(t.k==='match'){const m=st.mt||(st.mt={sel:null,done:[],bad:null,errs:0});
   const cell=(side,i)=>{const p=t.pairs[i],done=m.done.includes(i),sel=m.sel&&m.sel[0]===side&&m.sel[1]===i,bad=m.bad&&((m.bad[0]===side&&m.bad[1]===i)||(m.bad[2]===side&&m.bad[3]===i));
    return `<button class="mcell${done?' done':''}${sel?' sel':''}${bad?' bad':''}" data-act="rMatch" data-s="${side}" data-i="${i}"${done||st.checked?' disabled':''} lang="${side==='l'?'ru':'en'}">${esc(side==='l'?p[0]:p[1])}</button>`;};
@@ -2157,7 +2411,7 @@ function bodyOf(t,st){let h='';const r=ui.run;h+=stagesHTML(r,t);
   const b=step(t.id);return h+entry(it,{xl:1,big:1})+`<div class="eyebrow">How well did you know it?</div><div class="grades">${['Again','Hard','Good','Easy'].map((l,g)=>`<button data-act="rGrade" data-g="${g}">${l}<small>${fmtGap(nextGap(b,g))}</small></button>`).join('')}</div>`;}
  if(t.k==='pick'||t.k==='listen'){
   if(t.vis){h+=`<span class="tag">${esc(t.vis)}</span>`;if(t.big)h+=`<div class="bigpic" role="img" aria-label="${esc(t.alt||'Picture')}">${t.big}</div>`;if(t.hear)h+=lpHTML(t.hear);h+=`<div class="prompt">${esc(t.q)}</div>`;}
-  else if(t.ep){const ep=EPBY[t.ep];h+=`<span class="tag">Episode · ${esc(ep.t)}</span>${t.epAuto?'<p class="muted">Listen for the general meaning. You do not need every word.</p>':''}${epHTML(ep)}<div class="prompt">${esc(t.q)}</div>`;}
+  else if(t.ep){const ep=EPBY[t.ep],pt=t.sec!=null?epParts(ep)[t.sec]:null;h+=`<span class="tag">${ep.kind==='story'?'Story':'Episode'} · ${esc(ep.t)}${pt?' · Scene '+(pt.i+1)+': '+esc(pt.t):''}</span>${t.epAuto?'<p class="muted">Listen for the general meaning. You do not need every word.</p>':''}${epHTML(ep,t.sec)}<div class="prompt">${esc(t.q)}</div>`;}
   else if(t.k==='listen')h+=`<span class="tag">Listening</span>${lpHTML(t.ru)}<p class="muted">${t.rw?'Which word did you hear?':'Choose the meaning.'}</p>`;
   else if(t.qRu)h+=`<p class="muted">What does this mean?</p><div class="row sp top"><div class="ru xl grow" lang="ru">${esc(t.q)}</div><div class="row nowrap">${sayBtns(t.q)}</div></div>`;
   else h+=`<div class="prompt">${esc(t.q)}</div>`;
@@ -2561,9 +2815,11 @@ const lsReady=e=>lsIdx(e)<=tipReached()+1;   /* at most one lesson ahead: unders
 const KEYPOOL=(()=>{const a=[];EPISODES2.forEach(e=>e.keys.forEach(k=>a.push(k[1])));return a;})();
 function episodeTasks2(ep){const ts=[],lid=ep.lid,L=(a,b)=>ts.push(Object.assign({tag:'listen',lid},a,b));
  L({k:'pick',ep:ep.id,epAuto:1,q:ep.gist[0],opts:shuffle(ep.gist[1]),ans:ep.gist[2],stage:'Listen for the gist'});
+ if(ep.parts)epParts(ep).forEach(pt=>{if(pt.q)L({k:'pick',ep:ep.id,sec:pt.i,q:pt.q[0],opts:shuffle(pt.q[1]),ans:pt.q[2],stage:'Scene '+(pt.i+1)+': '+pt.t});});
  ep.qs.forEach(q=>L({k:'pick',ep:ep.id,q:q[0],opts:shuffle(q[1]),ans:q[2],stage:'Understand the details'}));
  ep.keys.slice(0,3).forEach(k=>{const pool=shuffle(ep.keys.filter(x=>x!==k).map(x=>x[1]).concat(KEYPOOL.filter(x=>x!==k[1]&&!ep.keys.some(y=>y[1]===x)))).slice(0,3);
   L({k:'pick',q:k[0],qRu:1,opts:shuffle([k[1]].concat(pool)),ans:k[1],stage:'Key words and expressions'});});
+ if(ep.keys.some(k=>k[2]))ts.push({k:'learn',v:'expr',ep:ep.id,lid,tag:'listen',stage:'Useful expressions'});
  ts.push({k:'learn',v:'script',ep:ep.id,stage:'Read the transcript'});
  ep.gap.forEach(g=>{const l=ep.lines[g[0]];L({k:'cloze',q:l[1].replace(g[1],'___'),ans:g[1],audio:l[1],hint:l[2],tol:true,stage:'Fill the missing word'});});
  const n=(parseInt(ep.id.slice(1),10)||0);const pairs=[SOUNDPAIRS[n%SOUNDPAIRS.length]];if(ep.lvl>=2)pairs.push(SOUNDPAIRS[(n+5)%SOUNDPAIRS.length]);
@@ -2577,6 +2833,15 @@ function shadowTasksFor(l,lid,stage){const ch=shadowChunks(l[1]),out=[];
  ch.forEach((c,i)=>out.push({k:'shadow',ru:c,en:'Part '+(i+1)+' of '+ch.length+'. Whole line: '+l[2],who:l[0],tag:'speak',lid,stage}));
  out.push({k:'shadow',ru:l[1],en:l[2],who:l[0],tag:'speak',lid,stage});return out;}
 function shadowTasks(ep){const out=[];ep.lines.forEach(l=>{if(l[1].split(' ').length>=2)shadowTasksFor(l,ep.lid,'Shadow the conversation').forEach(t=>out.push(t));});return out.slice(0,40);}
+/* longer passages: up to three lines in a row by one voice, played in that character's voice */
+function passageTasks(ep){return epPassages(ep).slice(0,10).map(p=>({k:'shadow',ru:p.t,en:p.en,who:p.w,tag:'speak',lid:ep.lid,stage:'Shadow longer passages'}));}
+/* role-play: the other character speaks, then you say your line */
+function roleName(ep,v){return (ep.cast&&ep.cast[v])||(v==='f'?'the woman':v==='g'?'the girl':'the man');}
+function roleVoices(ep){const seen=[];ep.lines.forEach(l=>{if(!seen.includes(l[0]))seen.push(l[0]);});return seen.filter(v=>ep.lines.filter(l=>l[0]===v&&l[1].split(' ').length>=3).length>=2);}
+function roleTasks(ep,role){const out=[];role=role||roleVoices(ep)[0];
+ ep.lines.forEach((l,i)=>{if(l[0]!==role||l[1].split(' ').length<3)return;const pv=ep.lines[i-1];
+  out.push({k:'shadow',ru:l[1],en:l[2],who:l[0],role:roleName(ep,role),prev:pv&&pv[0]!==role?{ru:pv[1],en:pv[2],w:pv[0],name:roleName(ep,pv[0])}:null,tag:'speak',lid:ep.lid,stage:'Role-play: you are '+roleName(ep,role)});});
+ return out.slice(0,12);}
 function soundTasks(n){const ps=shuffle(SOUNDPAIRS).slice(0,n);return ps.map(p=>{const first=Math.random()<.5;return {k:'listen',rw:1,optRu:1,ru:first?p[0]:p[1],opts:shuffle([p[0],p[1]]),ans:first?p[0]:p[1],pair:p,tag:'listen',stage:'Similar sounds'};});}
 /* ability: move up only when answers show the learner is ready, never just because time passed */
 function listenAbility(){const a=tagAcc(['listen','stress']),pc=a.acc==null?null:Math.round(a.acc*100);let lv=1;
@@ -2588,7 +2853,7 @@ function listenAbility(){const a=tagAcc(['listen','stress']),pc=a.acc==null?null
  return {lv,acc:a.acc,n:a.n,pc,why};}
 function listenNext(){const ab=listenAbility();for(let k=ab.lv;k>=1;k--){const c=EPISODES2.filter(e=>e.lvl===k&&!lsDone(e)&&lsReady(e)).sort((x,y)=>lsIdx(x)-lsIdx(y));if(c.length)return c[0];}return null;}
 function lsRow(e,rec){const d=S.eps[e.id],ready=lsReady(e);
- return `<button class="les${rec?' next':''}" data-act="epStart" data-id="${e.id}"><span class="num${d?' done':''}">${d?'✓':e.kind==='story'?'📖':'🎧'}</span><span class="grow"><b>${esc(e.t)}</b>${rec?' <span class="tag">Suggested</span>':''}<br><span class="small muted">${esc(e.theme)} · ${d?'Best score '+d.s+'%':ready?e.lines.length+' lines':'best after lesson '+(lsIdx(e)+1)}</span></span></button>`;}
+ return `<button class="les${rec?' next':''}" data-act="epStart" data-id="${e.id}"><span class="num${d?' done':''}">${d?'✓':e.kind==='story'?'📖':'🎧'}</span><span class="grow"><b>${esc(e.t)}</b>${rec?' <span class="tag">Suggested</span>':''}<br><span class="small muted">${esc(e.theme)} · ${d?'Best score '+d.s+'%':ready?(e.kind==='story'&&e.parts?'about '+epMinutes(e)+' min · '+e.parts.length+' scenes':e.lines.length+' lines'):'best after lesson '+(lsIdx(e)+1)}</span></span></button>`;}
 function listenHubHTML(){const ab=listenAbility(),nx=listenNext();
  const bars=[1,2,3,4].map(k=>{const all=EPISODES2.filter(e=>e.lvl===k),d=all.filter(lsDone).length;return `<div class="lsbar${k===ab.lv?' on':''}"><b>${k}</b><span>${esc(LISTEN_LV[k][0])}</span><i style="--p:${all.length?Math.round(d/all.length*100):0}%"></i><small>${d}/${all.length}</small></div>`;}).join('');
  let h=`<section class="card">${buniBanner('listen','Understand the main idea first. You do not need every word.')}<h1>Listen</h1><div class="eyebrow">Your listening path · Level ${ab.lv} · ${esc(LISTEN_LV[ab.lv][0])}</div><p>${esc(ab.why)}</p><p class="small muted">${esc(LISTEN_LV[ab.lv][1])}</p>
@@ -2597,7 +2862,8 @@ function listenHubHTML(){const ab=listenAbility(),nx=listenNext();
  const heard=EPISODES.filter(e=>S.eps[e.id]).sort((a,b)=>S.eps[b.id].t-S.eps[a.id].t).slice(0,6);
  h+=`<section class="card"><h2>Ear training and shadowing</h2><p class="muted">Short drills that train your ear for sounds Russian learners often mix up, and repeating real sentences in sections.</p>
  <button class="btn alt big" data-act="lsSounds">Similar sounds (8 words)</button>
- ${heard.length?`<div class="eyebrow">Shadow a conversation you have heard</div><div class="list">${heard.map(e=>`<button class="les" data-act="lsShadow" data-id="${e.id}"><span class="num">🗣️</span><span class="grow"><b>${esc(e.t)}</b><br><span class="small muted">Sentence by sentence, in sections</span></span></button>`).join('')}</div>`:'<p class="small muted">Finish an episode and it will appear here for shadowing.</p>'}</section>`;
+ ${heard.length?`<div class="eyebrow">Shadow a conversation you have heard</div><div class="list">${heard.map(e=>`<div class="les static"><span class="num">🗣️</span><span class="grow"><b>${esc(e.t)}</b><div class="row wrap shopts"><button class="btn quiet" data-act="lsShadow" data-id="${e.id}">Sentence by sentence</button>${epPassages(e).length?`<button class="btn quiet" data-act="lsPass" data-id="${e.id}">Longer passages</button>`:''}${roleVoices(e).map(v=>`<button class="btn quiet" data-act="lsRole" data-id="${e.id}" data-role="${v}">Be ${esc(roleName(e,v))}</button>`).join('')}</div></span></div>`).join('')}</div>`:'<p class="small muted">Finish an episode and it will appear here for shadowing.</p>'}</section>`;
+ h+=`<section class="card"><h2>Just listen</h2><p class="muted">Stories to enjoy like an audiobook. No questions. Play the whole story or one scene at a time, and open the transcript only if you want it.</p><div class="list">${EPISODES3.map(e=>`<button class="les" data-act="lsBook" data-id="${e.id}"><span class="num">📖</span><span class="grow"><b>${esc(e.t)}</b><br><span class="small muted">Level ${e.lvl} · about ${epMinutes(e)} min · ${e.parts.length} scenes</span></span></button>`).join('')}</div></section>`;
  return h;}
 /* ---------- VISUAL AND REAL-LIFE PRACTICE: picture match, scene listening, social situations, choose-your-reply ---------- */
 const visSeen=w=>{const it=ITEMS.find(i=>i.ru===w[0]);return !!(it&&S.cards[it.id]&&S.cards[it.id].seen);};
@@ -2977,7 +3243,7 @@ document.addEventListener('click',e=>{
  switch(act){
  case 'say':say(d.t,!!d.slow,false,d.who||undefined);return;
  case 'aPause':pauseAudio();return;
- case 'epPlay':epPlay(d.ep,!!d.slow);return;
+ case 'epPlay':epPlay(d.ep,!!d.slow,false,d.sec);return;
  case 'shMic':if(r&&cur().k==='shadow')shadowMic();return;
  case 'shSelf':{if(!r)return;const t=cur();if(t.k!=='shadow'||r.st.checked)return;micStop();const ok=d.ok==='1';commit(t,{ok,ans:t.ru},ok?true:'');if(ok)sfx('coin');render();afterCheckScroll();return;}
  case 'tShadow':{const sc=TALKBY[ui.talk.id];if(sc&&startRun({title:sc.t+': shadowing',tasks:talkShadowTasks(sc),mode:'mixed',kind:'shadow'})){ui.talk.phase='list';render();top();}return;}
@@ -2991,7 +3257,7 @@ document.addEventListener('click',e=>{
  case 'sndToggle':S.set.snd=S.set.snd===false;save();render();toast(S.set.snd?'Sound effects on. Adjust the volume in Settings, under Audio.':'Sound effects off.');if(S.set.snd)sfx('coin');return;
  /* runner */
  case 'rClose':r.close=true;render();return;
- case 'gameLesson':case 'epStart':case 'lsSounds':case 'lsShadow':case 'visStart':case 'scStart':if(r&&r.done){ui.run=null;stopAudio();}else if(r)return;break;
+ case 'gameLesson':case 'epStart':case 'lsSounds':case 'lsShadow':case 'lsPass':case 'lsRole':case 'lsBook':case 'visStart':case 'scStart':if(r&&r.done){ui.run=null;stopAudio();}else if(r)return;break;
  case 'rCloseNo':r.close=false;render();return;
  case 'rCloseYes':endRun();return;
  case 'rReveal':r.st.shown=true;render();return;
@@ -3026,6 +3292,9 @@ document.addEventListener('click',e=>{
  case 'visStart':{const f={pic:()=>picTasks(8),scene:()=>sceneTasks(6),sit:()=>sitTasks(6)}[d.v];const ttl={pic:'Picture match',scene:'Listen and find the scene',sit:'What do you say?'}[d.v];if(f&&startRun({title:ttl,tasks:f(),mode:'mixed',kind:'visual'})){render();top();}return;}
  case 'scStart':{const sc=SCENARIOS.find(x=>x.id===d.id);if(sc&&startRun({title:sc.t,tasks:scenarioTasks(sc),mode:'mixed',kind:'visual'})){render();top();}return;}
  case 'lsSounds':if(startRun({title:'Similar sounds',tasks:soundTasks(8),mode:'mixed',kind:'sounds'})){render();top();}return;
+ case 'lsPass':{const ep=EPBY[d.id];if(ep&&startRun({title:'Shadowing passages: '+ep.t,tasks:passageTasks(ep),mode:'mixed',kind:'shadow'})){render();top();}return;}
+ case 'lsRole':{const ep=EPBY[d.id];if(ep&&startRun({title:'Role-play: '+ep.t,tasks:roleTasks(ep,d.role),mode:'mixed',kind:'shadow'})){render();top();}return;}
+ case 'lsBook':{const ep=EPBY[d.id];if(ep&&startRun({title:'Just listen: '+ep.t,tasks:[{k:'learn',v:'book',ep:ep.id,lid:ep.lid}],mode:'mixed',kind:'book'})){render();top();}return;}
  case 'lsShadow':{const ep=EPBY[d.id];if(ep&&startRun({title:'Shadowing: '+ep.t,tasks:shadowTasks(ep),mode:'mixed',kind:'shadow'})){render();top();}return;}
  case 'goRoute':navigate(d.r);return;
  case 'tOpen':talkOpen(d.id);if(ui.route!=='talk'){ui.route='talk';setHash('talk');}render();top();return;
