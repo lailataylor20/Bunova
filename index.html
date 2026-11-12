@@ -1779,21 +1779,39 @@ const knownNotMade=()=>ITEMS.filter(i=>{const c=S.cards[i.id];return c&&c.rg>=2&
 
 /* ---------- audio: Azure Speech voices through /api/tts (device voice only as a backup if the server is unreachable) ---------- */
 const HAS_TTS=true;
-const HAS_DEVICE='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
 const AUDIO_URL='/api/tts';
-let spk=0,audioMode='unknown',downAt=0,devVoice=null;   /* audioMode: unknown | natural | device */
+let spk=0,audioMode='unknown',downAt=0,voiceErr=null,lastErrToast=0;   /* audioMode: unknown | natural | error. Bunova only ever plays Azure voices: there is no device-voice fallback. */
 const aCache=new Map();
 const hv=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h;};
 function epPlay(id,slow,auto){const ep=EPBY[id];if(!ep)return;sayAll(ep.lines.map(l=>({t:l[1],w:l[0]})),slow,id,auto);}
 const vOf=t=>(hv(String(t))&1)?'m':'f';      /* the same text always gets the same voice, so each clip is generated once */
 const opp=w=>w==='m'?'f':'m';
-function pickVoice(text,who){if(who&&who[0]==='!')return who[1];const p=S.set.vp;if(p==='f'||p==='m')return p;return who||vOf(text);}
+function pickVoice(text,who){if(who&&who[0]==='!')return who[1];const p=S.set.vp;if(p==='m')return 'm';if(p==='f')return who==='g'?'g':'f';return who||vOf(text);}
 const audioUrl=(text,v,slow)=>AUDIO_URL+'?v='+v+'&s='+(slow?1:0)+'&t='+encodeURIComponent(text);
 function fetchAudio(text,v,slow){const u=audioUrl(text,v,slow);
- if(!aCache.has(u)){const p=fetch(u).then(r=>{if(!r.ok){const e=new Error('tts '+r.status);e.status=r.status;throw e;}return r.blob();}).then(b=>URL.createObjectURL(b));p.catch(()=>aCache.delete(u));aCache.set(u,p);}
+ if(!aCache.has(u)){const p=fetch(u).then(async r=>{
+   if(!r.ok){let info=null;try{info=await r.json();}catch(e){}const e=new Error('voice '+r.status);e.status=r.status;e.info=info;throw e;}
+   const ct=(r.headers.get('content-type')||'').toLowerCase();
+   if(!ct.startsWith('audio')){const e=new Error('not audio');e.status=200;e.notAudio=ct||'unknown';throw e;}
+   return r.blob();}).then(b=>URL.createObjectURL(b));p.catch(()=>aCache.delete(u));aCache.set(u,p);}
  return aCache.get(u);}
+/* what went wrong with the voice, in plain words (never the key) */
+function voiceProblem(err){const st=err&&err.status,i=(err&&err.info)||{};
+ if(err&&err.notAudio)return 'The voice address returned a web page instead of audio, so the voice service is not running on this site. In Cloudflare the deploy command must be "npx wrangler deploy".';
+ if(st===404)return 'The voice service was not found on this site (/api/tts). In Cloudflare the build\'s deploy command must be "npx wrangler deploy", and worker.js and wrangler.jsonc must be in GitHub.';
+ if(st===503)return 'Cloudflare has no Azure '+(i.hasKey===false&&i.hasRegion===false?'key or region':i.hasKey===false?'key':i.hasRegion===false?'region':'settings')+'. Add BUNOVA_AZURE_KEY and BUNOVA_AZURE_REGION under Workers, bunova, Settings, Variables and Secrets.';
+ if(st===502&&i.error==='azure'){const a=i.azureStatus;
+  if(a===401||a===403)return 'Azure refused the key (error '+a+'). Check that the key is the Speech key and that the region matches it, for example uksouth.';
+  if(a===429)return 'Azure says too many requests or the free allowance is used up (error 429). Try again later.';
+  if(a===400)return 'Azure rejected the voice request (error 400): '+(i.detail||'check the voice name')+'.';
+  return 'Azure returned error '+a+(i.detail?': '+i.detail:'')+'.';}
+ if(st===502)return 'The voice service could not reach Azure. Check the region in Cloudflare (for example uksouth).';
+ if(st===403)return 'That text is not on the voice list for this app version. Update the app and try again.';
+ if(st)return 'The voice service answered with error '+st+'.';
+ return 'The voice service could not be reached. Check your internet connection.';}
+function voiceFail(err){audioMode='error';downAt=Date.now();voiceErr=voiceProblem(err);const n=Date.now();if(n-lastErrToast>6000){lastErrToast=n;toast('Voice problem: '+voiceErr);}try{paintAudio();if(ui&&ui.route==='today'&&!ui.run)render();}catch(e){}}
 const slowOf=slow=>!!slow;
-function prefetch(text,who,slow){if(S.set.speech===false)return;if(audioMode==='device'&&Date.now()-downAt<60000)return;try{fetchAudio(text,pickVoice(text,who),slowOf(slow)).catch(()=>{});}catch(e){}}
+function prefetch(text,who,slow){if(S.set.speech===false)return;if(audioMode==='error'&&Date.now()-downAt<30000)return;try{fetchAudio(text,pickVoice(text,who),slowOf(slow)).catch(()=>{});}catch(e){}}
 /* One shared audio player is reused for every clip. The first tap anywhere unlocks it, so later clips
    (including listening questions that start by themselves) play straight away without creating new players. */
 const SILENT='data:audio/wav;base64,UklGRhQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YfAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA=';
@@ -1803,9 +1821,9 @@ function unlockAudio(){if(unlocked)return;unlocked=true;try{const p=getPlayer();
 const VOL_OK=(()=>{try{const a=document.createElement('audio');a.volume=.5;return Math.abs(a.volume-.5)<.01;}catch(e){return false;}})();   /* iPhone ignores page volume for speech */
 const speechVol=()=>clamp01(S.set.sv,1);
 /* playback state, shown on speaker buttons and the listening player */
-const aState={t:null,slow:false,st:'idle',dev:false,wait:false},heard=new Set(),heardEp=new Set();
+const aState={t:null,slow:false,st:'idle',wait:false},heard=new Set(),heardEp=new Set();
 let aGroup=null,aLastGrp=null,aGi=0,aGn=0,aGapResume=null;
-function aSet(st,t,slow){aState.st=st;if(t!==undefined){aState.t=t;aState.slow=!!slow;aState.wait=false;aState.dev=false;}if(st==='playing'&&aState.t)heard.add(aState.t);paintAudio();}
+function aSet(st,t,slow){aState.st=st;if(t!==undefined){aState.t=t;aState.slow=!!slow;aState.wait=false;}if(st==='playing'&&aState.t)heard.add(aState.t);paintAudio();}
 function paintAudio(){try{const {t,slow,st}=aState;
  document.querySelectorAll('[data-act="say"]').forEach(b=>{const on=t!==null&&b.dataset.t===t&&(!!b.dataset.slow)===slow;
   b.classList.toggle('loading',on&&st==='loading');b.classList.toggle('playing',on&&(st==='playing'||st==='paused'));
@@ -1814,36 +1832,30 @@ function paintAudio(){try{const {t,slow,st}=aState;
  const lp=document.querySelector('.lplayer:not(.eplayer)');if(!lp)return;const s=t===lp.dataset.t?st:'idle';lp.dataset.st=s;
  const msg={idle:heard.has(lp.dataset.t)?'Tap the speaker or Replay to hear it again.':'Tap the speaker to listen.',
   loading:aState.wait?'Getting the voice ready. The first play of a new clip can take a second or two.':'Loading…',
-  playing:'Playing…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap the speaker to listen.'}[s]||'';
+  playing:'Playing…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap the speaker to listen.',error:'Voice problem. See the message, or Settings, Audio, Test the voice.'}[s]||'';
  const m=lp.querySelector('.lp-status');if(m&&m.textContent!==msg)m.textContent=msg;
  const pb=lp.querySelector('[data-act="aPause"]');if(pb){const can=s==='playing'||s==='paused';pb.disabled=!can;const html=s==='paused'?ICON.resume+'<span>Resume</span>':ICON.pause+'<span>Pause</span>';if(pb.innerHTML!==html)pb.innerHTML=html;}
 }catch(e){}}
 function paintEp(){const st=aState.st;document.querySelectorAll('.eplayer').forEach(lp=>{const id=lp.dataset.ep;let s='idle';
- if(aGroup===id)s=st==='paused'?'paused':(st==='loading'&&aGi<=1)?'loading':'playing';else if(st==='blocked'&&aLastGrp===id)s='blocked';
+ if(aGroup===id)s=st==='paused'?'paused':(st==='loading'&&aGi<=1)?'loading':'playing';else if(st==='blocked'&&aLastGrp===id)s='blocked';else if(st==='error'&&aLastGrp===id)s='error';
  if(s==='playing')heardEp.add(id);lp.dataset.st=s;
- const msg={idle:heardEp.has(id)?'Tap Replay to hear it again.':'Tap play to hear the conversation.',loading:aState.wait?'Getting the voices ready. The first play can take a few seconds.':'Loading…',playing:'Playing line '+aGi+' of '+aGn+'…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap play to listen.'}[s];
+ const msg={idle:heardEp.has(id)?'Tap Replay to hear it again.':'Tap play to hear the conversation.',loading:aState.wait?'Getting the voices ready. The first play can take a few seconds.':'Loading…',playing:'Playing line '+aGi+' of '+aGn+'…',paused:'Paused',blocked:'Your browser blocked autoplay. Tap play to listen.',error:'Voice problem. See the message, or Settings, Audio, Test the voice.'}[s];
  const m=lp.querySelector('.lp-status');if(m&&m.textContent!==msg)m.textContent=msg;
  const b=lp.querySelector('.bigspk');if(b){b.classList.toggle('loading',s==='loading');b.classList.toggle('playing',s==='playing'||s==='paused');}
  const pb=lp.querySelector('[data-act="aPause"]');if(pb){const can=s==='playing'||s==='paused';pb.disabled=!can;const html=s==='paused'?ICON.resume+'<span>Resume</span>':ICON.pause+'<span>Pause</span>';if(pb.innerHTML!==html)pb.innerHTML=html;}});}
-function stopAudio(){aGroup=null;aGapResume=null;aGapPaused=false;spk++;if(player){try{player.pause();}catch(e){}}if(HAS_DEVICE){try{speechSynthesis.cancel();}catch(e){}}if(aState.st!=='idle'||aState.t!==null){aState.st='idle';aState.t=null;paintAudio();}}
-function deviceSay(text,slow,tok,fin){if(!HAS_DEVICE){toast('Audio is not available on this page.');return fin('idle');}
- try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ru-RU';u.volume=speechVol();
-  if(!devVoice)devVoice=(speechSynthesis.getVoices()||[]).find(v=>/^ru/i.test((v.lang||'').replace('_','-')))||null;if(devVoice)u.voice=devVoice;
-  u.rate=slow?0.6:0.9*speechRate();aState.dev=true;u.onstart=()=>{if(tok===spk)aSet('playing');};u.onend=u.onerror=()=>fin('idle');speechSynthesis.speak(u);}catch(e){fin('idle');}}
+function stopAudio(){aGroup=null;aGapResume=null;aGapPaused=false;spk++;if(player){try{player.pause();}catch(e){}}if(aState.st!=='idle'||aState.t!==null){aState.st='idle';aState.t=null;paintAudio();}}
 function playOne(text,slow,who,tok){return new Promise(resolve=>{
  const sl=slowOf(slow);let done=false;const fin=st=>{if(done)return;done=true;if(tok===spk)aSet(st||'idle');resolve(st);};
  aSet('loading',text,sl);
  const waitT=setTimeout(()=>{if(tok===spk&&aState.st==='loading'){aState.wait=true;paintAudio();}},1200);
- const useDevice=()=>{clearTimeout(waitT);if(audioMode!=='device'){audioMode='device';toast('Natural voices are not connected, so a device voice is playing instead.');}deviceSay(text,sl,tok,fin);};
- if(audioMode==='device'&&Date.now()-downAt<60000)return useDevice();
- try{fetchAudio(text,pickVoice(text,who),sl).then(url=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');audioMode='natural';
-   const p=getPlayer();p.onended=()=>{if(tok===spk)fin('idle');};p.onerror=()=>{if(tok===spk)fin('idle');};p.onplaying=()=>{if(tok===spk&&aState.st!=='paused')aSet('playing');};
+ try{fetchAudio(text,pickVoice(text,who),sl).then(url=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');audioMode='natural';voiceErr=null;
+   const p=getPlayer();p.onended=()=>{if(tok===spk)fin('idle');};p.onerror=()=>{if(tok===spk){voiceFail({status:0,decode:1});fin('error');}};p.onplaying=()=>{if(tok===spk&&aState.st!=='paused')aSet('playing');};
    if(p.src!==url)p.src=url;else{try{p.currentTime=0;}catch(e){}}
    try{const rt=sl?1:speechRate();p.defaultPlaybackRate=rt;p.playbackRate=rt;if('preservesPitch' in p)p.preservesPitch=true;}catch(e){}
    p.volume=speechVol();const q=p.play();
-   if(q&&q.catch)q.catch(err=>{if(tok!==spk)return fin('stopped');const n=err&&err.name;if(n==='NotAllowedError')fin('blocked');else if(n!=='AbortError')fin('idle');});
-  }).catch(()=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');downAt=Date.now();useDevice();});}
- catch(e){clearTimeout(waitT);downAt=Date.now();useDevice();}});}
+   if(q&&q.catch)q.catch(err=>{if(tok!==spk)return fin('stopped');const n=err&&err.name;if(n==='NotAllowedError')fin('blocked');else if(n!=='AbortError'){voiceFail({status:0,decode:1});fin('error');}});
+  }).catch(err=>{clearTimeout(waitT);if(tok!==spk)return fin('stopped');voiceFail(err);fin('error');});}
+ catch(e){clearTimeout(waitT);voiceFail(e);fin('error');}});}
 let lastTap=0;
 /* auto=true only for listening questions starting; everything else plays from a tap */
 function say(text,slow,once,who,auto){
@@ -1854,14 +1866,14 @@ function say(text,slow,once,who,auto){
 function sayAll(list,slow,grp,auto){if(S.set.speech===false){if(!auto)toast('Speech is turned off. Turn it on in Settings, under Audio.');return;}stopAudio();const tok=spk;aGroup=grp||null;aLastGrp=grp||null;aGi=0;aGn=list.length;let i=0;
  const go=()=>{if(tok!==spk)return;if(aGroup&&aState.st==='paused'){aGapResume=go;return;}if(i>=list.length){if(grp&&aGroup===grp){aGroup=null;paintAudio();}return;}
   const it=list[i++];aGi=i;if(list[i])prefetch(list[i].t,list[i].w,slow);
-  playOne(it.t,slow,it.w,tok).then(st=>{if(tok!==spk)return;if(st==='blocked'){aGroup=null;paintAudio();return;}setTimeout(go,450);});};go();}
+  playOne(it.t,slow,it.w,tok).then(st=>{if(tok!==spk)return;if(st==='blocked'||st==='error'){aGroup=null;paintAudio();return;}setTimeout(go,450);});};go();}
 let aGapPaused=false;
 function pauseAudio(){const st=aState.st;
  /* between two lines of a conversation nothing is playing: pausing there just holds the next line */
  if(aGroup&&st==='idle'){aState.st='paused';aGapPaused=true;paintAudio();return;}
  if(aGroup&&st==='paused'&&aGapPaused){aGapPaused=false;aState.st='idle';paintAudio();if(aGapResume){const f=aGapResume;aGapResume=null;f();}return;}
- if(st==='playing'){if(aState.dev){try{speechSynthesis.pause();}catch(e){}}else if(player)player.pause();aSet('paused');}
- else if(st==='paused'){if(aState.dev){try{speechSynthesis.resume();}catch(e){}}else if(player){player.volume=speechVol();player.play().catch(()=>{});}aSet('playing');}}
+ if(st==='playing'){if(player)player.pause();aSet('paused');}
+ else if(st==='paused'){if(player){player.volume=speechVol();player.play().catch(()=>{});}aSet('playing');}}
 let toastT=0;
 function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;},2800);}
 const sayBtns=(text,who)=>{const w=who?` data-who="${who}"`:'';return `<button class="ib" data-act="say" data-t="${esc(text)}"${w} aria-label="Play audio">${ICON.play}</button><button class="ib slow" data-act="say" data-slow="1" data-t="${esc(text)}"${w} aria-label="Play slowly">Slow</button>`;};
@@ -2644,7 +2656,7 @@ function hubHTML(){const dn=doneCount(),due=ITEMS.filter(i=>isDue(i.id)).length,
 function vToday(){
  const nx=nextLesson(),plan=planSession(S.set.len),started=ITEMS.some(i=>S.cards[i.id]&&S.cards[i.id].seen),days=Object.keys(S.days).length;
  let h='';
- if(audioMode==='device')h+=`<div class="note">The natural voices are not connected yet, so Buni is using your device's voice for now. This needs the project's audio function and a voice API key (see the README, step 2).</div>`;
+ if(audioMode==='error'&&voiceErr)h+=`<div class="note warn"><b>Voice problem.</b> ${esc(voiceErr)}<div class="row"><button class="btn alt sm" data-act="goRoute" data-r="settings">Settings: test the voice</button></div></div>`;
  const due=ITEMS.filter(i=>isDue(i.id)).length;
  h+=`<section class="card hero"><div class="mascot">${buniScene(null)}<div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}</section>${coachHTML()}${tipHTML()}${journeyHTML()}${hubHTML()}<section class="card">`;
  if(plan){h+=`<h1>Your ${S.set.len}-minute session</h1><p class="muted">${due?due+' item'+(due>1?'s are':' is')+' due. ':''}Chosen from your reviews, weak spots and goals, in this order of priority.</p>
@@ -2775,8 +2787,18 @@ const audioHTML=()=>`<section class="card"><h2>Audio</h2>
  <div class="row"><button class="btn alt sm" data-act="say" data-who="!f" data-t="Здравствуйте! Как вас зовут?">Hear female voice</button><button class="btn alt sm" data-act="say" data-who="!m" data-t="Здравствуйте! Как вас зовут?">Hear male voice</button></div>
  <div class="eyebrow">Sound effects</div><div class="seg"><button data-act="setSnd" data-v="1" aria-pressed="${S.set.snd!==false}">On</button><button data-act="setSnd" data-v="0" aria-pressed="${S.set.snd===false}">Off</button></div>
  <label class="vol"><span>Effects volume</span><input type="range" min="0" max="100" step="5" value="${Math.round(clamp01(S.set.fv,.7)*100)}" data-vol="fv"><output>${Math.round(clamp01(S.set.fv,.7)*100)}%</output></label>
- <p class="small muted">${audioMode==='natural'?'Playing natural Russian voices.':audioMode==='device'?'The natural-voice service is not connected, so a device voice is used as a backup.':'Russian is spoken by natural female and male voices. The first play of a new clip can take a second or two while the voice is created; after that it starts straight away. Tap Slow beside a speaker for a slower recording.'}</p>
+ <p class="small muted">${audioMode==='natural'?'Playing the Azure Russian voices.':audioMode==='error'?'Voice problem: '+esc(voiceErr||'unknown')+'':'Russian is spoken by Azure natural voices. The first play of a new clip can take a second or two while the voice is created; after that it starts straight away. Tap Slow beside a speaker for a slower recording.'}</p>
+ ${voiceTestHTML()}
  </section>`;
+function voiceTestHTML(){const v=ui.vt;let msg='';
+ if(v==='busy')msg='Checking the voice…';
+ else if(v&&v.fail)msg='<b>Not working.</b> '+esc(v.fail);
+ else if(v&&v.j){const j=v.j,a=j.azure;
+  if(!j.hasKey||!j.region)msg='<b>Not working.</b> Cloudflare is missing the Azure '+(!j.hasKey&&!j.region?'key and region':!j.hasKey?'key':'region')+'. Add '+(!j.hasKey?'BUNOVA_AZURE_KEY':'')+(!j.hasKey&&!j.region?' and ':'')+(!j.region?'BUNOVA_AZURE_REGION':'')+' under Workers, bunova, Settings, Variables and Secrets, then deploy again.';
+  else if(a&&a.status===200&&a.mp3)msg='<b>Working.</b> Azure (region '+esc(j.region)+') returned '+a.bytes+' bytes of MP3 audio. Voices: '+esc(j.voices.f)+', '+esc(j.voices.m)+', '+esc(j.voices.g)+'. You should now hear a Russian sentence.';
+  else if(a&&a.status===200)msg='<b>Azure answered but the audio was not MP3.</b> Check the voice names.';
+  else msg='<b>Not working.</b> '+esc(voiceProblem({status:502,info:{error:'azure',azureStatus:a?a.status:0,detail:a&&a.detail}}))+(a&&a.status===0?' ('+esc(a.detail||'')+')':'')+' The region Cloudflare is using: '+esc(j.region||'none')+'. Key length: '+j.keyLength+' characters.';}
+ return `<div class="eyebrow">Voice check</div><p class="small muted">Plays a Russian sentence and asks the voice service whether Azure is answering. It never shows your key.</p><button class="btn alt sm" data-act="voiceTest">Test the voice</button>${msg?`<div class="note small" role="status">${msg}</div>`:''}`;}
 function vSettings(){return `<section class="card hero settings-head"><div class="mascot"><div class="bunny-wrap">${bunny('happy')}</div><div class="speech">Make Bunova yours. Everything here is saved on this device.</div></div></section>
  ${appearanceHTML()}
  <section class="card"><h2>Learning</h2><div class="eyebrow">Daily session length</div><div class="seg" role="group" aria-label="Session length">${[5,10,20,30].map(m=>`<button data-act="setLen" data-v="${m}" aria-pressed="${S.set.len===m}">${m} min<small>${LEN_LABEL[m]}</small></button>`).join('')}</div>
@@ -2980,6 +3002,7 @@ document.addEventListener('click',e=>{
  case 'rCheck':check();afterCheckScroll();return;
  case 'rSkipEx':{const t=cur();if(!canSkip(t,r.st))return;skipTask(t);nextTask();render();top();return;}
  case 'rEase':if(easeTask()){render();}return;
+ case 'voiceTest':{ui.vt='busy';render();fetch('/api/tts-check',{cache:'no-store'}).then(async r=>{let j=null;try{j=await r.json();}catch(e){}if(!r.ok||!j||j.worker!==true){ui.vt={fail:r.status===404||!j?'This site has no voice service (/api/tts-check was not found). In Cloudflare the deploy command must be "npx wrangler deploy", and worker.js and wrangler.jsonc must be in GitHub.':'The voice service answered with error '+r.status+'.'};}else{ui.vt={j};if(j.azure&&j.azure.status===200&&j.azure.mp3){audioMode='natural';voiceErr=null;say('Здравствуйте! Как вас зовут?',false,false,'f');}}if(ui.route==='settings'&&!ui.run)render();}).catch(()=>{ui.vt={fail:'The voice service could not be reached. Check your internet connection.'};if(ui.route==='settings'&&!ui.run)render();});return;}
  case 'weakMix':if(r&&r.done){ui.run=null;stopAudio();}else if(r)return;if(startWeakMix()){render();top();}return;
  case 'skipStart':if(startSkipped()){render();top();}return;
  case 'rSkip':{const t=cur();if(r.st.checked)return;commit(t,{ok:false,ans:String(t.ans).split('|')[0]},'');sfx('no');render();afterCheckScroll();return;}

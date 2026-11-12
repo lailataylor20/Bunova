@@ -3,8 +3,16 @@
 // Text-to-speech logic, kept free of Netlify specifics so it can be tested without network access.
 import { createHash } from 'node:crypto';
 
-const AZURE_VOICES = { f: 'ru-RU-SvetlanaNeural', m: 'ru-RU-DmitryNeural' };   // Azure neural Russian voices (free tier: 500,000 characters a month)
+const AZURE_VOICES = { f: 'ru-RU-SvetlanaNeural', m: 'ru-RU-DmitryNeural', g: 'ru-RU-DariyaNeural' };   // Azure neural Russian voices (free tier: 500,000 characters a month)
 const MAX_CHARS = 400;
+// People paste the key with a trailing space or type the region as "UK South" or paste the whole endpoint: accept all of those.
+const cleanKey = k => String(k || '').trim();
+function cleanRegion(r) {
+  let v = String(r || '').trim().toLowerCase();
+  const m = v.match(/^https?:\/\/([a-z0-9-]+)\./);
+  if (m) v = m[1];
+  return v.replace(/[\s_]+/g, '');
+}
 const normalise = s => s.toLowerCase().replace(/ё/g, 'е').replace(/́/g, '').replace(/\s+/g, ' ').trim();
 
 function buildAllowIndex(list) { return list.map(normalise); }
@@ -28,33 +36,56 @@ async function handle(req, { store, fetchFn, env, allowIndex, pronunciations = {
   if (req.method !== 'GET') return json(405, { error: 'Use GET' });
   const url = new URL(req.url);
   const text = (url.searchParams.get('t') || '').trim();
-  const who = url.searchParams.get('v') === 'm' ? 'm' : 'f';
+  const vq = url.searchParams.get('v'), who = vq === 'm' ? 'm' : vq === 'g' ? 'g' : 'f';
   const slow = url.searchParams.get('s') === '1';
   if (!text || text.length > MAX_CHARS) return json(400, { error: 'Missing or too long text' });
   if (!isAllowed(text, allowIndex)) return json(403, { error: 'Text is not part of the app content' });
 
   // Variable names are assembled from pieces so that Netlify's secrets scanner never sees the name text in this file.
   const P = ['BUNOVA', 'AZURE'].join('_') + '_';
-  const azKey = env[P + 'KEY'], azRegion = env[P + 'REGION'];
-  if (!azKey || !azRegion) return json(503, { error: 'The Azure key and region are not set on the server' });
-  const voice = (who === 'm' ? env[P + 'VOICE_MALE'] : env[P + 'VOICE_FEMALE']) || AZURE_VOICES[who];
+  const azKey = cleanKey(env[P + 'KEY']), azRegion = cleanRegion(env[P + 'REGION']);
+  if (!azKey || !azRegion) return json(503, { error: 'not-configured', hasKey: !!azKey, hasRegion: !!azRegion });
+  const named = who === 'm' ? env[P + 'VOICE_MALE'] : who === 'g' ? env[P + 'VOICE_GIRL'] : env[P + 'VOICE_FEMALE'];
   const spoken = applyPronunciations(text, pronunciations);
-  const key = createHash('sha256').update(['azure', voice, slow ? 'slow' : 'normal', spoken].join('|')).digest('hex') + '.mp3';
+  // The third voice falls back to the standard female voice if Azure cannot supply it in this region.
+  const candidates = [named || AZURE_VOICES[who]];
+  if (who === 'g') candidates.push(env[P + 'VOICE_FEMALE'] || AZURE_VOICES.f);
+  let lastErr = null, lastDetail = '';
+  for (const voice of candidates) {
+    const key = createHash('sha256').update(['azure', voice, slow ? 'slow' : 'normal', spoken].join('|')).digest('hex') + '.mp3';
+    try { const hit = await store.get(key, { type: 'arrayBuffer' }); if (hit) return audio(hit, true); } catch { /* cache is optional */ }
+    let r;
+    try {
+      r = await fetchFn(`https://${azRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+        method: 'POST',
+        headers: { 'Ocp-Apim-Subscription-Key': azKey, 'Content-Type': 'application/ssml+xml', 'X-Microsoft-OutputFormat': 'audio-24khz-96kbitrate-mono-mp3', 'User-Agent': 'bunova' },
+        body: `<speak version="1.0" xml:lang="ru-RU" xmlns="http://www.w3.org/2001/10/synthesis"><voice name="${voice}"><prosody rate="${slow ? '-25%' : '0%'}">${xmlEscape(spoken)}</prosody></voice></speak>`,
+      });
+    } catch (e) { console.error('voice request failed:', e && e.message); return json(502, { error: 'unreachable' }); }
+    if (!r.ok) { lastErr = r.status; try { lastDetail = String(await r.text()).slice(0, 200); } catch { lastDetail = ''; } continue; }
+    const buf = await r.arrayBuffer();
+    try { await store.set(key, buf); } catch { /* still serve the audio */ }
+    return audio(buf, false);
+  }
+  return json(502, { error: 'azure', azureStatus: lastErr, detail: lastDetail });
+}
 
-  try { const hit = await store.get(key, { type: 'arrayBuffer' }); if (hit) return audio(hit, true); } catch { /* cache is optional */ }
-
-  let r;
+// Voice check: does the Worker have its secrets, and does Azure really answer with an MP3? Never reveals the key.
+async function check({ fetchFn, env }) {
+  const P = ['BUNOVA', 'AZURE'].join('_') + '_';
+  const azKey = cleanKey(env[P + 'KEY']), azRegion = cleanRegion(env[P + 'REGION']);
+  const out = { worker: true, hasKey: !!azKey, keyLength: azKey.length, region: azRegion || null, voices: { f: env[P + 'VOICE_FEMALE'] || AZURE_VOICES.f, m: env[P + 'VOICE_MALE'] || AZURE_VOICES.m, g: env[P + 'VOICE_GIRL'] || AZURE_VOICES.g }, azure: null };
+  if (!azKey || !azRegion) return json(200, out);
   try {
-    r = await fetchFn(`https://${azRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+    const r = await fetchFn(`https://${azRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
       method: 'POST',
       headers: { 'Ocp-Apim-Subscription-Key': azKey, 'Content-Type': 'application/ssml+xml', 'X-Microsoft-OutputFormat': 'audio-24khz-96kbitrate-mono-mp3', 'User-Agent': 'bunova' },
-      body: `<speak version="1.0" xml:lang="ru-RU" xmlns="http://www.w3.org/2001/10/synthesis"><voice name="${voice}"><prosody rate="${slow ? '-25%' : '0%'}">${xmlEscape(spoken)}</prosody></voice></speak>`,
+      body: `<speak version="1.0" xml:lang="ru-RU" xmlns="http://www.w3.org/2001/10/synthesis"><voice name="${out.voices.f}">Привет</voice></speak>`,
     });
-  } catch (e) { console.error('voice request failed:', e && e.message); return json(502, { error: 'Could not reach Azure Speech' }); }
-  if (!r.ok) return json(502, { error: 'Azure Speech returned ' + r.status });
-  const buf = await r.arrayBuffer();
-  try { await store.set(key, buf); } catch { /* still serve the audio */ }
-  return audio(buf, false);
+    if (r.ok) { const b = new Uint8Array(await r.arrayBuffer()); out.azure = { status: r.status, bytes: b.length, mp3: (b[0] === 0x49 && b[1] === 0x44 && b[2] === 0x33) || (b[0] === 0xff && (b[1] & 0xe0) === 0xe0) }; }
+    else { let d = ''; try { d = String(await r.text()).slice(0, 200); } catch { /* none */ } out.azure = { status: r.status, detail: d }; }
+  } catch (e) { out.azure = { status: 0, detail: 'Could not reach ' + azRegion + '.tts.speech.microsoft.com' }; }
+  return json(200, out);
 }
 
 // GENERATED by scripts/make-allowlist.mjs. Do not edit by hand.
@@ -66,6 +97,7 @@ const noStore = { get: async () => null, set: async () => {} };
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/tts-check') return check({ fetchFn: fetch, env });
     if (url.pathname !== '/api/tts') return env.ASSETS.fetch(request);
     const cache = typeof caches !== 'undefined' ? caches.default : null;
     if (cache) { try { const hit = await cache.match(request); if (hit) return hit; } catch (e) { /* cache is optional */ } }
