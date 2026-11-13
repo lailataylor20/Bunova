@@ -566,6 +566,82 @@ body.running .fpill{display:none}
 .lplayer .wave{display:none;gap:3px;align-items:flex-end;height:18px}.lplayer[data-st="playing"] .wave{display:inline-flex}.wave i{display:block;width:4px;border-radius:3px;background:var(--accent);animation:wv .9s ease-in-out infinite}.wave i:nth-child(1){height:6px}.wave i:nth-child(2){height:14px;animation-delay:.15s}.wave i:nth-child(3){height:9px;animation-delay:.3s}.wave i:nth-child(4){height:16px;animation-delay:.45s}.wave i:nth-child(5){height:7px;animation-delay:.6s}
 @keyframes wv{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}@media (prefers-reduced-motion:reduce){.wave i{animation:none}}
 /*END-BUNOVA-SKIN*/
+/* Bunova Character Studio — original palette, polished collectible-game presentation */
+.edcard{padding:14px;overflow:hidden;background:var(--surface)}
+.edstudio{display:grid;grid-template-columns:minmax(210px,.78fr) minmax(0,1.45fr);gap:16px;align-items:stretch}
+.edstage{position:relative;isolation:isolate;overflow:hidden;min-height:510px;border-radius:24px;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:24px 14px 22px;background:
+ radial-gradient(ellipse at 50% 28%,rgba(255,255,255,.92),transparent 52%),
+ radial-gradient(ellipse at 20% 12%,rgba(188,212,230,.52),transparent 48%),
+ radial-gradient(ellipse at 85% 70%,rgba(191,227,212,.48),transparent 46%),
+ linear-gradient(160deg,#f7e8e8 0%,#eee8f6 48%,#e6eff0 100%)}
+.edstage:before{content:"";position:absolute;z-index:-1;inset:10% 9% 18%;border:1px solid rgba(255,255,255,.68);border-radius:48% 48% 22px 22px;background:linear-gradient(180deg,rgba(255,255,255,.26),rgba(255,255,255,.02));box-shadow:inset 0 0 35px rgba(255,255,255,.34)}
+.edstage:after{content:"";position:absolute;z-index:-1;left:8%;right:8%;bottom:13%;height:17%;border-radius:50%;background:rgba(119,103,139,.12);filter:blur(12px)}
+.edstage-glow{position:absolute;z-index:-1;width:170px;height:170px;top:12%;left:50%;transform:translateX(-50%);border-radius:50%;background:rgba(255,255,255,.56);filter:blur(3px)}
+.edstage-stars{position:absolute;top:22px;left:22px;right:22px;display:flex;justify-content:space-between;color:#b89acb;font-size:18px;opacity:.7}
+.edstage-stars span{font-size:24px;color:#d4b9a2}
+.edav{position:relative;z-index:1;width:100%;height:330px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 12px 12px rgba(84,64,92,.12))}
+.edav .avsvg{height:100%;width:auto;max-width:100%;overflow:visible}
+.edstage-copy{position:relative;z-index:1;width:100%;margin-top:14px;text-align:center;color:#51445a}
+.edstage-copy .eyebrow{color:#a16f91;font-size:.68rem;letter-spacing:.12em}
+.edstage-copy h2{font-size:1.2rem;margin:3px 0}
+.edstage-copy p{font-size:.82rem;color:#81758a}
+.edstage-pet{position:absolute;z-index:2;bottom:82px;right:12px;width:66px;height:66px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.9);box-shadow:0 5px 18px rgba(90,70,100,.12)}
+.edstage-pet svg{width:52px;height:52px}
+.edstage-pet>span{font-size:1.7rem;color:#c78aa5}
+.edwork{min-width:0;display:flex;flex-direction:column;gap:12px;padding:4px 2px}
+.edhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 4px 0}
+.edhead h1{font-size:1.45rem;margin:2px 0}
+.edhead .eyebrow{font-size:.68rem;letter-spacing:.12em}
+.edstars{white-space:nowrap;border-radius:99px;background:var(--soft);padding:8px 12px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.edtabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:5px;border:1px solid var(--line);border-radius:17px;background:var(--bg)}
+.edtab{min-width:0;padding:10px 5px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);font-size:.82rem;font-weight:800;white-space:nowrap}
+.edtab.on{background:var(--surface);color:var(--accent);border-color:var(--line);box-shadow:0 3px 10px rgba(75,60,90,.08)}
+.edpanel{min-width:0;max-height:610px;overflow:auto;padding:2px 3px 12px;scrollbar-width:thin;scrollbar-color:var(--soft2) transparent}
+.edsection-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:16px 0 8px}
+.edsection-title:first-child{margin-top:4px}
+.edsection-title .eyebrow{margin:0;font-size:.73rem;letter-spacing:.09em}
+.edsection-title small{color:var(--muted);font-size:.72rem}
+.edswatches{gap:10px;padding:4px 2px 8px}
+.edswatches .sw2{width:36px;height:36px;flex:0 0 36px;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line);position:relative;transition:transform .16s,box-shadow .16s}
+.edswatches .sw2.on{box-shadow:0 0 0 2px var(--accent);transform:scale(1.07)}
+.edswatches .sw2.on:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;text-shadow:0 1px 3px #55445f;font-size:15px;font-weight:900}
+.edswatches .sw2[aria-label*="Skin"]{border-radius:13px}
+.edpanel .itgrid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:9px}
+.edpanel .itm{min-height:110px;border:1px solid var(--line);border-radius:16px;background:var(--bg);padding:7px 5px;transition:transform .16s,border-color .16s,box-shadow .16s}
+.edpanel .itm:active{transform:scale(.97)}
+.edpanel .itm.on{border:2px solid var(--accent);background:var(--soft);box-shadow:0 4px 12px rgba(80,70,100,.08)}
+.edpanel .itv{width:66px;height:76px}
+.edpanel .itl{font-size:.72rem;color:var(--ink)}
+.itcheck{position:absolute;top:6px;right:6px;width:19px;height:19px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:12px;font-weight:900}
+.edpanel .itm.lock{opacity:.62}
+.edoutfits{grid-template-columns:repeat(auto-fill,minmax(82px,1fr))!important}
+.edoutfits .itm{min-height:130px}
+.edshoes{grid-template-columns:repeat(auto-fill,minmax(82px,1fr))!important}
+.edface-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.edfooter{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.edfooter .row{width:100%}
+@media(max-width:620px){
+ .edcard{padding:10px}
+ .edstudio{grid-template-columns:1fr;gap:12px}
+ .edstage{min-height:0;height:360px;padding:12px 14px 14px}
+ .edav{height:250px}
+ .edstage-pet{bottom:72px;right:14px;width:56px;height:56px}
+ .edstage-pet svg{width:44px;height:44px}
+ .edstage-copy{margin-top:5px}
+ .edwork{gap:9px}
+ .edhead h1{font-size:1.3rem}
+ .edtabs{gap:3px}
+ .edtab{font-size:.74rem;padding:9px 3px}
+ .edpanel{max-height:none;overflow:visible}
+ .edpanel .itgrid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}
+ .edswatches{gap:9px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .edpanel .itm,.edswatches .sw2{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+ .edpanel .itm:hover{transform:translateY(-2px)}
+ .edswatches .sw2:hover{transform:scale(1.08)}
+}
+
 </style>
 </head><body>
 <div class="wrap">
@@ -3386,9 +3462,9 @@ const AV_HAIRC=[['#2A1D22','Black'],['#4A2F2A','Dark brown'],['#7A4B35','Brown']
 const AV_OMBRE={rosewave:['Rose wave','#F4A8C4','#BBA4E3'],aurora:['Aurora','#5CCFC6','#BBA4E3'],sunset:['Sunset','#F28A7B','#F8D9A0'],galaxy:['Galaxy','#4B3B8F','#A9CBEA']};
 const AV_EYEC=[['#5A3A2A','Brown'],['#8A6A3A','Hazel'],['#4F8A5A','Green'],['#4A78B8','Blue'],['#7A5CB8','Violet'],['#C0587A','Rose'],['#2F9A98','Teal']];
 const AV_FITC=['#E8A0B8','#B9A6D3','#A8D5BE','#A9CBEA','#F6C3A5','#F2DCA7','#EE8F7C','#7CCFC8','#FBF4EC','#5A4E7C'];
-const AV_HAIR=[['bun','Top bun'],['bob','Bob'],['buns','Space buns'],['long','Long'],['short','Short'],['pixie','Pixie'],['pony','Ponytail'],['pigtails','Pigtails'],['wavy','Wavy'],['braid','Braid']];
+const AV_HAIR=[['bun','Top bun'],['bob','Bob'],['buns','Space buns'],['long','Long'],['short','Short'],['pixie','Pixie'],['pony','Ponytail'],['pigtails','Pigtails'],['wavy','Wavy'],['braid','Braid'],['curly','Soft curls'],['halfup','Half-up'],['sidepart','Side part'],['lowbun','Low bun']];
 const AV_EYES=[['round','Round'],['sleepy','Sleepy'],['sparkle','Sparkle'],['cat','Cat']];
-const AV_FITS=[['tee','T-shirt and jeans'],['hoodie','Hoodie'],['cardi','Cardigan and skirt'],['sailor','Sailor dress'],['pina','Pinafore'],['sweater','Knit sweater'],['jacket','Jacket and trousers'],['yukata','Yukata'],['pj','Pyjamas'],['dungar','Dungarees']];
+const AV_FITS=[['tee','T-shirt and jeans'],['hoodie','Hoodie'],['cardi','Cardigan and skirt'],['sailor','Sailor dress'],['pina','Pinafore'],['sweater','Knit sweater'],['jacket','Jacket and trousers'],['yukata','Yukata'],['pj','Pyjamas'],['dungar','Dungarees'],['overalls','Overalls'],['pleated','Pleated dress'],['bomber','Bomber jacket'],['hoodedress','Hoodie dress']];
 const AV_SHOES=[['sneak','Trainers'],['boots','Boots'],['flats','Flats'],['slip','Slippers']];
 const AV_HATS=[['none','No hat'],['beret','Beret'],['beanie','Beanie'],['bow','Big bow'],['flowers','Flower crown'],['band','Headband']];
 const AV_ACCS=[['none','Nothing'],['glasses','Round glasses'],['phones','Headphones'],['scarf','Scarf'],['pearls','Pearl necklace'],['studs','Pearl earrings'],['freckles','Freckles'],['star','Star clip']];
@@ -3421,18 +3497,26 @@ function avHairBack(hs,f){return {
  pony:`<path d="M72 36Q104 36 92 92Q86 62 70 54Z" fill="${f}"/>`,
  pigtails:`<path d="M24 56Q2 60 6 98Q16 80 26 74Z" fill="${f}"/><path d="M76 56Q98 60 94 98Q84 80 74 74Z" fill="${f}"/>`,
  wavy:`<path d="M17 54C15 10 85 10 83 54L88 100Q80 106 76 98Q68 108 60 100Q50 108 40 100Q32 108 24 98Q16 106 12 100Z" fill="${f}"/>`,
- braid:`<path d="M72 60Q92 74 80 104" fill="none" stroke="${f}" stroke-width="12" stroke-linecap="round"/>`}[hs]||'';}
+ braid:`<path d="M72 60Q92 74 80 104" fill="none" stroke="${f}" stroke-width="12" stroke-linecap="round"/>`,
+ curly:`<g><circle cx="23" cy="42" r="13" fill="${f}"/><circle cx="35" cy="25" r="14" fill="${f}"/><circle cx="50" cy="20" r="15" fill="${f}"/><circle cx="66" cy="25" r="14" fill="${f}"/><circle cx="78" cy="42" r="13" fill="${f}"/><path d="M18 52L15 104Q50 116 85 104L82 52Z" fill="${f}"/></g>`,
+ halfup:`<path d="M17 54C15 10 85 10 83 54L88 112Q50 126 12 112Z" fill="${f}"/><circle cx="50" cy="17" r="12" fill="${f}"/>`,
+ sidepart:`<path d="M17 54C15 10 85 10 83 54L88 112Q50 126 12 112Z" fill="${f}"/>`,
+ lowbun:`<path d="M17 54C15 10 85 10 83 54L88 104Q50 116 12 104Z" fill="${f}"/><circle cx="50" cy="22" r="12" fill="${f}"/>`}[hs]||'';}
 function avHairFront(hs,f){const cap=`<path d="M21 54C20 16 80 16 79 54C72 40 62 33 50 33C38 33 28 40 21 54Z" fill="${f}"/>`;return {
  bob:`<path d="M21 50C22 20 78 20 79 50C66 40 58 36 50 32C42 36 34 40 21 50Z" fill="${f}"/>`,
  long:`<path d="M21 52C22 18 78 18 79 52C64 40 54 36 50 30C46 36 36 40 21 52Z" fill="${f}"/>`,
  buns:cap,bun:cap,short:`<path d="M21 56C18 16 82 16 79 56C76 44 70 36 62 33C54 38 40 38 34 33C28 38 23 46 21 56Z" fill="${f}"/>`,
  pixie:`<path d="M21 52C20 18 80 12 80 50C70 38 58 38 44 30C40 40 28 44 21 52Z" fill="${f}"/>`,
  pony:cap,pigtails:`<path d="M21 52C22 18 78 18 79 52C66 38 56 36 50 32C44 36 34 38 21 52Z" fill="${f}"/>`,
- wavy:`<path d="M21 52C22 18 78 18 79 52C66 40 56 36 50 30C44 36 34 40 21 52Z" fill="${f}"/>`,braid:cap}[hs]||'';}
+ wavy:`<path d="M21 52C22 18 78 18 79 52C66 40 56 36 50 30C44 36 34 40 21 52Z" fill="${f}"/>`,braid:cap,
+ curly:`<path d="M18 56Q14 18 34 20Q42 7 54 18Q72 10 82 40L79 58Q68 38 60 35Q48 44 38 34Q27 43 18 56Z" fill="${f}"/>`,
+ halfup:`<path d="M20 53Q18 18 50 20Q82 18 80 53Q64 38 50 34Q36 38 20 53Z" fill="${f}"/><path d="M38 23Q50 7 64 23" fill="none" stroke="${f}" stroke-width="9" stroke-linecap="round"/>`,
+ sidepart:`<path d="M18 56Q14 18 48 18Q82 15 82 54Q66 40 54 34Q39 45 18 56Z" fill="${f}"/>`,
+ lowbun:`<path d="M20 54Q18 18 50 20Q82 18 80 54Q64 38 50 34Q36 38 20 54Z" fill="${f}"/>`}[hs]||'';}
 function avEyes(kind,ec){const ink='#3A2750',o=(cx,mir)=>{const x=cx;return {
- round:`<ellipse cx="${x}" cy="60" rx="6" ry="7.6" fill="${ec}"/><ellipse cx="${x}" cy="61.4" rx="3.2" ry="4.6" fill="${ink}"/><circle cx="${x+2}" cy="57" r="2.3" fill="#fff"/><circle cx="${x-2.2}" cy="63.4" r="1.1" fill="#fff"/>`,
- sleepy:`<ellipse cx="${x}" cy="61" rx="6" ry="6.2" fill="${ec}"/><ellipse cx="${x}" cy="62" rx="3.2" ry="3.8" fill="${ink}"/><circle cx="${x+1.8}" cy="59.6" r="1.8" fill="#fff"/><path d="M${x-7.4} 59.6Q${x} 53.4 ${x+7.4} 59.6" fill="${ec}" stroke="${ink}" stroke-width="1.8" opacity="1"/>`,
- sparkle:`<ellipse cx="${x}" cy="60" rx="6.4" ry="8" fill="${ec}"/><ellipse cx="${x}" cy="61.6" rx="3" ry="5" fill="${ink}"/><path d="M${x+2} 53.6l1.2 2.4 2.4 1.2-2.4 1.2-1.2 2.4-1.2-2.4-2.4-1.2 2.4-1.2z" fill="#fff"/><circle cx="${x-2.4}" cy="64" r="1.2" fill="#fff"/>`,
+ round:`<ellipse cx="${x}" cy="60" rx="6.8" ry="8.5" fill="${ec}"/><ellipse cx="${x}" cy="61.4" rx="3.7" ry="5.2" fill="${ink}"/><circle cx="${x+2}" cy="57" r="2.3" fill="#fff"/><circle cx="${x-2.2}" cy="63.4" r="1.1" fill="#fff"/>`,
+ sleepy:`<ellipse cx="${x}" cy="61" rx="6.8" ry="7" fill="${ec}"/><ellipse cx="${x}" cy="62" rx="3.7" ry="4.4" fill="${ink}"/><circle cx="${x+1.8}" cy="59.6" r="1.8" fill="#fff"/><path d="M${x-7.4} 59.6Q${x} 53.4 ${x+7.4} 59.6" fill="${ec}" stroke="${ink}" stroke-width="1.8" opacity="1"/>`,
+ sparkle:`<ellipse cx="${x}" cy="60" rx="7" ry="8.8" fill="${ec}"/><ellipse cx="${x}" cy="61.6" rx="3" ry="5" fill="${ink}"/><path d="M${x+2} 53.6l1.2 2.4 2.4 1.2-2.4 1.2-1.2 2.4-1.2-2.4-2.4-1.2 2.4-1.2z" fill="#fff"/><circle cx="${x-2.4}" cy="64" r="1.2" fill="#fff"/>`,
  cat:`<path d="M${x-7} 61Q${x} 52.6 ${x+7} 58 L${x+6} 66Q${x} 68.6 ${x-6} 65Z" fill="${ec}"/><ellipse cx="${x}" cy="61.6" rx="1.8" ry="5" fill="${ink}"/><circle cx="${x+2.4}" cy="58.6" r="1.8" fill="#fff"/><path d="M${mir?x-7:x+7} ${mir?60:57}l${mir?-3:3} -2" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>`}[kind]||'';};
  return o(38.5,1)+o(61.5,0);}
 function avFit(id,c,a,skin){const T='M30 86Q50 80 70 86L72 128H28Z',arm=(col,x)=>`<rect x="${x}" y="88" width="9" height="36" rx="4.5" fill="${col}"/>`,hand=x=>`<circle cx="${x}" cy="126" r="4.6" fill="${skin}"/>`,
@@ -3457,6 +3541,10 @@ function avFit(id,c,a,skin){const T='M30 86Q50 80 70 86L72 128H28Z',arm=(col,x)=
  coat:`${legs('#4A4A68')}<path d="M26 86Q50 80 74 86L80 148H20Z" fill="#9FB8D8"/>${arm('#9FB8D8',17)}${arm('#9FB8D8',74)}<path d="M50 86V148" stroke="#fff" stroke-width="2" opacity=".7"/><circle cx="46" cy="104" r="2" fill="#fff"/><circle cx="46" cy="118" r="2" fill="#fff"/><path d="M26 86Q50 100 74 86" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M20 148H80" stroke="#fff" stroke-width="5"/>${hand(21.5)}${hand(78.5)}`,
  spring:`<path d="M30 86L70 86L80 148Q50 156 20 148Z" fill="#FAD9A8"/>${legs(skin,148,14)}${arm('#FAD9A8',21)}${arm('#FAD9A8',70)}${[[36,106],[60,100],[44,128],[66,134],[30,138]].map((p,i)=>`<g transform="translate(${p[0]} ${p[1]})"><circle r="4" fill="${['#F28A7B','#D3B3EE','#fff'][i%3]}"/><circle r="1.6" fill="#F2DCA7"/></g>`).join('')}${H}`,
  sarafan:`<path d="M26 86L74 86L84 156Q50 164 16 156Z" fill="#C0384A"/>${legs(skin,154,10)}${arm('#FBF4EC',17)}${arm('#FBF4EC',74)}<path d="M30 86L70 86L72 104Q50 110 28 104Z" fill="#C0384A"/><path d="M18 150Q50 160 82 150" stroke="#E9B44C" stroke-width="4" fill="none"/><path d="M28 118Q50 126 72 118" stroke="#E9B44C" stroke-width="2.4" fill="none"/>${[[36,134],[50,138],[64,134]].map(p=>`<path d="M${p[0]} ${p[1]}l3 4-3 4-3-4z" fill="#E9B44C"/>`).join('')}${hand(21.5)}${hand(78.5)}`,
+ overalls:`${legs('#7297B7')}${arm('#FBF4EC',21)}${arm('#FBF4EC',70)}<path d="${T}" fill="#FBF4EC"/><path d="M32 84V106H68V84H61V99H39V84Z" fill="#7297B7"/><path d="M28 106H72L74 128H26Z" fill="#7297B7"/><rect x="43" y="110" width="14" height="12" rx="3" fill="#A9CBEA"/><circle cx="36" cy="91" r="2" fill="#E9B44C"/><circle cx="64" cy="91" r="2" fill="#E9B44C"/>${H}`,
+ pleated:`<path d="M30 86Q50 80 70 86L80 146Q50 158 20 146Z" fill="${c}"/><path d="M25 128L75 128" stroke="${a}" stroke-width="3"/><path d="M30 130L26 148M40 130L38 151M50 130V153M60 130L62 151M70 130L74 148" stroke="${a}" stroke-width="2" opacity=".65"/>${arm(c,21)}${arm(c,70)}${legs(skin,150,12)}${H}`,
+ bomber:`${legs('#7B829B')}${arm(c,18)}${arm(c,73)}<path d="${T}" fill="${c}"/><path d="M28 88H72" stroke="${a}" stroke-width="5"/><path d="M28 122H72" stroke="${a}" stroke-width="5"/><path d="M50 88V126" stroke="${a}" stroke-width="2" opacity=".8"/><circle cx="50" cy="104" r="5" fill="${a}"/>${H}`,
+ hoodedress:`${legs(c)}${arm(c,18)}${arm(c,73)}<path d="M27 86Q50 76 73 86L80 151Q50 160 20 151Z" fill="${c}"/><path d="M36 84Q50 100 64 84" fill="none" stroke="${a}" stroke-width="4" stroke-linecap="round"/><rect x="38" y="119" width="24" height="9" rx="4" fill="${a}" opacity=".65"/>${H}`,
  blazer:`${legs('#4A4A68')}${arm('#3E4A78',21)}${arm('#3E4A78',70)}<path d="${T}" fill="#3E4A78"/><path d="M42 84L50 120L58 84L50 92Z" fill="#FBF4EC"/><path d="M36 84L46 108L40 122L30 98Z" fill="#4E5A88"/><path d="M64 84L54 108L60 122L70 98Z" fill="#4E5A88"/><circle cx="50" cy="116" r="1.6" fill="#E9B44C"/>${H}`};
  return F[id]||F.cardi;}
 function avShoes(id,c,skin){const s=x=>`<ellipse cx="${x}" cy="166" rx="9" ry="5" fill="${c}"/>`;return {
@@ -3496,12 +3584,49 @@ function avAcc(id,skin){return {
  shawl:'<path d="M26 84Q50 96 74 84L82 118Q50 132 18 118Z" fill="#2E5A8A" opacity=".95"/><path d="M26 98Q50 110 74 98" stroke="#E9B44C" stroke-width="2" fill="none"/>'+[34,44,56,66].map(x=>`<circle cx="${x}" cy="112" r="2.6" fill="#E8A0B8"/>`).join(''),
  wings:'<g opacity=".8"><path d="M30 92Q-6 70 6 124Q22 114 30 100Z" fill="#D3F0E3" stroke="#B8E0C6" stroke-width="1"/><path d="M70 92Q106 70 94 124Q78 114 70 100Z" fill="#D3F0E3" stroke="#B8E0C6" stroke-width="1"/></g>'}[id]||'';}
 let _avN=0;
-/* renders the whole character. view: 'full' | 'head' | 'bust' */
-function avatarSVG(a,view,opt){a=avClean(a||(S.me&&S.me.av)||avDefault());opt=opt||{};const id='ag'+(++_avN),skin=AV_SKINS[a.skin],hf=avHairFill(a.hc,id),line='#6A4A62';
- const wingsBack=a.acc==='wings'?avAcc('wings'):'',fitId=a.fit.indexOf('.')>0?a.fit.split('.')[1]:a.fit,hatId=a.hat.indexOf('.')>0?a.hat.split('.')[1]:a.hat,accId=a.acc.indexOf('.')>0?a.acc.split('.')[1]:a.acc,shoeId=a.shoe.indexOf('.')>0?a.shoe.split('.')[1]:a.shoe;
- const closed=opt.asleep?`<path d="M32 61q6.5 6 13 0M55 61q6.5 6 13 0" fill="none" stroke="#3A2750" stroke-width="2.4" stroke-linecap="round"/>`:avEyes(a.eyes,a.ec);
- const vb={full:'-4 -2 108 176',head:'8 -2 84 88',bust:'6 -2 88 118'}[view||'full'];
- return `<svg viewBox="${vb}" class="avsvg" role="img" aria-label="Your character" style="overflow:visible"><defs>${hf.def}</defs>${wingsBack}${avHairBack(a.hs,hf.fill)}${view==='head'||view==='bust'?'':avShoes(shoeId,a.sc,skin)}${view==='head'?'':avFit(fitId,a.fc,a.fa,skin)}<rect x="44" y="76" width="12" height="14" rx="5" fill="${skin}"/>${accId==='scarf'||accId==='pearls'||accId==='moon'||accId==='locket'||accId==='mitts'||accId==='shawl'?avAcc(accId,skin):''}<ellipse cx="50" cy="52" rx="29" ry="27" fill="${skin}" stroke="${line}" stroke-opacity=".35" stroke-width="1.4"/>${closed}<path d="M32 51q6-4 12-1M56 50q6-3 12 1" fill="none" stroke="#5A3A4A" stroke-width="1.7" stroke-linecap="round" opacity=".7"/><ellipse cx="28.5" cy="68" rx="5.5" ry="3.3" fill="#F4A0BC" opacity=".6"/><ellipse cx="71.5" cy="68" rx="5.5" ry="3.3" fill="#F4A0BC" opacity=".6"/><path d="M45 70q5 5 10 0" fill="none" stroke="#5A3A4A" stroke-width="1.9" stroke-linecap="round"/>${avHairFront(a.hs,hf.fill)}${['glasses','phones','studs','freckles','star'].includes(accId)?avAcc(accId,skin):''}${avHat(hatId)}</svg>`;}
+function avHexMix(hex,amount){const n=parseInt(String(hex).replace('#',''),16);if(!Number.isFinite(n))return hex;const f=c=>Math.max(0,Math.min(255,Math.round(c+(amount>=0?(255-c)*amount:c*amount))));return '#'+[f(n>>16),f((n>>8)&255),f(n&255)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+/* Polished, softly dimensional chibi renderer; all pieces remain independently customisable. */
+function avatarSVG(a,view,opt){
+ a=avClean(a||(S.me&&S.me.av)||avDefault());opt=opt||{};
+ const id='ag'+(++_avN),skin=AV_SKINS[a.skin],hf=avHairFill(a.hc,id),line='#62485B';
+ const hairBase=a.hc.startsWith('g:')?AV_OMBRE[a.hc.slice(2)][1]:a.hc,hairGrad=hf.def?hf.fill:`url(#${id}hair)`,skinHi=avHexMix(skin,.22),skinLo=avHexMix(skin,-.12),clothHi=avHexMix(a.fc,.18),clothLo=avHexMix(a.fc,-.12);
+ const fitId=a.fit.indexOf('.')>0?a.fit.split('.')[1]:a.fit,hatId=a.hat.indexOf('.')>0?a.hat.split('.')[1]:a.hat,accId=a.acc.indexOf('.')>0?a.acc.split('.')[1]:a.acc,shoeId=a.shoe.indexOf('.')>0?a.shoe.split('.')[1]:a.shoe;
+ const closed=opt.asleep?`<path d="M31 61q7 6 14 0M55 61q7 6 14 0" fill="none" stroke="#493447" stroke-width="2.8" stroke-linecap="round"/>`:avEyes(a.eyes,a.ec);
+ const vb={full:'-8 -5 116 181',head:'7 -5 86 94',bust:'4 -5 92 126'}[view||'full'];
+ const detail=view==='head'?'':`<ellipse cx="50" cy="169" rx="27" ry="4" fill="#6D5670" opacity=".12"/>`;
+ const ear=`<ellipse cx="23" cy="53" rx="6.5" ry="10" fill="url(#${id}skin)" stroke="${line}" stroke-opacity=".2"/><ellipse cx="77" cy="53" rx="6.5" ry="10" fill="url(#${id}skin)" stroke="${line}" stroke-opacity=".2"/>`;
+ const face=`<ellipse cx="50" cy="53" rx="30" ry="29" fill="url(#${id}skin)" stroke="${line}" stroke-opacity=".28" stroke-width="1.25"/>`;
+ const blush=`<ellipse cx="28.5" cy="69" rx="6.4" ry="3.7" fill="#F29DB5" opacity=".46"/><ellipse cx="71.5" cy="69" rx="6.4" ry="3.7" fill="#F29DB5" opacity=".46"/>`;
+ const nose=`<path d="M48 68q2-2 4 0q-2 3-4 0" fill="#C77D83" opacity=".7"/>`;
+ const mouth=`<path d="M44 73q6 6 12 0" fill="none" stroke="#684653" stroke-width="1.8" stroke-linecap="round"/>`;
+ const hairShine=`<path d="M27 34Q38 16 57 18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".22"/><path d="M67 25q7 5 8 14" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".18"/>`;
+ const faceDetails=`${closed}<path d="M30 51q7-5 14-1M56 50q7-4 14 1" fill="none" stroke="#5A3A4A" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>${blush}${nose}${mouth}`;
+ const body=view==='head'?'':`${avShoes(shoeId,a.sc,skin)}${avFit(fitId,`url(#${id}cloth)`,a.fa,skin)}`;
+ const neck=view==='head'?'':`<rect x="44" y="76" width="12" height="14" rx="5" fill="url(#${id}skin)"/>`;
+ const lowerAcc=['scarf','pearls','moon','locket','mitts','shawl'].includes(accId)?avAcc(accId,skin):'';
+ const upperAcc=['glasses','phones','studs','freckles','star'].includes(accId)?avAcc(accId,skin):'';
+ return `<svg viewBox="${vb}" class="avsvg" role="img" aria-label="Your character" style="overflow:visible">
+ <defs>
+  ${hf.def}
+  <linearGradient id="${id}hair" x1="0" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="${avHexMix(hairBase,.18)}"/><stop offset=".52" stop-color="${hairBase}"/><stop offset="1" stop-color="${avHexMix(hairBase,-.2)}"/></linearGradient>
+  <linearGradient id="${id}skin" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="${skinHi}"/><stop offset=".58" stop-color="${skin}"/><stop offset="1" stop-color="${skinLo}"/></linearGradient>
+  <linearGradient id="${id}cloth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${clothHi}"/><stop offset="1" stop-color="${clothLo}"/></linearGradient>
+ </defs>
+ ${detail}
+ ${a.acc==='wings'?avAcc('wings'):''}
+ ${avHairBack(a.hs,hairGrad)}
+ ${neck}${body}
+ ${lowerAcc}
+ ${ear}
+ ${face}
+ <ellipse cx="42" cy="31" rx="13" ry="6" fill="#fff" opacity=".12"/>
+ ${faceDetails}
+ ${avHairFront(a.hs,hairGrad)}
+ ${hairShine}
+ ${upperAcc}
+ ${avHat(hatId)}
+ </svg>`;
+}
 /* ================= pets ================= */
 /* id, name, rarity, personality, how to earn: 'start' = pick one free at the beginning, 'orb' = Pet Discovery Orb, {m:...} = milestone */
 const PET_RAR=['Common','Uncommon','Rare','Epic','Legendary'];
@@ -3633,26 +3758,48 @@ function meRow(ic,t,sub,attrs){return `<button class="merow" ${attrs}><span clas
 function vMe(){worldAward();const n=ownedCount(),total=AV_SHOP.length,pc=Object.keys(S.me.pets).length;
  const done=doneCount(),words=ITEMS.filter(i=>atLeast(i.id,'recognised')).length;
  return `<section class="card mecard"><div class="mehead"><div class="mestage">${avatarSVG(S.me.av,'full')}${S.me.pet?`<div class="mepet">${S.me.pet==='chi'?chiSide(false):petSVG(S.me.pet)}</div>`:''}</div><div class="meinfo"><label class="eyebrow" for="meName">Your name</label><input id="meName" class="tminput nm" maxlength="20" value="${esc(S.me.name||'')}" placeholder="Learner" autocomplete="off"><div class="stars big" aria-label="${stars()} stars">⭐ <b>${stars()}</b> <small>stars</small></div><p class="small muted">Stars come from real practice. They are never sold.</p></div></div>
- <div class="melist">${meRow('✂️','Edit Character','Hair, face, skin and eyes','data-act="edGo" data-tab="hair"')}${meRow('👗','Wardrobe','Outfits, shoes, hats and extras · '+n+' of '+total+' special items owned','data-act="edGo" data-tab="outfit"')}${meRow('🐾','Pets','Choose a companion · '+pc+' of '+PETS.length+' discovered','data-act="goRoute" data-r="pets"')}${meRow('🛍️','Boutique','Spend Stars on clothes, dyes and house decorations','data-act="goRoute" data-r="shop"')}${meRow('🔮','Pet Discovery Orb','Open an orb for '+ORB_COST+' Stars. Odds shown first','data-act="goRoute" data-r="orb"')}${meRow('🏅','Achievements','See what you have unlocked','data-act="goRoute" data-r="progress"')}</div></section>
+ <div class="melist">${meRow('✂️','Edit Character','Hair, face, skin and eyes','data-act="edGo" data-tab="face"')}${meRow('👗','Wardrobe','Outfits, shoes, hats and extras · '+n+' of '+total+' special items owned','data-act="edGo" data-tab="outfit"')}${meRow('🐾','Pets','Choose a companion · '+pc+' of '+PETS.length+' discovered','data-act="goRoute" data-r="pets"')}${meRow('🛍️','Boutique','Spend Stars on clothes, dyes and house decorations','data-act="goRoute" data-r="shop"')}${meRow('🔮','Pet Discovery Orb','Open an orb for '+ORB_COST+' Stars. Odds shown first','data-act="goRoute" data-r="orb"')}${meRow('🏅','Achievements','See what you have unlocked','data-act="goRoute" data-r="progress"')}</div></section>
  <section class="card"><div class="eyebrow">Milestones</div><div class="sgrid">${statTile(done,'lessons done','of '+LESSONS.length)}${statTile(words,'words recognised','so far')}${statTile(streak(),'day streak','in a row')}</div><div class="row"><button class="btn alt grow" data-act="goRoute" data-r="session">Study history</button><button class="btn alt grow" data-act="goRoute" data-r="timer">Focus timer</button></div></section>
  <section class="card"><div class="eyebrow">Appearance</div><p class="muted small">The house, and every screen in Bunova, follows this.</p>${seg('setMode','mode',S.set.mode||'auto',[['auto','Match my device'],['light','☀ Day'],['dark','☾ Night']])}</section>`;}
 document.addEventListener('input',e=>{const a=e.target;if(a&&a.id==='meName'){S.me.name=a.value.slice(0,20);save();}});
 
 /* ---------- Edit Character and Wardrobe ---------- */
-const ED_TABS=[['hair','Hair'],['face','Face'],['outfit','Outfit'],['shoes','Shoes'],['extras','Hats & extras']];
-const swatchBtn=(k,v,cur,label,extra)=>`<button class="sw2${String(cur)===String(v)?' on':''}" style="background:${extra||v}" data-act="avSet" data-k="${k}" data-v="${v}" aria-label="${esc(label)}" aria-pressed="${String(cur)===String(v)}"></button>`;
+const ED_TABS=[['face','Character'],['hair','Hair'],['outfit','Outfits'],['extras','Accessories']];
+const swatchBtn=(k,v,cur,label,extra)=>`<button class="sw2${String(cur)===String(v)?' on':''}" style="--swatch:${extra||v};background:${extra||v}" data-act="avSet" data-k="${k}" data-v="${v}" title="${esc(label)}" aria-label="${esc(label)}" aria-pressed="${String(cur)===String(v)}"><span aria-hidden="true"></span></button>`;
 function itemBtn(slot,id,label,view,cur,locked,price){const a=Object.assign({},S.me.av);a[slot]=id;const on=cur===id;
- return `<button class="itm${on?' on':''}${locked?' lock':''}" data-act="${locked?'goRoute':'avSet'}" ${locked?'data-r="shop"':`data-k="${slot}" data-v="${id}"`} aria-pressed="${on}" aria-label="${esc(label)}${locked?' (locked)':''}"><span class="itv">${avatarSVG(a,view)}</span><span class="itl">${esc(label)}</span>${locked?`<i class="itlock">${price?'★ '+price:'🔒'}</i>`:''}</button>`;}
+ return `<button class="itm${on?' on':''}${locked?' lock':''}" data-act="${locked?'goRoute':'avSet'}" ${locked?'data-r="shop"':`data-k="${slot}" data-v="${id}"`} aria-pressed="${on}" aria-label="${esc(label)}${locked?' (locked)':''}"><span class="itv">${avatarSVG(a,view)}</span><span class="itl">${esc(label)}</span>${locked?`<i class="itlock">${price?'★ '+price:'🔒'}</i>`:''}${on?'<span class="itcheck" aria-hidden="true">✓</span>':''}</button>`;}
 function slotItems(slot,free,view){const cur=S.me.av[slot],out=[];free.forEach(f=>out.push(itemBtn(slot,f[0],f[1],view,cur,false)));
  AV_SHOP.filter(i=>i[2]===slot).forEach(i=>{const id=i[0].split('.')[1],has=hasItem(i[0]);if(has)out.push(itemBtn(slot,id,i[1],view,cur,false));else if(inSeason(i)||!i[6])out.push(itemBtn(slot,id,i[1],view,cur,true,i[3]||0));});return out.join('');}
-function vEdit(){worldAward();const t=ui.edTab||'hair',a=S.me.av;let h=`<section class="card edcard"><div class="edstage"><div class="edav">${avatarSVG(a,'full')}</div><div class="edtabs" role="tablist">${ED_TABS.map(x=>`<button role="tab" aria-selected="${x[0]===t}" class="edtab${x[0]===t?' on':''}" data-act="edTab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div></div><div class="edpanel">`;
- const lab=s=>`<div class="eyebrow edl">${s}</div>`;
- if(t==='hair'){h+=lab('Hair style')+`<div class="itgrid">${AV_HAIR.map(x=>itemBtn('hs',x[0],x[1],'head',a.hs,false)).join('')}</div>`+lab('Hair colour')+`<div class="swrow">${AV_HAIRC.map(c=>swatchBtn('hc',c[0],a.hc,c[1])).join('')}${Object.keys(AV_OMBRE).filter(k=>hasItem('hc.'+k)).map(k=>swatchBtn('hc','g:'+k,a.hc,AV_OMBRE[k][0],'linear-gradient('+AV_OMBRE[k][1]+','+AV_OMBRE[k][2]+')')).join('')}</div>`+(Object.keys(AV_OMBRE).some(k=>!hasItem('hc.'+k))?`<p class="small muted">Ombré dyes are in the <a href="#shop" data-act="goRoute" data-r="shop">Boutique</a>.</p>`:'');}
- else if(t==='face'){h+=lab('Skin tone')+`<div class="swrow">${AV_SKINS.map((c,i)=>swatchBtn('skin',i,a.skin,'Skin tone '+(i+1),c)).join('')}</div>`+lab('Eye style')+`<div class="itgrid">${AV_EYES.map(x=>itemBtn('eyes',x[0],x[1],'head',a.eyes,false)).join('')}</div>`+lab('Eye colour')+`<div class="swrow">${AV_EYEC.map(c=>swatchBtn('ec',c[0],a.ec,c[1])).join('')}</div>`;}
- else if(t==='outfit'){h+=lab('Outfit')+`<div class="itgrid">${slotItems('fit',AV_FITS,'full')}</div>`+lab('Main colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('fc',c,a.fc,'Colour')).join('')}</div>`+lab('Accent colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('fa',c,a.fa,'Accent')).join('')}</div>`;}
- else if(t==='shoes'){h+=lab('Shoes')+`<div class="itgrid">${slotItems('shoe',AV_SHOES,'full')}</div>`+lab('Colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('sc',c,a.sc,'Colour')).join('')}</div>`;}
- else{h+=lab('Hats and hair accessories')+`<div class="itgrid">${slotItems('hat',AV_HATS,'head')}</div>`+lab('Extras and jewellery')+`<div class="itgrid">${slotItems('acc',AV_ACCS,'bust')}</div>`;}
- h+=`</div><div class="row"><button class="btn alt grow" data-act="goRoute" data-r="shop">Boutique</button><button class="btn grow" data-act="goRoute" data-r="me">Done</button></div></section>`;return h;}
+function vEdit(){
+ worldAward();const t=ui.edTab||'face',a=S.me.av;
+ let h=`<section class="card edcard"><div class="edstudio">
+ <aside class="edstage"><div class="edstage-glow" aria-hidden="true"></div><div class="edstage-stars" aria-hidden="true">✦ <span>·</span> ✧</div><div class="edav">${avatarSVG(a,'full')}</div><div class="edstage-copy"><span class="eyebrow">Your character</span><h2>${esc(S.me.name||'Your little adventurer')}</h2><p>Make Bunova feel like yours.</p></div><div class="edstage-pet">${S.me.pet?`${S.me.pet==='chi'?chiSide(false):petSVG(S.me.pet)}`:'<span aria-hidden="true">♡</span>'}</div></aside>
+ <div class="edwork"><div class="edhead"><div><span class="eyebrow">Character studio</span><h1>Make it yours</h1><p class="muted small">A little style, a lot of personality.</p></div><div class="edstars">⭐ ${stars()}</div></div>
+ <div class="edtabs" role="tablist" aria-label="Customisation categories">${ED_TABS.map(x=>`<button role="tab" aria-selected="${x[0]===t}" class="edtab${x[0]===t?' on':''}" data-act="edTab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div><div class="edpanel">`;
+ const lab=(s,sub='')=>`<div class="edsection-title"><div class="eyebrow">${s}</div>${sub?`<small>${sub}</small>`:''}</div>`;
+ if(t==='hair'){
+  h+=lab('Hairstyle','Choose a shape that feels like you.')+`<div class="itgrid">${AV_HAIR.map(x=>itemBtn('hs',x[0],x[1],'head',a.hs,false)).join('')}</div>`;
+  h+=lab('Hair colour','Natural shades and playful pastels.')+`<div class="swrow edswatches">${AV_HAIRC.map(c=>swatchBtn('hc',c[0],a.hc,c[1])).join('')}${Object.keys(AV_OMBRE).filter(k=>hasItem('hc.'+k)).map(k=>swatchBtn('hc','g:'+k,a.hc,AV_OMBRE[k][0],'linear-gradient(135deg,'+AV_OMBRE[k][1]+','+AV_OMBRE[k][2]+')')).join('')}</div>`;
+  if(Object.keys(AV_OMBRE).some(k=>!hasItem('hc.'+k)))h+=`<p class="small muted">Discover special blended dyes in the <a href="#shop" data-act="goRoute" data-r="shop">Boutique</a>.</p>`;
+ }
+ else if(t==='face'){
+  h+=lab('Skin tone','A broad range of warm, natural shades.')+`<div class="swrow edswatches">${AV_SKINS.map((c,i)=>swatchBtn('skin',i,a.skin,'Skin tone '+(i+1),c)).join('')}</div>`;
+  h+=lab('Eye style','Choose your character’s expression.')+`<div class="itgrid edface-grid">${AV_EYES.map(x=>itemBtn('eyes',x[0],x[1],'head',a.eyes,false)).join('')}</div>`;
+  h+=lab('Eye colour')+`<div class="swrow edswatches">${AV_EYEC.map(c=>swatchBtn('ec',c[0],a.ec,c[1])).join('')}</div>`;
+ }
+ else if(t==='outfit'){
+  h+=lab('Outfits','Mix cosy favourites with statement pieces.')+`<div class="itgrid edoutfits">${slotItems('fit',AV_FITS,'full')}</div>`;
+  h+=lab('Main colour')+`<div class="swrow edswatches">${AV_FITC.map(c=>swatchBtn('fc',c,a.fc,'Main colour')).join('')}</div>`;
+  h+=lab('Accent colour')+`<div class="swrow edswatches">${AV_FITC.map(c=>swatchBtn('fa',c,a.fa,'Accent colour')).join('')}</div>`;
+  h+=lab('Shoes')+`<div class="itgrid edshoes">${slotItems('shoe',AV_SHOES,'full')}</div>`;
+ }
+ else{
+  h+=lab('Hats and hair accessories','Little details make the look.')+`<div class="itgrid">${slotItems('hat',AV_HATS,'head')}</div>`;
+  h+=lab('Extras and jewellery')+`<div class="itgrid">${slotItems('acc',AV_ACCS,'bust')}</div>`;
+ }
+ h+=`</div></div></div><div class="edfooter"><p class="small muted">Your look is saved as you customise.</p><div class="row"><button class="btn alt grow" data-act="avRandom">Surprise me</button><button class="btn alt grow" data-act="goRoute" data-r="shop">Boutique</button><button class="btn grow" data-act="goRoute" data-r="me">Done</button></div></div></section>`;
+ return h;
+}
 
 /* ---------- Boutique ---------- */
 function shopCard(it){const has=hasItem(it[0]),slot=it[2],id=it[0].split('.')[1],prev=Object.assign({},S.me.av);
@@ -3701,6 +3848,7 @@ const orbSVG=()=>`<svg viewBox="0 0 200 200" class="orbsvg" role="img" aria-labe
 
 /* ---------- actions ---------- */
 function worldAct2(act,d){switch(act){
+ case 'avRandom':{const pick=L=>L[Math.floor(Math.random()*L.length)];S.me.av=avClean({skin:Math.floor(Math.random()*AV_SKINS.length),hs:pick(AV_HAIR)[0],hc:pick(AV_HAIRC)[0],eyes:pick(AV_EYES)[0],ec:pick(AV_EYEC)[0],fit:pick(AV_FITS)[0],fc:pick(AV_FITC),fa:pick(AV_FITC),shoe:pick(AV_SHOES)[0],sc:pick(AV_FITC),hat:pick(AV_HATS)[0],acc:pick(AV_ACCS)[0]});save();render();return true;}
  case 'edGo':ui.edTab=d.tab||'hair';navigate('edit');return true;
  case 'edTab':ui.edTab=d.v;render();return true;
  case 'avSet':{const k=d.k;if(!['skin','hs','hc','eyes','ec','fit','fc','fa','shoe','sc','hat','acc'].includes(k))return true;const v=k==='skin'?+d.v:d.v,t=Object.assign({},S.me.av);t[k]=v;const c=avClean(t),ok=c[k]===v||(k==='skin'&&c.skin===v);if(!ok)return true;
