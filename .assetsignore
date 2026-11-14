@@ -1,0 +1,21 @@
+# Bunova public assets only; never publish build tools or repository internals.
+node_modules/
+node_modules/**
+.git/
+.git/**
+.github/
+.github/**
+.wrangler/
+.wrangler/**
+package.json
+package-lock.json
+wrangler.jsonc
+wrangler.toml
+worker.js
+scripts/
+scripts/**
+tests/
+tests/**
+*.zip
+*.log
+*.md
