@@ -902,6 +902,78 @@ span.ic{background:none!important;padding:0!important;border:0!important;box-sha
 :root[data-palette="bunova"] .edstage .avsvg{filter:drop-shadow(0 8px 8px rgba(72,41,67,.13))}
 :root[data-palette="bunova"] .edstage .avsvg [stroke]{stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:360px){:root[data-palette="bunova"] .hlab{padding:3px 5px;font-size:.57rem;gap:3px}:root[data-palette="bunova"] .hroom-icon{width:15px;height:15px;font-size:.7rem}}
+
+/* BUNOVA HOUSE OF STORIES — FINISHING SYSTEM V3: typography, depth, learning focus */
+:root[data-palette="bunova"]{
+ --focus-ring:#a8477b;--card-glow:rgba(183,99,142,.09);
+ --page-width:840px;
+}
+:root[data-palette="bunova"] body{background-attachment:fixed}
+:root[data-palette="bunova"] .wrap{width:min(100%,var(--page-width));margin-inline:auto}
+:root[data-palette="bunova"] :is(button,a,input,select,textarea):focus-visible{
+ outline:3px solid var(--focus-ring);outline-offset:3px;
+}
+:root[data-palette="bunova"] :is(button,.opt,.tile,.les,.merow,.hub-t){
+ -webkit-tap-highlight-color:transparent;
+}
+:root[data-palette="bunova"] .card:not(.housecard){position:relative}
+:root[data-palette="bunova"] .card:not(.housecard)::before{
+ content:"";position:absolute;inset:0 0 auto;height:5px;border-radius:26px 26px 0 0;
+ background:linear-gradient(90deg,var(--soft2),var(--lav-soft),var(--blue-soft));opacity:.78;
+ pointer-events:none;
+}
+:root[data-palette="bunova"] :is(.card,.housecard,.edstage,.merow){color:var(--ink)}
+:root[data-palette="bunova"] :is(.card,.edstage) p{line-height:1.55}
+:root[data-palette="bunova"] :is(.card,.edstage) small{line-height:1.4}
+:root[data-palette="bunova"] .btn{font-weight:850;letter-spacing:.005em;transition:transform .15s ease,filter .15s ease,box-shadow .15s ease}
+:root[data-palette="bunova"] .btn:not(:disabled):hover{filter:brightness(1.04)}
+:root[data-palette="bunova"] .btn:not(:disabled):active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-sh)}
+:root[data-palette="bunova"] .opt,:root[data-palette="bunova"] .tile,:root[data-palette="bunova"] .les{
+ background:var(--surface);transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+:root[data-palette="bunova"] :is(.opt,.tile,.les):not(:disabled):hover{
+ border-color:var(--soft2);background:color-mix(in srgb,var(--soft) 24%,var(--surface));
+}
+:root[data-palette="bunova"] .opt:focus-visible{outline-offset:4px}
+:root[data-palette="bunova"] .housecard{position:relative}
+:root[data-palette="bunova"] .hgreet{position:relative;overflow:hidden;min-height:116px}
+:root[data-palette="bunova"] .hgreet::after{
+ content:"✦";position:absolute;right:24px;top:14px;font-size:42px;color:var(--soft2);
+ opacity:.52;pointer-events:none;transform:rotate(-13deg);
+}
+:root[data-palette="bunova"] .house-intro{max-width:38ch;font-size:.85rem}
+:root[data-palette="bunova"] .hroom .hlab{font-weight:900}
+:root[data-palette="bunova"] .hroom:active .hlab{transform:scale(.97)}
+:root[data-palette="bunova"] .hroom-icon{box-shadow:inset 0 -1px 0 rgba(116,70,104,.12)}
+:root[data-palette="bunova"] .hub-t{isolation:isolate}
+:root[data-palette="bunova"] .hub-t::after{
+ content:"";position:absolute;inset:auto -30px -65px auto;width:130px;height:130px;
+ border-radius:50%;background:rgba(255,255,255,.17);z-index:-1;pointer-events:none;
+}
+:root[data-palette="bunova"] .hub-t:focus-visible{outline-offset:5px}
+:root[data-palette="bunova"] .tabs{z-index:30}
+:root[data-palette="bunova"] .tabs a{font-weight:850}
+:root[data-palette="bunova"] :is(input,textarea,select){accent-color:var(--accent)}
+:root[data-palette="bunova"] input[type="range"]{accent-color:var(--accent)}
+:root[data-palette="bunova"] :is(.bubble,.note,.tag){line-height:1.45}
+:root[data-palette="bunova"] .edstage{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--surface) 70%,transparent)}
+:root[data-palette="bunova"] .merow{transition:transform .15s ease,border-color .15s ease}
+:root[data-palette="bunova"] .merow:hover{border-color:var(--soft2)}
+:root[data-palette="bunova"] .merow:active{transform:scale(.99)}
+:root[data-palette="bunova"][data-theme="dark"] .hgreet::after{opacity:.28}
+:root[data-palette="bunova"][data-theme="dark"] .card:not(.housecard)::before{opacity:.45}
+@media(max-width:600px){
+ :root[data-palette="bunova"] .wrap{padding-inline:max(10px,env(safe-area-inset-left,0px))}
+ :root[data-palette="bunova"] #app{gap:14px}
+ :root[data-palette="bunova"] .housecard{border-radius:23px}
+ :root[data-palette="bunova"] .hgreet::after{right:12px;top:9px;font-size:27px}
+ :root[data-palette="bunova"] .card{border-radius:22px}
+ :root[data-palette="bunova"] .card:not(.housecard)::before{border-radius:22px 22px 0 0}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-palette="bunova"] :is(.btn,.opt,.tile,.les,.merow){transition:none}
+}
+
 </style>
 </head><body>
 <div class="wrap">
