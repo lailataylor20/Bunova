@@ -891,6 +891,17 @@ span.ic{background:none!important;padding:0!important;border:0!important;box-sha
 }
 
 :root[data-palette="bunova"][data-theme="dark"] .hub-t[data-r="study"]{background:linear-gradient(145deg,#2c455a,#32435a)}:root[data-palette="bunova"][data-theme="dark"] .hub-t[data-r="read"]{background:linear-gradient(145deg,#453454,#392d52)}:root[data-palette="bunova"][data-theme="dark"] .hub-t[data-r="talk"]{background:linear-gradient(145deg,#543744,#493044)}:root[data-palette="bunova"][data-theme="dark"] .hub-t[data-r="games"]{background:linear-gradient(145deg,#544837,#4a3d36)}
+
+/* BUNOVA VISION — STORYBOOK HOUSE DETAILS V2 */
+:root[data-palette="bunova"] .house-eyebrow{display:block;margin-bottom:6px;font-size:.65rem;letter-spacing:.17em;font-weight:900;color:var(--accent2)}
+:root[data-palette="bunova"] .house-intro{font-size:.8rem;line-height:1.35;font-weight:700;color:var(--muted);margin-top:5px;max-width:29ch}
+:root[data-palette="bunova"] .hlab{display:inline-flex;align-items:center;gap:5px;max-width:96%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform .16s ease,box-shadow .16s ease}
+:root[data-palette="bunova"] .hroom-icon{display:inline-grid;place-items:center;width:19px;height:19px;flex:none;border-radius:7px;background:var(--soft);color:var(--accent2);font-size:.9rem;line-height:1}
+:root[data-palette="bunova"] .hroom:hover .hlab,:root[data-palette="bunova"] .hroom:focus-visible .hlab{transform:translateY(-2px);box-shadow:0 5px 14px rgba(75,36,68,.18)}
+:root[data-palette="bunova"] .hroom:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+:root[data-palette="bunova"] .edstage .avsvg{filter:drop-shadow(0 8px 8px rgba(72,41,67,.13))}
+:root[data-palette="bunova"] .edstage .avsvg [stroke]{stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:360px){:root[data-palette="bunova"] .hlab{padding:3px 5px;font-size:.57rem;gap:3px}:root[data-palette="bunova"] .hroom-icon{width:15px;height:15px;font-size:.7rem}}
 </style>
 </head><body>
 <div class="wrap">
@@ -4310,9 +4321,9 @@ function petBondHTML(where){const m=S.me;if(!m.pet||!PETBY[m.pet])return '';cons
 function feedPet(){S.me.fedAt=Date.now();const first=bondFeed();save();const pet=S.me.pet,pn=PETBY[pet]?PETBY[pet][1]:'Your pet';toast(first?`${pn} is munching happily · bond +2`:`${pn} is munching happily`);
  const b=document.querySelector('.hbowl');if(b)b.classList.add('full','munch');try{document.querySelectorAll('.bond').forEach(x=>{const w=x.classList.contains('home')?'home':'pg',t=document.createElement('div');t.innerHTML=petBondHTML(w);if(t.firstChild)x.replaceWith(t.firstChild);});}catch(e){}const el=document.querySelector('.hpet');if(el){el.classList.add('happy');setTimeout(()=>{try{el.classList.remove('happy');b&&b.classList.remove('munch');}catch(e){}},2200);}}
 function houseHTML(){const night=isNight(),g=greetHome(),due=ITEMS.filter(i=>isDue(i.id)).length;
- const rooms=HROOMS.map(r=>{const badge=r[0]==='study'&&due?`<i class="hbadge">${due} due</i>`:'';return `<a class="hroom" href="#${r[4]}" data-act="goRoute" data-r="${r[4]}" aria-label="${r[1]}: ${r[5]}" style="left:${hx(r[2])};top:${hy(r[3])};width:${hw(164)};height:${hh(144)}"><span class="hlab">${r[1]}</span>${badge}</a>`;}).join('');
+ const rooms=HROOMS.map(r=>{const badge=r[0]==='study'&&due?`<i class="hbadge">${due} due</i>`:'';return `<a class="hroom" href="#${r[4]}" data-act="goRoute" data-r="${r[4]}" aria-label="${r[1]}: ${r[5]}" style="left:${hx(r[2])};top:${hy(r[3])};width:${hw(164)};height:${hh(144)}"><span class="hlab"><span class="hroom-icon" aria-hidden="true">${({study:'✦',bed:'♡',lib:'✿',music:'♫',studio:'✧',tea:'★'})[r[0]]||'✦'}</span>${r[1]}</span>${badge}</a>`;}).join('');
  bondVisit();
- return `<section class="housecard ${night?'hnight':'hday'}" aria-label="Your house"><div class="hgreet"><div><h1>${g[0]}</h1><div class="ru">${g[1]}</div></div>${Object.keys(S.me.pets).length?'':'<button class="btn alt sm" data-act="goRoute" data-r="pets">Choose a pet</button>'}</div><div class="hbox" id="hbox">${HOUSE_SVG[night?'night':'day']}${rooms}${houseCast(night)}</div>${petBondHTML('home')}</section>`;}
+ return `<section class="housecard ${night?'hnight':'hday'}" aria-label="Your house"><div class="hgreet"><div><span class="house-eyebrow">✦ YOUR LITTLE WORLD ✦</span><h1>${g[0]}</h1><div class="ru">${g[1]}</div><p class="house-intro">A little Russian, every day. Choose a room to begin.</p></div>${Object.keys(S.me.pets).length?'':'<button class="btn alt sm" data-act="goRoute" data-r="pets">Choose a pet</button>'}</div><div class="hbox" id="hbox">${HOUSE_SVG[night?'night':'day']}${rooms}${houseCast(night)}</div>${petBondHTML('home')}</section>`;}
 /* the pet wanders between rooms now and then; nothing moves when the learner prefers reduced motion or the tab is hidden */
 let hTimer=0;
 function houseLife(){clearTimeout(hTimer);hTimer=0;const pet=document.querySelector('.hpet.walk');if(!pet||reduceMotion()||ui.route!=='today'||ui.run)return;
