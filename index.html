@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bunova</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="theme-color" content="#edbfd8">
+<meta name="theme-color" content="#4cb000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -12,9 +12,9 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
 <meta name="application-name" content="Bunova">
-<meta name="msapplication-TileColor" content="#edbfd8">
+<meta name="msapplication-TileColor" content="#4cb000">
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Rubik:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap">
 <style>
 /* Bunova: calm teal/ink palette, restrained rose used only for the wordmark and highlights */
 :root{
@@ -651,174 +651,11 @@ span.ic{background:none!important;padding:0!important;border:0!important;box-sha
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bond{background:rgba(60,50,95,.55)}}
 @media (prefers-reduced-motion:reduce){.mythglow,.myaura,.myring,.mysp{animation:none!important}}
 /*END-BUNOVA-SKIN*/
-/* BUNOVA STORYBOOK — layout redesign, intentionally isolated from learning logic */
-:root[data-palette="bunova"]{
- --bg:#f9f0f7;--surface:#fffaff;--soft:#f7e3f0;--soft2:#eac9e7;--line:#e9d5e9;
- --ink:#50345d;--muted:#8c7397;--accent:#ad70ce;--accent-sh:#8650aa;--accent2:#8650aa;
- --rose:#bd79bf;--sky:#72bac0;--sky-sh:#4f989e;--blue:#648da8;--blue-soft:#e7f3fb;
- --shadow:0 9px 28px rgba(103,58,126,.09),0 2px 4px rgba(103,58,126,.04);
- --r:24px;--display:"Fredoka","Nunito",system-ui,sans-serif;--body:"Nunito",system-ui,sans-serif;
-}
-:root[data-palette="bunova"][data-theme="dark"]{
- --bg:#211b36;--surface:#302640;--soft:#473050;--soft2:#5b3b69;--line:#5b486b;
- --ink:#fff0fc;--muted:#c7b0d4;--accent:#e4a3eb;--accent-sh:#ac68bf;--accent2:#f5b9fa;
- --shadow:0 12px 34px rgba(10,4,30,.24);
-}
-@media(prefers-color-scheme:dark){:root[data-palette="bunova"]:not([data-theme="light"]):not([data-theme="dark"]){
- --bg:#211b36;--surface:#302640;--soft:#473050;--soft2:#5b3b69;--line:#5b486b;
- --ink:#fff0fc;--muted:#c7b0d4;--accent:#e4a3eb;--accent-sh:#ac68bf;--accent2:#f5b9fa;
- --shadow:0 12px 34px rgba(10,4,30,.24);
-}}
-:root[data-palette="bunova"] body{background:radial-gradient(ellipse 90% 450px at 50% -110px,#f3d5ed 0%,transparent 100%),radial-gradient(ellipse 500px 600px at -130px 650px,#e9defa 0%,transparent 90%),var(--bg);font-weight:600;line-height:1.48;}
-:root[data-palette="bunova"] body::before{content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1.5px,transparent 2px);background-size:69px 87px;opacity:.5}
-:root[data-palette="bunova"] .wrap{max-width:1100px}
-:root[data-palette="bunova"] header.top{margin:0 0 12px;padding:calc(12px + env(safe-area-inset-top,0px)) 15px 11px;top:0;border:1px solid rgba(255,255,255,.62);border-top:0;border-radius:0 0 24px 24px;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(18px);box-shadow:0 4px 24px rgba(111,57,123,.07);flex-wrap:nowrap}
-:root[data-palette="bunova"] .brand{align-items:center;gap:7px}
-:root[data-palette="bunova"] .brand b{font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.045em;color:var(--ink);text-shadow:0 2px 0 rgba(255,255,255,.55)}
-:root[data-palette="bunova"] .brand .sb-brand-star{color:#e6ad65;font-size:1rem}
-:root[data-palette="bunova"] .brand .logo-slot{display:grid;place-items:center;flex:none;width:45px;height:45px;border-radius:17px;background:linear-gradient(140deg,#fff,#f8dafa);box-shadow:0 5px 10px #9d73b32e}
-:root[data-palette="bunova"] .brand .logo-slot svg{width:94%;height:94%}
-:root[data-palette="bunova"] .stats{margin-left:auto;display:flex;align-items:center}
-:root[data-palette="bunova"] #hstats{gap:6px;white-space:nowrap}
-:root[data-palette="bunova"] #hstats .fire,:root[data-palette="bunova"] #hstats .xp{background:var(--soft);border:1px solid #fff7;padding:6px 10px;border-radius:99px;font-size:.82rem}
-:root[data-palette="bunova"] .medal{width:45px;height:45px;border:3px solid #fff;box-shadow:0 0 0 1px #ddbbe8,0 3px 10px #a475ae47}
-:root[data-palette="bunova"] .tools .chip{width:42px;height:42px;border-radius:50%;padding:0;justify-content:center;background:var(--soft)}
-:root[data-palette="bunova"] .tabs{background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:0 -4px 22px #70407b16;gap:2px}
-:root[data-palette="bunova"] .tabs a{border-radius:16px;font-size:.69rem;font-weight:800;padding:7px 3px;transition:background .15s,transform .15s}
-:root[data-palette="bunova"] .tabs a.on{background:linear-gradient(140deg,#eec5f1,#e5d7fb);color:#69428a;box-shadow:inset 0 1px 0 #fff,0 3px 8px #9255a52c}
-:root[data-palette="bunova"] .tabs svg{width:23px;height:23px}
-:root[data-palette="bunova"] #app{gap:17px;padding:9px 2px 26px}
-:root[data-palette="bunova"] .card{background:color-mix(in srgb,var(--surface) 96%,transparent);border:1px solid var(--line);padding:20px;border-radius:26px;box-shadow:var(--shadow);gap:14px}
-:root[data-palette="bunova"] .card.hero{background:linear-gradient(135deg,#ffedf5,var(--surface) 65%);border:1px solid #ecd3e7}
-:root[data-palette="bunova"] h1,:root[data-palette="bunova"] h2,:root[data-palette="bunova"] h3{letter-spacing:-.02em}
-:root[data-palette="bunova"] .eyebrow{color:var(--accent2);font-size:.77rem;letter-spacing:.07em}
-:root[data-palette="bunova"] .btn{background:linear-gradient(135deg,#c991dd,#a968cc);border:1px solid #f5d2fa;box-shadow:inset 0 2px 0 #ffffff6e,0 5px 12px #884f9a32;border-radius:18px;min-height:46px;text-shadow:0 1px 0 #77498733;transition:filter .14s,transform .14s}
-:root[data-palette="bunova"] .btn:hover{filter:brightness(1.04)}
-:root[data-palette="bunova"] .btn.alt{background:linear-gradient(155deg,#fffaff,#f4e0f3);color:#8650aa;text-shadow:none;border-color:#ead4ee;box-shadow:0 3px 9px #885a9d18}
-:root[data-palette="bunova"] .btn.quiet{background:var(--surface);color:var(--muted);text-shadow:none;border-color:var(--line)}
-:root[data-palette="bunova"] .chip,:root[data-palette="bunova"] .ib,:root[data-palette="bunova"] .seg button{border-radius:16px;border:1px solid var(--line);box-shadow:inset 0 1px 0 #ffffff6a}
-:root[data-palette="bunova"] .seg button[aria-pressed="true"]{background:linear-gradient(135deg,#f4d0ed,#e8dafa);border-color:#c493d7;color:#764998}
-:root[data-palette="bunova"] .les,:root[data-palette="bunova"] .hub-t{border:1px solid var(--line);border-radius:21px;background:var(--surface);box-shadow:0 4px 10px #9873a310}
-:root[data-palette="bunova"] .les.next{background:linear-gradient(135deg,#fbe5f3,#f2e9fd);border-color:#c68cda}
-:root[data-palette="bunova"] select,:root[data-palette="bunova"] input[type=text],:root[data-palette="bunova"] input[type=search]{border-radius:16px;background:var(--surface);border-color:var(--line)}
-/* Fresh home composition, not an extra decorative CSS layer on the existing greeting */
-.sb-home-intro{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 16px 14px;min-height:125px}
-.sb-home-intro h1{font-size:clamp(1.45rem,4vw,2.15rem);line-height:1.14;margin:5px 0}.sb-home-intro h1 span{color:#c98abb}
-.sb-home-intro p{font-size:.9rem;color:var(--muted);max-width:380px}.sb-kicker{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:900;color:var(--accent2)}
-.sb-profile-cta{position:relative;flex:0 0 100px;min-height:108px;border:2px solid #fff;border-radius:25px;background:linear-gradient(145deg,#f9ddec,#e2d4fc);box-shadow:0 8px 19px #965dbb23;overflow:hidden;cursor:pointer}.sb-profile-cta svg{height:76px;width:100%;margin-top:1px}.sb-profile-cta span{position:absolute;bottom:0;left:0;right:0;background:#fff9;font-size:.66rem;color:#734a8a;padding:4px;font-weight:900}
-:root[data-palette="bunova"] .housecard{background:linear-gradient(165deg,#fff9fe,#efdff4);border:5px solid var(--surface);border-radius:30px;overflow:hidden;box-shadow:0 12px 35px #8c5c9a24}
-:root[data-palette="bunova"] .hgreet{background:linear-gradient(115deg,#fbe3f2,#ede5fa);padding:18px 19px 13px;border-bottom:1px solid #e5cee9}
-:root[data-palette="bunova"] .hgreet h1{font-size:1.35rem;color:#673f83}
-:root[data-palette="bunova"] .hgreet .ru{color:#886d95}
-:root[data-palette="bunova"] .hbox{aspect-ratio:376/540;max-height:830px;max-width:580px;margin:auto}
-:root[data-palette="bunova"] .hlab{font-size:clamp(.57rem,1.85vw,.78rem);letter-spacing:0;text-transform:none;background:#fff9feef;color:#6f4385;border:1px solid #eed6f3;padding:4px 9px;box-shadow:0 3px 9px #75487822}
-:root[data-palette="bunova"] .hroom:focus-visible{box-shadow:inset 0 0 0 4px #b177d6}
-:root[data-palette="bunova"] .bond.home{margin:8px 14px 13px;background:#fffbffdf}
-.sb-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-.sb-quick button{min-width:0;border:1px solid var(--line);border-radius:21px;background:linear-gradient(155deg,var(--surface),var(--soft));padding:12px 5px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:1px;box-shadow:0 5px 12px #9a6ba21b;cursor:pointer}
-.sb-quick button span{font-size:1.5rem}.sb-quick b{font-size:.82rem}.sb-quick small{color:var(--muted);font-size:.7rem}
-/* Full wardrobe experience: split character stage + selectable inventory */
-.storybook-customiser{display:flex;flex-direction:column;gap:16px}
-.sb-custom-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 1px}
-.sb-custom-head h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:3px 0;color:var(--ink)}
-.sb-custom-head h1 span{color:#d88ac0}.sb-custom-head p{color:var(--muted);font-size:.89rem;max-width:520px}
-.sb-star{flex:none;border-radius:99px;background:linear-gradient(135deg,#fff5d7,#fae7b0);border:2px solid white;padding:9px 14px;box-shadow:0 3px 13px #ad8a4430;color:#745282;font-size:1rem}
-.sb-custom-layout{display:grid;grid-template-columns:minmax(240px,.86fr) minmax(0,1.14fr);gap:18px;align-items:stretch}
-.sb-preview{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;isolation:isolate;min-height:545px;overflow:hidden;background:radial-gradient(circle at 50% 37%,#fff8e9 0%,transparent 28%),linear-gradient(167deg,#d7b9e6 0%,#e6cde8 42%,#f4d0df 76%,#efc3ce);border:5px solid #fff8ff;border-radius:32px;box-shadow:0 14px 29px #965ca72c}
-.sb-preview::before{content:"";position:absolute;z-index:-1;width:245px;height:278px;left:50%;top:17%;transform:translateX(-50%);border:13px solid #fbe7f0;border-bottom-width:17px;border-radius:125px 125px 20px 20px;background:radial-gradient(circle at 68% 22%,#fff6eb 0%,#d9ceef 28%,#a6a5d4 60%,#8a84bd 100%);box-shadow:0 0 0 4px #d8a6cd,0 10px 26px #6a52994d,inset 0 0 22px #ffffff9c}
-.sb-preview::after{content:"";position:absolute;z-index:-1;bottom:50px;width:78%;height:68px;border-radius:50%;background:radial-gradient(ellipse,#fff4f9,#f2c1db 70%,transparent 73%);box-shadow:0 9px 32px #7d5e9850}
-.sb-room-window{position:absolute;z-index:-1;left:50%;top:19%;width:205px;height:244px;transform:translateX(-50%);overflow:hidden;border-radius:108px 108px 6px 6px}
-.sb-room-window::before{content:"";position:absolute;left:48%;top:0;bottom:0;border-left:8px solid #f7dbe8}.sb-room-window::after{content:"";position:absolute;left:0;right:0;top:58%;border-top:8px solid #f7dbe8}
-.sb-room-window i{position:absolute;border-radius:50%;background:#fff2c5;box-shadow:0 0 23px #fff4e1}.sb-room-window i:nth-child(1){width:11px;height:11px;top:42px;left:31px}.sb-room-window i:nth-child(2){width:7px;height:7px;top:83px;right:30px}.sb-room-window i:nth-child(3){width:9px;height:9px;top:155px;right:70px}
-.sb-preview-title{position:absolute;top:22px;left:0;right:0;text-align:center;font-size:.76rem;letter-spacing:.16em;font-weight:900;color:#734f92}.sb-preview-title span{color:#d579ab}
-.sb-preview .edav{position:relative;z-index:2;width:min(74%,295px);height:370px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 13px 7px #76537432)}
-.sb-preview .edav svg{width:100%;height:100%;object-fit:contain}
-.sb-preview-pet{position:absolute;z-index:3;bottom:51px;right:5%;width:83px;height:98px;filter:drop-shadow(0 5px 5px #7147773c)}
-.sb-preview-pet svg{width:100%;height:100%}.sb-preview-foot{width:100%;text-align:center;color:#865d93;background:#fffcff8c;border-top:1px solid #fff8;padding:12px 5px;font-size:.75rem;letter-spacing:.02em;font-weight:900}
-.sb-float-star{position:absolute;font-size:2.2rem;color:#fff0b6;text-shadow:0 0 13px #fff0a7}.sb-float-star.s1{top:105px;left:9%}.sb-float-star.s2{top:180px;right:7%;font-size:1.6rem}
-.sb-custom-controls{display:flex;flex-direction:column;min-width:0;background:linear-gradient(150deg,#fff8fd,#f6e6fa);border:2px solid #fff;border-radius:30px;padding:17px;box-shadow:0 13px 30px #9561ad24}
-.sb-shortcuts{display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap}
-.sb-shortcuts button{font-size:.77rem;border:1px solid #e8ceed;border-radius:99px;padding:8px 12px;background:#fff8ff;color:#78548b;font-weight:900;cursor:pointer}
-:root[data-palette="bunova"] .edtabs{display:flex;flex-wrap:nowrap;gap:5px;justify-content:flex-start;overflow-x:auto;padding:4px 0 11px;scrollbar-width:thin}
-:root[data-palette="bunova"] .edtab{flex:0 0 auto;background:#f4e4f6;border:1px solid #e5cce9;color:#865d93;font-size:.78rem;border-radius:16px;padding:10px 13px}
-:root[data-palette="bunova"] .edtab.on{color:#78418f;border-color:#d9a7e1;background:linear-gradient(145deg,#fff9ff,#eed3fa);box-shadow:0 3px 10px #9d66b332,inset 0 2px 0 #fff}
-:root[data-palette="bunova"] .edpanel{background:#fffaffb8;border:1px solid #edd9f0;border-radius:23px;padding:14px;max-height:525px;overflow:auto;scrollbar-width:thin}
-:root[data-palette="bunova"] .edl{font-size:.81rem;margin:16px 0 9px;color:#7c4b94;text-transform:none;letter-spacing:0;font-weight:900}
-:root[data-palette="bunova"] .edl:first-child{margin-top:0}
-:root[data-palette="bunova"] .itgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(94px,1fr));gap:9px}
-:root[data-palette="bunova"] .itm{min-width:0;position:relative;border-radius:19px;border:2px solid #f0dcf1;background:linear-gradient(#fffaff,#f9e9f8);padding:7px 5px 9px;gap:6px;transition:transform .15s,box-shadow .15s}
-:root[data-palette="bunova"] .itm:hover{transform:translateY(-2px);box-shadow:0 5px 12px #8b50a323}
-:root[data-palette="bunova"] .itm.on{border-color:#b97cdc;background:linear-gradient(#fffaff,#f1d9fc);box-shadow:0 0 0 2px #b47ddd3b,0 6px 14px #9157b331}
-:root[data-palette="bunova"] .itm.on::after{content:"✓";position:absolute;top:-6px;right:-5px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#9a70d0;color:#fff;font-size:.8rem;box-shadow:0 2px 5px #5c3e8533}
-:root[data-palette="bunova"] .itm.lock{opacity:.75}
-:root[data-palette="bunova"] .itv{width:90%;height:90px}.itv .avsvg{max-width:100%;height:100%}
-:root[data-palette="bunova"] .itl{font-size:.75rem;line-height:1.2;color:#76568b}
-:root[data-palette="bunova"] .swrow{display:flex;gap:10px;flex-wrap:wrap;padding:7px 3px 11px}
-:root[data-palette="bunova"] .sw2{width:39px;height:39px;border:3px solid #fff;box-shadow:0 0 0 1px #d7bedc,0 3px 7px #815a9224}
-:root[data-palette="bunova"] .sw2.on{box-shadow:0 0 0 3px #a976ce,0 4px 10px #9865b441}
-.sb-save{display:flex;gap:10px;padding-top:15px;margin-top:auto}.sb-save .btn{flex:1;padding-inline:12px;font-size:.86rem}
-/* Boutique, collection, profile and all study surfaces share one design language */
-:root[data-palette="bunova"] .mecard{background:linear-gradient(135deg,#ffedfa,#f0e4fc);border:2px solid white}
-:root[data-palette="bunova"] .mestage{width:170px;flex-basis:170px;max-height:240px;background:radial-gradient(ellipse at 50% 75%,#f5b9d7,#f9eaf6 65%);border-radius:28px 28px 24px 24px;border:2px solid #fff;overflow:visible}
-:root[data-palette="bunova"] .mepet{width:60px;right:-15px}
-:root[data-palette="bunova"] .merow{background:linear-gradient(115deg,var(--surface),var(--soft));border:1px solid var(--line);padding:14px;border-radius:20px;box-shadow:0 3px 7px #805a9611}
-:root[data-palette="bunova"] .meic{background:#fff8fc;border:1px solid #ead5f1;border-radius:14px;width:43px;height:43px}
-:root[data-palette="bunova"] .shophead{background:linear-gradient(125deg,#fff1f8,#f0e4fe);border:2px solid #fff}
-:root[data-palette="bunova"] .shgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
-:root[data-palette="bunova"] .shcard{background:linear-gradient(150deg,#fffaff,#f7e8fa);border:1px solid #e8d2ef;border-radius:23px;padding:15px;box-shadow:0 4px 10px #8e61a319}
-:root[data-palette="bunova"] .petc{border:2px solid var(--line);background:linear-gradient(145deg,var(--surface),var(--soft));border-radius:23px;min-height:180px;box-shadow:0 5px 12px #8d67a21c}
-:root[data-palette="bunova"] .petc.on{border-color:#b97bd3;background:#f7def9;box-shadow:0 0 0 2px #b97bd33b}
-:root[data-palette="bunova"] .petnow{background:linear-gradient(110deg,#fff7fc,#eee4fc);border:1px solid #e9d8f0;padding:14px;border-radius:22px}
-:root[data-palette="bunova"] .petgrid{gap:12px}
-:root[data-palette="bunova"] .journey{border:1px solid #eac9e5;background:linear-gradient(145deg,#fff8fd,#f2eafd)}
-:root[data-palette="bunova"] .hub{gap:10px}
-:root[data-palette="bunova"] .hub-t{background:linear-gradient(145deg,var(--surface),var(--soft));padding:13px;border:1px solid var(--line)}
-:root[data-palette="bunova"] .note,:root[data-palette="bunova"] details.fold{border-radius:21px}
-/* Respect readability when the learning interface is in a dark theme */
-:root[data-palette="bunova"][data-theme="dark"] .sb-home-intro h1,:root[data-palette="bunova"][data-theme="dark"] .sb-custom-head h1{color:var(--ink)}
-:root[data-palette="bunova"][data-theme="dark"] .sb-custom-controls{background:#302640}
-:root[data-palette="bunova"][data-theme="dark"] .edpanel{background:#403050}
-:root[data-palette="bunova"][data-theme="dark"] .edl{color:#efc5ff}
-:root[data-palette="bunova"][data-theme="dark"] .itm{background:#473453;border-color:#62486b}
-:root[data-palette="bunova"][data-theme="dark"] .itm.on{background:#66436d}
-:root[data-palette="bunova"][data-theme="dark"] .itl{color:#f4dafa}
-:root[data-palette="bunova"][data-theme="dark"] .sb-shortcuts button{background:#493651;color:#f5d5f4;border-color:#6a5274}
-@media(min-width:820px){
- :root[data-palette="bunova"] .tabs{position:sticky;top:78px;margin-bottom:18px;max-width:750px;margin-inline:auto;border-radius:22px;padding:6px}
- :root[data-palette="bunova"] .tabs a{flex-direction:row;justify-content:center;gap:7px;max-width:none;font-size:.79rem;padding:10px}
- :root[data-palette="bunova"] #app{max-width:1000px;margin:auto}
- :root[data-palette="bunova"] .housecard{width:min(100%,690px);align-self:center}
- .sb-home-intro{max-width:700px;width:100%;margin:auto}
-}
-@media(max-width:700px){
- .sb-custom-layout{grid-template-columns:1fr;gap:12px}
- .sb-preview{min-height:325px;max-height:355px}
- .sb-preview::before{top:3%;height:240px;width:214px}
- .sb-room-window{top:6%;height:213px;width:174px}
- .sb-preview .edav{height:258px;width:197px}
- .sb-preview-pet{bottom:35px;right:17%;width:65px;height:72px}
- .sb-preview-title{top:11px}.sb-preview-foot{padding:7px}
- .sb-float-star.s1{top:55px}.sb-float-star.s2{top:92px}
- .sb-custom-controls{padding:12px;border-radius:25px}
- :root[data-palette="bunova"] .edpanel{max-height:none;overflow:visible}
- :root[data-palette="bunova"] .itgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
- .sb-custom-head{padding:4px 5px}.sb-custom-head p{font-size:.8rem}
- :root[data-palette="bunova"] .mehead{align-items:center}
- :root[data-palette="bunova"] .mestage{width:124px;flex-basis:124px}
-}
-@media(max-width:390px){
- :root[data-palette="bunova"] .brand b{font-size:1.35rem}
- :root[data-palette="bunova"] #hstats .fire{display:none}
- .sb-star{padding:8px;font-size:.84rem}.sb-custom-head h1{font-size:1.47rem}
- .sb-profile-cta{flex-basis:82px;min-height:99px}.sb-home-intro{padding:8px}.sb-home-intro h1{font-size:1.48rem}
- .sb-shortcuts button{padding:6px 9px}.sb-save .btn{font-size:.78rem;padding:8px}
-}
-@media(prefers-reduced-motion:reduce){.sb-quick button,.itm{transition:none!important}}
 </style>
 </head><body>
 <div class="wrap">
 <header class="top">
- <div class="brand"><span id="logo" class="logo-slot" aria-hidden="true"></span><b>Bunova</b><span class="sb-brand-star" aria-hidden="true">✦</span></div>
+ <div class="brand"><span id="logo" class="logo-slot" aria-hidden="true"></span><b>Bunova</b><span>Russian</span></div>
  <div class="stats" id="hstats" aria-label="Streak and experience points"></div>
  <div class="tools">
   <button class="chip" id="tMode" aria-label="Switch to night mode" title="Day or night"><svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M5.3 18.7l1.9-1.9M16.8 7.2l1.9-1.9"/></svg><svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.2 8.2 0 1 0 20 14.2Z"/></svg></button>
@@ -3350,7 +3187,7 @@ function hubHTML(){const dn=doneCount(),due=ITEMS.filter(i=>isDue(i.id)).length,
  return `<nav class="hub" aria-label="Go to">${tile('learn','📚','Lessons',dn+' of '+LESSONS.length+' done')}${tile('study','🔁','Review',due?due+' due'+(mk?' · '+mk+' missed':''):mk?mk+' missed':'All caught up')}${tile('read','🎧','Listening',eps+' of '+EPISODES.length+' episodes')}${tile('talk','🗣️','Speak',Object.keys(S.talk).length+' of '+TALKS.length+' conversations')}${tile('games','🎮','Games',gb?'Best '+gb+' pairs':'Match race')}${tile('progress','📈','Progress',known+' words known')}</nav>`;}
 function vToday(){
  const nx=nextLesson(),plan=planSession(S.set.len),started=ITEMS.some(i=>S.cards[i.id]&&S.cards[i.id].seen),days=Object.keys(S.days).length;
- let h=`<section class="sb-home-intro"><div><span class="sb-kicker">✧ Добро пожаловать</span><h1>Your little Russian world <span>♡</span></h1><p>Every room is a new adventure. What shall we learn today?</p></div><button class="sb-profile-cta" data-act="goRoute" data-r="edit" aria-label="Customise your character">${avatarSVG(S.me.av,'head')}<span>Dress up ↗</span></button></section>`+houseHTML()+`<nav class="sb-quick" aria-label="Quick study paths"><button data-act="goRoute" data-r="learn"><span>📖</span><b>Learn</b><small>Lessons</small></button><button data-act="goRoute" data-r="read"><span>🎧</span><b>Listen</b><small>Stories</small></button><button data-act="goRoute" data-r="study"><span>🪄</span><b>Review</b><small>Recall</small></button><button data-act="goRoute" data-r="talk"><span>💬</span><b>Speak</b><small>Chat</small></button></nav>`+sessionCardHTML();
+ let h=houseHTML()+sessionCardHTML();
  if(audioMode==='error'&&voiceErr)h+=`<div class="note warn"><b>Voice problem.</b> ${esc(voiceErr)}<div class="row"><button class="btn alt sm" data-act="goRoute" data-r="settings">Settings: test the voice</button></div></div>`;
  const due=ITEMS.filter(i=>isDue(i.id)).length;
  h+=`<section class="card hero"><div class="mascot">${buniScene(null)}<div class="speech">${esc(buniSays(due,days,nx))}</div></div>${goalHTML()}</section>${coachHTML()}${tipHTML()}${journeyHTML()}${hubHTML()}<section class="card">`;
@@ -3999,7 +3836,7 @@ const PET_ODDS=[0,70,20,9,1];             /* shown to the learner before every o
 const PET_REFUND=[10,20,30,40,60];        /* Stars returned for a duplicate, so an orb is never wasted */
 const ORB_COST=50,ORB_PITY=10;
 const PETS=[
- ['chi','Milo','Common','A tiny white Chihuahua with enormous ears and an even bigger heart. Brave, nosy and always up for a trot down the hallway.','start'],
+ ['chi','Mochi','Common','A tiny white Chihuahua with enormous ears and an even bigger heart. Brave, nosy and always up for a trot down the hallway.','start'],
  ['beagle','Biscuit','Common','A floppy-eared beagle who wags at every new word and sniffs out the next lesson.','start'],
  ['ginger','Marmalade','Common','A ginger cat who sits on whichever page you are reading.','start'],
  ['black','Nyx','Common','A quiet black cat who watches over late-night study.','start'],
@@ -4260,20 +4097,20 @@ function vMe(){worldAward();const n=ownedCount(),total=AV_SHOP.length,pc=Object.
 document.addEventListener('input',e=>{const a=e.target;if(a&&a.id==='meName'){S.me.name=a.value.slice(0,20);save();}});
 
 /* ---------- Edit Character and Wardrobe ---------- */
-const ED_TABS=[['hair','Hairstyle'],['face','Face & eyes'],['outfit','Wardrobe'],['shoes','Shoes'],['extras','Accessories']];
+const ED_TABS=[['hair','Hair'],['face','Face'],['outfit','Outfit'],['shoes','Shoes'],['extras','Hats & extras']];
 const swatchBtn=(k,v,cur,label,extra)=>`<button class="sw2${String(cur)===String(v)?' on':''}" style="background:${extra||v}" data-act="avSet" data-k="${k}" data-v="${v}" aria-label="${esc(label)}" aria-pressed="${String(cur)===String(v)}"></button>`;
 function itemBtn(slot,id,label,view,cur,locked,price){const a=Object.assign({},S.me.av);a[slot]=id;const on=cur===id;
  return `<button class="itm${on?' on':''}${locked?' lock':''}" data-act="${locked?'goRoute':'avSet'}" ${locked?'data-r="shop"':`data-k="${slot}" data-v="${id}"`} aria-pressed="${on}" aria-label="${esc(label)}${locked?' (locked)':''}"><span class="itv">${avatarSVG(a,view)}</span><span class="itl">${esc(label)}</span>${locked?`<i class="itlock">${price?'★ '+price:'🔒'}</i>`:''}</button>`;}
 function slotItems(slot,free,view){const cur=S.me.av[slot],out=[];free.forEach(f=>out.push(itemBtn(slot,f[0],f[1],view,cur,false)));
  AV_SHOP.filter(i=>i[2]===slot).forEach(i=>{const id=i[0].split('.')[1],has=hasItem(i[0]);if(has)out.push(itemBtn(slot,id,i[1],view,cur,false));else if(i[8]||(i[6]?inSeason(i):shopAvailable(i[0])))out.push(itemBtn(slot,id,i[1],view,cur,true,i[3]||0));});return out.join('');}
-function vEdit(){worldAward();const t=ui.edTab||'hair',a=S.me.av;let h=`<section class="storybook-customiser"><div class="sb-custom-head"><div><span class="sb-kicker">✦ Your little world</span><h1>Make it yours <span aria-hidden="true">♡</span></h1><p>Dress up your character, choose a companion, and make Bunova feel like home.</p></div><div class="sb-star" aria-label="${stars()} earned stars">⭐ <b>${stars()}</b></div></div><div class="sb-custom-layout"><div class="sb-preview"><div class="sb-float-star s1" aria-hidden="true">✦</div><div class="sb-float-star s2" aria-hidden="true">✧</div><div class="sb-preview-title">YOUR CHARACTER <span>♡</span></div><div class="sb-room-window" aria-hidden="true"><i></i><i></i><i></i></div><div class="edav">${avatarSVG(a,'full')}</div>${S.me.pet?`<div class="sb-preview-pet" aria-label="Your pet, ${esc(PETBY[S.me.pet][1])}">${petSVG(S.me.pet)}</div>`:''}<div class="sb-preview-foot"><span>✧ &nbsp; A little magic in every lesson &nbsp; ✧</span></div></div><div class="sb-custom-controls"><nav class="sb-shortcuts" aria-label="Character and shop"><button data-act="goRoute" data-r="me">♡ My room</button><button data-act="goRoute" data-r="pets">🐾 Pets</button><button data-act="goRoute" data-r="shop">✦ Boutique</button></nav><div class="edtabs" role="tablist" aria-label="Customise character">${ED_TABS.map(x=>`<button role="tab" aria-selected="${x[0]===t}" class="edtab${x[0]===t?' on':''}" data-act="edTab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div><div class="edpanel">`;
+function vEdit(){worldAward();const t=ui.edTab||'hair',a=S.me.av;let h=`<section class="card edcard"><div class="edstage"><div class="edav">${avatarSVG(a,'full')}</div><div class="edtabs" role="tablist">${ED_TABS.map(x=>`<button role="tab" aria-selected="${x[0]===t}" class="edtab${x[0]===t?' on':''}" data-act="edTab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div></div><div class="edpanel">`;
  const lab=s=>`<div class="eyebrow edl">${s}</div>`;
  if(t==='hair'){h+=lab('Hair style')+`<div class="itgrid">${AV_HAIR.map(x=>itemBtn('hs',x[0],x[1],'head',a.hs,false)).join('')}</div>`+lab('Fringe')+`<div class="itgrid">${AV_FRINGE.map(x=>itemBtn('fr',x[0],x[1],'head',a.fr,false)).join('')}</div>`+lab('Hair colour')+`<div class="swrow">${AV_HAIRC.map(c=>swatchBtn('hc',c[0],a.hc,c[1])).join('')}${Object.keys(AV_OMBRE).filter(k=>hasItem('hc.'+k)).map(k=>swatchBtn('hc','g:'+k,a.hc,AV_OMBRE[k][0],'linear-gradient('+AV_OMBRE[k][1]+','+AV_OMBRE[k][2]+')')).join('')}</div>`+(Object.keys(AV_OMBRE).some(k=>!hasItem('hc.'+k))?`<p class="small muted">Ombré dyes are in the <a href="#shop" data-act="goRoute" data-r="shop">Boutique</a>.</p>`:'');}
  else if(t==='face'){h+=lab('Skin tone')+`<div class="swrow">${AV_SKINS.map((c,i)=>swatchBtn('skin',i,a.skin,'Skin tone '+(i+1),c)).join('')}</div>`+lab('Eye style')+`<div class="itgrid">${AV_EYES.map(x=>itemBtn('eyes',x[0],x[1],'head',a.eyes,false)).join('')}</div>`+lab('Eye colour')+`<div class="swrow">${AV_EYEC.map(c=>swatchBtn('ec',c[0],a.ec,c[1])).join('')}</div>`+lab('Eye size')+`<div class="row">${AV_ESIZE.map(x=>`<button class="btn alt sm${a.es===x[0]?' on':''}" data-act="avSet" data-k="es" data-v="${x[0]}" aria-pressed="${a.es===x[0]}">${x[1]}</button>`).join('')}</div>`+lab('Mouth')+`<div class="itgrid">${AV_MOUTH.map(x=>itemBtn('mo',x[0],x[1],'head',a.mo,false)).join('')}</div>`+lab('Blush')+`<div class="itgrid">${AV_BLUSH.map(x=>itemBtn('bl',x[0],x[1],'head',a.bl,false)).join('')}</div>`;}
  else if(t==='outfit'){h+=lab('Outfit')+`<div class="itgrid">${slotItems('fit',AV_FITS,'full')}</div>`+lab('Main colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('fc',c,a.fc,'Colour')).join('')}</div>`+lab('Accent colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('fa',c,a.fa,'Accent')).join('')}</div>`;}
  else if(t==='shoes'){h+=lab('Shoes')+`<div class="itgrid">${slotItems('shoe',AV_SHOES,'full')}</div>`+lab('Colour')+`<div class="swrow">${AV_FITC.map(c=>swatchBtn('sc',c,a.sc,'Colour')).join('')}</div>`;}
  else{h+=lab('Hats and hair accessories')+`<div class="itgrid">${slotItems('hat',AV_HATS,'head')}</div>`+lab('Extras and jewellery')+`<div class="itgrid">${slotItems('acc',AV_ACCS,'bust')}</div>`;}
- h+=`</div><div class="sb-save"><button class="btn alt" data-act="goRoute" data-r="shop">Visit boutique ✦</button><button class="btn" data-act="goRoute" data-r="me">✓ Save character</button></div></div></div></section>`;return h;}
+ h+=`</div><div class="row"><button class="btn alt grow" data-act="goRoute" data-r="shop">Boutique</button><button class="btn grow" data-act="goRoute" data-r="me">Done</button></div></section>`;return h;}
 
 /* ---------- daily rotation: the same stock all day, decided only by the date (nothing is stored, so a refresh can never change it) ---------- */
 const shopDayKey=(d)=>{d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
