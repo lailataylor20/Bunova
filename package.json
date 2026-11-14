@@ -1,0 +1,12 @@
+{
+  "name": "bunova-worker",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "node --check worker.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.135.0"
+  }
+}
