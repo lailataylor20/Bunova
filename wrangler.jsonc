@@ -2,15 +2,18 @@
   "name": "bunova",
   "main": "worker.js",
   "compatibility_date": "2025-11-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "keep_vars": true,
-  "vars": {
-    "BUNOVA_AZURE_REGION": "uksouth"
+  "observability": {
+    "enabled": true
   },
-  "observability": { "enabled": true },
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": [
+      "/api/*"
+    ]
   }
 }
