@@ -650,6 +650,110 @@ span.ic{background:none!important;padding:0!important;border:0!important;box-sha
 :root[data-theme="dark"] .bond{background:rgba(60,50,95,.55)}:root[data-theme="dark"] .mythcard{color:#3A2750}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bond{background:rgba(60,50,95,.55)}}
 @media (prefers-reduced-motion:reduce){.mythglow,.myaura,.myring,.mysp{animation:none!important}}
+
+
+/* BUNOVA STORYBOOK STUDY REDESIGN — adapted from Google AI Studio output */
+:root[data-palette="bunova"] {
+  --bg:#FAF3EA; --surface:#FFFDF9; --well:#F3E9DE;
+  --soft:#FCE7ED; --soft2:#F2C9D6; --line:#E8DACA;
+  --ink:#3B2838; --muted:#786374;
+  --accent:#C84B6E; --accent-sh:#9E3454; --accent2:#9E3454; --on-accent:#FFFFFF;
+  --sky:#2A8C86; --sky-sh:#1E6B66; --blue:#23767D; --blue-soft:#E1F2EF;
+  --lav-soft:#ECE6FA; --lav-ink:#6F56B0;
+  --peach-soft:#FDECE2; --peach-ink:#D66B44;
+  --butter-soft:#FDF2CE; --butter-ink:#A86D10;
+  --amber:#8C5510; --amber-soft:#FDF2CE; --sun:#E9B44C; --sun-sh:#C48F28;
+  --rose:#6F56B0; --good:#3A7F5E; --good-soft:#D8EDE0;
+  --bad:#B8433C; --bad-sh:#8E302A; --bad-soft:#F9DEDA;
+  --shadow:0 6px 18px rgba(75,45,65,.08),0 2px 0 rgba(215,198,180,.55);
+  --r:22px; --display:"Fredoka","Nunito","Rubik",system-ui,sans-serif;
+  --body:"Nunito","Rubik",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark) {
+  :root[data-palette="bunova"]:not([data-theme="light"]) {
+    --bg:#18152C; --surface:#231F3D; --well:#1C1833;
+    --soft:#36294C; --soft2:#4D3B6B; --line:#37315A;
+    --ink:#F4EEF8; --muted:#B6ACC9;
+    --accent:#E88CA8; --accent-sh:#B85F7B; --accent2:#F4B3C8; --on-accent:#241120;
+    --sky:#7AD3CD; --sky-sh:#4B9E98; --blue:#8ED8D4; --blue-soft:#1F3946;
+    --lav-soft:#2B254A; --lav-ink:#C5B2F5;
+    --peach-soft:#382834; --peach-ink:#F2A384;
+    --butter-soft:#362F24; --butter-ink:#F2C96B;
+    --amber:#F2C96B; --amber-soft:#362F24;
+    --good:#8FD0AE; --good-soft:#1F3A33;
+    --bad:#F0908A; --bad-sh:#B35A55; --bad-soft:#43262F;
+    --shadow:0 8px 24px rgba(8,6,20,.42);
+    color-scheme:dark;
+  }
+}
+:root[data-palette="bunova"][data-theme="dark"] {
+  --bg:#18152C; --surface:#231F3D; --well:#1C1833;
+  --soft:#36294C; --soft2:#4D3B6B; --line:#37315A;
+  --ink:#F4EEF8; --muted:#B6ACC9;
+  --accent:#E88CA8; --accent-sh:#B85F7B; --accent2:#F4B3C8; --on-accent:#241120;
+  --sky:#7AD3CD; --sky-sh:#4B9E98; --blue:#8ED8D4; --blue-soft:#1F3946;
+  --lav-soft:#2B254A; --lav-ink:#C5B2F5;
+  --peach-soft:#382834; --peach-ink:#F2A384;
+  --butter-soft:#362F24; --butter-ink:#F2C96B;
+  --amber:#F2C96B; --amber-soft:#362F24;
+  --good:#8FD0AE; --good-soft:#1F3A33;
+  --bad:#F0908A; --bad-sh:#B35A55; --bad-soft:#43262F;
+  --shadow:0 8px 24px rgba(8,6,20,.42);
+  color-scheme:dark;
+}
+:root[data-palette="bunova"] body {font-weight:500}
+:root[data-palette="bunova"] [lang="ru"],
+:root[data-palette="bunova"] .ru,
+:root[data-palette="bunova"] .rt,
+:root[data-palette="bunova"] .exru {
+  font-family:"Nunito","Rubik",system-ui,sans-serif;
+  line-height:1.55;
+}
+:root[data-palette="bunova"] .card {
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow),inset 0 1.5px 0 rgba(255,255,255,.65);
+}
+:root[data-palette="bunova"][data-theme="dark"] .card {
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06);
+}
+:root[data-palette="bunova"] .btn {
+  border-radius:16px; font-weight:800; text-transform:none; letter-spacing:0;
+  box-shadow:0 4px 0 var(--accent-sh),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .08s ease,box-shadow .08s ease,filter .15s ease;
+}
+:root[data-palette="bunova"] .btn:active:not(:disabled) {
+  transform:translateY(3px); box-shadow:0 1px 0 var(--accent-sh);
+}
+:root[data-palette="bunova"] .btn.alt {
+  background:var(--surface); color:var(--sky);
+  border:1.5px solid var(--line); box-shadow:0 3px 0 var(--line);
+}
+:root[data-palette="bunova"] .hub-t {
+  border-radius:20px; border:1.5px solid var(--line);
+  box-shadow:0 4px 0 var(--line); padding:14px 16px; color:var(--ink);
+}
+:root[data-palette="bunova"] .hub-t[data-r="study"] {background:var(--blue-soft);border-color:color-mix(in srgb,var(--sky) 28%,var(--line))}
+:root[data-palette="bunova"] .hub-t[data-r="read"] {background:var(--lav-soft);border-color:color-mix(in srgb,var(--lav-ink) 28%,var(--line))}
+:root[data-palette="bunova"] .hub-t[data-r="talk"] {background:var(--peach-soft);border-color:color-mix(in srgb,var(--peach-ink) 28%,var(--line))}
+:root[data-palette="bunova"] .hub-t[data-r="games"] {background:var(--butter-soft);border-color:color-mix(in srgb,var(--butter-ink) 28%,var(--line))}
+:root[data-palette="bunova"] .tabs {
+  background:color-mix(in srgb,var(--surface) 94%,transparent);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  border-top:1.5px solid var(--line); border-radius:22px 22px 0 0;
+  box-shadow:0 -4px 16px rgba(60,40,55,.06);
+}
+:root[data-palette="bunova"] .tabs a.on {
+  background:var(--soft); color:var(--accent); position:relative;
+}
+:root[data-palette="bunova"] .tabs a.on::after {
+  content:""; position:absolute; top:3px; width:18px; height:3px;
+  border-radius:99px; background:var(--accent);
+}
+@media (min-width:820px) {
+  :root[data-palette="bunova"] .tabs {border:1.5px solid var(--line);border-radius:22px}
+}
+
 /*END-BUNOVA-SKIN*/
 </style>
 </head><body>
