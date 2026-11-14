@@ -4483,11 +4483,11 @@ function havProp(room){const sv=(vb,inner,cls)=>`<svg class="hprop ${cls}" viewB
 /* Chloe's corner of the Games room: her sofa, her own small round bed and where she likes to be (house units, relative to the room) */
 const CH={sofa:[30,50],bed:[84,36],bowl:2};
 /* Games room layout: a permanent pastel sofa on the left, the dog bed on clear floor on the right, the bowl on the open floor between them */
-const chBedX=k=>k==='tea'?10:CH.bed[0];
-const sofaX=k=>k==='tea'?44:30,sofaW=k=>k==='tea'?76:50,sofaUp=k=>k==='tea'?2:0,dogBedX=k=>k==='tea'?2:58,bedCX=k=>dogBedX(k)+(k==='tea'?28:31);
+const chBedX=k=>k==='tea'?70:CH.bed[0],bedDy=k=>k==='tea'?8:0;
+const sofaX=k=>k==='tea'?48:30,sofaW=k=>k==='tea'?72:50,sofaUp=k=>k==='tea'?35:0,dogBedX=k=>k==='tea'?62:58,bedCX=k=>dogBedX(k)+(k==='tea'?25:31);
 const petRoom=(sl,id)=>id==='fred'?'studio':PETROOM[sl];
 function chloeSofaSVG(W){W=W||60;const c='#9CC9BE',dk=avShade(c,.16),lt=avSh(c,.1),cu='#B9DCD2',m=W/2;return `<svg viewBox="0 0 ${W} 34" aria-hidden="true"><ellipse cx="${m}" cy="32" rx="${m-2}" ry="2.4" fill="#00000016"/><rect x="7" y="1" width="${W-14}" height="19" rx="8" fill="${c}"/><rect x="7" y="1" width="${W-14}" height="6" rx="3" fill="${lt}" opacity=".7"/><rect x="1" y="11" width="13" height="19" rx="6" fill="${dk}"/><rect x="${W-14}" y="11" width="13" height="19" rx="6" fill="${dk}"/><rect x="2" y="12" width="12" height="5" rx="2.5" fill="${c}"/><rect x="${W-14}" y="12" width="12" height="5" rx="2.5" fill="${c}"/><rect x="11" y="15" width="${W-22}" height="12" rx="5" fill="${cu}"/>${W>70?`<path d="M${m-12} 16v10M${m+12} 16v10" stroke="${c}" stroke-width="1" opacity=".6"/>`:`<path d="M${m} 16v10" stroke="${c}" stroke-width="1" opacity=".6"/>`}<rect x="6" y="28" width="4" height="4" rx="1.4" fill="#A98B6B"/><rect x="${W-10}" y="28" width="4" height="4" rx="1.4" fill="#A98B6B"/><rect x="15" y="9" width="12" height="8" rx="4" fill="#F4B4C4" transform="rotate(-8 21 13)"/><path d="M17 12q4 2 8 0" stroke="#fff" stroke-width=".8" fill="none" opacity=".7" transform="rotate(-8 21 13)"/></svg>`;}
-const chloeSpot=(r,spot)=>spot==='bed'?{x:r[2]+chBedX(r[0])+CH.bed[1]/2,b:floorY(r)-3}:{x:r[2]+sofaX(r[0])+sofaW(r[0])/2+2,b:floorY(r)-9-sofaUp(r[0])};
+const chloeSpot=(r,spot)=>spot==='bed'?{x:r[2]+chBedX(r[0])+CH.bed[1]/2,b:floorY(r)-3+bedDy(r[0])}:{x:r[2]+sofaX(r[0])+sofaW(r[0])/2+2,b:floorY(r)-9-sofaUp(r[0])};
 const sofaSpot=r=>({x:r[2]+sofaX(r[0])+sofaW(r[0])/2+1,b:floorY(r)-9-sofaUp(r[0])});
 function houseCast(night){const v=S.me.vis||0,day=['lib','music','studio','tea','study'],bu=day[v%5],av=day[(v+2)%5],pet=S.me.pet||'';
  const at=(k,fx,wid,extra)=>{const r=roomOf(k);return `style="left:${hx(r[2]+fx)};bottom:${hbot(floorY(r)+2)};width:${hw(wid)}"`;};
@@ -4500,12 +4500,12 @@ function houseCast(night){const v=S.me.vis||0,day=['lib','music','studio','tea',
   const bu2=pet_&&bu==='tea'?'lib':bu,av2=pet_?'tea':av;
   const pose={lib:'read',music:'listen',studio:'speak',tea:'play',study:'think'}[bu2];const br=roomOf(bu2),ar=roomOf(av2);
   h+=`<div class="hc hbuni" data-room="${bu2}" style="left:${hx(br[2]+(bu2==='lib'?92:60))};bottom:${hbot(floorY(br)+2)};width:${hw(50)}">${buni(pose)}</div>`;
-  {const bx=bu2==='lib'?92:60,axx=pet_?122:(Math.abs(HAV_X[av2]-bx)<34&&av2===bu2?(bx>=80?30:100):HAV_X[av2]);h+=`<div class="hc hav ${pet_?'pets':'idle'}" data-room="${av2}" style="left:${hx(ar[2]+axx)};bottom:${hbot(floorY(ar)+2)};width:${hw(36)}">${avatarSVG(S.me.av,'full')}${pet_?'':havProp(av2)}</div>`;}
+  {const bx=bu2==='lib'?92:60,axx=pet_?44:(Math.abs(HAV_X[av2]-bx)<34&&av2===bu2?(bx>=80?30:100):HAV_X[av2]);h+=`<div class="hc hav ${pet_?'pets':'idle'}" data-room="${av2}" style="left:${hx(ar[2]+axx)};bottom:${hbot(floorY(ar)+2)};width:${hw(36)}">${avatarSVG(S.me.av,'full')}${pet_?'':havProp(av2)}</div>`;}
   if(pet_){h+=pettedHTML(pet);}
   if(!pet_)activePets().forEach((id,sl)=>{h+=petWalkHTML(sl,id,v);});
  }
-{const tr=roomOf('tea');h+=`<svg class="hc hsofa" viewBox="0 0 40 70" style="left:${hx(tr[2]+126)};bottom:${hbot(floorY(tr)+1-2)};width:${hw(36)}" aria-hidden="true"><ellipse cx="20" cy="68" rx="18" ry="2.4" fill="#00000018"/><rect x="5" y="44" width="4" height="24" rx="1.6" fill="#8E7A9E"/><rect x="31" y="44" width="4" height="24" rx="1.6" fill="#8E7A9E"/><rect x="3" y="1" width="34" height="24" rx="4" fill="#BBA4E3"/><rect x="6" y="4" width="28" height="13" rx="2.5" fill="${night?'#2B2848':'#FFF1C2'}"/><path d="M10 11h5M18 8v6M22 11h8" stroke="#F4A8C4" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="21" r="1.4" fill="#9FDDBF"/><circle cx="20" cy="21" r="1.4" fill="#F2DCA7"/><circle cx="28" cy="21" r="1.4" fill="#F4A8C4"/><path d="M7 27h26l5 22H2z" fill="#F4A8C4"/><path d="M10 29h20l3.4 16H6.6z" fill="#CFEBF6" opacity=".95"/><path d="M12 30l-2 14M28 30l2 14" stroke="#fff" stroke-width="1" opacity=".6"/><circle cx="15" cy="34" r="2.6" fill="#F2DCA7" stroke="#E2B95A" stroke-width=".8"/><circle cx="25" cy="35" r="2.6" fill="#9FDDBF" stroke="#6FBF9B" stroke-width=".8"/><circle cx="20" cy="40" r="2" fill="#BBA4E3"/><path d="M12 43l5 2.4M28 43l-5 2.4" stroke="#E27D9F" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="31" r="1.3" fill="#fff" stroke="#9A9AB0" stroke-width=".6"/><rect x="2" y="48" width="36" height="7" rx="3" fill="#E27D9F"/><rect x="15" y="50" width="10" height="2.6" rx="1.3" fill="#fff" opacity=".7"/></svg><svg class="hdeco" viewBox="0 0 28 22" style="left:${hx(tr[2]+56)};top:${hy(tr[3]+34)};width:${hw(28)}" aria-hidden="true"><rect x="1" y="1" width="26" height="20" rx="3" fill="${night?'#2B2848':'#FBF4EC'}" stroke="#B8946F" stroke-width="1.6"/><path d="M7 8h14a4 4 0 0 1 4 5l-1 3a2.2 2.2 0 0 1-3.6.6L19 15h-10l-1.4 1.6A2.2 2.2 0 0 1 4 16l-1-3a4 4 0 0 1 4-5z" fill="#BBA4E3"/><path d="M8 10.4v3M6.5 11.9h3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="18.6" cy="10.8" r="1" fill="#F4A8C4"/><circle cx="21" cy="12.8" r="1" fill="#9FDDBF"/></svg>`;}
-  {const tr=roomOf('tea');h+=`<div class="hc hsofa" aria-hidden="true" style="left:${hx(tr[2]+sofaX('tea'))};bottom:${hbot(floorY(tr)+1-sofaUp('tea'))};width:${hw(sofaW('tea'))}">${chloeSofaSVG(76)}</div>`;}
+{const tr=roomOf('tea');h+=`<svg class="hc hsofa" viewBox="0 0 40 82" style="left:${hx(tr[2]+126)};bottom:${hbot(floorY(tr)-34)};width:${hw(36)}" aria-hidden="true"><rect x="3" y="1" width="34" height="36" rx="4" fill="#BBA4E3"/><rect x="6" y="4" width="28" height="21" rx="2.5" fill="${night?'#2B2848':'#FFF1C2'}"/><path d="M10 14h5M18 9v10M22 14h8" stroke="#F4A8C4" stroke-width="2" stroke-linecap="round"/><path d="M9 21h22" stroke="#9FDDBF" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="31" r="1.6" fill="#9FDDBF"/><circle cx="20" cy="31" r="1.6" fill="#F2DCA7"/><circle cx="28" cy="31" r="1.6" fill="#F4A8C4"/><g transform="translate(0 12)"><ellipse cx="20" cy="68" rx="18" ry="2.4" fill="#00000018"/><rect x="5" y="44" width="4" height="24" rx="1.6" fill="#8E7A9E"/><rect x="31" y="44" width="4" height="24" rx="1.6" fill="#8E7A9E"/><path d="M7 27h26l5 22H2z" fill="#F4A8C4"/><path d="M10 29h20l3.4 16H6.6z" fill="#CFEBF6" opacity=".95"/><path d="M12 30l-2 14M28 30l2 14" stroke="#fff" stroke-width="1" opacity=".6"/><circle cx="15" cy="34" r="2.6" fill="#F2DCA7" stroke="#E2B95A" stroke-width=".8"/><circle cx="25" cy="35" r="2.6" fill="#9FDDBF" stroke="#6FBF9B" stroke-width=".8"/><circle cx="20" cy="40" r="2" fill="#BBA4E3"/><path d="M12 43l5 2.4M28 43l-5 2.4" stroke="#E27D9F" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="31" r="1.3" fill="#fff" stroke="#9A9AB0" stroke-width=".6"/><rect x="2" y="48" width="36" height="7" rx="3" fill="#E27D9F"/><rect x="15" y="50" width="10" height="2.6" rx="1.3" fill="#fff" opacity=".7"/></g></svg><svg class="hdeco" viewBox="0 0 28 22" style="left:${hx(tr[2]+56)};top:${hy(tr[3]+34)};width:${hw(28)}" aria-hidden="true"><rect x="1" y="1" width="26" height="20" rx="3" fill="${night?'#2B2848':'#FBF4EC'}" stroke="#B8946F" stroke-width="1.6"/><path d="M7 8h14a4 4 0 0 1 4 5l-1 3a2.2 2.2 0 0 1-3.6.6L19 15h-10l-1.4 1.6A2.2 2.2 0 0 1 4 16l-1-3a4 4 0 0 1 4-5z" fill="#BBA4E3"/><path d="M8 10.4v3M6.5 11.9h3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="18.6" cy="10.8" r="1" fill="#F4A8C4"/><circle cx="21" cy="12.8" r="1" fill="#9FDDBF"/></svg>`;}
+  {const tr=roomOf('tea');h+=`<div class="hc hsofa" aria-hidden="true" style="left:${hx(tr[2]+sofaX('tea'))};bottom:${hbot(floorY(tr)+1-sofaUp('tea'))};width:${hw(sofaW('tea'))}">${chloeSofaSVG(72)}</div>`;}
  activePets().forEach((id,sl)=>{h+=petFurnitureHTML(sl,id,night);});h+=petBowlHTML();
  const d=S.me.deco||{};
  if(d['deco.lights'])h+=`<svg class="hdeco" viewBox="0 0 164 20" style="left:${hx(192)};top:${hy(420+8)};width:${hw(164)}" aria-hidden="true"><path d="M2 4Q40 22 82 6Q124 22 162 4" fill="none" stroke="#9a8a7a" stroke-width="1"/>${[14,34,56,80,104,126,148].map((x,i)=>`<circle class="bulb" style="animation-delay:${i*.4}s" cx="${x}" cy="${8+Math.sin(x/26)*5+5}" r="2.6" fill="${['#F4A8C4','#F2DCA7','#9FDDBF','#BBA4E3'][i%4]}"/>`).join('')}</svg>`;
@@ -4516,7 +4516,7 @@ function houseCast(night){const v=S.me.vis||0,day=['lib','music','studio','tea',
 /* the food bowl: tap to fill it; the pet is happy for a few hours. Pure decoration, nothing is unlocked or lost. */
 /* only a dog or a cat eats from it: it sits just left of the larger one's bed, on the floor of that pet's own room, so it never touches a pet's resting place or walking path */
 function bowlSpec(){let best=null;activePets().forEach((id,sl)=>{if(!(isDog(id)||isCat(id)))return;if(!best||petW(id)>petW(best.id))best={id,sl};});
- if(!best)return null;const ch=best.id==='chloe';const rm=petRoom(best.sl,best.id),t=rm==='tea';return {room:rm,x:ch?(t?76:6):(t?76:28),w:ch?20:22,dy:t?11:0};}
+ if(!best)return null;const ch=best.id==='chloe';const rm=petRoom(best.sl,best.id),t=rm==='tea';return {room:rm,x:ch?(t?34:6):(t?34:28),w:ch?20:22,dy:t?8:0};}
 function petBowlHTML(){const b=bowlSpec();if(!b)return '';const r=roomOf(b.room),full=S.me.fedAt&&Date.now()-S.me.fedAt<6*36e5;
  return `<button type="button" class="hc hbowl${full?' full':''}" data-act="feedPet" aria-label="${full?'Food bowl, full':'Food bowl, empty. Tap to fill it'}" style="left:${hx(r[2]+b.x)};bottom:${hbot(floorY(r)+1+(b.dy||0))};width:${hw(b.w)}"><svg viewBox="0 0 40 26" aria-hidden="true"><ellipse cx="20" cy="22" rx="17" ry="3.4" fill="#00000014"/><g class="kib" fill="#C98A52">${[[11,8],[17,5],[23,6],[29,8],[14,10],[26,10],[20,8]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3"/>`).join('')}</g><path d="M3 11h34q-1 11-8 13h-18q-7-2-8-13z" fill="#F4A0BC"/><path d="M3 11h34" stroke="#E27D9F" stroke-width="2" stroke-linecap="round"/><path d="M11 17q9 3 18 0" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8"/></svg></button>`;}
 
@@ -4559,25 +4559,25 @@ const PETROOM=['tea','bed'];
 const activePets=()=>{const m=S.me,a=[];if(m.pet&&PETBY[m.pet])a.push(m.pet);if(m.slot2&&m.pet2&&PETBY[m.pet2]&&m.pet2!==m.pet&&m.pets[m.pet2])a.push(m.pet2);return a;};
 const FG={cage:[4,52]};
 function fredSpot(r,spot){const k=FG.cage[1]/120,x0=r[2]+FG.cage[0],fl=floorY(r);return spot==='wheel'?{x:x0+90*k,b:fl-9}:spot==='sleep'?{x:x0+30*k,b:fl-7}:{x:x0+62*k,b:fl-7};}
-const petDefSit=(r,id,w)=>({x:r[2]+bedCX(r[0]),b:floorY(r)+9});
+const petDefSit=(r,id,w)=>({x:r[2]+bedCX(r[0]),b:floorY(r)+9+bedDy(r[0])});
 const spotFor=(id,r,spot)=>id==='chloe'?chloeSpot(r,spot==='bed'?'bed':'sofa'):id==='fred'?fredSpot(r,spot):petDefSit(r,id);
 const petBox=(id,x,b)=>`left:${hx(x-petW(id)/2)};bottom:${hbot(b)};width:${hw(petW(id))}`;
 function petNightHTML(sl,id){const r=roomOf(petRoom(sl,id));let x,b;
- if(id==='chloe'||id==='fred'){const sp=spotFor(id,r,id==='fred'?'sleep':'bed');x=sp.x;b=sp.b;}else{x=r[2]+bedCX(r[0])-(r[0]==='tea'?0:0);b=floorY(r)+(isDog(id)||isCat(id)?-5:9);}
+ if(id==='chloe'||id==='fred'){const sp=spotFor(id,r,id==='fred'?'sleep':'bed');x=sp.x;b=sp.b;}else{x=r[2]+bedCX(r[0])-(r[0]==='tea'?0:0);b=floorY(r)+(isDog(id)||isCat(id)?-5:9)+bedDy(r[0]);}
  return `<div class="hc hpet sleep" data-pet="${id}" data-slot="${sl}" style="${petBox(id,x,b)}">${petSideSVG(id,true)}</div>`;}
 function pettedHTML(pet){const r=roomOf('tea');
- return `<div class="hc hpet petted" data-pet="${pet}" data-slot="0" data-room="tea" style="left:${hx(r[2]+(isDog(pet)?76:isCat(pet)?78:80))};bottom:${hbot(floorY(r)+3)};width:${hw(petW(pet))}">${petSideSVG(pet,false)}</div><div class="hhearts" aria-hidden="true" style="left:${hx(r[2]+(isDog(pet)?104:100))};bottom:${hbot(floorY(r)-32)}"><i>♥</i><i>♥</i><i>♥</i></div>`;}
+ return `<div class="hc hpet petted" data-pet="${pet}" data-slot="0" data-room="tea" style="left:${hx(r[2]+(isDog(pet)?8:isCat(pet)?10:12))};bottom:${hbot(floorY(r)+8)};width:${hw(petW(pet))}">${petSideSVG(pet,false)}</div><div class="hhearts" aria-hidden="true" style="left:${hx(r[2]+(isDog(pet)?44:42))};bottom:${hbot(floorY(r)-20)}"><i>♥</i><i>♥</i><i>♥</i></div>`;}
 function petWalkHTML(sl,id,v){const home=petRoom(sl,id),r=roomOf(home),w=petW(id),special=id==='chloe'||id==='fred';
  if(special){const spot=id==='chloe'?['sofa','bed','sofanap'][(v+sl)%3]:['idle','sleep','idle'][(v+sl)%3],sp=spotFor(id,r,spot);const nap=spot==='bed'||spot==='sofanap'||spot==='sleep';
   return `<div class="hc hpet walk ${id==='fred'?'ham':'chl'}${nap?' nap':''}" data-pet="${id}" data-slot="${sl}" data-home="${home}" data-room="${home}" data-spot="${spot}" style="${petBox(id,sp.x,sp.b)}"><span class="psit" style="width:${Math.round(petSit(id)/w*100)}%">${petSVG(id)}</span><span class="pwalk">${petSideSVG(id,false)}</span><span class="pnap">${petSideSVG(id,true)}</span></div>`;}
  const sp=isDog(id)||isCat(id),pct=sp?Math.round(PET_SIT/w*100):100;
- return `<div class="hc hpet walk${sp?'':' nosd'}" data-pet="${id}" data-slot="${sl}" data-home="${home}" data-room="${home}" style="left:${hx(r[2]+bedCX(home)-w/2)};bottom:${hbot(floorY(r)+9)};width:${hw(w)}"><span class="psit" style="width:${pct}%">${petSVG(id)}</span><span class="pwalk">${petSideSVG(id,false)}</span></div>`;}
+ return `<div class="hc hpet walk${sp?'':' nosd'}" data-pet="${id}" data-slot="${sl}" data-home="${home}" data-room="${home}" style="left:${hx(r[2]+bedCX(home)-w/2)};bottom:${hbot(floorY(r)+9+bedDy(home))};width:${hw(w)}"><span class="psit" style="width:${pct}%">${petSVG(id)}</span><span class="pwalk">${petSideSVG(id,false)}</span></div>`;}
 function petFurnitureHTML(sl,id,night){const r=roomOf(petRoom(sl,id)),fl=floorY(r);let h='';
  if(id==='fred'){const g=FG.cage;h+=`<div class="hc hbed hcage" data-slot="${sl}" aria-hidden="true" style="left:${hx(r[2]+g[0])};bottom:${hbot(fl+1)};width:${hw(g[1])}">${petBedSVG(id)}</div><div class="hc hbed hbars" aria-hidden="true" style="left:${hx(r[2]+g[0])};bottom:${hbot(fl+1)};width:${hw(g[1])}">${petCageFrontSVG()}</div>`;return h;}
- const ch=id==='chloe',bx=ch?chBedX(r[0]):dogBedX(r[0]),bw=ch?CH.bed[1]:(r[0]==='tea'?56:62);
+ const ch=id==='chloe',bx=ch?chBedX(r[0]):dogBedX(r[0]),bw=ch?CH.bed[1]:(r[0]==='tea'?50:62);
  if(ch&&r[0]!=='tea')h+=`<div class="hc hsofa" aria-hidden="true" style="left:${hx(r[2]+sofaX(r[0]))};bottom:${hbot(fl+1)};width:${hw(CH.sofa[1])}">${chloeSofaSVG()}</div>`;
- h+=`<div class="hc hbed" aria-hidden="true" style="left:${hx(r[2]+bx)};bottom:${hbot(fl+1)};width:${hw(bw)}">${petBedSVG(id)}</div>`;
- if(night&&(isDog(id)||isCat(id)))h+=`<div class="hc hbed hbedfront" aria-hidden="true" style="left:${hx(r[2]+bx)};bottom:${hbot(fl+1)};width:${hw(bw)}">${petBedSVG(id)}</div>`;
+ h+=`<div class="hc hbed" aria-hidden="true" style="left:${hx(r[2]+bx)};bottom:${hbot(fl+1+bedDy(r[0]))};width:${hw(bw)}">${petBedSVG(id)}</div>`;
+ if(night&&(isDog(id)||isCat(id)))h+=`<div class="hc hbed hbedfront" aria-hidden="true" style="left:${hx(r[2]+bx)};bottom:${hbot(fl+1+bedDy(r[0]))};width:${hw(bw)}">${petBedSVG(id)}</div>`;
  return h;}
 /* where the characters are right now, so a pet never wanders into the same room */
 function busyRooms(except){const o=new Set();document.querySelectorAll('.hav[data-room],.hbuni[data-room],.hpet.walk').forEach(e=>{if(e!==except&&e.dataset.room)o.add(e.dataset.room);});return o;}
@@ -4588,7 +4588,7 @@ function petStep(el){const id=el.dataset.pet;if(id==='chloe')return chloeStep(el
  const away=home&&Math.random()>=.25?roamRoom(el):null;
  if(!away&&homeK==='tea'&&(isDog(id)||isCat(id))&&Math.random()<.35&&el.dataset.spot!=='sofa'){const sp=sofaSpot(hr);trotTo(el,sp.x,sp.b,homeK);el.dataset.spot='sofa';return;}
  el.dataset.spot='';
- if(away){const r=roomOf(away);rk=away;x=r[2]+(Math.random()<.5?30:100);bot=floorY(r)+3;}else{x=hr[2]+bedCX(homeK);bot=floorY(hr)+9;rk=homeK;}
+ if(away){const r=roomOf(away);rk=away;x=r[2]+(Math.random()<.5?30:100);bot=floorY(r)+3;}else{x=hr[2]+bedCX(homeK);bot=floorY(hr)+9+bedDy(homeK);rk=homeK;}
  trotTo(el,x,bot,rk);}
 function chloeStep(el){const hk=el.dataset.home||'tea',tea=roomOf(hk),w=petW('chloe'),cur=el.dataset.spot||'sofa',r=Math.random();
  let spot=r<.34?'sofa':r<.62?'sofanap':r<.9?'bed':'roam';if(spot===cur&&spot!=='roam')spot=cur==='sofa'?'bed':'sofa';
@@ -4844,6 +4844,801 @@ es:{code:'es',name:'Spanish',flag:'🇪🇸',native:'Español',locale:'es-ES',vo
    ['Un café, por favor.','oon ka-FEH por fa-BOR','A coffee, please.','']]}
  ]}
 };
+/* ---------- FRENCH: lessons 4 to 17 (appended to the course in langdata.js) ----------
+   phrase = [text, pronunciation hint, English, note]   dialogue line = [speaker, text, English] */
+LCOURSE.fr.lessons.push(
+ {id:'fr4',title:'Les nombres',sub:'Numbers 1 to 20 and your age',emoji:'🔢',
+  tip:'“Un” is masculine and “une” is feminine, so you say “un café” but “une table”. Numbers from 17 to 19 are built as “ten-seven”: dix-sept, dix-huit, dix-neuf.',
+  phrases:[
+   ['Un, deux, trois','un duh trwa','One, two, three',''],
+   ['Quatre, cinq, six','KA-truh sank seess','Four, five, six','The “c” of “cinq” is pronounced here.'],
+   ['Sept, huit, neuf, dix','set weet nuf deess','Seven, eight, nine, ten',''],
+   ['Onze, douze, treize','onz dooz trez','Eleven, twelve, thirteen',''],
+   ['Quatorze, quinze, seize','ka-TORZ kanz sez','Fourteen, fifteen, sixteen',''],
+   ['Dix-sept, dix-huit, dix-neuf, vingt','dee-SET dee-ZWEET deez-NUF van','Seventeen, eighteen, nineteen, twenty',''],
+   ['Quel âge avez-vous ?','kel ahzh a-vay VOO','How old are you? (formal)',''],
+   ['J\'ai vingt-cinq ans.','zhay van-sank ON','I am twenty-five.','French says “I have 25 years”, never “I am 25”.'],
+   ['Il y a deux chats.','eel ee ya duh SHA','There are two cats.','“Il y a” means both “there is” and “there are”.']]},
+ {id:'fr5',title:'La famille',sub:'Family and people',emoji:'👨‍👩‍👧',
+  tip:'“Mon, ma, mes” mean “my”. Use “mon” before a masculine word (mon père), “ma” before a feminine one (ma mère) and “mes” for plurals (mes parents).',
+  phrases:[
+   ['Voici ma famille.','vwa-SEE ma fa-MEE','This is my family.',''],
+   ['Mon père et ma mère','mon pair ay ma mair','My father and my mother',''],
+   ['Mon frère et ma sœur','mon frair ay ma suhr','My brother and my sister',''],
+   ['J\'ai deux enfants.','zhay duh zon-FON','I have two children.',''],
+   ['Mon mari / ma femme','mon ma-REE / ma fam','My husband / my wife',''],
+   ['Mes grands-parents','may gron pa-RON','My grandparents',''],
+   ['Mon ami / mon amie','mon na-MEE','My friend (male / female)','Spelled differently, pronounced the same.'],
+   ['Il s\'appelle Paul.','eel sa-PEL pol','His name is Paul.',''],
+   ['Elle est très gentille.','el ay tray zhon-TEEY','She is very kind.','']],
+  dialog:[
+   ['f','Tu as des frères et sœurs ?','Do you have brothers and sisters?'],
+   ['m','Oui, j\'ai une sœur et un frère.','Yes, I have a sister and a brother.'],
+   ['f','Ils habitent à Paris ?','Do they live in Paris?'],
+   ['m','Ma sœur, oui. Mon frère habite à Lyon.','My sister does. My brother lives in Lyon.']]},
+ {id:'fr6',title:'Au café',sub:'Ordering food and drink',emoji:'🥐',
+  tip:'In a French café you can sit down and wait: the waiter comes to you. Say “Je voudrais…” (I would like) instead of “Je veux” (I want), which sounds blunt.',
+  phrases:[
+   ['Je voudrais un café.','zhuh voo-DRAY un ka-FAY','I would like a coffee.',''],
+   ['Un thé au lait, s\'il vous plaît.','un tay oh LAY seel voo PLEH','A tea with milk, please.',''],
+   ['Un croissant et un jus d\'orange','un krwa-SON ay un zhew do-RONZH','A croissant and an orange juice',''],
+   ['Une bouteille d\'eau','oon boo-TAY doh','A bottle of water',''],
+   ['Un verre de vin rouge','un vair duh van roozh','A glass of red wine',''],
+   ['C\'est tout, merci.','say TOO mair-SEE','That is all, thank you.',''],
+   ['L\'addition, s\'il vous plaît.','la-dee-SYON seel voo PLEH','The bill, please.','Waiters rarely bring it unless you ask.'],
+   ['Vous acceptez les cartes ?','voo zak-sep-TAY lay KART','Do you take cards?','']],
+  dialog:[
+   ['m','Bonjour, vous désirez ?','Hello, what would you like?'],
+   ['f','Je voudrais un café et un croissant, s\'il vous plaît.','I would like a coffee and a croissant, please.'],
+   ['m','Très bien. Et avec ça ?','Very well. Anything else?'],
+   ['f','C\'est tout, merci.','That is all, thank you.']]},
+ {id:'fr7',title:'Au restaurant',sub:'Tables, menus and the bill',emoji:'🍽️',
+  tip:'“Le menu” in a French restaurant is a fixed-price set meal. The list of dishes is “la carte”. Tell the waiter about allergies early: “Je suis allergique aux noix”.',
+  phrases:[
+   ['Une table pour deux, s\'il vous plaît.','oon TA-bluh poor DUH seel voo PLEH','A table for two, please.',''],
+   ['La carte, s\'il vous plaît.','la KART seel voo PLEH','The menu, please.',''],
+   ['Qu\'est-ce que vous recommandez ?','kes-kuh voo ruh-ko-mon-DAY','What do you recommend?',''],
+   ['Je prends le poulet avec des frites.','zhuh pron luh poo-LAY a-vek day FREET','I will have the chicken with fries.',''],
+   ['Je suis végétarien.','zhuh swee vay-zhay-ta-RYAN','I am vegetarian. (a woman: végétarienne)',''],
+   ['Je suis allergique aux noix.','zhuh sweez a-lair-ZHEEK oh NWA','I am allergic to nuts.',''],
+   ['C\'est délicieux !','say day-lee-SYUH','It is delicious!',''],
+   ['Bon appétit !','bo na-pay-TEE','Enjoy your meal!','Said by everyone at the table.'],
+   ['On peut partager l\'addition ?','on puh par-ta-ZHAY la-dee-SYON','Can we split the bill?','']],
+  dialog:[
+   ['m','Bonsoir, vous avez réservé ?','Good evening, did you book?'],
+   ['f','Oui, au nom de Martin, pour deux personnes.','Yes, under Martin, for two people.'],
+   ['m','Parfait. Voici la carte.','Perfect. Here is the menu.'],
+   ['f','Merci. Qu\'est-ce que vous recommandez ?','Thank you. What do you recommend?'],
+   ['m','Le poisson du jour est excellent.','The fish of the day is excellent.']]},
+ {id:'fr8',title:'Où est… ?',sub:'Directions and places',emoji:'🧭',
+  tip:'“Tout droit” is straight on, “à gauche” left and “à droite” right. For “near” say “près d\'ici”, for “far” say “loin”. Add “s\'il vous plaît” and people will happily help.',
+  phrases:[
+   ['Où est la gare ?','oo ay la GAR','Where is the station?',''],
+   ['Où sont les toilettes ?','oo son lay twa-LET','Where are the toilets?',''],
+   ['C\'est loin d\'ici ?','say lwan dee-SEE','Is it far from here?',''],
+   ['Allez tout droit.','a-lay too DRWA','Go straight on.',''],
+   ['Tournez à gauche.','toor-nay a GOHSH','Turn left.',''],
+   ['Tournez à droite.','toor-nay a DRWAT','Turn right.',''],
+   ['C\'est à côté de la banque.','say ta ko-TAY duh la BONK','It is next to the bank.',''],
+   ['C\'est en face de la poste.','say ton FAS duh la POST','It is opposite the post office.',''],
+   ['C\'est à dix minutes à pied.','say ta dee mee-NEWT a PYAY','It is ten minutes on foot.','']],
+  dialog:[
+   ['f','Excusez-moi, où est la pharmacie ?','Excuse me, where is the pharmacy?'],
+   ['m','Allez tout droit, puis tournez à gauche.','Go straight on, then turn left.'],
+   ['f','C\'est loin ?','Is it far?'],
+   ['m','Non, c\'est à cinq minutes à pied.','No, it is five minutes on foot.'],
+   ['f','Merci beaucoup !','Thank you very much!']]},
+ {id:'fr9',title:'Le temps',sub:'Days, time and dates',emoji:'⏰',
+  tip:'French days and months are not capitalised: lundi, mardi, janvier. In the 24-hour clock “quinze heures” is 3 pm; in conversation people say “trois heures de l\'après-midi”.',
+  phrases:[
+   ['Quelle heure est-il ?','kel UHR ay-TEEL','What time is it?',''],
+   ['Il est trois heures.','eel ay trwa ZUHR','It is three o\'clock.',''],
+   ['Il est midi et demi.','eel ay mee-DEE ay duh-MEE','It is half past twelve.',''],
+   ['Lundi, mardi, mercredi','lun-DEE mar-DEE mair-kruh-DEE','Monday, Tuesday, Wednesday',''],
+   ['Jeudi, vendredi, samedi, dimanche','zhuh-DEE von-druh-DEE sam-DEE dee-MONSH','Thursday, Friday, Saturday, Sunday',''],
+   ['Aujourd\'hui, demain, hier','oh-zhoor-DWEE duh-MAN yair','Today, tomorrow, yesterday',''],
+   ['Le matin, l\'après-midi, le soir','luh ma-TAN la-pray-mee-DEE luh SWAR','Morning, afternoon, evening',''],
+   ['À quelle heure ça commence ?','a kel UHR sa ko-MONS','What time does it start?',''],
+   ['Je suis libre samedi.','zhuh swee LEE-bruh sam-DEE','I am free on Saturday.','No word for “on” before a day.']]},
+ {id:'fr10',title:'Faire les courses',sub:'Shopping and prices',emoji:'🛍️',
+  tip:'In small shops greet first (“Bonjour !”), and say “Au revoir, bonne journée” as you leave. Prices are written 4,50 € with a comma, and said “quatre euros cinquante”.',
+  phrases:[
+   ['Je cherche une chemise.','zhuh shairsh oon shuh-MEEZ','I am looking for a shirt.',''],
+   ['Combien ça coûte ?','kom-BYAN sa KOOT','How much is it?',''],
+   ['C\'est trop cher.','say tro SHAIR','It is too expensive.',''],
+   ['Vous avez une taille plus grande ?','voo za-vay oon TAY plew GROND','Do you have a bigger size?',''],
+   ['Je peux l\'essayer ?','zhuh puh lay-say-YAY','Can I try it on?',''],
+   ['Je le prends.','zhuh luh PRON','I will take it.','“La prends” for a feminine thing.'],
+   ['Un kilo de pommes, s\'il vous plaît.','un kee-LOH duh POM seel voo PLEH','A kilo of apples, please.',''],
+   ['Je regarde seulement, merci.','zhuh ruh-GARD suhl-MON mair-SEE','I am just looking, thanks.',''],
+   ['Où est la caisse ?','oo ay la KES','Where is the checkout?','']],
+  dialog:[
+   ['m','Bonjour, je peux vous aider ?','Hello, can I help you?'],
+   ['f','Oui, je cherche un pull bleu.','Yes, I am looking for a blue jumper.'],
+   ['m','Voilà. Il coûte quarante euros.','Here you are. It costs forty euros.'],
+   ['f','Je peux l\'essayer ?','Can I try it on?'],
+   ['m','Bien sûr, la cabine est là-bas.','Of course, the fitting room is over there.']]},
+ {id:'fr11',title:'En voyage',sub:'Transport and tickets',emoji:'🚆',
+  tip:'Validate (“composter”) paper train tickets before you board, and always keep your ticket for the whole journey. “Un aller simple” is one way, “un aller-retour” is a return.',
+  phrases:[
+   ['Un billet pour Lyon, s\'il vous plaît.','un bee-YAY poor lee-ON seel voo PLEH','A ticket to Lyon, please.',''],
+   ['Un aller simple','un a-LAY SAM-pluh','A one-way ticket',''],
+   ['Un aller-retour','un a-lay ruh-TOOR','A return ticket',''],
+   ['À quelle heure part le train ?','a kel UHR par luh TRAN','What time does the train leave?',''],
+   ['De quel quai ?','duh kel KAY','From which platform?',''],
+   ['Ce train va à Marseille ?','suh tran va a mar-SAY','Does this train go to Marseille?',''],
+   ['Où est l\'arrêt de bus ?','oo ay la-RAY duh BEWSS','Where is the bus stop?',''],
+   ['Je voudrais un taxi.','zhuh voo-DRAY un tak-SEE','I would like a taxi.',''],
+   ['Le train est en retard.','luh tran ay ton ruh-TAR','The train is late.','']],
+  dialog:[
+   ['f','Bonjour, un aller-retour pour Bordeaux, s\'il vous plaît.','Hello, a return to Bordeaux, please.'],
+   ['m','Pour quelle date ?','For which date?'],
+   ['f','Pour demain, le matin.','For tomorrow, in the morning.'],
+   ['m','Il y a un train à huit heures. C\'est quarante-cinq euros.','There is a train at eight. It is forty-five euros.']]},
+ {id:'fr12',title:'L\'hôtel',sub:'Booking and staying',emoji:'🏨',
+  tip:'“Réserver” is to book. For a single night say “pour une nuit”. Breakfast is often extra: ask “Le petit-déjeuner est inclus ?”.',
+  phrases:[
+   ['J\'ai une réservation.','zhay oon ray-zair-va-SYON','I have a reservation.',''],
+   ['Une chambre pour deux nuits','oon SHONBR poor duh NWEE','A room for two nights',''],
+   ['Avec salle de bain','a-vek sal duh BAN','With a bathroom',''],
+   ['Le petit-déjeuner est inclus ?','luh puh-tee day-zhuh-NAY ay tan-KLEW','Is breakfast included?',''],
+   ['À quelle heure est le petit-déjeuner ?','a kel UHR ay luh puh-tee day-zhuh-NAY','What time is breakfast?',''],
+   ['Quel est le mot de passe du wifi ?','kel ay luh mo duh PAS dew wee-FEE','What is the wifi password?',''],
+   ['La clé, s\'il vous plaît.','la KLAY seel voo PLEH','The key, please.',''],
+   ['Il n\'y a pas d\'eau chaude.','eel nee ya pa DOH SHOHD','There is no hot water.',''],
+   ['Je pars demain matin.','zhuh PAR duh-MAN ma-TAN','I am leaving tomorrow morning.','']]},
+ {id:'fr13',title:'Les verbes essentiels',sub:'être, avoir, aller, vouloir',emoji:'🔑',
+  tip:'Four verbs do half the work: être (to be), avoir (to have), aller (to go) and vouloir (to want). Learn them as little sentences: je suis, tu es, il est / j\'ai, tu as, il a / je vais, tu vas, il va.',
+  phrases:[
+   ['Je suis fatigué.','zhuh swee fa-tee-GAY','I am tired.','A woman says “fatiguée”.'],
+   ['Tu es en retard.','tew ay zon ruh-TAR','You are late.',''],
+   ['Nous sommes prêts.','noo som PRAY','We are ready.',''],
+   ['J\'ai faim, j\'ai soif.','zhay FAN zhay SWAF','I am hungry, I am thirsty.','French “has” hunger and thirst.'],
+   ['Il a de la chance.','eel a duh la SHONS','He is lucky.',''],
+   ['Je vais au marché.','zhuh vay oh mar-SHAY','I am going to the market.',''],
+   ['On va au cinéma ?','on va oh see-nay-MA','Shall we go to the cinema?','“On” is the everyday word for “we”.'],
+   ['Je veux dormir.','zhuh vuh dor-MEER','I want to sleep.',''],
+   ['Vous voulez venir ?','voo voo-LAY vuh-NEER','Do you want to come?','']]},
+ {id:'fr14',title:'J\'aime…',sub:'Likes, weather and hobbies',emoji:'☀️',
+  tip:'“J\'aime” works for people, things and activities: “j\'aime le café”, “j\'aime nager”. To say you love something, use “j\'adore”. “Je n\'aime pas” is the opposite.',
+  phrases:[
+   ['J\'aime la musique.','zhem la mew-ZEEK','I like music.',''],
+   ['J\'adore voyager.','zha-DOR vwa-ya-ZHAY','I love travelling.',''],
+   ['Je n\'aime pas le froid.','zhuh nem pa luh FRWA','I do not like the cold.',''],
+   ['Quel est ton passe-temps préféré ?','kel ay ton pas TON pray-fay-RAY','What is your favourite hobby?',''],
+   ['Je joue au football.','zhuh zhoo oh foot-BOL','I play football.',''],
+   ['Il fait beau.','eel fay BOH','The weather is nice.',''],
+   ['Il pleut.','eel PLUH','It is raining.',''],
+   ['Il fait froid / chaud.','eel fay FRWA / SHOH','It is cold / hot.',''],
+   ['Qu\'est-ce que tu fais le week-end ?','kes-kuh tew FAY luh wee-KEND','What do you do at the weekend?','']]},
+ {id:'fr15',title:'Santé et urgences',sub:'Health and emergencies',emoji:'🩺',
+  tip:'The emergency number across Europe is 112. In France, 15 is the ambulance (SAMU), 17 the police and 18 the fire brigade. A pharmacy is marked by a green cross.',
+  phrases:[
+   ['J\'ai mal à la tête.','zhay mal a la TET','I have a headache.','“J\'ai mal à…” works for any body part.'],
+   ['J\'ai mal au ventre.','zhay mal oh VON-truh','I have a stomachache.',''],
+   ['Je ne me sens pas bien.','zhuh nuh muh son pa BYAN','I do not feel well.',''],
+   ['Il me faut un médecin.','eel muh FOH un mayd-SAN','I need a doctor.',''],
+   ['Où est l\'hôpital ?','oo ay lo-pee-TAL','Where is the hospital?',''],
+   ['Je suis allergique à la pénicilline.','zhuh sweez a-lair-ZHEEK a la pay-nee-see-LEEN','I am allergic to penicillin.',''],
+   ['Appelez une ambulance !','a-play oon on-bew-LONS','Call an ambulance!',''],
+   ['Au secours !','oh suh-KOOR','Help!',''],
+   ['J\'ai perdu mon passeport.','zhay pair-DEW mon pas-POR','I have lost my passport.','']]},
+ {id:'fr16',title:'Faire connaissance',sub:'Small talk and conversation starters',emoji:'💬',
+  tip:'To keep a conversation going, return the question: “Et vous ?” / “Et toi ?”. Short reactions such as “Ah bon ?” (Really?) and “C\'est super !” make you sound natural.',
+  phrases:[
+   ['Vous habitez où ?','voo za-bee-TAY OO','Where do you live?',''],
+   ['J\'habite à Londres depuis deux ans.','zha-beet a LON-druh duh-PWEE duh ZON','I have lived in London for two years.',''],
+   ['Vous faites quoi dans la vie ?','voo FET kwa don la VEE','What do you do for a living?',''],
+   ['Je suis étudiant.','zhuh swee zay-tew-DYON','I am a student. (a woman: étudiante)',''],
+   ['Je travaille dans un bureau.','zhuh tra-VAY don zun bew-ROH','I work in an office.',''],
+   ['Ah bon ? C\'est super !','a BON say sew-PAIR','Really? That is great!',''],
+   ['Je parle un peu français.','zhuh parl un puh fron-SAY','I speak a little French.',''],
+   ['Je suis en train d\'apprendre.','zhuh swee zon tran da-PRON-druh','I am learning (right now).',''],
+   ['Vous parlez très bien !','voo par-lay tray BYAN','You speak very well!','']],
+  dialog:[
+   ['m','Vous venez d\'où ?','Where do you come from?'],
+   ['f','Je viens d\'Angleterre. Et vous ?','I come from England. And you?'],
+   ['m','Moi, je suis de Toulouse. Vous parlez très bien français !','I am from Toulouse. You speak French very well!'],
+   ['f','Merci, mais j\'apprends encore.','Thank you, but I am still learning.']]},
+ {id:'fr17',title:'Au téléphone et au travail',sub:'Phone calls, work and making plans',emoji:'📞',
+  tip:'On the phone start with “Allô ?” and say who you are: “Ici Anna”. To suggest a plan, “On se retrouve… ?” (Shall we meet…?) is very natural.',
+  phrases:[
+   ['Allô ? Ici Anna.','a-LOH ee-SEE a-NA','Hello? Anna speaking.',''],
+   ['Je voudrais parler à Monsieur Durand.','zhuh voo-DRAY par-LAY a muh-SYUH dew-RON','I would like to speak to Mr Durand.',''],
+   ['Ne quittez pas.','nuh kee-TAY pa','Please hold.',''],
+   ['Je vous rappelle plus tard.','zhuh voo ra-PEL plew TAR','I will call you back later.',''],
+   ['J\'ai une réunion à dix heures.','zhay oon ray-ew-NYON a dee ZUHR','I have a meeting at ten.',''],
+   ['On se retrouve où ?','on suh ruh-TROOV OO','Where shall we meet?',''],
+   ['Devant le cinéma, à huit heures.','duh-VON luh see-nay-MA a weet UHR','In front of the cinema, at eight.',''],
+   ['Désolé, je ne peux pas.','day-zo-LAY zhuh nuh puh PA','Sorry, I cannot.',''],
+   ['À demain !','a duh-MAN','See you tomorrow!','']]}
+);
+/* ---------- SPANISH: lessons 4 to 17 (appended to the course in langdata.js). Spanish from Spain. ---------- */
+LCOURSE.es.lessons.push(
+ {id:'es4',title:'Los números',sub:'Numbers 1 to 20 and your age',emoji:'🔢',
+  tip:'“Uno” becomes “un” before a masculine noun (un café) and “una” before a feminine one (una mesa). Numbers 16 to 19 are written as one word: dieciséis, diecisiete, dieciocho, diecinueve.',
+  phrases:[
+   ['Uno, dos, tres','OO-no dohs trehs','One, two, three',''],
+   ['Cuatro, cinco, seis','KWA-tro THEEN-ko says','Four, five, six','In Spain “c” before e or i sounds like “th”.'],
+   ['Siete, ocho, nueve, diez','SYE-teh O-cho NWEH-veh dyeth','Seven, eight, nine, ten',''],
+   ['Once, doce, trece','ON-theh DOH-theh TREH-theh','Eleven, twelve, thirteen',''],
+   ['Catorce, quince, dieciséis','ka-TOR-theh KEEN-theh dyeth-ee-SAYS','Fourteen, fifteen, sixteen',''],
+   ['Diecisiete, dieciocho, diecinueve, veinte','dyeth-ee-SYE-teh dyeth-ee-O-cho dyeth-ee-NWEH-veh BAYN-teh','Seventeen, eighteen, nineteen, twenty',''],
+   ['¿Cuántos años tienes?','KWAN-tos AN-yos TYEH-nes','How old are you?','Informal “tú” form.'],
+   ['Tengo veinticinco años.','TEN-go bayn-tee-THEEN-ko AN-yos','I am twenty-five.','Spanish says “I have 25 years”.'],
+   ['Hay dos gatos.','eye dohs GA-tos','There are two cats.','“Hay” means “there is” and “there are”.']]},
+ {id:'es5',title:'La familia',sub:'Family and people',emoji:'👨‍👩‍👧',
+  tip:'“Mi” means “my” and adds an “s” for plurals: mi hermano, mis hermanos. Many family words change the last letter for gender: hermano / hermana, abuelo / abuela.',
+  phrases:[
+   ['Esta es mi familia.','ES-ta es mee fa-MEE-lya','This is my family.',''],
+   ['Mi padre y mi madre','mee PA-dreh ee mee MA-dreh','My father and my mother',''],
+   ['Mi hermano y mi hermana','mee er-MA-no ee mee er-MA-na','My brother and my sister','The “h” is silent.'],
+   ['Tengo dos hijos.','TEN-go dohs EE-hos','I have two children.',''],
+   ['Mi marido / mi mujer','mee ma-REE-do / mee moo-HAIR','My husband / my wife',''],
+   ['Mis abuelos','mees a-BWEH-los','My grandparents',''],
+   ['Mi amigo / mi amiga','mee a-MEE-go / a-MEE-ga','My friend (male / female)',''],
+   ['Se llama Pablo.','seh YA-ma PA-blo','His name is Pablo.',''],
+   ['Ella es muy simpática.','EH-ya es mwee seem-PA-tee-ka','She is very nice.','“Simpático” means nice or friendly.']],
+  dialog:[
+   ['f','¿Tienes hermanos?','Do you have brothers or sisters?'],
+   ['m','Sí, tengo una hermana y un hermano.','Yes, I have a sister and a brother.'],
+   ['f','¿Viven en Madrid?','Do they live in Madrid?'],
+   ['m','Mi hermana sí. Mi hermano vive en Sevilla.','My sister does. My brother lives in Seville.']]},
+ {id:'es6',title:'En la cafetería',sub:'Ordering food and drink',emoji:'☕',
+  tip:'“Quería…” (I would like) is the polite way to order. A “café con leche” is coffee with milk, a “café solo” is a small black coffee, and tapas are small plates for sharing.',
+  phrases:[
+   ['Quería un café con leche.','keh-REE-a oon ka-FEH kon LEH-cheh','I would like a coffee with milk.',''],
+   ['Un té, por favor.','oon TEH por fa-BOR','A tea, please.',''],
+   ['Una tostada y un zumo de naranja','OO-na tos-TA-da ee oon THOO-mo deh na-RAN-ha','A toast and an orange juice',''],
+   ['Una botella de agua','OO-na bo-TEH-ya deh A-gwa','A bottle of water',''],
+   ['Una copa de vino tinto','OO-na KO-pa deh BEE-no TEEN-to','A glass of red wine',''],
+   ['Nada más, gracias.','NA-da mas GRA-thyas','Nothing else, thank you.',''],
+   ['La cuenta, por favor.','la KWEN-ta por fa-BOR','The bill, please.','You usually have to ask for it.'],
+   ['¿Puedo pagar con tarjeta?','PWEH-do pa-GAR kon tar-HEH-ta','Can I pay by card?','']],
+  dialog:[
+   ['m','Buenos días, ¿qué va a tomar?','Good morning, what will you have?'],
+   ['f','Quería un café con leche y una tostada, por favor.','I would like a coffee with milk and a toast, please.'],
+   ['m','Muy bien. ¿Algo más?','Very well. Anything else?'],
+   ['f','No, nada más, gracias.','No, nothing else, thank you.']]},
+ {id:'es7',title:'En el restaurante',sub:'Tables, menus and the bill',emoji:'🍽️',
+  tip:'Many restaurants offer a “menú del día”, a fixed-price lunch with a starter, a main course, a drink and dessert. It is usually the best value on the menu.',
+  phrases:[
+   ['Una mesa para dos, por favor.','OO-na MEH-sa PA-ra dohs por fa-BOR','A table for two, please.',''],
+   ['La carta, por favor.','la KAR-ta por fa-BOR','The menu, please.',''],
+   ['¿Qué recomienda?','keh reh-ko-MYEN-da','What do you recommend?',''],
+   ['Para mí, el pollo con patatas.','PA-ra mee el PO-yo kon pa-TA-tas','For me, the chicken with potatoes.',''],
+   ['Soy vegetariano.','soy beh-heh-ta-RYA-no','I am vegetarian. (a woman: vegetariana)',''],
+   ['Soy alérgico a los frutos secos.','soy a-LER-hee-ko a los FROO-tos SEH-kos','I am allergic to nuts.',''],
+   ['¡Está buenísimo!','es-TA bweh-NEE-see-mo','It is delicious!',''],
+   ['¡Buen provecho!','bwen pro-BEH-cho','Enjoy your meal!',''],
+   ['¿Podemos pagar por separado?','po-DEH-mos pa-GAR por seh-pa-RA-do','Can we pay separately?','']],
+  dialog:[
+   ['m','Buenas noches, ¿tienen reserva?','Good evening, do you have a booking?'],
+   ['f','Sí, a nombre de García, para dos personas.','Yes, under García, for two people.'],
+   ['m','Perfecto. Aquí tienen la carta.','Perfect. Here is the menu.'],
+   ['f','Gracias. ¿Qué recomienda?','Thank you. What do you recommend?'],
+   ['m','El pescado del día está muy bueno.','The fish of the day is very good.']]},
+ {id:'es8',title:'¿Dónde está…?',sub:'Directions and places',emoji:'🧭',
+  tip:'“Ser” is for what something is and “estar” for where it is: “La estación está cerca”. For directions use “todo recto” (straight on), “a la izquierda” (left) and “a la derecha” (right).',
+  phrases:[
+   ['¿Dónde está la estación?','DON-deh es-TA la es-ta-THYON','Where is the station?',''],
+   ['¿Dónde están los servicios?','DON-deh es-TAN los ser-BEE-thyos','Where are the toilets?','“Los aseos” is also common.'],
+   ['¿Está lejos de aquí?','es-TA LEH-hos deh a-KEE','Is it far from here?',''],
+   ['Siga todo recto.','SEE-ga TOH-do REK-to','Go straight on.',''],
+   ['Gire a la izquierda.','HEE-reh a la eeth-KYER-da','Turn left.',''],
+   ['Gire a la derecha.','HEE-reh a la deh-REH-cha','Turn right.',''],
+   ['Está al lado del banco.','es-TA al LA-do del BAN-ko','It is next to the bank.',''],
+   ['Está enfrente de correos.','es-TA en-FREN-teh deh ko-RREH-os','It is opposite the post office.',''],
+   ['Está a diez minutos andando.','es-TA a dyeth mee-NOO-tos an-DAN-do','It is ten minutes on foot.','']],
+  dialog:[
+   ['f','Perdone, ¿dónde está la farmacia?','Excuse me, where is the pharmacy?'],
+   ['m','Siga todo recto y gire a la izquierda.','Go straight on and turn left.'],
+   ['f','¿Está lejos?','Is it far?'],
+   ['m','No, está a cinco minutos andando.','No, it is five minutes on foot.'],
+   ['f','¡Muchas gracias!','Thank you very much!']]},
+ {id:'es9',title:'El tiempo',sub:'Days, time and dates',emoji:'⏰',
+  tip:'Days and months are written in lower case: lunes, martes, enero. For the time, “Es la una” (one o\'clock) is singular and every other hour is plural: “Son las tres”.',
+  phrases:[
+   ['¿Qué hora es?','keh O-ra es','What time is it?',''],
+   ['Son las tres.','son las trehs','It is three o\'clock.',''],
+   ['Es la una y media.','es la OO-na ee MEH-dya','It is half past one.',''],
+   ['Lunes, martes, miércoles','LOO-nes MAR-tes MYER-ko-les','Monday, Tuesday, Wednesday',''],
+   ['Jueves, viernes, sábado, domingo','HWEH-bes BYER-nes SA-ba-do do-MEEN-go','Thursday, Friday, Saturday, Sunday',''],
+   ['Hoy, mañana, ayer','oy ma-NYA-na a-YER','Today, tomorrow, yesterday','“Mañana” also means “morning”.'],
+   ['Por la mañana, por la tarde, por la noche','por la ma-NYA-na por la TAR-deh por la NO-cheh','In the morning, afternoon, evening',''],
+   ['¿A qué hora empieza?','a keh O-ra em-PYEH-tha','What time does it start?',''],
+   ['Estoy libre el sábado.','es-TOY LEE-breh el SA-ba-do','I am free on Saturday.','Use “el” before a day for “on”.']]},
+ {id:'es10',title:'De compras',sub:'Shopping and prices',emoji:'🛍️',
+  tip:'Greet when you enter a shop (“Buenos días”) and say “Gracias, adiós” on leaving. Prices are written 4,50 € with a comma and said “cuatro euros con cincuenta”.',
+  phrases:[
+   ['Busco una camisa.','BOOS-ko OO-na ka-MEE-sa','I am looking for a shirt.',''],
+   ['¿Cuánto cuesta?','KWAN-to KWES-ta','How much does it cost?',''],
+   ['Es demasiado caro.','es deh-ma-SYA-do KA-ro','It is too expensive.',''],
+   ['¿Tiene una talla más grande?','TYEH-neh OO-na TA-ya mas GRAN-deh','Do you have a bigger size?',''],
+   ['¿Puedo probármelo?','PWEH-do pro-BAR-meh-lo','Can I try it on?',''],
+   ['Me lo llevo.','meh lo YEH-bo','I will take it.',''],
+   ['Un kilo de manzanas, por favor.','oon KEE-lo deh man-THA-nas por fa-BOR','A kilo of apples, please.',''],
+   ['Solo estoy mirando, gracias.','SO-lo es-TOY mee-RAN-do GRA-thyas','I am just looking, thanks.',''],
+   ['¿Dónde está la caja?','DON-deh es-TA la KA-ha','Where is the checkout?','']],
+  dialog:[
+   ['m','Buenas tardes, ¿puedo ayudarle?','Good afternoon, can I help you?'],
+   ['f','Sí, busco un jersey azul.','Yes, I am looking for a blue jumper.'],
+   ['m','Aquí tiene. Cuesta cuarenta euros.','Here you are. It costs forty euros.'],
+   ['f','¿Puedo probármelo?','Can I try it on?'],
+   ['m','Claro, los probadores están allí.','Of course, the fitting rooms are over there.']]},
+ {id:'es11',title:'De viaje',sub:'Transport and tickets',emoji:'🚆',
+  tip:'“Ida” is one way and “ida y vuelta” is a return. Long-distance train tickets in Spain are for a specific seat and train, so check the platform (“vía”) before boarding.',
+  phrases:[
+   ['Un billete para Valencia, por favor.','oon bee-YEH-teh PA-ra ba-LEN-thya por fa-BOR','A ticket to Valencia, please.',''],
+   ['Solo ida','SO-lo EE-da','One way',''],
+   ['Ida y vuelta','EE-da ee BWEL-ta','Return',''],
+   ['¿A qué hora sale el tren?','a keh O-ra SA-leh el tren','What time does the train leave?',''],
+   ['¿De qué vía sale?','deh keh BEE-a SA-leh','Which platform does it leave from?',''],
+   ['¿Este tren va a Barcelona?','ES-teh tren ba a bar-theh-LO-na','Does this train go to Barcelona?',''],
+   ['¿Dónde está la parada de autobús?','DON-deh es-TA la pa-RA-da deh ow-to-BOOS','Where is the bus stop?',''],
+   ['Quiero un taxi, por favor.','KYEH-ro oon TAK-see por fa-BOR','I would like a taxi, please.',''],
+   ['El tren llega con retraso.','el tren YEH-ga kon reh-TRA-so','The train is late.','']],
+  dialog:[
+   ['f','Buenos días, un billete de ida y vuelta a Sevilla, por favor.','Good morning, a return ticket to Seville, please.'],
+   ['m','¿Para qué día?','For which day?'],
+   ['f','Para mañana por la mañana.','For tomorrow morning.'],
+   ['m','Hay un tren a las ocho. Son cuarenta y cinco euros.','There is a train at eight. It is forty-five euros.']]},
+ {id:'es12',title:'El hotel',sub:'Booking and staying',emoji:'🏨',
+  tip:'“Reservar” means to book. A “habitación doble” is a double room, and you can ask for “con baño” (with a bathroom). Ask whether breakfast is included before you accept the price.',
+  phrases:[
+   ['Tengo una reserva.','TEN-go OO-na reh-SER-ba','I have a reservation.',''],
+   ['Una habitación para dos noches','OO-na a-bee-ta-THYON PA-ra dohs NO-ches','A room for two nights',''],
+   ['Con baño privado','kon BA-nyo pree-BA-do','With a private bathroom',''],
+   ['¿El desayuno está incluido?','el deh-sa-YOO-no es-TA een-kloo-EE-do','Is breakfast included?',''],
+   ['¿A qué hora es el desayuno?','a keh O-ra es el deh-sa-YOO-no','What time is breakfast?',''],
+   ['¿Cuál es la contraseña del wifi?','kwal es la kon-tra-SEH-nya del WEE-fee','What is the wifi password?',''],
+   ['La llave, por favor.','la YA-beh por fa-BOR','The key, please.',''],
+   ['No hay agua caliente.','no eye A-gwa ka-LYEN-teh','There is no hot water.',''],
+   ['Me voy mañana por la mañana.','meh boy ma-NYA-na por la ma-NYA-na','I am leaving tomorrow morning.','']]},
+ {id:'es13',title:'Los verbos esenciales',sub:'ser, estar, tener, ir, querer',emoji:'🔑',
+  tip:'Spanish has two verbs for “to be”. Use “ser” for identity, jobs and permanent traits (soy profesora) and “estar” for places and moods (estoy cansada). Learn “tener” (to have) and “ir” (to go) too.',
+  phrases:[
+   ['Soy de Inglaterra.','soy deh een-gla-TEH-rra','I am from England.','“Ser” for where you are from.'],
+   ['Estoy cansado.','es-TOY kan-SA-do','I am tired.','A woman says “cansada”.'],
+   ['Estamos listos.','es-TA-mos LEES-tos','We are ready.',''],
+   ['Tengo hambre, tengo sed.','TEN-go AM-breh TEN-go sed','I am hungry, I am thirsty.','Spanish “has” hunger and thirst.'],
+   ['Tienes suerte.','TYEH-nes SWER-teh','You are lucky.',''],
+   ['Voy al mercado.','boy al mer-KA-do','I am going to the market.',''],
+   ['¿Vamos al cine?','BA-mos al THEE-neh','Shall we go to the cinema?',''],
+   ['Quiero dormir.','KYEH-ro dor-MEER','I want to sleep.',''],
+   ['¿Quieres venir?','KYEH-res beh-NEER','Do you want to come?','']]},
+ {id:'es14',title:'Me gusta…',sub:'Likes, weather and hobbies',emoji:'☀️',
+  tip:'“Me gusta” means “I like” and literally “it pleases me”. Use “me gusta” for one thing (me gusta el café) and “me gustan” for several (me gustan los perros).',
+  phrases:[
+   ['Me gusta la música.','meh GOOS-ta la MOO-see-ka','I like music.',''],
+   ['Me encanta viajar.','meh en-KAN-ta bya-HAR','I love travelling.',''],
+   ['No me gusta el frío.','no meh GOOS-ta el FREE-o','I do not like the cold.',''],
+   ['¿Cuál es tu afición favorita?','kwal es too a-fee-THYON fa-bo-REE-ta','What is your favourite hobby?',''],
+   ['Juego al fútbol.','HWEH-go al FOOT-bol','I play football.',''],
+   ['Hace buen tiempo.','A-theh bwen TYEM-po','The weather is nice.',''],
+   ['Está lloviendo.','es-TA yo-BYEN-do','It is raining.',''],
+   ['Hace frío / calor.','A-theh FREE-o / ka-LOR','It is cold / hot.',''],
+   ['¿Qué haces el fin de semana?','keh A-thes el feen deh seh-MA-na','What do you do at the weekend?','']]},
+ {id:'es15',title:'Salud y emergencias',sub:'Health and emergencies',emoji:'🩺',
+  tip:'The emergency number in Spain and across Europe is 112. A pharmacy (“farmacia”) is marked by a green cross, and pharmacists will often advise you on minor problems.',
+  phrases:[
+   ['Me duele la cabeza.','meh DWEH-leh la ka-BEH-tha','I have a headache.','“Me duele” for one thing, “me duelen” for several.'],
+   ['Me duele el estómago.','meh DWEH-leh el es-TO-ma-go','I have a stomachache.',''],
+   ['No me siento bien.','no meh SYEN-to byen','I do not feel well.',''],
+   ['Necesito un médico.','neh-theh-SEE-to oon MEH-dee-ko','I need a doctor.',''],
+   ['¿Dónde está el hospital?','DON-deh es-TA el os-pee-TAL','Where is the hospital?',''],
+   ['Soy alérgico a la penicilina.','soy a-LER-hee-ko a la peh-nee-thee-LEE-na','I am allergic to penicillin.',''],
+   ['¡Llame a una ambulancia!','YA-meh a OO-na am-boo-LAN-thya','Call an ambulance!',''],
+   ['¡Socorro!','so-KO-rro','Help!',''],
+   ['He perdido mi pasaporte.','eh per-DEE-do mee pa-sa-POR-teh','I have lost my passport.','']]},
+ {id:'es16',title:'Conocer gente',sub:'Small talk and conversation starters',emoji:'💬',
+  tip:'Keep a chat going by returning the question: “¿Y tú?” or “¿Y usted?”. Short reactions such as “¿De verdad?” (Really?) and “¡Qué bien!” (How nice!) make you sound natural.',
+  phrases:[
+   ['¿Dónde vives?','DON-deh BEE-bes','Where do you live?',''],
+   ['Vivo en Londres desde hace dos años.','BEE-bo en LON-dres DES-deh A-theh dohs AN-yos','I have lived in London for two years.',''],
+   ['¿A qué te dedicas?','a keh teh deh-DEE-kas','What do you do for a living?',''],
+   ['Soy estudiante.','soy es-too-DYAN-teh','I am a student.',''],
+   ['Trabajo en una oficina.','tra-BA-ho en OO-na o-fee-THEE-na','I work in an office.',''],
+   ['¿De verdad? ¡Qué bien!','deh ber-DAD keh byen','Really? How nice!',''],
+   ['Hablo un poco de español.','A-blo oon PO-ko deh es-pa-NYOL','I speak a little Spanish.',''],
+   ['Estoy aprendiendo.','es-TOY a-pren-DYEN-do','I am learning.',''],
+   ['¡Hablas muy bien!','A-blas mwee byen','You speak very well!','']],
+  dialog:[
+   ['m','¿De dónde eres?','Where are you from?'],
+   ['f','Soy de Inglaterra. ¿Y tú?','I am from England. And you?'],
+   ['m','Yo soy de Valencia. ¡Hablas muy bien español!','I am from Valencia. You speak Spanish very well!'],
+   ['f','Gracias, pero todavía estoy aprendiendo.','Thank you, but I am still learning.']]},
+ {id:'es17',title:'Teléfono y trabajo',sub:'Phone calls, work and making plans',emoji:'📞',
+  tip:'On the phone Spaniards answer “¿Diga?” or “¿Sí?”. To make a plan, “¿Quedamos…?” (Shall we meet…?) is the natural verb: “quedar” means to arrange to meet.',
+  phrases:[
+   ['¿Diga? Soy Ana.','DEE-ga soy A-na','Hello? Ana speaking.',''],
+   ['Quería hablar con el señor Ruiz.','keh-REE-a a-BLAR kon el seh-NYOR rweeth','I would like to speak to Mr Ruiz.',''],
+   ['Un momento, por favor.','oon mo-MEN-to por fa-BOR','One moment, please.',''],
+   ['Te llamo más tarde.','teh YA-mo mas TAR-deh','I will call you later.',''],
+   ['Tengo una reunión a las diez.','TEN-go OO-na reh-oo-NYON a las dyeth','I have a meeting at ten.',''],
+   ['¿Dónde quedamos?','DON-deh keh-DA-mos','Where shall we meet?',''],
+   ['Delante del cine, a las ocho.','deh-LAN-teh del THEE-neh a las O-cho','In front of the cinema, at eight.',''],
+   ['Lo siento, no puedo.','lo SYEN-to no PWEH-do','Sorry, I cannot.',''],
+   ['¡Hasta mañana!','AS-ta ma-NYA-na','See you tomorrow!','']]}
+);
+/* ---------- FRENCH: lessons 18 to 32 (word banks, tenses, and conversation skills) ---------- */
+LCOURSE.fr.lessons.push(
+ {id:'fr18',title:'Les couleurs et les adjectifs',sub:'Describe things and people',emoji:'🎨',
+  tip:'In French most adjectives come after the noun and agree with it: “une robe rouge”, “un chat noir”. Add -e for feminine (grand → grande) and -s for plural. Short common ones such as “grand”, “petit” and “beau” come before the noun.',
+  phrases:[
+   ['Rouge, bleu, vert, jaune','roozh bluh vair zhohn','Red, blue, green, yellow',''],
+   ['Noir, blanc, gris, rose','nwar blon gree rohz','Black, white, grey, pink',''],
+   ['Une voiture rouge','oon vwa-TEWR roozh','A red car',''],
+   ['Un grand appartement','un gron ta-par-tuh-MON','A big flat',''],
+   ['Une petite maison','oon puh-TEET may-ZON','A small house',''],
+   ['Il est très beau.','eel ay tray BOH','He is very handsome.','A woman or thing: “elle est belle”.'],
+   ['C\'est nouveau, c\'est vieux','say noo-VOH say VYUH','It is new, it is old',''],
+   ['Ce n\'est pas cher.','suh nay pa SHAIR','It is not expensive.',''],
+   ['C\'est facile, c\'est difficile','say fa-SEEL say dee-fee-SEEL','It is easy, it is difficult','']]},
+ {id:'fr19',title:'Les animaux',sub:'Pets and animals',emoji:'🐶',
+  tip:'Many animal words have a masculine and a feminine form: un chat, une chatte. In everyday speech people usually just say “un chat” for any cat.',
+  phrases:[
+   ['Un chien, un chat','un shyan un sha','A dog, a cat',''],
+   ['Un oiseau, un poisson','un nwa-ZOH un pwa-SON','A bird, a fish',''],
+   ['Un cheval, une vache','un shuh-VAL oon vash','A horse, a cow',''],
+   ['Un lapin, un hamster','un la-PAN un am-STAIR','A rabbit, a hamster',''],
+   ['J\'ai un chien.','zhay un SHYAN','I have a dog.',''],
+   ['Mon chat dort tout le temps.','mon sha dor too luh TON','My cat sleeps all the time.',''],
+   ['Il est mignon !','eel ay mee-NYON','He is cute!',''],
+   ['Il aboie, il miaule.','eel a-BWA eel mee-OHL','He barks, he meows.',''],
+   ['Je promène le chien.','zhuh pro-MEN luh SHYAN','I am walking the dog.','']]},
+ {id:'fr20',title:'Le corps',sub:'Body parts',emoji:'🖐️',
+  tip:'For aches use “avoir mal à”: “J\'ai mal au dos”, “J\'ai mal aux pieds”. Remember “à + le = au” and “à + les = aux”.',
+  phrases:[
+   ['La tête, les yeux, le nez','la tet layz YUH luh nay','The head, the eyes, the nose',''],
+   ['La bouche, les dents','la boosh lay DON','The mouth, the teeth',''],
+   ['Les oreilles, les cheveux','layz o-RAY lay shuh-VUH','The ears, the hair',''],
+   ['Le bras, la main, les doigts','luh bra la man lay DWA','The arm, the hand, the fingers',''],
+   ['La jambe, le pied, le genou','la zhonb luh pyay luh zhuh-NOO','The leg, the foot, the knee',''],
+   ['Le dos, le ventre, le cœur','luh doh luh VON-truh luh kuhr','The back, the stomach, the heart',''],
+   ['J\'ai mal au dos.','zhay mal oh DOH','My back hurts.',''],
+   ['J\'ai mal aux pieds.','zhay mal oh PYAY','My feet hurt.',''],
+   ['Lève la main.','lev la MAN','Raise your hand.','']]},
+ {id:'fr21',title:'Les vêtements',sub:'Clothes and accessories',emoji:'👗',
+  tip:'“Porter” means to wear and also to carry. For colours and sizes: “en bleu”, “en taille M”. Trousers (“un pantalon”) and glasses (“des lunettes”) are singular or plural in different ways, so learn each with its article.',
+  phrases:[
+   ['Un pantalon, une jupe, une robe','un pon-ta-LON oon zhewp oon rob','Trousers, a skirt, a dress',''],
+   ['Une chemise, un pull, une veste','oon shuh-MEEZ un PEWL oon vest','A shirt, a jumper, a jacket',''],
+   ['Un manteau, une écharpe','un mon-TOH oon ay-SHARP','A coat, a scarf',''],
+   ['Des chaussures, des chaussettes','day shoh-SEWR day shoh-SET','Shoes, socks',''],
+   ['Un chapeau, des lunettes','un sha-POH day lew-NET','A hat, glasses',''],
+   ['Je porte une robe bleue.','zhuh port oon rob BLUH','I am wearing a blue dress.',''],
+   ['Ça te va bien.','sa tuh va BYAN','It suits you.',''],
+   ['Il fait froid, mets ton manteau.','eel fay FRWA may ton mon-TOH','It is cold, put your coat on.',''],
+   ['Je cherche des chaussures de sport.','zhuh shairsh day shoh-SEWR duh SPOR','I am looking for trainers.','']]},
+ {id:'fr22',title:'La maison',sub:'Rooms and furniture',emoji:'🏠',
+  tip:'“Habiter” is to live. A French flat is described by rooms, not bedrooms: “un trois-pièces” has a living room and two bedrooms. “Le salon” is the living room and “la salle à manger” the dining room.',
+  phrases:[
+   ['La cuisine, le salon','la kwee-ZEEN luh sa-LON','The kitchen, the living room',''],
+   ['La chambre, la salle de bain','la SHONBR la sal duh BAN','The bedroom, the bathroom',''],
+   ['La porte, la fenêtre','la port la fuh-NAY-truh','The door, the window',''],
+   ['Un lit, une table, une chaise','un lee oon TA-bluh oon shez','A bed, a table, a chair',''],
+   ['Un canapé, une lampe','un ka-na-PAY oon lonp','A sofa, a lamp',''],
+   ['Le frigo, la machine à laver','luh free-GOH la ma-SHEEN a la-VAY','The fridge, the washing machine',''],
+   ['J\'habite dans un petit appartement.','zha-beet don zun puh-TEE ta-par-tuh-MON','I live in a small flat.',''],
+   ['Il y a un balcon.','eel ee ya un bal-KON','There is a balcony.',''],
+   ['Le loyer est de sept cents euros.','luh lwa-YAY ay duh set SON zuh-ROH','The rent is seven hundred euros.','']]},
+ {id:'fr23',title:'Les métiers',sub:'Jobs and workplaces',emoji:'👩‍⚕️',
+  tip:'After “je suis” French does not use “un” or “une” for a job: “Je suis médecin”, “Elle est professeur”. Many jobs add -e or change the ending for women: infirmier / infirmière, serveur / serveuse.',
+  phrases:[
+   ['Je suis médecin.','zhuh swee mayd-SAN','I am a doctor.',''],
+   ['Elle est professeur.','el ay pro-fay-SUHR','She is a teacher.',''],
+   ['Il est ingénieur.','eel ay tan-zhay-NYUHR','He is an engineer.',''],
+   ['Une infirmière, un cuisinier','oon an-feer-MYAIR un kwee-zee-NYAY','A nurse, a cook',''],
+   ['Un avocat, une serveuse','un na-vo-KA oon sair-VUHZ','A lawyer, a waitress',''],
+   ['Un vendeur, une vendeuse','un von-DUHR oon von-DUHZ','A shop assistant (man, woman)',''],
+   ['Je travaille à l\'hôpital.','zhuh tra-VAY a lo-pee-TAL','I work at the hospital.',''],
+   ['Je travaille à mon compte.','zhuh tra-VAY a mon KONT','I am self-employed.',''],
+   ['Je cherche du travail.','zhuh shairsh dew tra-VAY','I am looking for work.','']]},
+ {id:'fr24',title:'Les questions',sub:'Ask about anything',emoji:'❓',
+  tip:'Three ways to ask: raise your voice (“Tu viens ?”), add “est-ce que” (“Est-ce que tu viens ?”), or invert (“Viens-tu ?”). The first two are the everyday ones.',
+  phrases:[
+   ['Qui est-ce ?','kee es-KUH','Who is it?',''],
+   ['Qu\'est-ce que c\'est ?','kes-kuh SAY','What is it?',''],
+   ['Où habites-tu ?','oo a-beet TEW','Where do you live?',''],
+   ['Quand est-ce que tu arrives ?','kon tes-kuh tew a-REEV','When do you arrive?',''],
+   ['Pourquoi pas ?','poor-kwa PA','Why not?',''],
+   ['Comment ça va ?','ko-MON sa VA','How is it going?',''],
+   ['Combien de temps ?','kom-BYAN duh TON','How long?',''],
+   ['Quel est ton numéro ?','kel ay ton new-may-ROH','What is your number?',''],
+   ['Est-ce que vous avez une table ?','es-kuh voo za-vay oon TA-bluh','Do you have a table?','']]},
+ {id:'fr25',title:'Hier',sub:'Talk about the past',emoji:'⏪',
+  tip:'The everyday past is the “passé composé”: avoir or être plus a past participle. Most verbs use “avoir” (j\'ai mangé). Movement verbs such as aller, venir, arriver and partir use “être” (je suis allé), and the participle then agrees with the subject.',
+  phrases:[
+   ['Hier, j\'ai mangé au restaurant.','yair zhay mon-ZHAY oh res-to-RON','Yesterday I ate at a restaurant.',''],
+   ['Qu\'est-ce que tu as fait ?','kes-kuh tew a FAY','What did you do?',''],
+   ['J\'ai regardé un film.','zhay ruh-gar-DAY un FEELM','I watched a film.',''],
+   ['Nous avons visité Paris.','noo za-von vee-zee-TAY pa-REE','We visited Paris.',''],
+   ['Je suis allé au cinéma.','zhuh swee za-LAY oh see-nay-MA','I went to the cinema.','A woman says “allée”.'],
+   ['Elle est arrivée à midi.','el ay ta-ree-VAY a mee-DEE','She arrived at noon.',''],
+   ['Ils sont partis hier soir.','eel son par-TEE yair SWAR','They left last night.',''],
+   ['Je n\'ai pas compris.','zhuh nay pa kon-PREE','I did not understand.',''],
+   ['C\'était super !','say-TAY sew-PAIR','It was great!','“C\'était” is the past of “c\'est”.']]},
+ {id:'fr26',title:'Demain',sub:'Plans and the near future',emoji:'⏩',
+  tip:'For the near future use “aller” plus an infinitive, exactly like “going to” in English: “Je vais travailler”, “Nous allons voyager”. It is what people say all the time.',
+  phrases:[
+   ['Demain, je vais travailler.','duh-MAN zhuh vay tra-va-YAY','Tomorrow I am going to work.',''],
+   ['Nous allons voyager en été.','noo za-lon vwa-ya-ZHAY on ay-TAY','We are going to travel in summer.',''],
+   ['Il va pleuvoir.','eel va pluh-VWAR','It is going to rain.',''],
+   ['Qu\'est-ce que tu vas faire ?','kes-kuh tew va FAIR','What are you going to do?',''],
+   ['Je vais acheter du pain.','zhuh vay zash-TAY dew PAN','I am going to buy some bread.',''],
+   ['On va se voir bientôt.','on va suh VWAR byan-TOH','We will see each other soon.',''],
+   ['La semaine prochaine','la suh-MEN pro-SHEN','Next week',''],
+   ['Le mois prochain','luh mwa pro-SHAN','Next month',''],
+   ['Je vais y réfléchir.','zhuh vay zee ray-flay-SHEER','I will think about it.','']]},
+ {id:'fr27',title:'Politesse et demandes',sub:'Ask for things politely',emoji:'🙏',
+  tip:'Polite requests use the conditional: “Je voudrais…”, “Pourriez-vous…?”. They are softer than “Je veux” and “Pouvez-vous”. Starting with “Excusez-moi de vous déranger” opens almost any door.',
+  phrases:[
+   ['Excusez-moi de vous déranger.','ek-skew-zay mwa duh voo day-ron-ZHAY','Sorry to bother you.',''],
+   ['Pourriez-vous m\'aider ?','poo-ryay VOO may-DAY','Could you help me?',''],
+   ['Je voudrais réserver une table.','zhuh voo-DRAY ray-zair-VAY oon TA-bluh','I would like to book a table.',''],
+   ['Ça vous dérange si j\'ouvre la fenêtre ?','sa voo day-RONZH see ZHOO-vruh la fuh-NAY-truh','Do you mind if I open the window?',''],
+   ['Avec plaisir.','a-vek play-ZEER','With pleasure.',''],
+   ['Pas de problème.','pa duh pro-BLEM','No problem.',''],
+   ['Je vous en prie.','zhuh voo zon PREE','You are welcome. / Please, go ahead.',''],
+   ['Merci de votre aide.','mair-SEE duh vo-truh ED','Thank you for your help.',''],
+   ['Je suis désolé du retard.','zhuh swee day-zo-LAY dew ruh-TAR','I am sorry I am late.','']]},
+ {id:'fr28',title:'Opinions et accord',sub:'Say what you think',emoji:'💭',
+  tip:'“Je pense que” and “à mon avis” introduce an opinion. To agree say “Je suis d\'accord”, and to disagree politely say “Je ne suis pas sûr”. “Ça dépend” is a very useful way to avoid a flat yes or no.',
+  phrases:[
+   ['Je pense que c\'est une bonne idée.','zhuh ponss kuh say tewn bon ee-DAY','I think it is a good idea.',''],
+   ['À mon avis, c\'est trop cher.','a mo na-VEE say tro SHAIR','In my opinion it is too expensive.',''],
+   ['Je suis d\'accord.','zhuh swee da-KOR','I agree.',''],
+   ['Je ne suis pas d\'accord.','zhuh nuh swee pa da-KOR','I disagree.',''],
+   ['Je ne suis pas sûr.','zhuh nuh swee pa SEWR','I am not sure.',''],
+   ['Ça dépend.','sa day-PON','It depends.',''],
+   ['Peut-être.','puh-TET-ruh','Maybe.',''],
+   ['Tout à fait !','too ta FAY','Exactly!',''],
+   ['Pourquoi pas ?','poor-kwa PA','Why not?','']]},
+ {id:'fr29',title:'Mots de liaison',sub:'Link your sentences',emoji:'🔗',
+  tip:'Small linking words turn short sentences into real speech: “et”, “mais”, “parce que”, “donc”, “alors”. For stories use “d\'abord”, “ensuite”, “enfin”.',
+  phrases:[
+   ['Et, mais, ou','ay may oo','And, but, or',''],
+   ['Parce que, donc, alors','pars kuh donk a-LOR','Because, so, then',''],
+   ['Je suis fatigué parce que j\'ai beaucoup travaillé.','zhuh swee fa-tee-GAY pars kuh zhay boh-KOO tra-va-yay','I am tired because I worked a lot.',''],
+   ['Il pleut, donc je reste à la maison.','eel PLUH donk zhuh rest a la may-ZON','It is raining, so I am staying at home.',''],
+   ['D\'abord, ensuite, enfin','da-BOR on-SWEET on-FAN','First, then, finally',''],
+   ['Aussi, en plus','oh-SEE on PLEWSS','Also, in addition',''],
+   ['Cependant, pourtant','suh-pon-DON poor-TON','However, yet',''],
+   ['D\'un côté, de l\'autre','dun ko-TAY duh LOH-truh','On one hand, on the other',''],
+   ['Par exemple','par eg-ZON-pluh','For example','']]},
+ {id:'fr30',title:'La routine quotidienne',sub:'Describe your day',emoji:'🌅',
+  tip:'Reflexive verbs such as “se lever” (to get up) and “se coucher” (to go to bed) use “me, te, se”: “je me lève”, “tu te lèves”. They are very common for daily routines.',
+  phrases:[
+   ['Je me lève à sept heures.','zhuh muh lev a set UHR','I get up at seven.',''],
+   ['Je prends une douche.','zhuh pron zoon DOOSH','I take a shower.',''],
+   ['Je prends le petit-déjeuner.','zhuh pron luh puh-tee day-zhuh-NAY','I have breakfast.',''],
+   ['Je vais au travail en métro.','zhuh vay oh tra-VAY on may-TROH','I go to work by metro.',''],
+   ['Je déjeune à midi.','zhuh day-zhuhn a mee-DEE','I have lunch at noon.',''],
+   ['Je rentre à six heures.','zhuh RON-truh a see ZUHR','I get home at six.',''],
+   ['Je dîne avec ma famille.','zhuh deen a-vek ma fa-MEE','I have dinner with my family.',''],
+   ['Je me couche tard.','zhuh muh koosh TAR','I go to bed late.',''],
+   ['Le dimanche, je me repose.','luh dee-MONSH zhuh muh ruh-POHZ','On Sundays I rest.','']]},
+ {id:'fr31',title:'Se faire comprendre',sub:'When you are stuck',emoji:'🆘',
+  tip:'You will often not understand. These phrases keep the conversation going and make native speakers slow down and help. Learn them first and use them without embarrassment.',
+  phrases:[
+   ['Pouvez-vous parler plus lentement ?','poo-vay voo par-LAY plew lont-MON','Can you speak more slowly?',''],
+   ['Pouvez-vous répéter ?','poo-vay voo ray-pay-TAY','Can you repeat that?',''],
+   ['Comment dit-on “table” en anglais ?','ko-MON dee-TON TA-bluh on on-GLAY','How do you say “table” in English?',''],
+   ['Qu\'est-ce que ça veut dire ?','kes-kuh sa vuh DEER','What does that mean?',''],
+   ['Comment ça s\'écrit ?','ko-MON sa say-KREE','How do you spell it?',''],
+   ['Je ne connais pas ce mot.','zhuh nuh ko-NAY pa suh MOH','I do not know this word.',''],
+   ['Je cherche mes mots.','zhuh shairsh may MOH','I am searching for my words.',''],
+   ['Pardon, j\'ai mal compris.','par-DON zhay mal kon-PREE','Sorry, I misunderstood.',''],
+   ['Pouvez-vous l\'écrire ?','poo-vay voo lay-KREER','Can you write it down?','']]},
+ {id:'fr32',title:'Sortir et inviter',sub:'Invitations and social plans',emoji:'🎉',
+  tip:'“Tu veux…?” is the friendly way to invite. To accept say “Avec plaisir” or “Bonne idée”; to refuse politely say “Désolé, je ne peux pas, mais merci”. Say “Merci pour l\'invitation” afterwards.',
+  phrases:[
+   ['Tu veux sortir ce soir ?','tew vuh sor-TEER suh SWAR','Do you want to go out tonight?',''],
+   ['Bonne idée !','bon ee-DAY','Good idea!',''],
+   ['On va boire un verre ?','on va BWAR un VAIR','Shall we go for a drink?',''],
+   ['À quelle heure on se retrouve ?','a kel UHR on suh ruh-TROOV','What time shall we meet?',''],
+   ['Je t\'invite.','zhuh tan-VEET','It is my treat.',''],
+   ['Désolé, je ne peux pas ce soir.','day-zo-LAY zhuh nuh puh pa suh SWAR','Sorry, I cannot tonight.',''],
+   ['Merci pour l\'invitation.','mair-SEE poor lan-vee-ta-SYON','Thank you for the invitation.',''],
+   ['J\'ai passé une très bonne soirée.','zhay pa-SAY oon tray bon swa-RAY','I had a very nice evening.',''],
+   ['On se voit bientôt ?','on suh VWA byan-TOH','Shall we see each other soon?','']],
+  dialog:[
+   ['m','Salut Léa, tu veux sortir ce soir ?','Hi Léa, do you want to go out tonight?'],
+   ['f','Avec plaisir ! On va où ?','With pleasure! Where shall we go?'],
+   ['m','On va boire un verre, puis on mange ensemble.','Let us have a drink and then eat together.'],
+   ['f','Bonne idée. On se retrouve à huit heures ?','Good idea. Shall we meet at eight?'],
+   ['m','D\'accord. À ce soir !','Agreed. See you tonight!']]}
+);
+/* ---------- SPANISH: lessons 18 to 32 (word banks, tenses, and conversation skills). Spanish from Spain. ---------- */
+LCOURSE.es.lessons.push(
+ {id:'es18',title:'Los colores y los adjetivos',sub:'Describe things and people',emoji:'🎨',
+  tip:'In Spanish adjectives usually come after the noun and agree with it: “una casa blanca”, “unos gatos negros”. Adjectives ending in -o change to -a for feminine and add -s for plural.',
+  phrases:[
+   ['Rojo, azul, verde, amarillo','RO-ho a-THOOL BER-deh a-ma-REE-yo','Red, blue, green, yellow',''],
+   ['Negro, blanco, gris, rosa','NEH-gro BLAN-ko grees RO-sa','Black, white, grey, pink',''],
+   ['Un coche rojo','oon KO-cheh RO-ho','A red car',''],
+   ['Un piso grande','oon PEE-so GRAN-deh','A big flat',''],
+   ['Una casa pequeña','OO-na KA-sa peh-KEH-nya','A small house',''],
+   ['Es muy guapo.','es mwee GWA-po','He is very handsome.','A woman or thing: “guapa” or “bonita”.'],
+   ['Es nuevo, es viejo.','es NWEH-bo es BYEH-ho','It is new, it is old.',''],
+   ['No es caro.','no es KA-ro','It is not expensive.',''],
+   ['Es fácil, es difícil.','es FA-theel es dee-FEE-theel','It is easy, it is difficult.','']]},
+ {id:'es19',title:'Los animales',sub:'Pets and animals',emoji:'🐶',
+  tip:'Many animal words change the ending for gender: gato / gata, perro / perra. In general talk people just say “un gato” or “un perro”.',
+  phrases:[
+   ['Un perro, un gato','oon PEH-rro oon GA-to','A dog, a cat',''],
+   ['Un pájaro, un pez','oon PA-ha-ro oon peth','A bird, a fish',''],
+   ['Un caballo, una vaca','oon ka-BA-yo OO-na BA-ka','A horse, a cow',''],
+   ['Un conejo, un hámster','oon ko-NEH-ho oon AM-ster','A rabbit, a hamster',''],
+   ['Tengo un perro.','TEN-go oon PEH-rro','I have a dog.',''],
+   ['Mi gato duerme todo el día.','mee GA-to DWER-meh TO-do el DEE-a','My cat sleeps all day.',''],
+   ['¡Qué mono!','keh MO-no','How cute!',''],
+   ['El perro ladra, el gato maúlla.','el PEH-rro LA-dra el GA-to ma-OO-ya','The dog barks, the cat meows.',''],
+   ['Saco al perro a pasear.','SA-ko al PEH-rro a pa-seh-AR','I take the dog for a walk.','']]},
+ {id:'es20',title:'El cuerpo',sub:'Body parts',emoji:'🖐️',
+  tip:'For aches use “me duele” (one thing) or “me duelen” (several): “Me duele la espalda”, “Me duelen los pies”. Spanish normally uses “the” instead of “my” with body parts.',
+  phrases:[
+   ['La cabeza, los ojos, la nariz','la ka-BEH-tha los O-hos la na-REETH','The head, the eyes, the nose',''],
+   ['La boca, los dientes','la BO-ka los DYEN-tes','The mouth, the teeth',''],
+   ['Las orejas, el pelo','las o-REH-has el PEH-lo','The ears, the hair',''],
+   ['El brazo, la mano, los dedos','el BRA-tho la MA-no los DEH-dos','The arm, the hand, the fingers',''],
+   ['La pierna, el pie, la rodilla','la PYER-na el pyeh la ro-DEE-ya','The leg, the foot, the knee',''],
+   ['La espalda, la tripa, el corazón','la es-PAL-da la TREE-pa el ko-ra-THON','The back, the belly, the heart',''],
+   ['Me duele la espalda.','meh DWEH-leh la es-PAL-da','My back hurts.',''],
+   ['Me duelen los pies.','meh DWEH-len los pyes','My feet hurt.',''],
+   ['Levanta la mano.','leh-BAN-ta la MA-no','Raise your hand.','']]},
+ {id:'es21',title:'La ropa',sub:'Clothes and accessories',emoji:'👗',
+  tip:'“Llevar” means both to wear and to carry. “Los pantalones” and “las gafas” are plural in Spanish. The size is “la talla”, and for shoes it is “el número”.',
+  phrases:[
+   ['Unos pantalones, una falda, un vestido','OO-nos pan-ta-LO-nes OO-na FAL-da oon bes-TEE-do','Trousers, a skirt, a dress',''],
+   ['Una camisa, un jersey, una chaqueta','OO-na ka-MEE-sa oon her-SAY OO-na cha-KEH-ta','A shirt, a jumper, a jacket',''],
+   ['Un abrigo, una bufanda','oon a-BREE-go OO-na boo-FAN-da','A coat, a scarf',''],
+   ['Zapatos, calcetines','tha-PA-tos kal-theh-TEE-nes','Shoes, socks',''],
+   ['Un sombrero, unas gafas','oon som-BREH-ro OO-nas GA-fas','A hat, glasses',''],
+   ['Llevo un vestido azul.','YEH-bo oon bes-TEE-do a-THOOL','I am wearing a blue dress.',''],
+   ['Te queda muy bien.','teh KEH-da mwee byen','It suits you very well.',''],
+   ['Hace frío, ponte el abrigo.','A-theh FREE-o PON-teh el a-BREE-go','It is cold, put your coat on.',''],
+   ['Busco zapatillas de deporte.','BOOS-ko tha-pa-TEE-yas deh deh-POR-teh','I am looking for trainers.','']]},
+ {id:'es22',title:'La casa',sub:'Rooms and furniture',emoji:'🏠',
+  tip:'“Vivir” is to live. A flat is “un piso” in Spain and “un apartamento” elsewhere. “El salón” is the living room and “el dormitorio” or “la habitación” is the bedroom.',
+  phrases:[
+   ['La cocina, el salón','la ko-THEE-na el sa-LON','The kitchen, the living room',''],
+   ['El dormitorio, el cuarto de baño','el dor-mee-TO-ryo el KWAR-to deh BA-nyo','The bedroom, the bathroom',''],
+   ['La puerta, la ventana','la PWER-ta la ben-TA-na','The door, the window',''],
+   ['Una cama, una mesa, una silla','OO-na KA-ma OO-na MEH-sa OO-na SEE-ya','A bed, a table, a chair',''],
+   ['Un sofá, una lámpara','oon so-FA OO-na LAM-pa-ra','A sofa, a lamp',''],
+   ['La nevera, la lavadora','la neh-BEH-ra la la-ba-DO-ra','The fridge, the washing machine',''],
+   ['Vivo en un piso pequeño.','BEE-bo en oon PEE-so peh-KEH-nyo','I live in a small flat.',''],
+   ['Hay un balcón.','eye oon bal-KON','There is a balcony.',''],
+   ['El alquiler es de setecientos euros.','el al-kee-LER es deh seh-teh-THYEN-tos eh-OO-ros','The rent is seven hundred euros.','']]},
+ {id:'es23',title:'Las profesiones',sub:'Jobs and workplaces',emoji:'👩‍⚕️',
+  tip:'After “ser” Spanish does not use “un” or “una” for a job: “Soy médico”, “Ella es profesora”. Many jobs change the ending for women: camarero / camarera, enfermero / enfermera.',
+  phrases:[
+   ['Soy médico.','soy MEH-dee-ko','I am a doctor.','A woman may say “médica”.'],
+   ['Ella es profesora.','EH-ya es pro-feh-SO-ra','She is a teacher.',''],
+   ['Él es ingeniero.','el es een-heh-NYEH-ro','He is an engineer.',''],
+   ['Una enfermera, un cocinero','OO-na en-fer-MEH-ra oon ko-thee-NEH-ro','A nurse, a cook',''],
+   ['Un abogado, una camarera','oon a-bo-GA-do OO-na ka-ma-REH-ra','A lawyer, a waitress',''],
+   ['Un dependiente, una dependienta','oon deh-pen-DYEN-teh OO-na deh-pen-DYEN-ta','A shop assistant (man, woman)',''],
+   ['Trabajo en un hospital.','tra-BA-ho en oon os-pee-TAL','I work in a hospital.',''],
+   ['Soy autónomo.','soy ow-TO-no-mo','I am self-employed.',''],
+   ['Estoy buscando trabajo.','es-TOY boos-KAN-do tra-BA-ho','I am looking for work.','']]},
+ {id:'es24',title:'Las preguntas',sub:'Ask about anything',emoji:'❓',
+  tip:'Spanish questions have an opening mark too: “¿Dónde vives?”. In speech, a rising voice is enough: “¿Vienes?”. Question words carry an accent: qué, quién, dónde, cuándo, cómo, cuánto.',
+  phrases:[
+   ['¿Quién es?','kyen es','Who is it?',''],
+   ['¿Qué es esto?','keh es ES-to','What is this?',''],
+   ['¿Dónde vives?','DON-deh BEE-bes','Where do you live?',''],
+   ['¿Cuándo llegas?','KWAN-do YEH-gas','When do you arrive?',''],
+   ['¿Por qué no?','por keh NO','Why not?',''],
+   ['¿Cómo estás?','KO-mo es-TAS','How are you?',''],
+   ['¿Cuánto tiempo?','KWAN-to TYEM-po','How long?',''],
+   ['¿Cuál es tu número?','kwal es too NOO-meh-ro','What is your number?',''],
+   ['¿Tienen una mesa libre?','TYEH-nen OO-na MEH-sa LEE-breh','Do you have a free table?','']]},
+ {id:'es25',title:'Ayer',sub:'Talk about the past',emoji:'⏪',
+  tip:'The pretérito perfecto (he comido) is formed with “haber” plus a participle and is used for things in a period that includes today. The pretérito indefinido (comí) is for finished past events: “Ayer comí en un restaurante”.',
+  phrases:[
+   ['Ayer comí en un restaurante.','a-YER ko-MEE en oon res-tow-RAN-teh','Yesterday I ate at a restaurant.',''],
+   ['¿Qué hiciste?','keh ee-THEES-teh','What did you do?',''],
+   ['Vi una película.','bee OO-na peh-LEE-koo-la','I watched a film.',''],
+   ['Visitamos Madrid.','bee-see-TA-mos ma-DREED','We visited Madrid.',''],
+   ['Fui al cine.','fwee al THEE-neh','I went to the cinema.',''],
+   ['Ella llegó a mediodía.','EH-ya yeh-GO a meh-dyo-DEE-a','She arrived at noon.',''],
+   ['Salieron anoche.','sa-LYEH-ron a-NO-cheh','They went out last night.',''],
+   ['No entendí.','no en-ten-DEE','I did not understand.',''],
+   ['¡Fue genial!','fweh heh-NYAL','It was great!','']]},
+ {id:'es26',title:'Mañana',sub:'Plans and the near future',emoji:'⏩',
+  tip:'For the near future use “ir a” plus an infinitive, just like “going to”: “Voy a trabajar”, “Vamos a viajar”. It is the usual way to talk about plans.',
+  phrases:[
+   ['Mañana voy a trabajar.','ma-NYA-na boy a tra-ba-HAR','Tomorrow I am going to work.',''],
+   ['Vamos a viajar en verano.','BA-mos a bya-HAR en beh-RA-no','We are going to travel in summer.',''],
+   ['Va a llover.','ba a yo-BER','It is going to rain.',''],
+   ['¿Qué vas a hacer?','keh bas a a-THER','What are you going to do?',''],
+   ['Voy a comprar pan.','boy a kom-PRAR pan','I am going to buy bread.',''],
+   ['Nos vemos pronto.','nos BEH-mos PRON-to','See you soon.',''],
+   ['La semana que viene','la seh-MA-na keh BYEH-neh','Next week',''],
+   ['El mes que viene','el mes keh BYEH-neh','Next month',''],
+   ['Voy a pensarlo.','boy a pen-SAR-lo','I will think about it.','']]},
+ {id:'es27',title:'Cortesía y peticiones',sub:'Ask for things politely',emoji:'🙏',
+  tip:'Polite requests use “quería”, “podría” or “le importa”: “Quería reservar una mesa”, “¿Podría ayudarme?”. They sound friendlier than a direct command. “Perdone la molestia” opens almost any door.',
+  phrases:[
+   ['Perdone la molestia.','per-DO-neh la mo-LES-tya','Sorry to bother you.',''],
+   ['¿Podría ayudarme?','po-DREE-a a-yoo-DAR-meh','Could you help me?',''],
+   ['Quería reservar una mesa.','keh-REE-a reh-ser-BAR OO-na MEH-sa','I would like to book a table.',''],
+   ['¿Le importa si abro la ventana?','leh eem-POR-ta see A-bro la ben-TA-na','Do you mind if I open the window?',''],
+   ['Con mucho gusto.','kon MOO-cho GOOS-to','With pleasure.',''],
+   ['No hay problema.','no eye pro-BLEH-ma','No problem.',''],
+   ['De nada.','deh NA-da','You are welcome.',''],
+   ['Gracias por su ayuda.','GRA-thyas por soo a-YOO-da','Thank you for your help.',''],
+   ['Siento llegar tarde.','SYEN-to yeh-GAR TAR-deh','I am sorry I am late.','']]},
+ {id:'es28',title:'Opiniones y acuerdo',sub:'Say what you think',emoji:'💭',
+  tip:'“Creo que” and “en mi opinión” introduce an opinion. To agree say “Estoy de acuerdo”, to disagree say “No estoy de acuerdo”. “Depende” is a handy answer when it is not a simple yes or no.',
+  phrases:[
+   ['Creo que es una buena idea.','KREH-o keh es OO-na BWEH-na ee-DEH-a','I think it is a good idea.',''],
+   ['En mi opinión, es demasiado caro.','en mee o-pee-NYON es deh-ma-SYA-do KA-ro','In my opinion it is too expensive.',''],
+   ['Estoy de acuerdo.','es-TOY deh a-KWER-do','I agree.',''],
+   ['No estoy de acuerdo.','no es-TOY deh a-KWER-do','I disagree.',''],
+   ['No estoy seguro.','no es-TOY seh-GOO-ro','I am not sure.','A woman says “segura”.'],
+   ['Depende.','deh-PEN-deh','It depends.',''],
+   ['Quizás.','kee-THAS','Maybe.',''],
+   ['¡Exacto!','ek-SAK-to','Exactly!',''],
+   ['¿Por qué no?','por keh NO','Why not?','']]},
+ {id:'es29',title:'Palabras de enlace',sub:'Link your sentences',emoji:'🔗',
+  tip:'Linking words turn short sentences into real speech: “y”, “pero”, “porque”, “entonces”. For stories use “primero”, “luego”, “por último”. “Y” becomes “e” before a word starting with “i”.',
+  phrases:[
+   ['Y, pero, o','ee PEH-ro o','And, but, or',''],
+   ['Porque, así que, entonces','POR-keh a-SEE keh en-TON-thes','Because, so, then',''],
+   ['Estoy cansado porque he trabajado mucho.','es-TOY kan-SA-do POR-keh eh tra-ba-HA-do MOO-cho','I am tired because I have worked a lot.',''],
+   ['Llueve, así que me quedo en casa.','YWEH-beh a-SEE keh meh KEH-do en KA-sa','It is raining, so I am staying at home.',''],
+   ['Primero, luego, por último','pree-MEH-ro LWEH-go por OOL-tee-mo','First, then, finally',''],
+   ['También, además','tam-BYEN a-deh-MAS','Also, in addition',''],
+   ['Sin embargo, aunque','seen em-BAR-go OWN-keh','However, although',''],
+   ['Por un lado, por otro lado','por oon LA-do por O-tro LA-do','On one hand, on the other',''],
+   ['Por ejemplo','por eh-HEM-plo','For example','']]},
+ {id:'es30',title:'La rutina diaria',sub:'Describe your day',emoji:'🌅',
+  tip:'Reflexive verbs such as “levantarse” (to get up) and “acostarse” (to go to bed) use “me, te, se”: “me levanto”, “te levantas”. They are very common for daily routines.',
+  phrases:[
+   ['Me levanto a las siete.','meh leh-BAN-to a las SYEH-teh','I get up at seven.',''],
+   ['Me ducho.','meh DOO-cho','I take a shower.',''],
+   ['Desayuno en casa.','deh-sa-YOO-no en KA-sa','I have breakfast at home.',''],
+   ['Voy al trabajo en metro.','boy al tra-BA-ho en MEH-tro','I go to work by metro.',''],
+   ['Como a las dos.','KO-mo a las dohs','I have lunch at two.','In Spain lunch is late, around two or three.'],
+   ['Vuelvo a casa a las seis.','BWEL-bo a KA-sa a las says','I get home at six.',''],
+   ['Ceno con mi familia.','THEH-no kon mee fa-MEE-lya','I have dinner with my family.',''],
+   ['Me acuesto tarde.','meh a-KWES-to TAR-deh','I go to bed late.',''],
+   ['Los domingos descanso.','los do-MEEN-gos des-KAN-so','On Sundays I rest.','']]},
+ {id:'es31',title:'Hacerse entender',sub:'When you are stuck',emoji:'🆘',
+  tip:'You will often not understand. These phrases keep the conversation going and make people slow down and help. Learn them first and use them without embarrassment.',
+  phrases:[
+   ['¿Puede hablar más despacio?','PWEH-deh a-BLAR mas des-PA-thyo','Can you speak more slowly?',''],
+   ['¿Puede repetir, por favor?','PWEH-deh reh-peh-TEER por fa-BOR','Can you repeat, please?',''],
+   ['¿Cómo se dice “table” en español?','KO-mo seh DEE-theh','How do you say “table” in Spanish?',''],
+   ['¿Qué significa eso?','keh seeg-nee-FEE-ka EH-so','What does that mean?',''],
+   ['¿Cómo se escribe?','KO-mo seh es-KREE-beh','How do you spell it?',''],
+   ['No conozco esa palabra.','no ko-NOTH-ko EH-sa pa-LA-bra','I do not know that word.',''],
+   ['Busco las palabras.','BOOS-ko las pa-LA-bras','I am searching for the words.',''],
+   ['Perdone, no he entendido.','per-DO-neh no eh en-ten-DEE-do','Sorry, I did not understand.',''],
+   ['¿Puede escribirlo?','PWEH-deh es-kree-BEER-lo','Can you write it down?','']]},
+ {id:'es32',title:'Salir e invitar',sub:'Invitations and social plans',emoji:'🎉',
+  tip:'“¿Quieres…?” is the friendly way to invite. To accept say “Con mucho gusto” or “¡Buena idea!”, and to refuse politely say “Lo siento, no puedo, pero gracias”. Say “Gracias por la invitación” afterwards.',
+  phrases:[
+   ['¿Quieres salir esta noche?','KYEH-res sa-LEER ES-ta NO-cheh','Do you want to go out tonight?',''],
+   ['¡Buena idea!','BWEH-na ee-DEH-a','Good idea!',''],
+   ['¿Vamos a tomar algo?','BA-mos a to-MAR AL-go','Shall we go for a drink?','“Tomar algo” is a very common Spanish plan.'],
+   ['¿A qué hora quedamos?','a keh O-ra keh-DA-mos','What time shall we meet?',''],
+   ['Invito yo.','een-BEE-to yo','It is on me.',''],
+   ['Lo siento, esta noche no puedo.','lo SYEN-to ES-ta NO-cheh no PWEH-do','Sorry, I cannot tonight.',''],
+   ['Gracias por la invitación.','GRA-thyas por la een-bee-ta-THYON','Thank you for the invitation.',''],
+   ['Lo pasé muy bien.','lo pa-SEH mwee byen','I had a very good time.',''],
+   ['¿Nos vemos pronto?','nos BEH-mos PRON-to','Shall we see each other soon?','']],
+  dialog:[
+   ['m','Hola Lucía, ¿quieres salir esta noche?','Hi Lucía, do you want to go out tonight?'],
+   ['f','¡Con mucho gusto! ¿Adónde vamos?','With pleasure! Where shall we go?'],
+   ['m','Vamos a tomar algo y luego cenamos.','Let us have a drink and then have dinner.'],
+   ['f','Buena idea. ¿A qué hora quedamos?','Good idea. What time shall we meet?'],
+   ['m','A las ocho. ¡Hasta luego!','At eight. See you later!']]}
+);
 /* ---------- LANGUAGES: selector, per-language progress, and the French and Spanish starter courses ----------
    Russian is untouched: its progress stays in S (localStorage "slovo.russian.v1"). French and Spanish keep their own lessons and
    spaced-repetition cards in a separate key (bunova.langs.v1), so switching language can never overwrite Russian progress.
@@ -4887,7 +5682,7 @@ function langPaint1(){const m=lmeta(LS.cur),b=$('#tLang'),menu=$('#langMenu');if
  const bl=$('#brandLang');if(bl)bl.textContent=m.name;
  document.documentElement.setAttribute('data-learn',LS.cur);}
 function langSet(code){if(!lmeta(code)||code===LS.cur){LG.menu=false;langPaint();return;}
- if(ui.run){toast('Finish or close your practice first, then switch language.');LG.menu=false;langPaint();return;}
+ if(ui.run&&LS.cur==='ru'){toast('Finish or close your practice first, then switch language.');LG.menu=false;langPaint();return;}
  stopAudio();LG.menu=false;LG.run=null;LG.lid=null;LS.cur=code;lsSave();langPaint();
  toast(code==='ru'?'Back to Russian. Your progress is just as you left it.':'Now learning '+lmeta(code).name+'. Your Russian progress is safe.');
  if(code!=='ru')navigate('learn',{force:true});else if(ui.route==='learn'){ui.lesson=null;render();}else render();}
@@ -4895,18 +5690,39 @@ document.addEventListener('click',e=>{if(!LG.menu)return;if(e.target.closest('.l
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&LG.menu){LG.menu=false;langPaint();const b=$('#tLang');if(b)b.focus();}});
 
 /* ---------- which screens change when French or Spanish is selected ---------- */
-const LSOON={read:['Listen','Longer listening passages and stories'],test:['Tests','Level tests and placement'],games:['Games','Word games'],talk:['Speak','Conversation practice']};
+const LSOON={talk:['Speak','Conversation practice and speaking drills']};
 function langView(route){if(!langOn())return null;
  if(route==='today')return lgToday();
  if(route==='learn')return LG.run?lgRunner():LG.lid?lgLesson(LG.lid):lgCourse();
  if(route==='study')return LG.run?lgRunner():lgReviewPage();
  if(route==='progress')return lgProgress();
+ if(route==='read')return LG.run?lgRunner():lgListenPage();
+ if(route==='test')return LG.run?lgRunner():lgTestPage();
+ if(route==='games')return LG.run?lgRunner():lgGamesPage();
  if(LSOON[route])return lgSoon(route);
  return null;}
-const langRunning=()=>langOn()&&!!LG.run&&(ui.route==='learn'||ui.route==='study');
+const langRunning=()=>langOn()&&!!LG.run&&['learn','study','read','test','games'].includes(ui.route);
 function lgSoon(route){const m=lmeta(LS.cur),s=LSOON[route];
  return `<section class="card center"><div class="bunny-wrap">${buni('think')}</div><h1>${esc(s[0])} in ${m.name}</h1><p class="muted">${esc(s[1])} for ${m.name} are not here yet. This first step has beginner lessons and review. They will grow over time.</p>
  <div class="row center"><button class="btn" data-act="goRoute" data-r="learn">Go to ${m.name} lessons</button><button class="btn alt" data-act="lgSet" data-l="ru">Use the ${esc(s[0])} for Russian</button></div></section>`;}
+
+
+/* ---------- Listen, Tests and Games: the same phrases and runner, practised in different ways ---------- */
+function lgPageHead(route,title,sub){const m=lmeta(LS.cur);return `<section class="card"><div class="eyebrow">${m.flag} ${m.name}</div><h1>${title}</h1><p class="muted">${sub}</p></section>`;}
+function lgListenPage(){const c=LS.cur,co=LCOURSE[c];
+ return lgPageHead('read','Listen','Hear a phrase and pick what it means. Replay it as often as you like, or use the slow button.')+
+ `<section class="card"><div class="row"><button class="btn big" data-act="lgMode" data-mode="listen">🎧 Mixed listening drill</button></div></section>
+ <section class="card"><div class="eyebrow">Listen to one lesson</div><div class="list">${co.lessons.map(l=>`<button class="les" data-act="lgMode" data-mode="listen" data-id="${l.id}"><span class="num">${l.emoji}</span><span class="grow"><b>${esc(l.title)}</b><br><span class="small muted">${esc(l.sub)}</span></span></button>`).join('')}</div></section>`;}
+function lgTestPage(){const c=LS.cur,co=LCOURSE[c],done=co.lessons.filter(l=>lDone(l.id)).length,mast=lMastered(c),tot=co.lessons.reduce((n,l)=>n+l.list.length,0);
+ return lgPageHead('test','Tests','A 20 question check that mixes everything in the course: meanings, listening and building sentences.')+
+ `<section class="card"><div class="tstats"><div class="ts"><div><b>${done} / ${co.lessons.length}</b><small>lessons done</small></div></div><div class="ts"><div><b>${mast} / ${tot}</b><small>phrases mastered</small></div></div></div><div class="row" style="margin-top:12px"><button class="btn big" data-act="lgMode" data-mode="test">📝 Start the 20 question test</button></div></section>
+ <section class="card"><div class="eyebrow">Lesson scores</div><div class="list">${co.lessons.map(l=>{const r=LS[c].les[l.id];return `<div class="les"><span class="num${lDone(l.id)?' done':''}">${lDone(l.id)?'✓':l.emoji}</span><span class="grow"><b>${esc(l.title)}</b><br><span class="small muted">${r?'best '+r.s+'%':'not tried yet'}</span></span></div>`;}).join('')}</div></section>`;}
+function lgGamesPage(){
+ return lgPageHead('games','Games','Quick rounds to make the phrases stick. They earn stars like any other practice.')+
+ `<section class="card"><div class="list">
+ <button class="les" data-act="lgMode" data-mode="game"><span class="num">⚡</span><span class="grow"><b>Quick-fire</b><br><span class="small muted">12 fast questions, English to ${esc(lmeta(LS.cur).name)} and back</span></span></button>
+ <button class="les" data-act="lgMode" data-mode="builder"><span class="num">🧩</span><span class="grow"><b>Sentence builder</b><br><span class="small muted">Put the words in order to build 8 phrases</span></span></button>
+ <button class="les" data-act="lgMode" data-mode="listen"><span class="num">🎧</span><span class="grow"><b>Ear training</b><br><span class="small muted">10 phrases, audio only</span></span></button></div></section>`;}
 
 /* ---------- course screens ---------- */
 function lgGreet(code){return code==='fr'?['Bonjour !','Hello!']:['¡Hola!','Hello!'];}
@@ -4918,13 +5734,14 @@ function lgToday(){const c=LS.cur,m=lmeta(c),nx=lNext(c),due=lDue(c).length,g=lg
    <div class="ts"><span class="tsi">${ico('flame')}</span><div><b>${st} day${st===1?'':'s'}</b><small>streak</small></div></div>
    <button class="ts tsb" data-act="goRoute" data-r="study"><span class="tsi">${ico('star')}</span><div><b>${due}</b><small>due to review</small></div></button></div></section>
   <section class="card tplan"><div class="eyebrow">${m.name} course</div><h2>${nx?esc(nx.title):'Beginner course complete'}</h2><p class="muted small">${nx?esc(nx.sub):'Review keeps it fresh until the next lessons arrive.'}</p>
-  <div class="row"><button class="btn big" data-act="${nx?'lgOpen':'goRoute'}" data-id="${nx?nx.id:''}" data-r="learn">${nx?(done?'Continue':'Start lesson 1'):'See lessons'}</button>${due?`<button class="btn alt big" data-act="lgReview">Review ${due}</button>`:''}</div></section>`;
+  <div class="row"><button class="btn big" data-act="${nx?'lgOpen':'goRoute'}" data-id="${nx?nx.id:''}" data-r="learn">${nx?(done?'Continue':'Start lesson 1'):'See lessons'}</button>${due?`<button class="btn alt big" data-act="lgReview">Review ${due}</button>`:''}</div>
+  <div class="row" style="margin-top:10px"><button class="btn quiet" data-act="goRoute" data-r="read">🎧 Listen</button><button class="btn quiet" data-act="goRoute" data-r="games">🎮 Games</button><button class="btn quiet" data-act="goRoute" data-r="test">📝 Test</button></div></section>`;
  return `<div class="today"><div class="tcol">${a}</div><div class="tcol">${houseHTML(true)}</div></div>`;}
 function lgCourse(){const c=LS.cur,m=lmeta(c),co=LCOURSE[c],done=co.lessons.filter(l=>lDone(l.id)).length,due=lDue(c).length,nx=lNext(c);
  let h=`<section class="card"><div class="row sp"><div><div class="eyebrow">${m.flag} ${m.name} · Beginner</div><h1>${esc(m.native)}</h1></div><div class="ring sm" style="--p:${Math.round(done/co.lessons.length*100)}"><b>${done}/${co.lessons.length}</b></div></div><p class="muted">${esc(co.intro)}</p>${due?`<button class="btn alt" data-act="lgReview">Review ${due} phrase${due===1?'':'s'} due now</button>`:''}</section>
  <section class="card"><div class="eyebrow">Lessons</div><div class="list">${co.lessons.map((l,i)=>{const r=LS[c].les[l.id],d=lDone(l.id);
   return `<button class="les${nx&&nx.id===l.id?' next':''}" data-act="lgOpen" data-id="${l.id}"><span class="num${d?' done':''}">${d?'✓':l.emoji}</span><span class="grow"><b>${esc(l.title)}</b><br><span class="small muted">${esc(l.sub)} · ${l.list.length} phrases${r?' · best '+r.s+'%':''}</span></span></button>`;}).join('')}</div></section>
- <section class="card flat"><div class="small muted"><b>First step.</b> This is a small beginner course with its own lessons and review schedule. More lessons, listening and conversations will be added over time. Your stars, avatar and pets are shared, and your Russian progress is untouched.</div></section>`;
+ <section class="card flat"><div class="small muted"><b>${co.lessons.length} lessons so far.</b> Greetings, numbers, family, food, directions, shopping, travel, health and everyday conversation, each with spoken phrases and a review schedule of its own. Listening stories, games and tests are being added. Stars, avatar and pets are shared, and your Russian progress is untouched.</div><div class="row" style="margin-top:10px">${LANG_META.filter(x=>x.code!==c).map(x=>`<button class="btn quiet" data-act="lgSet" data-l="${x.code}">${x.flag} Switch to ${x.name}</button>`).join('')}</div></section>`;
  return h;}
 function lgLesson(id){const {code,l}=LBY[id],m=lmeta(code),r=LS[code].les[id];
  let h=`<div class="row sp"><button class="btn quiet" data-act="lgBack">All lessons</button><span class="tag">${m.flag} Lesson ${LCOURSE[code].lessons.indexOf(l)+1}</span></div>
@@ -4950,22 +5767,25 @@ function lgTasksFor(code,phrases,mode){
  const pool=LCOURSE[code].lessons.flatMap(l=>l.list);
  const others=(p,f)=>{const same=shuffle(pool.filter(q=>q.lid===p.lid&&q.key!==p.key&&q[f]!==p[f])),rest=shuffle(pool.filter(q=>q.lid!==p.lid&&q[f]!==p[f]));
   const seen=new Set([p[f]]),out=[];same.concat(rest).forEach(q=>{if(out.length<3&&!seen.has(q[f])){seen.add(q[f]);out.push(q[f]);}});return out;};
- const kinds=['pickT','listen','pickE'];
- const tasks=phrases.map((p,i)=>{const k=kinds[(i+(mode==='review'?Math.floor(Math.random()*3):0))%3];
+ const kinds=mode==='listen'?['listen']:mode==='game'?['pickE','pickT']:['pickT','listen','pickE'];
+ const tasks=phrases.map((p,i)=>{const k=kinds[(i+(mode==='review'?Math.floor(Math.random()*3):0))%kinds.length];
   if(k==='pickT')return {k,key:p.key,p,q:p.t,opts:shuffle([p.en].concat(others(p,'en'))),ans:p.en,optLang:'en'};
   if(k==='pickE')return {k,key:p.key,p,q:p.en,opts:shuffle([p.t].concat(others(p,'t'))),ans:p.t,optLang:code};
   return {k:'listen',key:p.key,p,q:p.t,opts:shuffle([p.en].concat(others(p,'en'))),ans:p.en,optLang:'en'};});
+ if(mode==='listen'||mode==='game')return shuffle(tasks);
  const multi=phrases.filter(p=>lStrip(p.t).split(' ').length>=3&&lStrip(p.t).split(' ').length<=8);
  const tl=(mode==='review'?shuffle(multi).slice(0,2):shuffle(multi).slice(0,4)).map(p=>{const words=lStrip(p.t).split(' '),have=new Set(words);
   const dis=shuffle(pool.filter(q=>q.lid===p.lid&&q.key!==p.key).flatMap(q=>lStrip(q.t).split(' ')).filter(w=>!have.has(w))).filter((w,i,a)=>a.indexOf(w)===i).slice(0,2);
   let tiles=shuffle(words.concat(dis));if(words.length>2&&tiles.slice(0,words.length).join(' ')===words.join(' '))tiles=shuffle(tiles);
   return {k:'tiles',key:p.key,p,q:p.en,words,tiles,ans:lStrip(p.t)};});
+ if(mode==='builder')return tl;
  return shuffle(tasks).concat(tl);}
 function lgBegin(mode,lid){const code=LS.cur;if(ui.run)return;
- let phrases;if(mode==='lesson'){phrases=LBY[lid].l.list.slice();}else{phrases=shuffle(lDue(code)).slice(0,10);}
+ const all=LCOURSE[code].lessons.flatMap(l=>l.list),multiW=all.filter(p=>{const n=lStrip(p.t).split(' ').length;return n>=3&&n<=8;});
+ let phrases;if(mode==='lesson'){phrases=LBY[lid].l.list.slice();}else if(mode==='listen'){phrases=shuffle(lid&&LBY[lid]?LBY[lid].l.list.slice():all.slice()).slice(0,10);}else if(mode==='test'){phrases=shuffle(all.slice()).slice(0,20);}else if(mode==='game'){phrases=shuffle(all.slice()).slice(0,12);}else if(mode==='builder'){phrases=shuffle(multiW).slice(0,8);}else{phrases=shuffle(lDue(code)).slice(0,10);}
  if(!phrases.length){toast('Nothing to review yet. Try a lesson first.');return;}
  stopAudio();LG.run={code,mode,lid:lid||null,tasks:lgTasksFor(code,phrases,mode),i:0,st:{sel:[],val:null,checked:false,ok:false},ok:0,xp:0,graded:{},done:false,pct:0,miss:[]};
- if(ui.route!=='learn'&&ui.route!=='study')ui.route='learn';render();top();}
+ if(!['learn','study','read','test','games'].includes(ui.route))ui.route='learn';render();top();}
 const lgCur=()=>LG.run.tasks[LG.run.i];
 function lgRunner(){const r=LG.run;if(r.done)return lgSummary();
  const t=lgCur(),st=r.st,n=r.tasks.length,code=r.code,shown=st.checked;
@@ -5002,7 +5822,7 @@ function lgFinish(){const r=LG.run,n=Object.keys(r.graded).length,missed=new Set
  lsSave();save();if(r.pct>=60){try{confetti(60);}catch(e){}sfx('win');}}
 function lgSummary(){const r=LG.run,m=lmeta(r.code),nx=lNext(r.code),miss=[...new Map(r.miss.map(p=>[p.key,p])).values()];
  const stars=r.pct>=90?3:r.pct>=70?2:r.pct>=40?1:0;
- const head=r.mode==='lesson'?(r.pct>=70?'Lesson complete! 🎉':'Almost there'):'Review done! ✨';
+ const HEADS={listen:'Listening done! 🎧',test:'Test finished! 📝',game:'Round finished! 🎮',builder:'Sentences built! 🧩'},head=r.mode==='lesson'?(r.pct>=70?'Lesson complete! 🎉':'Almost there'):(HEADS[r.mode]||'Review done! ✨');
  const sub=r.mode==='lesson'?(r.pct>=70?`You scored ${r.pct}%. These phrases will come back in your review.`:`You need 70% to complete a lesson. Have another look at the phrases and try again.`):`You scored ${r.pct}%. Phrases you missed will return sooner.`;
  return `<div class="runner"><section class="card center"><div class="bunny-wrap">${r.pct>=60?buni('play'):buni('cheer')}</div><div class="ring" style="--p:${r.pct}"><b>${r.pct}%</b></div><h1>${head}</h1>${ratingHTML(stars,r.pct)}
  <div class="rewards"><span class="rw xp"><b>+${r.xp}</b><i>XP</i><small>${r.bonus?'incl. +'+r.bonus+' first-pass bonus':'stars, shared with all languages'}</small></span></div><p class="muted">${sub}</p>
@@ -5016,6 +5836,7 @@ function langAfterRender(){if(!langRunning())return;const r=LG.run;if(r.done)ret
 function langAct(act,d){switch(act){
  case 'lgMenu':LG.menu=!LG.menu;langPaint();if(LG.menu){const f=document.querySelector('#langMenu button.on')||document.querySelector('#langMenu button');if(f)try{f.focus();}catch(e){}}return true;
  case 'lgSet':langSet(d.l);return true;
+ case 'lgMode':lgBegin(d.mode,d.id||null);return true;
  case 'lgOpen':if(!LBY[d.id])return true;LG.lid=d.id;LG.run=null;if(ui.route!=='learn'){navigate('learn',{force:true});}else{render();top();}return true;
  case 'lgBack':LG.lid=null;stopAudio();render();top();return true;
  case 'lgStart':if(LBY[d.id])lgBegin('lesson',d.id);return true;
@@ -5025,7 +5846,7 @@ function langAct(act,d){switch(act){
  case 'lgCheck':{const r=LG.run;if(!r||r.st.checked)return true;const t=lgCur(),v=r.st.sel.map(i=>t.tiles[i]).join(' ');lgAnswer(v===t.ans,v);return true;}
  case 'lgNext':lgNext();return true;
  case 'lgClose':{stopAudio();LG.run=null;render();top();return true;}
- case 'lgDone':stopAudio();LG.run=null;LG.lid=null;if(ui.route!=='learn'&&ui.route!=='study')ui.route='learn';render();top();return true;
+ case 'lgDone':stopAudio();LG.run=null;LG.lid=null;if(!['learn','study','read','test','games'].includes(ui.route))ui.route='learn';render();top();return true;
  }return false;}
 
 /* ---------- rewards: sound and confetti ---------- */
